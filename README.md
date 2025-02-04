@@ -19,7 +19,7 @@ The task consists of four epics. The description of the each epic of the task ar
 
 | Step | Step Description | Feature Branch Name |
 | ------ | ------ | ------ |
-| 1. |  | [game-store-epic-1](game-strore-v2-epic-01/epic-01.md) |
+| 1. |  | [game-store-epic-1](-/blob/game-strore-v2-epic-01/epic-01.md?ref_type=heads) |
 | 2. |  | game-store-epic-2 |
 | 3. |  | game-store-epic-3 |
 | 4. |  | game-store-epic-4 |
