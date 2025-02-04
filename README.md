@@ -19,15 +19,15 @@ The task consists of four epics. The description of the each epic of the task ar
 
 | Step | Step Description | Feature Branch Name |
 | ------ | ------ | ------ |
-| 1. |  | [game-store-epic-1](epic-01.md) |
-| 2. |  | game-store-epic-2 |
-| 3. |  | game-store-epic-3 |
-| 4. |  | game-store-epic-4 |
-| 5. |  | game-store-epic-5 |
-| 6. |  | game-store-epic-6 |
-| 7. |  | game-store-epic-7 |
-| 8. |  | game-store-epic-8 |
-| 9. |  | game-store-epic-9 |
+| 1. |  | game-store-epic-01 |
+| 2. |  | game-store-epic-02 |
+| 3. |  | game-store-epic-03 |
+| 4. |  | game-store-epic-04 |
+| 5. |  | game-store-epic-05 |
+| 6. |  | game-store-epic-06 |
+| 7. |  | game-store-epic-07 |
+| 8. |  | game-store-epic-08 |
+| 9. |  | game-store-epic-09 |
 | 10. |  | game-store-epic-10 |
 | 11. |  | game-store-epic-11 |
 | 12. |  | game-store-epic-12 |
