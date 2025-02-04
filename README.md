@@ -8,10 +8,10 @@ The `GameStore` application is **[TODO]**.
 
 As a result of completing this task, you will receive an application that implements the following features:
 
-**[TODO]**
-**[TODO]**
-**[TODO]**
-**[TODO]**
+**[TODO]**.     
+**[TODO]**.   
+**[TODO]**.   
+**[TODO]**.   
 ...
 
 ## .NET Platform
