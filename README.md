@@ -8,6 +8,12 @@ The `GameStore` application is **[TODO]**.
 
 As a result of completing this task, you will receive an application that implements the following features:
 
+**[TODO]**
+**[TODO]**
+**[TODO]**
+**[TODO]**
+...
+
 ## .NET Platform
 The task uses the .NET Core CLI command line tool and references applications that target .NET 8.
 
