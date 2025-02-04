@@ -6,12 +6,7 @@ The `GameStore` application is **[TODO]**.
 
 ## Application Features **[TODO]**
 
-_As a result of completing this task, you will receive an application that implements the following features:
-- an online product catalog that customers can browse by category and page;
-- a shopping cart where users can add and remove products;
-- a checkout where customers can enter delivery details;
-- an administration area that includes create, read, update, and delete (CRUD) tools for manage directory;_
-
+As a result of completing this task, you will receive an application that implements the following features:
 
 ## .NET Platform
 The task uses the .NET Core CLI command line tool and references applications that target .NET 8.
@@ -20,7 +15,7 @@ Visual Studio 2022 is the most convenient tool to get the task done, however, if
 
 ## Branching
 
-The task consists of four steps. The description of the each step of the task are in the corresponding `md`-file in the corresponding branch.
+The task consists of four epics. The description of the each epic of the task are in the `epic-##.md`-file in the corresponding branch.
 
 | Step | Step Description | Feature Branch Name |
 | ------ | ------ | ------ |
