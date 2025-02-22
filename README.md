@@ -23,8 +23,8 @@ Visual Studio 2022 is the most convenient tool to get the task done, however, if
 
 The task consists of four epics. The description of the each epic of the task are in the `epic-##.md`-file in the corresponding branch.
 
-| Epic | Epic Description | Feature Branch Name |
-| ------ | ------ | ------ |
+| Epic | Epic Title | Epic Description | Feature Branch Name |
+| ------ | ------ | ------ |------ |
 | 1. | Admin Panel with Services | ... | game-store-epic-01 |
 | 2. | Headers and Unit Testing | ... | game-store-epic-02 |
 | 3. | Logging and Swagger | ... | game-store-epic-03 |
