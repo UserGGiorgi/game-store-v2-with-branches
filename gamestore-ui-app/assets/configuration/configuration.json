@@ -1,0 +1,36 @@
+{
+  "baseApiUrl": "",
+
+  "gameApiUrl": "",
+  "gameByIdApiUrl": "",
+  "gamesApiUrl": "",
+  "gamesByGenreApiUrl": "",
+  "gamesByPublisherApiUrl": "",
+  "gamesByPlatformApiUrl": "",
+  "getGameFile": "",
+  "updateGameApiUrl": "",
+  "addGameApiUrl": "",
+  "deleteGameApiUrl": "",
+
+  "genreApiUrl": "",
+  "genresApiUrl": "",
+  "genresByGameApiUrl": "",
+  "genresByParentApiUrl": "",
+  "updateGenreApiUrl": "",
+  "addGenreApiUrl": "",
+  "deleteGenreApiUrl": "",
+
+  "platformApiUrl": "",
+  "platformsApiUrl": "",
+  "platformsByGameApiUrl": "",
+  "updatePlatformApiUrl": "",
+  "addPlatformApiUrl": "",
+  "deletePlatformApiUrl": "",
+
+  "publisherApiUrl": "",
+  "publishersApiUrl": "",
+  "publisherByGameApiUrl": "",
+  "addPublisherApiUrl": "",
+  "deletePublisherApiUrl": "",
+  "updatePublisherApiUrl": ""
+}
