@@ -1,0 +1,25 @@
+{
+  "Game": "",
+  "UpdateGame": "",
+  "DeleteGame": "",
+  "AddGame": "",
+  "Games": "",
+
+  "Genres": "",
+  "Genre": "",
+  "AddGenre": "",
+  "DeleteGenre": "",
+  "UpdateGenre": "",
+
+  "UpdatePlatform": "",
+  "DeletePlatform": "",
+  "Platform": "",
+  "AddPlatform": "",
+  "Platforms": "",
+
+  "Publishers": "",
+  "Publisher": "",
+  "UpdatePublisher": "",
+  "DeletePublisher": "",
+  "AddPublisher": ""
+}
