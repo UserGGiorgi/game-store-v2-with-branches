@@ -18,11 +18,23 @@ This document outlines the workflow for working with Git branches, ensuring smoo
 ## Step-by-Step Process
 
 - Switch to a Feature Branch
-
-      git checkout `game-store-epic-0N`
-
+```
+git checkout `game-store-epic-0N`
+```
 - Merge `main` into `game-store-epic-0N`, keeping the common folder unchanged
-
-      git merge -X ours main
-
+```
+git merge -X ours main
+```
 This ensures `game-store-epic-0N` gets the latest updates from `main`, while retaining its own common folder.
+-  Implement Changes and Push Updates
+  - Make necessary code modifications.
+  - Commit and push your changes:
+
+```
+git add .
+git commit -m "Implemented epic 0N"
+git push origin `game-store-epic-0N`
+```
+- Create a merge request
+  - Open GitLab and navigate to your repository.
+  - Create an merge request from s`game-store-epic-0N` to `main`.
