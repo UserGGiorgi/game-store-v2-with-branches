@@ -13,3 +13,16 @@ This document outlines the workflow for working with Git branches, ensuring smoo
 - Mentor reviews and approves the merge request.
 - Merge the feature branch into `main`, replacing required files, if needed.
 - Before the next stage, sync `main` with the next `game-store-epic-0N+1` branch, ensuring updates.
+
+
+## Step-by-Step Process
+
+- Switch to a Feature Branch
+
+      git checkout `game-store-epic-0N`
+
+- Merge `main` into `game-store-epic-0N`, keeping the common folder unchanged
+
+      git merge -X ours main
+
+This ensures `game-store-epic-0N` gets the latest updates from `main`, while retaining its own common folder.
