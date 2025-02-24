@@ -1,0 +1,45 @@
+{
+  "baseApiUrl": "https://localhost:7091/",
+
+  "gameApiUrl": "games/{key}",
+  "gameByIdApiUrl": "games/find/{id}",
+  "gamesApiUrl": "games",
+  "gamesByGenreApiUrl": "genres/{id}/games",
+  "gamesByPublisherApiUrl": "publishers/{companyname}/games",
+  "gamesByPlatformApiUrl": "platforms/{id}/games",
+  "getGameFile": "games/{key}/file",
+  "updateGameApiUrl": "games",
+  "addGameApiUrl": "games",
+  "deleteGameApiUrl": "games/{key}",
+
+  "genreApiUrl": "genres/{id}",
+  "genresApiUrl": "genres",
+  "genresByGameApiUrl": "games/{key}/genres",
+  "genresByParentApiUrl": "genres/{id}/genres",
+  "updateGenreApiUrl": "genres",
+  "addGenreApiUrl": "genres",
+  "deleteGenreApiUrl": "genres/{id}",
+
+  "platformApiUrl": "platforms/{id}",
+  "platformsApiUrl": "platforms",
+  "platformsByGameApiUrl": "games/{key}/platforms",
+  "updatePlatformApiUrl": "platforms",
+  "addPlatformApiUrl": "platforms",
+  "deletePlatformApiUrl": "platforms/{id}",
+
+  "publisherApiUrl": "publishers/{companyname}",
+  "publishersApiUrl": "publishers",
+  "publisherByGameApiUrl": "games/{key}/publisher",
+  "addPublisherApiUrl": "publishers",
+  "deletePublisherApiUrl": "publishers/{id}",
+  "updatePublisherApiUrl": "publishers",
+
+  "orderApiUrl": "orders/{id}",
+  "ordersApiUrl": "orders",
+  "orderDetailsApiUrl": "orders/{id}/details",
+  "buyGameApiUrl": "games/{key}/buy",
+  "cancelGameBuyApiUrl": "orders/cart/{key}",
+  "basketApiUrl": "orders/cart",
+  "makeOrderInfoApiUrl": "orders/payment-methods",
+  "payApiUrl": "orders/payment"
+}
