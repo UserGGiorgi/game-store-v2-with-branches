@@ -1,0 +1,16 @@
+variables:
+  PROJECT_NAME: '.'
+
+stages:
+  - build
+
+build:
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  stage: build
+  script:
+    - cd $PROJECT_NAME
+    - dotnet restore
+    - dotnet build --configuration Release
+  artifacts:
+    paths:
+      - bin/Release/
