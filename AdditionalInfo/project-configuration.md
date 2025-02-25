@@ -4,9 +4,7 @@
 A template for setting up a CI pipeline for the **Gamestore** project.  
 
 ## Requirements  
-- Update Visual Studio to the latest version (2022+).  
-- All tests should be consolidated into a single test project.  
-- The test project must reference the `coverlet.msbuild` package.  
+- Update Visual Studio to the latest version (2022+).    
 - The solution must be located in the **Gamestore** folder.  
 
 ## Installation  
