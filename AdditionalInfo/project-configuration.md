@@ -36,10 +36,10 @@ A template for setting up a CI pipeline for the **Gamestore** project.
 - The solution must be located in the **Gamestore** folder.  
 
 ### Installation  
-1. Copy the **`.gitlab-ci.yml`** file to the repository root folder.  
+1. Copy the [.gitlab-ci.yml](.gitlab-ci.yml) file to the repository root folder.  
 2. Copy the following files to the solution folder:  
-   - `Directory.Build.props`  
-   - `.editorconfig`  
+   - [Directory.Build.props](Directory.Build.props)  
+   - [.editorconfig](.editorconfig)  
 
 ### Usage  
 - **IDE Integration**: Errors and suggestions will be highlighted based on the rule set from `.editorconfig`, which is automatically loaded.  
