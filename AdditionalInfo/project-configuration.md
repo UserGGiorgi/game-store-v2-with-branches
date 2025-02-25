@@ -18,5 +18,5 @@ A template for setting up a CI pipeline for the **Gamestore** project.
 ## Usage  
 - **IDE Integration**: Errors and suggestions will be highlighted based on the rule set from `.editorconfig`, which is automatically loaded.  
 - **CI/CD Pipeline**: The pipeline runs on every push.  
-  - Results can be viewed in the Merge Request details page or in the **CI/CD → Pipelines** section of your project at [git.epam.com](https://git.epam.com/).  
+  - Results can be viewed in the Merge Request details page or in the **CI/CD → Pipelines** section of your project at [autocode.git.epam.com](https://autocode.git.epam.com/).  
   - The report includes total test coverage.  
