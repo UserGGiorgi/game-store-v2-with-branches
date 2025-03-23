@@ -2,7 +2,8 @@
 
 ## Before you started
 
-The task requires [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)  installed.
+The task requires [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) installed.
+
 You can find `project configuration requerarments` in [this](AdditionalInfo/project-configuration.md) file and the `git workflow instructions` in this one.
 
 ## General requirements
