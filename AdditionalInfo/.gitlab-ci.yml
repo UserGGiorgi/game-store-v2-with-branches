@@ -11,6 +11,3 @@ build:
     - cd $PROJECT_NAME
     - dotnet restore
     - dotnet build --configuration Release
-  artifacts:
-    paths:
-      - bin/Release/
