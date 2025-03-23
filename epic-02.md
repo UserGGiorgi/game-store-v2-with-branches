@@ -1,5 +1,8 @@
 # Epic 2 - Headers and Unit Testing
 
+## Before you started
+
+You can find `project configuration requerarments` in [this](AdditionalInfo/project-configuration.md) file and the `git workflow instructions` in [this](AdditionalInfo/git-workflow-instructions.md) one.
 
 ## General requirements
 
