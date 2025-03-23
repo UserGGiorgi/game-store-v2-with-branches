@@ -1,11 +1,11 @@
 # Gamestore CI/CD Template  
 
 ## Description  
-A template for setting up a CI pipeline for the **Gamestore** project.  
+A template for setting up a CI pipeline for the `Gamestore` project.  
 
 ## Requirements  
 - Update Visual Studio to the latest version (2022+).    
-- The solution must be located in the **Gamestore** folder.  
+- The solution must be located in the `Gamestore` folder.  
 
 ## Installation  
 1. Copy the [.gitlab-ci.yml](.gitlab-ci.yml) file to the repository root folder.  
@@ -15,4 +15,4 @@ A template for setting up a CI pipeline for the **Gamestore** project.
 
 ## Usage  
 - **IDE Integration**: Errors and suggestions will be highlighted based on the rule set from `.editorconfig`, which is automatically loaded.  
-- **CI/CD Pipeline**: The pipeline runs on every push. Results can be viewed in the Merge Request details page or in the **CI/CD → Pipelines** section of your project at [autocode.git.epam.com](https://autocode.git.epam.com/).  
+- **CI/CD Pipeline**: The pipeline runs on every push. Results can be viewed in the `merge request` details page or in the `CI/CD` → `Pipelines` section of your project at [autocode.git.epam.com](https://autocode.git.epam.com/).  
