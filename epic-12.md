@@ -1,4 +1,4 @@
-# Epic 14 - Notifications
+# Epic 12 - Notifications
 
 Implement user notifications.
 
