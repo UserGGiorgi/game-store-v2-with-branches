@@ -1,4 +1,4 @@
-# Epic 10 - UI Design
+# Epic 13 - UI Design
 
 Implement design by mock-ups of the Game Store UI.
 
