@@ -33,8 +33,8 @@ Visual Studio 2022 is the most convenient tool to get the task done. However, if
 
 The task consists of multiple epics. The description of each epic is in the corresponding `epic-##.md` file in the respective branch.
 
-| Epic | Epic Title | Epic Description | Feature Branch Name |
-|------|-----------|------------------|----------------------|
+| Epic | Epic Title | Epic Description | Feature Branch Name              |
+|------|-----------|------------------|----------------------------------|
 | 1.   | Admin Panel with Services | Implement an admin panel for managing the store. | [game-store-epic-01](epic-01.md) |
 | 2.   | Headers and Unit Testing | Implement proper headers and unit tests for API endpoints. | [game-store-epic-02](epic-02.md) |
 | 3.   | Logging and Swagger | Add structured logging and API documentation with Swagger. | [game-store-epic-03](epic-03.md) |
@@ -44,11 +44,11 @@ The task consists of multiple epics. The description of each epic is in the corr
 | 7.   | Filters | Implement game filtering and pagination features. | [game-store-epic-07](epic-07.md) |
 | 8.   | NoSQL Database | Integrate a NoSQL database alongside the existing relational database. | [game-store-epic-08](epic-08.md) |
 | 9.   | Authorization | Implement role-based access control for different user types. | [game-store-epic-09](epic-09.md) |
-| 10.  | Game Picture | Enable game image uploads and display them on game details pages. | [game-store-epic-12](epic-12.md) |
-| 11.  | Big Data | Optimize the system for handling large-scale game data. | [game-store-epic-13](epic-13.md) |
-| 12.  | Notifications | Implement user notifications for important events. | [game-store-epic-14](epic-14.md) |
-| 13.  | UI Design | Apply UI designs based on given mock-ups. | [game-store-epic-10](epic-10.md) |
-| 14.  | Localization | Support multiple languages for the application. | [game-store-epic-11](epic-11.md) |
+| 10.  | Game Picture | Enable game image uploads and display them on game details pages. | [game-store-epic-10](epic-10.md) |
+| 11.  | Big Data | Optimize the system for handling large-scale game data. | [game-store-epic-11](epic-11.md) |
+| 12.  | Notifications | Implement user notifications for important events. | [game-store-epic-12](epic-12.md) |
+| 13.  | UI Design | Apply UI designs based on given mock-ups. | [game-store-epic-13](epic-13.md) |
+| 14.  | Localization | Support multiple languages for the application. | [game-store-epic-14](epic-14.md) |
 
 
 Each feature is developed in its corresponding branch. Once all features are completed and merged, you will get the final version of the application in the `main` branch.
