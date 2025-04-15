@@ -1,4 +1,4 @@
-# Epic 12 - Game Picture
+# Epic 10 - Game Picture
 Add a picture to the details of the game.
 
 ## General requirements
