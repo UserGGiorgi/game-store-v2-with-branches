@@ -72,6 +72,6 @@ Type: DELETE
 ## Non-functional requirement
 
 **E10 NFR1**
-Images should be stored in Azure Blob storage.  
+Images should be stored in AWS S3.  
 **E10 NFR2**
 Implement a caching mechanism for the get game image endpoint  
