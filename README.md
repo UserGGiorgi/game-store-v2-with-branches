@@ -51,7 +51,9 @@ The task consists of multiple epics. The description of each epic is in the corr
 | 12.  | Notifications [Microsoft Azure] | Implement user notifications for important events. | [game-store-epic-12](epic-12.md) |
 |      | Notifications [AWS]  | Implement user notifications for important events. | [game-store-epic-12-aws](epic-12.md) |
 | 13.  | UI Design | Apply UI designs based on given mock-ups. | [game-store-epic-13](epic-13.md) |
+|      | UI Design [React] | Apply UI designs based on given mock-ups. | [game-store-epic-13-react](epic-13.md) |
 | 14.  | Localization | Support multiple languages for the application. | [game-store-epic-14](epic-14.md) |
+|      | Localization [React] | Support multiple languages for the application. | [game-store-epic-14-react](epic-14.md) |
 
 
 Each feature is developed in its corresponding branch. Once all features are completed and merged, you will get the final version of the application in the `main` branch.
