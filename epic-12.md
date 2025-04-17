@@ -21,7 +21,7 @@ System should support the following features:
 
 ## Task Description
 
-### E14 US1 - User story 1
+### E12 US1 - User story 1
 
 Get notification methods endpoint.
 ```{xml} 
@@ -35,7 +35,7 @@ Response example:
 ]
 ```
 
-### E14 US2 - User story 2
+### E12 US2 - User story 2
 Get user selected notification methods endpoint.
 ```{xml} 
 Url: /users/my/notifications
@@ -47,7 +47,7 @@ Response example:
 ]
 ```
 
-### E14 US3 - User story 3
+### E12 US3 - User story 3
 Update user selected notification methods endpoint.
 ```{xml} 
 Url: /users/notifications
@@ -62,11 +62,11 @@ Request Example:
 ```
 
 
-### E14 US4 - User story 4
+### E12 US4 - User story 4
 
 Implement email notification infrastructure.
 
 ## Non-functional requirement (Optional)
 
-**E14 NFR1**
+**E12 NFR1**
 Use Azure Service Bus as part of email infrastructure. 
