@@ -14,14 +14,14 @@ System should support the following features:
 
 ## Task Description
 
-### E13 US1 - User story 1
+### E11 US1 - User story 1
 
 Add 100,000 games with all populated fields to the database.
 
-### E13 US2 - User story 2
+### E11 US2 - User story 2
 Refactor application to achieve a maximum execution time under 10 seconds for getting games by filters endpoint (measure only API call time without UI).
  
 ## Non-functional requirement
 
-**E13 NFR1**
+**E11 NFR1**
 Use asynchronous and multithreading approaches during refactoring to improve performance.
