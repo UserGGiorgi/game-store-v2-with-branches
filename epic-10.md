@@ -21,7 +21,7 @@ Technical specifications:
 
 ## Task Description
 
-### E12 US1 - User story 1
+### E10 US1 - User story 1
 
 Add game endpoint should be updated to receive image in base 64 format.
 Request example:
@@ -35,7 +35,7 @@ Request example:
 }
 ```
 
-### E12 US2 - User story 2
+### E10 US2 - User story 2
 Update game endpoint should be updated to receive image in base 64 format.
 Request example:
 ```{xml} 
@@ -48,11 +48,11 @@ Request example:
 }
 ```
 
-### E12 US3 - User story 3
+### E10 US3 - User story 3
 Update game deletion in a way to remove game pictures in the scope of this operation.
 
 
-### E12 US4 - User story 4
+### E10 US4 - User story 4
 
 Get game image endpoint.
 ```{xml} 
@@ -61,7 +61,7 @@ Type: GET
 Response: image file 
 ```
 
-### E12 US14 - User story 14
+### E10 US14 - User story 14
 Delete a Platform endpoint
 ```{xml} 
 Url: /platforms/{Id}
@@ -71,7 +71,7 @@ Type: DELETE
  
 ## Non-functional requirement
 
-**E12 NFR1**
+**E10 NFR1**
 Images should be stored in Azure Blob storage.  
-**E12 NFR2**
+**E10 NFR2**
 Implement a caching mechanism for the get game image endpoint  
