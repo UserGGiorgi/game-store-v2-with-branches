@@ -69,4 +69,4 @@ Implement email notification infrastructure.
 ## Non-functional requirement (Optional)
 
 **E12 NFR1**
-Use Azure Service Bus as part of email infrastructure. 
+Use AWS Service Bus (SQS/SNS/Amazon MQ) as part of email infrastructure. 
