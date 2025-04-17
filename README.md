@@ -44,9 +44,12 @@ The task consists of multiple epics. The description of each epic is in the corr
 | 7.   | Filters | Implement game filtering and pagination features. | [game-store-epic-07](epic-07.md) |
 | 8.   | NoSQL Database | Integrate a NoSQL database alongside the existing relational database. | [game-store-epic-08](epic-08.md) |
 | 9.   | Authorization | Implement role-based access control for different user types. | [game-store-epic-09](epic-09.md) |
-| 10.  | Game Picture | Enable game image uploads and display them on game details pages. | [game-store-epic-10](epic-10.md) |
-| 11.  | Big Data | Optimize the system for handling large-scale game data. | [game-store-epic-11](epic-11.md) |
-| 12.  | Notifications | Implement user notifications for important events. | [game-store-epic-12](epic-12.md) |
+| 10.  | Game Picture [Microsoft Azure] | Enable game image uploads and display them on game details pages. | [game-store-epic-10](epic-10.md) |
+|      | Game Picture [AWS] | Enable game image uploads and display them on game details pages. | [game-store-epic-10-aws](epic-10.md) |
+| 11.  | Big Data [Microsoft Azure] | Optimize the system for handling large-scale game data. | [game-store-epic-11](epic-11.md) |
+|      | Big Data [AWS]  | Optimize the system for handling large-scale game data. | [game-store-epic-11-aws](epic-11.md) |
+| 12.  | Notifications [Microsoft Azure] | Implement user notifications for important events. | [game-store-epic-12](epic-12.md) |
+|      | Notifications [AWS]  | Implement user notifications for important events. | [game-store-epic-12-aws](epic-12.md) |
 | 13.  | UI Design | Apply UI designs based on given mock-ups. | [game-store-epic-13](epic-13.md) |
 | 14.  | Localization | Support multiple languages for the application. | [game-store-epic-14](epic-14.md) |
 
