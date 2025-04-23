@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using GameStore.Application.Dtos.Genre;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Exceptions;
 using GameStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -29,7 +30,7 @@ namespace GameStore.Infrastructure.Services
         {
             if (await _context.Genres.AnyAsync(g => g.Name == request.Genre.Name))
             {
-                throw new ArgumentException("Genre name must be unique");
+                throw new BadRequestException("Genre name must be unique");
             }
             if (request.Genre.ParentGenreId.HasValue)
             {
@@ -38,7 +39,7 @@ namespace GameStore.Infrastructure.Services
 
                 if (!parentExists)
                 {
-                    throw new ArgumentException("Parent genre not found");
+                    throw new BadRequestException("Parent genre not found");
                 }
             }
 
@@ -60,7 +61,7 @@ namespace GameStore.Infrastructure.Services
                 .FirstOrDefaultAsync(g => g.Id == id);
 
             return genre == null
-                ? throw new KeyNotFoundException("Genre not found")
+                ? throw new NotFoundException("Genre not found")
                 : _mapper.Map<GenreDetailsDto>(genre);
         }
 
@@ -78,7 +79,7 @@ namespace GameStore.Infrastructure.Services
                 .Include(g => g.Genres)
                 .ThenInclude(gg => gg.Genre)
                 .FirstOrDefaultAsync(g => g.Key == key)
-                ?? throw new KeyNotFoundException("Game not found");
+                ?? throw new NotFoundException("Game not found");
 
             return game.Genres
                 .Select(gg => _mapper.Map<GenreListDto>(gg.Genre))
@@ -97,24 +98,24 @@ namespace GameStore.Infrastructure.Services
         {
             var genre = await _context.Genres
                 .FirstOrDefaultAsync(g => g.Id == request.Genre.Id)
-                ?? throw new KeyNotFoundException("Genre not found");
+                ?? throw new NotFoundException("Genre not found");
 
             if (genre.Name != request.Genre.Name &&
                 await _context.Genres.AnyAsync(g => g.Name == request.Genre.Name))
             {
-                throw new ArgumentException("Genre name must be unique");
+                throw new BadRequestException("Genre name must be unique");
             }
 
             if (request.Genre.ParentGenreId.HasValue)
             {
                 if (request.Genre.ParentGenreId == genre.Id)
-                    throw new ArgumentException("Genre cannot be its own parent");
+                    throw new BadRequestException("Genre cannot be its own parent");
 
                 var parentExists = await _context.Genres
                     .AnyAsync(g => g.Id == request.Genre.ParentGenreId);
 
                 if (!parentExists)
-                    throw new ArgumentException("Parent genre not found");
+                    throw new BadRequestException("Parent genre not found");
             }
 
             if (request.Genre.ParentGenreId.HasValue)
@@ -124,7 +125,7 @@ namespace GameStore.Infrastructure.Services
                 while (currentParentId != null)
                 {
                     if (currentParentId == genre.Id)
-                        throw new ArgumentException("Circular genre hierarchy detected");
+                        throw new BadRequestException("Circular genre hierarchy detected");
 
                     currentParentId = await _context.Genres
                         .Where(g => g.Id == currentParentId)
@@ -145,10 +146,10 @@ namespace GameStore.Infrastructure.Services
             if (genre == null) throw new KeyNotFoundException("Genre not found");
 
             if (await _context.Genres.AnyAsync(g => g.ParentGenreId == id))
-                throw new InvalidOperationException("Cannot delete genre with sub-genres");
+                throw new BadRequestException("Cannot delete genre with sub-genres");
 
             if (await _context.GameGenres.AnyAsync(gg => gg.GenreId == id))
-                throw new InvalidOperationException("Cannot delete genre associated with games");
+                throw new BadRequestException("Cannot delete genre associated with games");
 
             _context.Genres.Remove(genre);
             await _context.SaveChangesAsync();

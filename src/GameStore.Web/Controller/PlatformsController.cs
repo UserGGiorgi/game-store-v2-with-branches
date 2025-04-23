@@ -1,5 +1,6 @@
 ﻿using GameStore.Application.Dtos.Platform;
 using GameStore.Application.Interfaces;
+using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Web.Controller
@@ -23,7 +24,7 @@ namespace GameStore.Web.Controller
                 var createdPlatform = await _platformService.CreatePlatformAsync(request);
                 return CreatedAtAction(nameof(GetPlatformById), new { id = createdPlatform.Id }, createdPlatform);
             }
-            catch (ArgumentException ex)
+            catch (BadRequestException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -36,7 +37,7 @@ namespace GameStore.Web.Controller
                 var platform = await _platformService.GetPlatformByIdAsync(id);
                 return Ok(platform);
             }
-            catch (KeyNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -57,11 +58,11 @@ namespace GameStore.Web.Controller
                 var updatedPlatform = await _platformService.UpdatePlatformAsync(request);
                 return Ok(updatedPlatform);
             }
-            catch (KeyNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch (ArgumentException ex)
+            catch (BadRequestException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -78,11 +79,11 @@ namespace GameStore.Web.Controller
                 await _platformService.DeletePlatformAsync(id);
                 return NoContent();
             }
-            catch (KeyNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch (InvalidOperationException ex)
+            catch (BadRequestException ex)
             {
                 return BadRequest(ex.Message);
             }

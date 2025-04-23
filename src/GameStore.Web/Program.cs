@@ -2,6 +2,7 @@ using GameStore.Application.Interfaces;
 using GameStore.Application.Mapping;
 using GameStore.Infrastructure.Data;
 using GameStore.Infrastructure.Services;
+using GameStore.Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,7 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
 
 var app = builder.Build();
-
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

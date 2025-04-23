@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using GameStore.Application.Dtos.Platform;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Exceptions;
 using GameStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,7 +29,7 @@ namespace GameStore.Infrastructure.Services
         {
             if (await _context.Platforms.AnyAsync(p => p.Type == request.Platform.Type))
             {
-                throw new ArgumentException("Platform type must be unique");
+                throw new BadRequestException("Platform type must be unique");
             }
 
             var platform = new Platform
@@ -46,7 +47,7 @@ namespace GameStore.Infrastructure.Services
         {
             var platform = await _context.Platforms.FindAsync(id);
             return platform == null
-                ? throw new KeyNotFoundException("Platform not found")
+                ? throw new NotFoundException("Platform not found")
                 : _mapper.Map<PlatformResponseDto>(platform);
         }
 
@@ -64,7 +65,7 @@ namespace GameStore.Infrastructure.Services
                 .Include(g => g.Platforms)
                 .ThenInclude(gp => gp.Platform)
                 .FirstOrDefaultAsync(g => g.Key == key)
-                ?? throw new KeyNotFoundException("Game not found");
+                ?? throw new NotFoundException("Game not found");
 
             return game.Platforms
                 .Select(gp => _mapper.Map<PlatformResponseDto>(gp.Platform))
@@ -73,12 +74,12 @@ namespace GameStore.Infrastructure.Services
         public async Task<PlatformResponseDto> UpdatePlatformAsync(UpdatePlatformRequestDto request)
         {
             var platform = await _context.Platforms.FindAsync(request.Platform.Id)
-                ?? throw new KeyNotFoundException("Platform not found");
+                ?? throw new NotFoundException("Platform not found");
 
             if (platform.Type != request.Platform.Type &&
                 await _context.Platforms.AnyAsync(p => p.Type == request.Platform.Type))
             {
-                throw new ArgumentException("Platform type must be unique");
+                throw new BadRequestException("Platform type must be unique");
             }
 
             platform.Type = request.Platform.Type;
@@ -93,10 +94,10 @@ namespace GameStore.Infrastructure.Services
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (platform == null)
-                throw new KeyNotFoundException("Platform not found");
+                throw new NotFoundException("Platform not found");
 
             if (platform.Games.Any())
-                throw new InvalidOperationException("Cannot delete platform associated with games");
+                throw new BadRequestException("Cannot delete platform associated with games");
 
             _context.Platforms.Remove(platform);
             await _context.SaveChangesAsync();

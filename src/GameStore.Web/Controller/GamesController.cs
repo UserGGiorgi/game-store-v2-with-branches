@@ -1,6 +1,7 @@
 ﻿using GameStore.Application.Dtos.Games;
 using GameStore.Application.DTOs.Games;
 using GameStore.Application.Interfaces;
+using GameStore.Domain.Exceptions;
 using GameStore.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +32,7 @@ public class GamesController : ControllerBase
             var createdGame = await _gameService.CreateGameAsync(request);
             return CreatedAtAction(nameof(GetGame), new { key = createdGame.Key }, createdGame);
         }
-        catch (ArgumentException ex)
+        catch (BadRequestException ex)
         {
             return BadRequest(ex.Message);
         }
@@ -71,11 +72,11 @@ public class GamesController : ControllerBase
             var updatedGame = await _gameService.UpdateGameAsync(request);
             return Ok(updatedGame);
         }
-        catch (KeyNotFoundException ex)
+        catch (NotFoundException ex)
         {
             return NotFound(ex.Message);
         }
-        catch (ArgumentException ex)
+        catch (BadRequestException ex)
         {
             return BadRequest(ex.Message);
         }
@@ -83,15 +84,8 @@ public class GamesController : ControllerBase
     [HttpDelete("{key}")]
     public async Task<IActionResult> DeleteGame(string key)
     {
-        try
-        {
-            await _gameService.DeleteGameAsync(key);
-            return NoContent();
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
+        await _gameService.DeleteGameAsync(key);
+        return NoContent();
     }
     [HttpGet("{key}/file")]
     [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
@@ -102,7 +96,7 @@ public class GamesController : ControllerBase
         {
             return await _gameService.SimulateDownloadAsync(key);
         }
-        catch (KeyNotFoundException ex)
+        catch (NotFoundException ex)
         {
             return NotFound(ex.Message);
         }
@@ -122,7 +116,7 @@ public class GamesController : ControllerBase
             var genres = await _genreService.GetGenresByGameKeyAsync(key);
             return Ok(genres);
         }
-        catch (KeyNotFoundException ex)
+        catch (NotFoundException ex)
         {
             return NotFound(ex.Message);
         }
@@ -135,7 +129,7 @@ public class GamesController : ControllerBase
             var platforms = await _platformService.GetPlatformsByGameKeyAsync(key);
             return Ok(platforms);
         }
-        catch (KeyNotFoundException ex)
+        catch (NotFoundException ex)
         {
             return NotFound(ex.Message);
         }

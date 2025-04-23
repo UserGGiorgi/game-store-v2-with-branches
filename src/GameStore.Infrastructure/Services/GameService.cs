@@ -4,6 +4,7 @@ using GameStore.Application.Dtos.Games;
 using GameStore.Application.DTOs.Games;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Exceptions;
 using GameStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,21 +27,21 @@ public class GameService : IGameService
     public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
     {
         if (await _context.Games.AnyAsync(g => g.Key == request.Game.Key))
-            throw new ArgumentException("Game key must be unique.");
+            throw new BadRequestException("Game key must be unique.");
 
         var genres = await _context.Genres
             .Where(g => request.Genres.Contains(g.Id))
             .ToListAsync();
 
         if (genres.Count != request.Genres.Count)
-            throw new ArgumentException("One or more genres are invalid.");
+            throw new BadRequestException("One or more genres are invalid.");
 
         var platforms = await _context.Platforms
             .Where(p => request.Platforms.Contains(p.Id))
             .ToListAsync();
 
         if (platforms.Count != request.Platforms.Count)
-            throw new ArgumentException("One or more platforms are invalid.");
+            throw new BadRequestException("One or more platforms are invalid.");
 
         var game = new Game
         {
@@ -110,12 +111,12 @@ public class GameService : IGameService
             .FirstOrDefaultAsync(g => g.Id == request.Game.Id);
 
         if (game == null)
-            throw new KeyNotFoundException("Game not found");
+            throw new NotFoundException("Game not found");
 
         if (game.Key != request.Game.Key &&
             await _context.Games.AnyAsync(g => g.Key == request.Game.Key))
         {
-            throw new ArgumentException("Game key must be unique");
+            throw new BadRequestException("Game key must be unique");
         }
 
         game.Name = request.Game.Name;
@@ -126,7 +127,7 @@ public class GameService : IGameService
         foreach (var genreId in request.Genres)
         {
             if (!await _context.Genres.AnyAsync(g => g.Id == genreId))
-                throw new ArgumentException($"Genre {genreId} not found");
+                throw new BadRequestException($"Genre {genreId} not found");
 
             game.Genres.Add(new GameGenre { GenreId = genreId });
         }
@@ -135,7 +136,7 @@ public class GameService : IGameService
         foreach (var platformId in request.Platforms)
         {
             if (!await _context.Platforms.AnyAsync(p => p.Id == platformId))
-                throw new ArgumentException($"Platform {platformId} not found");
+                throw new BadRequestException($"Platform {platformId} not found");
 
             game.Platforms.Add(new GamePlatform { PlatformId = platformId });
         }
@@ -150,7 +151,7 @@ public class GameService : IGameService
             .FirstOrDefaultAsync(g => g.Key == key);
 
         if (game == null)
-            throw new KeyNotFoundException("Game not found");
+            throw new NotFoundException("Game not found");
 
         _context.Games.Remove(game);
         await _context.SaveChangesAsync();
@@ -161,7 +162,7 @@ public class GameService : IGameService
             .AnyAsync(g => g.Key == key);
 
         if (!gameExists)
-            throw new KeyNotFoundException("Game not found");
+            throw new NotFoundException("Game not found");
 
         var mockFileContent = $"This would be the game file for {key}";
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(mockFileContent));

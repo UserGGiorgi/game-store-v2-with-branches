@@ -1,5 +1,6 @@
 ﻿using GameStore.Application.Dtos.Genre;
 using GameStore.Application.Interfaces;
+using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Web.Controller
@@ -23,7 +24,7 @@ namespace GameStore.Web.Controller
                 var createdGenre = await _genreService.CreateGenreAsync(request);
                 return CreatedAtAction(nameof(GetGenreById), new { id = createdGenre.Id }, createdGenre);
             }
-            catch (ArgumentException ex)
+            catch (BadRequestException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -36,7 +37,7 @@ namespace GameStore.Web.Controller
                 var genre = await _genreService.GetGenreByIdAsync(id);
                 return Ok(genre);
             }
-            catch (KeyNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -63,11 +64,11 @@ namespace GameStore.Web.Controller
                 var updatedGenre = await _genreService.UpdateGenreAsync(request);
                 return Ok(updatedGenre);
             }
-            catch (KeyNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch (ArgumentException ex)
+            catch (BadRequestException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -84,11 +85,11 @@ namespace GameStore.Web.Controller
                 await _genreService.DeleteGenreAsync(id);
                 return NoContent();
             }
-            catch (KeyNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch (InvalidOperationException ex)
+            catch (BadRequestException ex)
             {
                 return BadRequest(ex.Message);
             }
