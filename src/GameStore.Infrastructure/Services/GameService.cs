@@ -31,8 +31,13 @@ public class GameService : IGameService
 
     public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
     {
-        if (await _context.Games.AnyAsync(g => g.Key == request.Game.Key))
+        var normalizedKey = request.Game.Key.Trim().ToLowerInvariant();
+
+        if (await _context.Games.AnyAsync(g =>
+        g.Key.Trim().ToLower() == normalizedKey))
+        {
             throw new BadRequestException("Game key must be unique.");
+        }
 
         var genres = await _context.Genres
             .Where(g => request.Genres.Contains(g.Id))
@@ -52,7 +57,7 @@ public class GameService : IGameService
         {
             Id = Guid.NewGuid(),
             Name = request.Game.Name,
-            Key = request.Game.Key,
+            Key = request.Game.Key.Trim(),
             Description = request.Game.Description
         };
 
@@ -69,6 +74,7 @@ public class GameService : IGameService
         await _context.Games.AddAsync(game);
         await _context.SaveChangesAsync();
         _cache.Remove("TotalGamesCount");
+
         return new GameDto
         {
             Name = game.Name,

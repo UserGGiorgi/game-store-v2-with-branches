@@ -22,9 +22,7 @@ namespace GameStore.Application.Mapping
             CreateMap<Genre, GenreListDto>();
             CreateMap<Genre, GenreResponseDto>()
     .ForMember(dest => dest.ParentGenreName,
-        opt => opt.MapFrom(src => src.ParentGenre != null
-            ? src.ParentGenre.Name
-            : "None"));
+        opt => opt.MapFrom(src => src.ParentGenre != null ? src.ParentGenre.Name : "None"));
 
             CreateMap<Platform, PlatformResponseDto>();
         }

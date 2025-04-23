@@ -30,7 +30,7 @@ public class GamesController : ControllerBase
         try
         {
             var createdGame = await _gameService.CreateGameAsync(request);
-            return CreatedAtAction(nameof(GetGame), new { key = createdGame.Key }, createdGame);
+            return CreatedAtAction(nameof(GetGameByKey), new { key = createdGame.Key }, createdGame);
         }
         catch (BadRequestException ex)
         {
@@ -134,5 +134,5 @@ public class GamesController : ControllerBase
             return NotFound(ex.Message);
         }
     }
-    private IActionResult GetGame(string key) => Ok();
+    //private IActionResult GetGame(string key) => Ok();
 }
