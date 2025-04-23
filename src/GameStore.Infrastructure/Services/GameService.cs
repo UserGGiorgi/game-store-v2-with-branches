@@ -8,6 +8,7 @@ using GameStore.Domain.Exceptions;
 using GameStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System.Text;
 
 namespace GameStore.Infrastructure.Services;
@@ -16,12 +17,16 @@ public class GameService : IGameService
 {
     private readonly GameStoreDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _cache;
 
-    public GameService(GameStoreDbContext context, IMapper mapper)
+    public GameService(
+        GameStoreDbContext context, 
+        IMapper mapper, 
+        IMemoryCache cache)
     {
         _context = context;
         _mapper = mapper;
-
+        _cache = cache;
     }
 
     public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
@@ -63,13 +68,14 @@ public class GameService : IGameService
 
         await _context.Games.AddAsync(game);
         await _context.SaveChangesAsync();
-
+        _cache.Remove("TotalGamesCount");
         return new GameDto
         {
             Name = game.Name,
             Key = game.Key,
             Description = game.Description
         };
+
     }
     public async Task<GameResponseDto> GetGameByKeyAsync(string key)
     {
@@ -155,6 +161,7 @@ public class GameService : IGameService
 
         _context.Games.Remove(game);
         await _context.SaveChangesAsync();
+        _cache.Remove("TotalGamesCount");
     }
     public async Task<IActionResult> SimulateDownloadAsync(string key)
     {

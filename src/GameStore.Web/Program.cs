@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddMemoryCache();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
