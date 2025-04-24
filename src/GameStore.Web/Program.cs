@@ -3,12 +3,22 @@ using GameStore.Application.Mapping;
 using GameStore.Infrastructure.Data;
 using GameStore.Infrastructure.Services;
 using GameStore.Web.Filters;
+using GameStore.Web.Logger;
 using GameStore.Web.Middleware;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
+var logPath = Path.Combine(builder.Environment.ContentRootPath, "Logs");
+builder.Logging.AddProvider(new FileLoggerProvider(logPath));
+
 builder.Services.AddRazorPages();
 
 builder.Services.AddEndpointsApiExplorer(); 
@@ -18,11 +28,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddMemoryCache();
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
 builder.Services.AddScoped<TotalGamesHeaderFilter>();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GameStore API", Version = "v1" });
+});
 
 builder.Services.AddControllers(options =>
 {
@@ -50,8 +66,50 @@ if (!app.Environment.IsDevelopment())
 else
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GameStore API v1"));
 }
+app.Use(async (context, next) =>
+{
+    var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+
+    logger.LogInformation($"Incoming Request: {context.Request.Method} {context.Request.Path}");
+
+    var stopwatch = Stopwatch.StartNew();
+    await next();
+    stopwatch.Stop();
+
+    logger.LogInformation($"Request Completed: {context.Response.StatusCode} in {stopwatch.ElapsedMilliseconds}ms");
+});
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+        var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+
+        if (exceptionHandlerFeature?.Error != null)
+        {
+            logger.LogError(
+                exceptionHandlerFeature.Error,
+                "Unhandled exception occurred: {Method} {Path}",
+                context.Request.Method,
+                context.Request.Path
+            );
+        }
+        else
+        {
+            logger.LogError(
+                "Unknown error occurred: {Method} {Path}",
+                context.Request.Method,
+                context.Request.Path
+            );
+        }
+
+        context.Response.StatusCode = 500;
+        await context.Response.WriteAsync("Internal Server Error");
+    });
+});
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseRouting();
