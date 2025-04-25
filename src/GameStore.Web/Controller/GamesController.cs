@@ -14,14 +14,17 @@ public class GamesController : ControllerBase
     private readonly IGameService _gameService;
     private readonly IGenreService _genreService;
     private readonly IPlatformService _platformService;
+    private readonly IPublisherService _publisherService;
 
     public GamesController(IGameService gameService 
         ,IGenreService genreService
-        ,IPlatformService platformService)
+        ,IPlatformService platformService
+        ,IPublisherService publisherService)
     {
         _gameService = gameService;
         _genreService = genreService;
         _platformService = platformService;
+        _publisherService = publisherService;
     }
 
     [HttpPost]
@@ -133,6 +136,12 @@ public class GamesController : ControllerBase
         {
             return NotFound(ex.Message);
         }
+    }
+    [HttpGet("{key}/publisher")]
+    public async Task<IActionResult> GetPublisherByGameKey(string key)
+    {
+        var publisher = await _publisherService.GetPublisherByGameKeyAsync(key);
+        return Ok(publisher);
     }
     //private IActionResult GetGame(string key) => Ok();
 }

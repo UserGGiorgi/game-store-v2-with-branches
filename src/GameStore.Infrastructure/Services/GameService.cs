@@ -29,36 +29,41 @@ public class GameService : IGameService
         _cache = cache;
     }
 
-    public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
+    public async Task<GameResponseDto> CreateGameAsync(CreateGameRequestDto request)
     {
-        var normalizedKey = request.Game.Key.Trim().ToLowerInvariant();
+        if (await _context.Games.AnyAsync(g => g.Key == request.Game.Key))
+            throw new BadRequestException("Game key must be unique");
 
-        if (await _context.Games.AnyAsync(g =>
-        g.Key.Trim().ToLower() == normalizedKey))
-        {
-            throw new BadRequestException("Game key must be unique.");
-        }
+        var publisherExists = await _context.Publishers
+            .AnyAsync(p => p.Id == request.Publisher);
+        if (!publisherExists)
+            throw new BadRequestException("Invalid publisher ID");
 
-        var genres = await _context.Genres
+        var genreIds = await _context.Genres
             .Where(g => request.Genres.Contains(g.Id))
+            .Select(g => g.Id)
             .ToListAsync();
+        var invalidGenres = request.Genres.Except(genreIds).ToList();
+        if (invalidGenres.Any())
+            throw new BadRequestException($"Invalid genre IDs: {string.Join(", ", invalidGenres)}");
 
-        if (genres.Count != request.Genres.Count)
-            throw new BadRequestException("One or more genres are invalid.");
-
-        var platforms = await _context.Platforms
+        var platformIds = await _context.Platforms
             .Where(p => request.Platforms.Contains(p.Id))
+            .Select(p => p.Id)
             .ToListAsync();
-
-        if (platforms.Count != request.Platforms.Count)
-            throw new BadRequestException("One or more platforms are invalid.");
+        var invalidPlatforms = request.Platforms.Except(platformIds).ToList();
+        if (invalidPlatforms.Any())
+            throw new BadRequestException($"Invalid platform IDs: {string.Join(", ", invalidPlatforms)}");
 
         var game = new Game
         {
-            Id = Guid.NewGuid(),
             Name = request.Game.Name,
-            Key = request.Game.Key.Trim(),
-            Description = request.Game.Description
+            Key = request.Game.Key,
+            Description = request.Game.Description,
+            Price = request.Game.Price,
+            UnitInStock = request.Game.UnitInStock,
+            Discount = request.Game.Discount,
+            PublisherId = request.Publisher
         };
 
         foreach (var genreId in request.Genres)
@@ -73,15 +78,8 @@ public class GameService : IGameService
 
         await _context.Games.AddAsync(game);
         await _context.SaveChangesAsync();
-        _cache.Remove("TotalGamesCount");
 
-        return new GameDto
-        {
-            Name = game.Name,
-            Key = game.Key,
-            Description = game.Description
-        };
-
+        return _mapper.Map<GameResponseDto>(game);
     }
     public async Task<GameResponseDto> GetGameByKeyAsync(string key)
     {
@@ -120,36 +118,47 @@ public class GameService : IGameService
         var game = await _context.Games
             .Include(g => g.Genres)
             .Include(g => g.Platforms)
-            .FirstOrDefaultAsync(g => g.Id == request.Game.Id);
+            .FirstOrDefaultAsync(g => g.Id == request.Id);
 
-        if (game == null)
-            throw new NotFoundException("Game not found");
+        if (game == null) throw new NotFoundException("Game not found");
 
-        if (game.Key != request.Game.Key &&
-            await _context.Games.AnyAsync(g => g.Key == request.Game.Key))
-        {
+        if (await _context.Games.AnyAsync(g => g.Key == request.Game.Key && g.Id != request.Id))
             throw new BadRequestException("Game key must be unique");
-        }
+
+        var publisherExists = await _context.Publishers.AnyAsync(p => p.Id == request.Publisher);
+        if (!publisherExists) throw new BadRequestException("Invalid publisher ID");
+
+        var validGenreIds = await _context.Genres
+            .Where(g => request.Genres.Contains(g.Id))
+            .Select(g => g.Id)
+            .ToListAsync();
+        var invalidGenres = request.Genres.Except(validGenreIds).ToList();
+        if (invalidGenres.Any()) throw new BadRequestException($"Invalid genre IDs: {string.Join(", ", invalidGenres)}");
+
+        var validPlatformIds = await _context.Platforms
+            .Where(p => request.Platforms.Contains(p.Id))
+            .Select(p => p.Id)
+            .ToListAsync();
+        var invalidPlatforms = request.Platforms.Except(validPlatformIds).ToList();
+        if (invalidPlatforms.Any()) throw new BadRequestException($"Invalid platform IDs: {string.Join(", ", invalidPlatforms)}");
 
         game.Name = request.Game.Name;
         game.Key = request.Game.Key;
         game.Description = request.Game.Description;
+        game.Price = request.Game.Price;
+        game.UnitInStock = request.Game.UnitInStock;
+        game.Discount = request.Game.Discount;
+        game.PublisherId = request.Publisher;
 
         game.Genres.Clear();
         foreach (var genreId in request.Genres)
         {
-            if (!await _context.Genres.AnyAsync(g => g.Id == genreId))
-                throw new BadRequestException($"Genre {genreId} not found");
-
             game.Genres.Add(new GameGenre { GenreId = genreId });
         }
 
         game.Platforms.Clear();
         foreach (var platformId in request.Platforms)
         {
-            if (!await _context.Platforms.AnyAsync(p => p.Id == platformId))
-                throw new BadRequestException($"Platform {platformId} not found");
-
             game.Platforms.Add(new GamePlatform { PlatformId = platformId });
         }
 

@@ -19,6 +19,9 @@ namespace GameStore.Web.Controller
         [HttpPost]
         public async Task<IActionResult> CreateGenre([FromBody] CreateGenreRequestDto request)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
                 var createdGenre = await _genreService.CreateGenreAsync(request);
@@ -59,6 +62,8 @@ namespace GameStore.Web.Controller
         [HttpPut]
         public async Task<IActionResult> UpdateGenre([FromBody] UpdateGenreRequestDto request)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             try
             {
                 var updatedGenre = await _genreService.UpdateGenreAsync(request);

@@ -19,6 +19,8 @@ namespace GameStore.Web.Controller
         [HttpPost]
         public async Task<IActionResult> CreatePlatform([FromBody] CreatePlatformRequestDto request)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             try
             {
                 var createdPlatform = await _platformService.CreatePlatformAsync(request);
@@ -52,7 +54,10 @@ namespace GameStore.Web.Controller
 
         [HttpPut]
         public async Task<IActionResult> UpdatePlatform([FromBody] UpdatePlatformRequestDto request)
+
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             try
             {
                 var updatedPlatform = await _platformService.UpdatePlatformAsync(request);

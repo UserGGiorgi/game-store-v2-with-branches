@@ -23,6 +23,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddEndpointsApiExplorer(); 
 builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
@@ -33,6 +34,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
+builder.Services.AddScoped<IPublisherService, PublisherService>();
 builder.Services.AddScoped<TotalGamesHeaderFilter>();
 
 builder.Services.AddSwaggerGen(c =>
@@ -45,15 +47,20 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<TotalGamesHeaderFilter>();
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
+builder.Services.AddCors(options => {
+    options.AddPolicy("UI", policy =>
+        policy.WithOrigins("http://localhost:4200")
               .AllowAnyHeader()
-              .WithExposedHeaders("x-total-numbers-of-games");
-    });
+              .AllowAnyMethod()
+              .WithExposedHeaders("x-total-numbers-of-games"));
+});
+
+builder.Services.AddCors(options => {
+    options.AddPolicy("UI", policy =>
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .WithExposedHeaders("x-total-numbers-of-games"));
 });
 
 var app = builder.Build();
@@ -110,13 +117,14 @@ app.UseExceptionHandler(errorApp =>
         await context.Response.WriteAsync("Internal Server Error");
     });
 });
-app.UseCors("AllowAll");
+app.UseCors("UI");
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
-
+app.MapFallbackToFile("index.html");
 app.Run();
