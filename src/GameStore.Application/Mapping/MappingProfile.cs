@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GameStore.Application.Dtos.Games;
 using GameStore.Application.Dtos.Genre;
+using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Platform;
 using GameStore.Application.Dtos.Publisher;
 using GameStore.Domain.Entities;
@@ -33,6 +34,9 @@ namespace GameStore.Application.Mapping
             CreateMap<Publisher, PublisherDto>();
 
             CreateMap<UpdatePublisherDto, Publisher>();
+
+            CreateMap<Order, OrderResponseDto>();
+            CreateMap<OrderGame, OrderDetailDto>();
         }
     }
 }

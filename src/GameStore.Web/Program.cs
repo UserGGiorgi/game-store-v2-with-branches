@@ -35,6 +35,10 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
 builder.Services.AddScoped<IPublisherService, PublisherService>();
+builder.Services.AddScoped<CartService>();
+builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<PdfService>();
+builder.Services.AddScoped<IPaymentMicroservice, MockPaymentMicroservice>();
 builder.Services.AddScoped<TotalGamesHeaderFilter>();
 
 builder.Services.AddSwaggerGen(c =>
