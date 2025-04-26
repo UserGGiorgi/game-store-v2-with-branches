@@ -1,4 +1,5 @@
 ﻿using GameStore.Application.Dtos.Order;
+using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
 using GameStore.Infrastructure.Data;
 using GameStore.Infrastructure.Services;
@@ -11,10 +12,10 @@ using System.Threading.Tasks;
 [Route("api/[controller]")]
 public class PaymentsController : ControllerBase
 {
-    private readonly OrderService _orderService;
+    private readonly IOrderService _orderService;
     private readonly GameStoreDbContext _context;
 
-    public PaymentsController(OrderService orderService, GameStoreDbContext context)
+    public PaymentsController(IOrderService orderService, GameStoreDbContext context)
     {
         _orderService = orderService;
         _context = context;

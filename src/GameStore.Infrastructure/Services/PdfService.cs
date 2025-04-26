@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameStore.Application.Interfaces;
 
 namespace GameStore.Infrastructure.Services
 {
-    public class PdfService
+    public class PdfService : IPdfService
     {
         private readonly IConfiguration _config;
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameStore.Application.Dtos.Comment;
 using GameStore.Application.Dtos.Games;
 using GameStore.Application.Dtos.Genre;
 using GameStore.Application.Dtos.Order;
@@ -37,6 +38,13 @@ namespace GameStore.Application.Mapping
 
             CreateMap<Order, OrderResponseDto>();
             CreateMap<OrderGame, OrderDetailDto>();
+
+            CreateMap<Comment, CommentResponseDto>();
+            CreateMap<CreateCommentDto, Comment>();
+
+            CreateMap<Comment, CommentResponseDto>()
+            .ForMember(dest => dest.ChildComments,
+               opt => opt.MapFrom(src => src.ChildComments));
         }
     }
 }

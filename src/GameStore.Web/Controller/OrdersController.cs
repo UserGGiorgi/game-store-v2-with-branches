@@ -1,5 +1,5 @@
-﻿using GameStore.Domain.Exceptions;
-using GameStore.Infrastructure.Services;
+﻿using GameStore.Application.Interfaces;
+using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Web.Controller
@@ -8,9 +8,9 @@ namespace GameStore.Web.Controller
     [Route("api/[controller]")]
     public class OrdersController : ControllerBase
     {
-        private readonly OrderService _orderService;
+        private readonly IOrderService _orderService;
 
-        public OrdersController(OrderService orderService)
+        public OrdersController(IOrderService orderService)
         {
             _orderService = orderService;
         }

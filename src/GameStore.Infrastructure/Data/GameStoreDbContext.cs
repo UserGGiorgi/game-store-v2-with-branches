@@ -18,6 +18,8 @@ public class GameStoreDbContext : DbContext
     public DbSet<Publisher> Publishers => Set<Publisher>();
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderGame> OrderGames => Set<OrderGame>();
+    public DbSet<Comment> Comments => Set<Comment>();
+    public DbSet<Ban> Bans => Set<Ban>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -100,5 +102,20 @@ public class GameStoreDbContext : DbContext
             .WithMany()
             .HasForeignKey(og => og.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Comment>(entity =>
+        {
+            entity.HasKey(c => c.Id);
+
+            entity.HasOne(c => c.ParentComment)
+                .WithMany(c => c.ChildComments)
+                .HasForeignKey(c => c.ParentCommentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(c => c.Game)
+                .WithMany(g => g.Comments)
+                .HasForeignKey(c => c.GameId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }

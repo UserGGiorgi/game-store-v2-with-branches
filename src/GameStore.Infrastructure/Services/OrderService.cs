@@ -16,7 +16,7 @@ using GameStore.Application.Interfaces;
 
 namespace GameStore.Infrastructure.Services
 {
-    public class OrderService
+    public class OrderService : IOrderService
     {
         private readonly GameStoreDbContext _context;
         private readonly IMapper _mapper;
@@ -145,10 +145,8 @@ namespace GameStore.Infrastructure.Services
                 .FirstOrDefaultAsync(o => o.Id == orderId)
                 ?? throw new NotFoundException("Order not found");
 
-            // Calculate total
             var total = order.OrderGames.Sum(og => og.Price * og.Quantity);
 
-            // Call mock microservice
             var result = await _paymentMicroservice.ProcessIBoxPaymentAsync(
                 new IBoxPaymentRequest
                 {
@@ -156,15 +154,13 @@ namespace GameStore.Infrastructure.Services
                     Amount = (decimal)total
                 });
 
-            // Update order status
             order.Status = OrderStatus.Paid;
             order.Date = DateTime.UtcNow;
             await _context.SaveChangesAsync();
 
-            // Return formatted response
             return new IBoxPaymentResultDto
             {
-                UserId = order.CustomerId, // Use actual customer ID from order
+                UserId = order.CustomerId,
                 OrderId = order.Id,
                 PaymentDate = DateTime.UtcNow,
                 Sum = total

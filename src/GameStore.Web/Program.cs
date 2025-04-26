@@ -35,10 +35,12 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
 builder.Services.AddScoped<IPublisherService, PublisherService>();
-builder.Services.AddScoped<CartService>();
-builder.Services.AddScoped<OrderService>();
-builder.Services.AddScoped<PdfService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IPdfService,PdfService>();
 builder.Services.AddScoped<IPaymentMicroservice, MockPaymentMicroservice>();
+builder.Services.AddScoped<IBanService, BanService>();
 builder.Services.AddScoped<TotalGamesHeaderFilter>();
 
 builder.Services.AddSwaggerGen(c =>

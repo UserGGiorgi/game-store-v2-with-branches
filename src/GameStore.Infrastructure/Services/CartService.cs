@@ -1,4 +1,5 @@
-﻿using GameStore.Domain.Entities;
+﻿using GameStore.Application.Interfaces;
+using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
 using GameStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Services
 {
-    public class CartService
+    public class CartService : ICartService
     {
         private readonly GameStoreDbContext _context;
 
@@ -82,7 +83,7 @@ namespace GameStore.Infrastructure.Services
             await _context.SaveChangesAsync();
         }
 
-        private async Task<Order> GetOrCreateOpenOrderAsync()
+        public async Task<Order> GetOrCreateOpenOrderAsync()
         {
             var order = await _context.Orders
                 .Include(o => o.OrderGames)
@@ -102,11 +103,12 @@ namespace GameStore.Infrastructure.Services
             return order;
         }
 
-        private async Task<Order?> GetOpenOrderAsync()
+        public async Task<Order?> GetOpenOrderAsync()
         {
             return await _context.Orders
                 .Include(o => o.OrderGames)
                 .FirstOrDefaultAsync(o => o.Status == OrderStatus.Open);
         }
+
     }
 }

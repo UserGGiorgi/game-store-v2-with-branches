@@ -1,5 +1,5 @@
-﻿using GameStore.Domain.Exceptions;
-using GameStore.Infrastructure.Services;
+﻿using GameStore.Application.Interfaces;
+using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Web.Controller
@@ -8,9 +8,9 @@ namespace GameStore.Web.Controller
     [Route("api/[controller]")]
     public class CartController : ControllerBase
     {
-        private readonly CartService _cartService;
+        private readonly ICartService _cartService;
 
-        public CartController(CartService cartService)
+        public CartController(ICartService cartService)
         {
             _cartService = cartService;
         }

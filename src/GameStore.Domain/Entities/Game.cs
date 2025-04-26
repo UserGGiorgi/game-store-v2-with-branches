@@ -15,4 +15,5 @@ public class Game
 
     public ICollection<GameGenre> Genres { get; set; } = new List<GameGenre>();
     public ICollection<GamePlatform> Platforms { get; set; } = new List<GamePlatform>();
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }
