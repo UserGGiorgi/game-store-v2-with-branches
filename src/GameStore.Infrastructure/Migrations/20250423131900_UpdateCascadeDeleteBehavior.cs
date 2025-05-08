@@ -4,16 +4,14 @@
 
 namespace GameStore.Infrastructure.Migrations
 {
-    /// <inheritdoc />
+    /// This methods does not needs implemantation because migration don't need to be changed
     public partial class UpdateCascadeDeleteBehavior : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
 
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
 
