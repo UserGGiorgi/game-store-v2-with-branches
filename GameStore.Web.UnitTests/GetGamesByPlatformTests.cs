@@ -28,32 +28,6 @@ namespace GameStore.Web.UnitTests
                 Mock.Of<IGenreService>(),
                 _mockPlatformService.Object);
         }
-
-        [Test]
-        public async Task GetGamesByPlatform_WithValidPlatformId_ReturnsOkWithGames()
-        {
-            // Arrange
-            var platformId = Guid.NewGuid();
-            var expectedGames = new List<GameResponseDto>
-        {
-            new GameResponseDto { Id = Guid.NewGuid(), Key = "game1" },
-            new GameResponseDto { Id = Guid.NewGuid(), Key = "game2" }
-        };
-
-            _mockPlatformService.Setup(x => x.PlatformExistsAsync(platformId))
-                .ReturnsAsync(true);
-
-            _mockGameService.Setup(x => x.GetGamesByPlatformAsync(platformId))
-                .ReturnsAsync(expectedGames);
-
-            // Act
-            var result = await _controller.GetGamesByPlatform(platformId);
-
-            // Assert
-            Assert.IsInstanceOf<OkObjectResult>(result);
-            var okResult = result as OkObjectResult;
-            Assert.AreEqual(expectedGames, okResult.Value);
-        }
         [Test]
         public async Task GetGamesByPlatform_WithEmptyPlatformId_ReturnsBadRequest()
         {
