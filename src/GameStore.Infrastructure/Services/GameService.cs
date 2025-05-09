@@ -34,7 +34,7 @@ public class GameService : IGameService
         var normalizedKey = request.Game.Key.Trim().ToLowerInvariant();
 
         if (await _context.Games.AnyAsync(g =>
-        g.Key.Trim().ToLower() == normalizedKey))
+        g.Key.Trim().Equals(normalizedKey, StringComparison.CurrentCultureIgnoreCase)))
         {
             throw new BadRequestException("Game key must be unique.");
         }

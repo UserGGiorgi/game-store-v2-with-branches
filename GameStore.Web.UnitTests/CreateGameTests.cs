@@ -7,6 +7,7 @@ using GameStore.Infrastructure.Services;
 using GameStore.Web.Controller;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using System.Collections.Generic;
@@ -36,42 +37,57 @@ namespace GameStore.Infrastructure.UnitTests
         [Test]
         public async Task CreateGame_WithValidRequest_ReturnsCreatedResult()
         {
-            // Arrange
-            var request = new CreateGameRequestDto();
-            var expectedGame = new GameDto { Key = "test-game" };
+            // Arrange  
+            var request = new CreateGameRequestDto
+            {
+                Game = new GameDto { Name = "Test Game", Description = "Test Description" },
+                Genres = new List<Guid> { Guid.NewGuid() },
+                Platforms = new List<Guid> { Guid.NewGuid() }
+            };
+
+            var expectedGame = new GameDto
+            {
+                Key = "test-game",
+                Name = "Test Game",
+                Description = "Test Description"
+            };
 
             _mockGameService.Setup(x => x.CreateGameAsync(request))
                 .ReturnsAsync(expectedGame);
 
-            // Act
+            // Act  
             var result = await _controller.CreateGame(request);
 
-            // Assert
-            Assert.IsInstanceOf<CreatedAtActionResult>(result);
-            var createdAtResult = result as CreatedAtActionResult;
-            Assert.AreEqual(nameof(_controller.GetGameByKey), createdAtResult.ActionName);
-            Assert.AreEqual(expectedGame.Key, createdAtResult.RouteValues["key"]);
-            Assert.AreEqual(expectedGame, createdAtResult.Value);
+            // Assert  
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
+
+            var createdAtResult = (CreatedAtActionResult)result;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(createdAtResult.ActionName, Is.Not.Null.And.EqualTo(nameof(_controller.GetGameByKey)));
+                Assert.That(createdAtResult.RouteValues, Is.Not.Null);
+                Assert.That(createdAtResult.RouteValues!["key"], Is.EqualTo(expectedGame.Key));
+                Assert.That(createdAtResult.Value, Is.EqualTo(expectedGame));
+            });
         }
 
         [Test]
         public async Task CreateGame_WithBadRequest_ReturnsBadRequest()
         {
-            // Arrange
             var request = new CreateGameRequestDto();
             var errorMessage = "Invalid request";
 
             _mockGameService.Setup(x => x.CreateGameAsync(request))
                 .ThrowsAsync(new BadRequestException(errorMessage));
 
-            // Act
             var result = await _controller.CreateGame(request);
 
-            // Assert
             Assert.IsInstanceOf<BadRequestObjectResult>(result);
             var badRequestResult = result as BadRequestObjectResult;
-            Assert.AreEqual(errorMessage, badRequestResult.Value);
+            Assert.IsNotNull(badRequestResult);
+            Assert.AreEqual(errorMessage, badRequestResult!.Value);
         }
-
     }
 }

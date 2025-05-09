@@ -38,9 +38,9 @@ namespace GameStore.Web.UnitTests
 
             var result = await _controller.GetGameById(testId);
 
-            Assert.IsInstanceOf<OkObjectResult>(result);
-            var okResult = result as OkObjectResult;
-            Assert.AreEqual(expectedGame, okResult.Value);
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
+            var okResult = (OkObjectResult)result;
+            Assert.That(okResult.Value, Is.EqualTo(expectedGame));
         }
 
         [Test]
@@ -49,11 +49,11 @@ namespace GameStore.Web.UnitTests
             var testId = Guid.NewGuid();
 
             _mockGameService.Setup(x => x.GetGameByIdAsync(testId))
-                .ReturnsAsync((GameResponseDto)null);
+                .ReturnsAsync((GameResponseDto?)null);
 
             var result = await _controller.GetGameById(testId);
 
-            Assert.IsInstanceOf<NotFoundResult>(result);
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
         }
 
         [Test]
@@ -76,9 +76,9 @@ namespace GameStore.Web.UnitTests
 
             var result = await _controller.GetGameById(emptyId);
 
-            Assert.IsInstanceOf<BadRequestObjectResult>(result);
-            var badRequestResult = result as BadRequestObjectResult;
-            Assert.AreEqual("Game ID cannot be empty", badRequestResult.Value);
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
+            var badRequestResult = (BadRequestObjectResult)result;
+            Assert.That(badRequestResult.Value, Is.EqualTo("Game ID cannot be empty"));
         }
     }
 }

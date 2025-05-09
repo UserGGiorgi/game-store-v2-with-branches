@@ -134,5 +134,4 @@ public class GamesController : ControllerBase
             return NotFound(ex.Message);
         }
     }
-    private IActionResult GetGame(string key) => Ok();
 }
