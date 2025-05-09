@@ -96,7 +96,7 @@ namespace GameStore.Infrastructure.Services
             if (platform == null)
                 throw new NotFoundException("Platform not found");
 
-            if (platform.Games.Any())
+            if (platform.Games.Count != 0)
                 throw new BadRequestException("Cannot delete platform associated with games");
 
             _context.Platforms.Remove(platform);
