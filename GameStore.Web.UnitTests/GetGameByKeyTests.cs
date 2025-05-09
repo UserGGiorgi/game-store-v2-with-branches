@@ -53,7 +53,7 @@ namespace GameStore.Web.UnitTests
 
             var result = await _controller.GetGameByKey(testKey);
 
-            Assert.IsInstanceOf<NotFoundResult>(result);
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
         }
 
         [Test]
