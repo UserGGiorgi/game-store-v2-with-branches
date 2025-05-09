@@ -37,7 +37,6 @@ namespace GameStore.Infrastructure.UnitTests
         [Test]
         public async Task CreateGame_WithValidRequest_ReturnsCreatedResult()
         {
-            // Arrange  
             var request = new CreateGameRequestDto
             {
                 Game = new GameDto { Name = "Test Game", Description = "Test Description" },
@@ -55,10 +54,8 @@ namespace GameStore.Infrastructure.UnitTests
             _mockGameService.Setup(x => x.CreateGameAsync(request))
                 .ReturnsAsync(expectedGame);
 
-            // Act  
             var result = await _controller.CreateGame(request);
 
-            // Assert  
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
 
@@ -84,10 +81,10 @@ namespace GameStore.Infrastructure.UnitTests
 
             var result = await _controller.CreateGame(request);
 
-            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
             var badRequestResult = result as BadRequestObjectResult;
-            Assert.IsNotNull(badRequestResult);
-            Assert.AreEqual(errorMessage, badRequestResult!.Value);
+            Assert.That(badRequestResult, Is.Not.Null);
+            Assert.That(badRequestResult!.Value, Is.EqualTo(errorMessage));
         }
     }
 }

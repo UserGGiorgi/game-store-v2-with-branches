@@ -32,14 +32,16 @@ namespace GameStore.Web.UnitTests
         {
             var testKey = "test-game";
             var expectedGame = new GameResponseDto { Key = testKey };
+
             _mockGameService.Setup(x => x.GetGameByKeyAsync(testKey))
-                .ReturnsAsync((GameResponseDto?)expectedGame);
+                .ReturnsAsync(expectedGame);
 
             var result = await _controller.GetGameByKey(testKey);
 
-            Assert.IsInstanceOf<OkObjectResult>(result);
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
-            Assert.AreEqual(expectedGame, okResult.Value);
+
+            Assert.That(okResult?.Value, Is.EqualTo(expectedGame));
         }
 
         [Test]

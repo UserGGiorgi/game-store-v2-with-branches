@@ -31,16 +31,19 @@ namespace GameStore.Web.UnitTests
         [Test]
         public async Task GetGamesByPlatform_WithEmptyPlatformId_ReturnsBadRequest()
         {
-            // Arrange
             var emptyPlatformId = Guid.Empty;
+            const string expectedErrorMessage = "Platform ID cannot be empty";
 
-            // Act
             var result = await _controller.GetGamesByPlatform(emptyPlatformId);
 
-            // Assert
-            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
             var badRequestResult = result as BadRequestObjectResult;
-            Assert.AreEqual("Platform ID cannot be empty", badRequestResult.Value);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(badRequestResult, Is.Not.Null);
+                Assert.That(badRequestResult!.Value, Is.EqualTo(expectedErrorMessage));
+            });
         }
 
     }

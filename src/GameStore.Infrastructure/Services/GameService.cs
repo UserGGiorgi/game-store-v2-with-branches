@@ -83,7 +83,7 @@ public class GameService : IGameService
         };
 
     }
-    public async Task<GameResponseDto> GetGameByKeyAsync(string key)
+    public async Task<GameResponseDto?> GetGameByKeyAsync(string key)
     {
         var game = await _context.Games
             .FirstOrDefaultAsync(g => g.Key == key);
@@ -91,7 +91,7 @@ public class GameService : IGameService
         return _mapper.Map<GameResponseDto>(game);
     }
 
-    public async Task<GameResponseDto> GetGameByIdAsync(Guid id)
+    public async Task<GameResponseDto?> GetGameByIdAsync(Guid id)
     {
         var game = await _context.Games.FindAsync(id);
         return _mapper.Map<GameResponseDto>(game);
