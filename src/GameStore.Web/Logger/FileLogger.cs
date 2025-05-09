@@ -5,26 +5,30 @@
         private readonly string _categoryName;
         private readonly string _filePath;
 
-        public FileLogger(string categoryName, string basePath)
+        public FileLogger(string categoryName, string filePath)
         {
             _categoryName = categoryName;
-            _filePath = Path.Combine(basePath, $"logs-{DateTime.Today:yyyyMMdd}.txt");
-            Directory.CreateDirectory(Path.GetDirectoryName(_filePath));
+            _filePath = filePath;
         }
 
-        public IDisposable BeginScope<TState>(TState state)
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {
             return null;
         }
 
-        public bool IsEnabled(LogLevel logLevel) => true;
-
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state,
-            Exception exception, Func<TState, Exception, string> formatter)
+        public bool IsEnabled(LogLevel logLevel)
         {
-            var message = $"{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} [{logLevel}] {_categoryName}: {formatter(state, exception)}";
+            return true;
+        }
 
-            File.AppendAllText(_filePath, message + Environment.NewLine);
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+        {
+            if (!IsEnabled(logLevel))
+            {
+                return;
+            }
+
+            var message = formatter(state, exception);
         }
     }
 
