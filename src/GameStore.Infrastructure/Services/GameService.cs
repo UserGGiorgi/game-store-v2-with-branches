@@ -34,10 +34,11 @@ public class GameService : IGameService
         if (await _context.Games.AnyAsync(g => g.Key == request.Game.Key))
             throw new BadRequestException("Game key must be unique");
 
-        var publisherExists = await _context.Publishers
-            .AnyAsync(p => p.Id == request.Publisher);
-        if (!publisherExists)
-            throw new BadRequestException("Invalid publisher ID");
+        if (await _context.Games.AnyAsync(g =>
+        g.Key.Trim().ToLower() == normalizedKey))
+        {
+            throw new BadRequestException("Game key must be unique.");
+        }
 
         var genreIds = await _context.Genres
             .Where(g => request.Genres.Contains(g.Id))
@@ -81,7 +82,7 @@ public class GameService : IGameService
 
         return _mapper.Map<GameResponseDto>(game);
     }
-    public async Task<GameResponseDto> GetGameByKeyAsync(string key)
+    public async Task<GameResponseDto?> GetGameByKeyAsync(string key)
     {
         var game = await _context.Games
             .FirstOrDefaultAsync(g => g.Key == key);
@@ -89,7 +90,7 @@ public class GameService : IGameService
         return _mapper.Map<GameResponseDto>(game);
     }
 
-    public async Task<GameResponseDto> GetGameByIdAsync(Guid id)
+    public async Task<GameResponseDto?> GetGameByIdAsync(Guid id)
     {
         var game = await _context.Games.FindAsync(id);
         return _mapper.Map<GameResponseDto>(game);
