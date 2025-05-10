@@ -10,10 +10,11 @@ public class IndexModel : PageModel
     public IndexModel(ILogger<IndexModel> logger)
     {
         _logger = logger;
+        _logger.LogInformation("IndexModel initialized");
     }
 
     public void OnGet()
     {
-
+        _logger.LogInformation("Home page visited at {Time}", DateTime.UtcNow);
     }
 }

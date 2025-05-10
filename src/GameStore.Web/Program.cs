@@ -65,6 +65,7 @@ builder.Services.AddCors(options => {
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -75,17 +76,22 @@ else
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GameStore API v1"));
 }
+
 app.Use(async (context, next) =>
 {
     var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
 
-    logger.LogInformation($"Incoming Request: {context.Request.Method} {context.Request.Path}");
+    logger.LogInformation("Incoming Request: {Method} {Path}",
+        context.Request.Method,
+        context.Request.Path);
 
     var stopwatch = Stopwatch.StartNew();
     await next();
     stopwatch.Stop();
 
-    logger.LogInformation($"Request Completed: {context.Response.StatusCode} in {stopwatch.ElapsedMilliseconds}ms");
+    logger.LogInformation("Request Completed: {StatusCode} in {ElapsedMilliseconds}ms",
+        context.Response.StatusCode,
+        stopwatch.ElapsedMilliseconds);
 });
 
 app.UseExceptionHandler(errorApp =>

@@ -93,7 +93,5 @@ namespace GameStore.Web.Controller
                 return BadRequest(ex.Message);
             }
         }
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetPlatform(Guid id) => Ok();
     }
 }
