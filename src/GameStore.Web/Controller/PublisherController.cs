@@ -24,7 +24,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPublisher(Guid id)
+        public IActionResult GetPublisher(Guid id)
         {
             return Ok();
         }

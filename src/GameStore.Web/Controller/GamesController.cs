@@ -143,5 +143,4 @@ public class GamesController : ControllerBase
         var publisher = await _publisherService.GetPublisherByGameKeyAsync(key);
         return Ok(publisher);
     }
-    //private IActionResult GetGame(string key) => Ok();
 }
