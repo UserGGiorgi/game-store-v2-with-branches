@@ -30,10 +30,7 @@ namespace GameStore.Web.Logger
                 return;
             }
 
-            if (formatter == null)
-            {
-                throw new ArgumentNullException(nameof(formatter));
-            }
+            ArgumentNullException.ThrowIfNull(formatter);
 
             var message = formatter(state, exception);
             var logEntry = $"[{DateTime.UtcNow:o}] [{logLevel}] {_categoryName}: {message}";
@@ -54,6 +51,7 @@ namespace GameStore.Web.Logger
     {
         private readonly string _basePath;
         private readonly ConcurrentDictionary<string, FileLogger> _loggers = new ConcurrentDictionary<string, FileLogger>();
+        private bool _disposed;
 
         public FileLoggerProvider(string basePath)
         {
@@ -71,7 +69,20 @@ namespace GameStore.Web.Logger
 
         public void Dispose()
         {
-            _loggers.Clear();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _loggers.Clear();
+                }
+                _disposed = true;
+            }
         }
     }
 }
