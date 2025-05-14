@@ -15,16 +15,25 @@ namespace GameStore.Web.UnitTests
     public class GetGameByIdTests
     {
         private Mock<IGameService> _mockGameService;
+        private Mock<IGenreService> _mockGenreService;
+        private Mock<IPlatformService> _mockPlatformService;
+        private Mock<IPublisherService> _mockPublisherService;
         private GamesController _controller;
 
         [SetUp]
         public void Setup()
         {
             _mockGameService = new Mock<IGameService>();
+            _mockGenreService = new Mock<IGenreService>();
+            _mockPlatformService = new Mock<IPlatformService>();
+            _mockPublisherService = new Mock<IPublisherService>();
+
             _controller = new GamesController(
                 _mockGameService.Object,
-                Mock.Of<IGenreService>(),
-                Mock.Of<IPlatformService>());
+                _mockGenreService.Object,
+                _mockPlatformService.Object,
+                _mockPublisherService.Object
+            );
         }
 
         [Test]

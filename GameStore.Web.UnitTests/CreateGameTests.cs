@@ -1,4 +1,5 @@
 using AutoMapper;
+using GameStore.Application.Dtos.Games;
 using GameStore.Application.DTOs.Games;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Exceptions;
@@ -20,6 +21,7 @@ namespace GameStore.Infrastructure.UnitTests
         private Mock<IGameService> _mockGameService;
         private Mock<IGenreService> _mockGenreService;
         private Mock<IPlatformService> _mockPlatformService;
+        private Mock<IPublisherService> _mockPublisherService;
         private GamesController _controller;
 
         [SetUp]
@@ -28,10 +30,12 @@ namespace GameStore.Infrastructure.UnitTests
             _mockGameService = new Mock<IGameService>();
             _mockGenreService = new Mock<IGenreService>();
             _mockPlatformService = new Mock<IPlatformService>();
+            _mockPublisherService = new Mock<IPublisherService>();
             _controller = new GamesController(
                 _mockGameService.Object,
                 _mockGenreService.Object,
-                _mockPlatformService.Object);
+                _mockPlatformService.Object,
+                _mockPublisherService.Object);
         }
 
         [Test]
@@ -44,7 +48,7 @@ namespace GameStore.Infrastructure.UnitTests
                 Platforms = new List<Guid> { Guid.NewGuid() }
             };
 
-            var expectedGame = new GameDto
+            var expectedGame = new GameResponseDto
             {
                 Key = "test-game",
                 Name = "Test Game",
