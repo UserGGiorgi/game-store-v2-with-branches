@@ -35,7 +35,7 @@ public class GameService : IGameService
             throw new BadRequestException("Game key must be unique");
 
         if (await _context.Games.AnyAsync(g =>
-        g.Key.Trim().ToLower() == normalizedKey))
+        g.Key.Trim().Equals(request.Game.Key, StringComparison.CurrentCultureIgnoreCase)))
         {
             throw new BadRequestException("Game key must be unique.");
         }
@@ -45,7 +45,7 @@ public class GameService : IGameService
             .Select(g => g.Id)
             .ToListAsync();
         var invalidGenres = request.Genres.Except(genreIds).ToList();
-        if (invalidGenres.Any())
+        if (invalidGenres.Count != 0)
             throw new BadRequestException($"Invalid genre IDs: {string.Join(", ", invalidGenres)}");
 
         var platformIds = await _context.Platforms
@@ -119,10 +119,7 @@ public class GameService : IGameService
         var game = await _context.Games
             .Include(g => g.Genres)
             .Include(g => g.Platforms)
-            .FirstOrDefaultAsync(g => g.Id == request.Id);
-
-        if (game == null) throw new NotFoundException("Game not found");
-
+            .FirstOrDefaultAsync(g => g.Id == request.Id) ?? throw new NotFoundException("Game not found");
         if (await _context.Games.AnyAsync(g => g.Key == request.Game.Key && g.Id != request.Id))
             throw new BadRequestException("Game key must be unique");
 
@@ -134,14 +131,14 @@ public class GameService : IGameService
             .Select(g => g.Id)
             .ToListAsync();
         var invalidGenres = request.Genres.Except(validGenreIds).ToList();
-        if (invalidGenres.Any()) throw new BadRequestException($"Invalid genre IDs: {string.Join(", ", invalidGenres)}");
+        if (invalidGenres.Count != 0) throw new BadRequestException($"Invalid genre IDs: {string.Join(", ", invalidGenres)}");
 
         var validPlatformIds = await _context.Platforms
             .Where(p => request.Platforms.Contains(p.Id))
             .Select(p => p.Id)
             .ToListAsync();
         var invalidPlatforms = request.Platforms.Except(validPlatformIds).ToList();
-        if (invalidPlatforms.Any()) throw new BadRequestException($"Invalid platform IDs: {string.Join(", ", invalidPlatforms)}");
+        if (invalidPlatforms.Count != 0) throw new BadRequestException($"Invalid platform IDs: {string.Join(", ", invalidPlatforms)}");
 
         game.Name = request.Game.Name;
         game.Key = request.Game.Key;
@@ -170,11 +167,7 @@ public class GameService : IGameService
     public async Task DeleteGameAsync(string key)
     {
         var game = await _context.Games
-            .FirstOrDefaultAsync(g => g.Key == key);
-
-        if (game == null)
-            throw new NotFoundException("Game not found");
-
+            .FirstOrDefaultAsync(g => g.Key == key) ?? throw new NotFoundException("Game not found");
         _context.Games.Remove(game);
         await _context.SaveChangesAsync();
         _cache.Remove("TotalGamesCount");

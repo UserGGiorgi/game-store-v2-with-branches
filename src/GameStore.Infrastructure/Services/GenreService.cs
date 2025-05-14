@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Services
 {
-    // GenreService.cs
     public class GenreService : IGenreService
     {
         private readonly GameStoreDbContext _context;
