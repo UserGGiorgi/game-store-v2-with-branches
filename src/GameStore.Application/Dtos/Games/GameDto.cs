@@ -5,13 +5,13 @@ namespace GameStore.Application.DTOs.Games;
 public class GameDto
 {
     [Required, StringLength(50)]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [Required, StringLength(20)]
-    public string Key { get; set; }
+    public string Key { get; set; } = string.Empty;
 
     [StringLength(500)]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     [Range(0.01, double.MaxValue)]
     public double Price { get; set; }

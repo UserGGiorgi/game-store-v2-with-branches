@@ -53,7 +53,7 @@ public class GameService : IGameService
             .Select(p => p.Id)
             .ToListAsync();
         var invalidPlatforms = request.Platforms.Except(platformIds).ToList();
-        if (invalidPlatforms.Any())
+        if (invalidPlatforms.Count != 0)
             throw new BadRequestException($"Invalid platform IDs: {string.Join(", ", invalidPlatforms)}");
 
         var game = new Game

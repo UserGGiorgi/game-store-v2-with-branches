@@ -25,12 +25,12 @@ namespace GameStore.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public async Task<PublisherDto> CreatePublisherAsync(CreatePublisherDto dto)
+        public async Task<PublisherDto> CreatePublisherAsync(CreatePublisherDto createPublisherDto)
         {
-            if (await _context.Publishers.AnyAsync(p => p.CompanyName == dto.CompanyName))
+            if (await _context.Publishers.AnyAsync(p => p.CompanyName == createPublisherDto.CompanyName))
                 throw new BadRequestException("Company name must be unique.");
 
-            var publisher = _mapper.Map<Publisher>(dto);
+            var publisher = _mapper.Map<Publisher>(createPublisherDto);
             _context.Publishers.Add(publisher);
             await _context.SaveChangesAsync();
 
@@ -65,21 +65,21 @@ namespace GameStore.Infrastructure.Services
 
             return _mapper.Map<PublisherDto>(game.Publisher);
         }
-        public async Task<PublisherDto> UpdatePublisherAsync(UpdatePublisherDto dto)
+        public async Task<PublisherDto> UpdatePublisherAsync(UpdatePublisherDto updatePublisherDto)
         {
             var publisher = await _context.Publishers
-                .FirstOrDefaultAsync(p => p.Id == dto.Id)
+                .FirstOrDefaultAsync(p => p.Id == updatePublisherDto.Id)
                 ?? throw new NotFoundException("Publisher not found.");
 
-            if (publisher.CompanyName != dto.CompanyName &&
-                await _context.Publishers.AnyAsync(p => p.CompanyName == dto.CompanyName))
+            if (publisher.CompanyName != updatePublisherDto.CompanyName &&
+                await _context.Publishers.AnyAsync(p => p.CompanyName == updatePublisherDto.CompanyName))
             {
                 throw new BadRequestException("Company name must be unique.");
             }
 
-            publisher.CompanyName = dto.CompanyName;
-            publisher.HomePage = dto.HomePage;
-            publisher.Description = dto.Description;
+            publisher.CompanyName = updatePublisherDto.CompanyName;
+            publisher.HomePage = updatePublisherDto.HomePage;
+            publisher.Description = updatePublisherDto.Description;
 
             await _context.SaveChangesAsync();
             return _mapper.Map<PublisherDto>(publisher);
@@ -93,7 +93,7 @@ namespace GameStore.Infrastructure.Services
             if (publisher == null)
                 throw new NotFoundException("Publisher not found.");
 
-            if (publisher.Games.Any())
+            if (publisher.Games.Count != 0)
                 throw new BadRequestException("Cannot delete publisher associated with games.");
 
             _context.Publishers.Remove(publisher);

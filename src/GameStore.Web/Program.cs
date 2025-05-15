@@ -48,18 +48,10 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services.AddCors(options => {
-    options.AddPolicy("UI", policy =>
+    options.AddPolicy("AngularUI", policy =>
         policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
               .AllowAnyMethod()
-              .WithExposedHeaders("x-total-numbers-of-games"));
-});
-
-builder.Services.AddCors(options => {
-    options.AddPolicy("UI", policy =>
-        policy.WithOrigins("http://localhost:3000")
               .AllowAnyHeader()
-              .AllowAnyMethod()
               .WithExposedHeaders("x-total-numbers-of-games"));
 });
 
@@ -123,7 +115,7 @@ app.UseExceptionHandler(errorApp =>
         await context.Response.WriteAsync("Internal Server Error");
     });
 });
-app.UseCors("UI");
+app.UseCors("AngularUI");
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();
