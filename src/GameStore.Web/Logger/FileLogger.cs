@@ -115,6 +115,7 @@ namespace GameStore.Web.Logger
     public class FileLoggerProvider : ILoggerProvider
     {
         private readonly string _basePath;
+        private bool _disposed;
         private readonly ConcurrentDictionary<string, FileLogger> _loggers = new();
 
         public FileLoggerProvider(string basePath)
@@ -125,6 +126,24 @@ namespace GameStore.Web.Logger
         public ILogger CreateLogger(string categoryName) =>
             _loggers.GetOrAdd(categoryName, name => new FileLogger(name, _basePath));
 
-        public void Dispose() => _loggers.Clear();
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _loggers.Clear();
+                }
+
+                _disposed = true;
+            }
+        }
+        ~FileLoggerProvider() => Dispose(false);
     }
 }
