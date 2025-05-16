@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 
 namespace GameStore.Web.Logger
@@ -9,7 +10,7 @@ namespace GameStore.Web.Logger
     {
         private readonly string _categoryName;
         private readonly string _filePath;
-        private readonly object _lock = new object();
+        private static readonly object _staticLock = new();
         private static bool _warnedAboutPermissions = false;
 
         public FileLogger(string categoryName, string filePath)
@@ -18,37 +19,49 @@ namespace GameStore.Web.Logger
             _filePath = GetSafeLogPath(filePath);
         }
 
-        private string GetSafeLogPath(string requestedPath)
+        private static string GetSafeLogPath(string requestedPath)
         {
+            // Validate requestedPath
+            if (string.IsNullOrWhiteSpace(requestedPath))
+            {
+                requestedPath = Path.Combine(Directory.GetCurrentDirectory(), "application.log");
+            }
+
             // First try the requested path
             try
             {
-                var directory = Path.GetDirectoryName(requestedPath);
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
+                var directory = Path.GetDirectoryName(requestedPath) ??
+                    throw new InvalidOperationException("Invalid log path");
+
+                Directory.CreateDirectory(directory);
                 return requestedPath;
             }
             catch
             {
-                var appDataPath = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "GameStore",
-                    "Logs",
-                    "application.log");
+                return GetFallbackPath();
+            }
+        }
 
+        private static string GetFallbackPath()
+        {
+            lock (_staticLock)
+            {
                 try
                 {
-                    var fallbackDir = Path.GetDirectoryName(appDataPath);
-                    if (!Directory.Exists(fallbackDir))
-                    {
-                        Directory.CreateDirectory(fallbackDir);
-                    }
+                    var appDataPath = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        "GameStore",
+                        "Logs",
+                        "application.log");
+
+                    var fallbackDir = Path.GetDirectoryName(appDataPath) ??
+                        throw new InvalidOperationException("Invalid fallback path");
+
+                    Directory.CreateDirectory(fallbackDir);
 
                     if (!_warnedAboutPermissions)
                     {
-                        Console.WriteLine($"Warning: Could not write to {requestedPath}. Using fallback location: {appDataPath}");
+                        Console.WriteLine($"Using fallback location: {appDataPath}");
                         _warnedAboutPermissions = true;
                     }
 
@@ -57,13 +70,14 @@ namespace GameStore.Web.Logger
                 catch
                 {
                     var currentDirPath = Path.Combine(Directory.GetCurrentDirectory(), "logs.txt");
-                    Console.WriteLine($"Warning: Could not write to any standard location. Using current directory: {currentDirPath}");
+                    Console.WriteLine($"Using emergency location: {currentDirPath}");
                     return currentDirPath;
                 }
             }
         }
 
-        public IDisposable BeginScope<TState>(TState state) => null;
+        [return: MaybeNull]
+        public IDisposable BeginScope<TState>(TState state) where TState : notnull => null!;
 
         public bool IsEnabled(LogLevel logLevel) => true;
 
@@ -71,8 +85,8 @@ namespace GameStore.Web.Logger
             LogLevel logLevel,
             EventId eventId,
             TState state,
-            Exception exception,
-            Func<TState, Exception, string> formatter)
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
         {
             try
             {
@@ -86,7 +100,7 @@ namespace GameStore.Web.Logger
                     logEntry += $"{Environment.NewLine}{exception}";
                 }
 
-                lock (_lock)
+                lock (_staticLock)
                 {
                     File.AppendAllText(_filePath, logEntry + Environment.NewLine);
                 }
@@ -105,7 +119,7 @@ namespace GameStore.Web.Logger
 
         public FileLoggerProvider(string basePath)
         {
-            _basePath = basePath;
+            _basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
         }
 
         public ILogger CreateLogger(string categoryName) =>
