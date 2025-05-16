@@ -11,6 +11,7 @@ namespace GameStore.Application.Interfaces
     public interface IPublisherService
     {
         Task<PublisherDto> CreatePublisherAsync(CreatePublisherDto createPublisherDto);
+        Task<PublisherDto> GetPublisherByIdAsync(Guid id);
         Task<PublisherDto> GetPublisherByCompanyNameAsync(string companyName);
         Task<IEnumerable<PublisherDto>> GetAllPublishersAsync();
         Task<PublisherDto> GetPublisherByGameKeyAsync(string gameKey);

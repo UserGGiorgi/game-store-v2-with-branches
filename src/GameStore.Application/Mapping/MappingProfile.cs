@@ -17,15 +17,15 @@ namespace GameStore.Application.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Game, GameResponseDto>();
+            CreateMap<Game, GameResponseDto>()
+            .ForMember(dest => dest.Genres,
+                opt => opt.MapFrom(src => src.Genres.Select(g => g.GenreId)))
+            .ForMember(dest => dest.Platforms,
+                opt => opt.MapFrom(src => src.Platforms.Select(p => p.PlatformId)));
 
             CreateMap<Genre, GenreDetailsDto>();
             CreateMap<Genre, GenreListDto>();
-            CreateMap<Game, GameResponseDto>()
-            .ForMember(dest => dest.Genres,
-                       opt => opt.MapFrom(src => src.Genres.Select(g => g.GenreId)))
-            .ForMember(dest => dest.Platforms,
-                       opt => opt.MapFrom(src => src.Platforms.Select(p => p.PlatformId)));
+            CreateMap<Genre, GenreResponseDto>();
 
             CreateMap<Platform, PlatformResponseDto>();
 

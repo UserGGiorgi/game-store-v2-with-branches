@@ -35,7 +35,7 @@ public class GameService : IGameService
             throw new BadRequestException("Game key must be unique");
 
         if (await _context.Games.AnyAsync(g =>
-        g.Key.Trim().Equals(request.Game.Key, StringComparison.CurrentCultureIgnoreCase)))
+    EF.Functions.Like(g.Key, request.Game.Key.Trim())))
         {
             throw new BadRequestException("Game key must be unique.");
         }
@@ -92,7 +92,10 @@ public class GameService : IGameService
 
     public async Task<GameResponseDto?> GetGameByIdAsync(Guid id)
     {
-        var game = await _context.Games.FindAsync(id);
+        var game = await _context.Games
+        .Include(g => g.Genres)
+        .Include(g => g.Platforms)
+        .FirstOrDefaultAsync(g => g.Id == id);
         return _mapper.Map<GameResponseDto>(game);
     }
 

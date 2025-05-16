@@ -10,23 +10,36 @@ namespace GameStore.Web.Controller
     public class PublisherController : ControllerBase
     {
         private readonly IPublisherService _publisherService;
+        private readonly ILogger<PublisherController> _logger;
 
-        public PublisherController(IPublisherService publisherService)
+        public PublisherController(
+            IPublisherService publisherService,
+            ILogger<PublisherController> logger)
         {
             _publisherService = publisherService;
+            _logger = logger;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreatePublisher([FromBody] CreatePublisherRequestDto request)
         {
             var publisherDto = await _publisherService.CreatePublisherAsync(request.Publisher);
-            return CreatedAtAction(nameof(GetPublisher), new { id = publisherDto.Id }, publisherDto);
+            return CreatedAtAction(nameof(GetPublisherById), new { id = publisherDto.Id }, publisherDto);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetPublisher(Guid id)
+        public async Task<IActionResult> GetPublisherById(Guid id)
         {
-            return Ok();
+            try
+            {
+                var publisher = await _publisherService.GetPublisherByIdAsync(id);
+                return Ok(publisher);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogWarning(ex, "Publisher not found");
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet("Name/{companyName}")]

@@ -16,7 +16,7 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
-var logPath = Path.Combine(builder.Environment.ContentRootPath, "Logs");
+var logPath = Path.Combine(builder.Environment.ContentRootPath, "Logs", "application.log");
 builder.Logging.AddProvider(new FileLoggerProvider(logPath));
 
 builder.Services.AddRazorPages();
@@ -49,13 +49,14 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddCors(options => {
     options.AddPolicy("AngularUI", policy =>
-        policy.WithOrigins("http://localhost:4200")
+        policy.AllowAnyOrigin()
               .AllowAnyMethod()
               .AllowAnyHeader()
               .WithExposedHeaders("x-total-numbers-of-games"));
 });
 
 var app = builder.Build();
+app.UseExceptionHandler("/error");
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (!app.Environment.IsDevelopment())
@@ -115,8 +116,8 @@ app.UseExceptionHandler(errorApp =>
         await context.Response.WriteAsync("Internal Server Error");
     });
 });
-app.UseCors("AngularUI");
 app.UseHttpsRedirection();
+app.UseCors("AngularUI");
 app.UseRouting();
 app.UseStaticFiles();
 

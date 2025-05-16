@@ -37,6 +37,20 @@ namespace GameStore.Infrastructure.Services
             return _mapper.Map<PublisherDto>(publisher);
         }
 
+        public async Task<PublisherDto> GetPublisherByIdAsync(Guid id)
+        {
+            var publisher = await _context.Publishers
+                .AsNoTracking()
+                .Include(p => p.Games)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (publisher == null)
+            {
+                throw new NotFoundException($"Publisher with ID {id} not found.");
+            }
+
+            return _mapper.Map<PublisherDto>(publisher);
+        }
         public async Task<PublisherDto> GetPublisherByCompanyNameAsync(string companyName)
         {
             var publisher = await _context.Publishers
