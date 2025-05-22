@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using GameStore.Application.Dtos.Games;
-using GameStore.Application.DTOs.Games;
+using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.GetGames;
+using GameStore.Application.Dtos.Games.UpdateGames;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
