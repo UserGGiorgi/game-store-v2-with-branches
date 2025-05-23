@@ -11,9 +11,22 @@
 		<PackageReference Include="FluentValidation" Version="12.0.0" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.3.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.15">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.15">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\GameStore.Shared\GameStore.Shared.csproj" />
 		<ProjectReference Include="..\GameStore.Domain\GameStore.Domain.csproj" />
+		<ProjectReference Include="..\GameStore.Infrastructure\GameStore.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>
