@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Application", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Domain", "src\GameStore.Domain\GameStore.Domain.csproj", "{239EE415-01BB-4562-9C93-07C103DAF44A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Api", "GameStore.Api\GameStore.Api.csproj", "{5E89092F-EE3D-4729-9482-2F23C7EF3E5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Api", "src\GameStore.Api\GameStore.Api.csproj", "{5E89092F-EE3D-4729-9482-2F23C7EF3E5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Shared", "GameStore.Shared\GameStore.Shared.csproj", "{61F3DA1F-D9DC-4087-BA0A-D4D0BA418A90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Shared", "src\GameStore.Shared\GameStore.Shared.csproj", "{61F3DA1F-D9DC-4087-BA0A-D4D0BA418A90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

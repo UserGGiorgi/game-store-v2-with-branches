@@ -20,7 +20,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\GameStore.Shared\GameStore.Shared.csproj" />
-	  <ProjectReference Include="..\src\GameStore.Application\GameStore.Application.csproj" />
-	  <ProjectReference Include="..\src\GameStore.Infrastructure\GameStore.Infrastructure.csproj" />
+	  <ProjectReference Include="..\GameStore.Application\GameStore.Application.csproj" />
+	  <ProjectReference Include="..\GameStore.Infrastructure\GameStore.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>

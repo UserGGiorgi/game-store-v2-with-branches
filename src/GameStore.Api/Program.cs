@@ -2,11 +2,10 @@ using GameStore.Web.Middleware;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
-using GameStore.Application.Interfaces;
-using GameStore.Infrastructure.Services;
 using GameStore.Infrastructure.Data;
 using GameStore.Application.Mapping;
-using GameStore.Application.Dtos.Platforms.GetPlatform;
+using GameStore.Application.Interfaces;
+using GameStore.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
