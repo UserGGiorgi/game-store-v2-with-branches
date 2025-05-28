@@ -9,6 +9,7 @@ using GameStore.Domain.Exceptions;
 using GameStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System.Text;
 
 namespace GameStore.Infrastructure.Services;
@@ -17,18 +18,27 @@ public class GameService : IGameService
 {
     private readonly GameStoreDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _cache;
 
-    public GameService(GameStoreDbContext context, IMapper mapper)
+    public GameService(
+        GameStoreDbContext context, 
+        IMapper mapper, 
+        IMemoryCache cache)
     {
         _context = context;
         _mapper = mapper;
-
+        _cache = cache;
     }
 
     public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
     {
-        if (await _context.Games.AnyAsync(g => g.Key == request.Game.Key))
+        var normalizedKey = request.Game.Key.Trim().ToLowerInvariant();
+
+        if (await _context.Games.AnyAsync(g =>
+        g.Key.Trim().Equals(normalizedKey, StringComparison.CurrentCultureIgnoreCase)))
+        {
             throw new BadRequestException("Game key must be unique.");
+        }
 
         var genres = await _context.Genres
             .Where(g => request.Genres.Contains(g.Id))
@@ -48,7 +58,7 @@ public class GameService : IGameService
         {
             Id = Guid.NewGuid(),
             Name = request.Game.Name,
-            Key = request.Game.Key,
+            Key = request.Game.Key.Trim(),
             Description = request.Game.Description
         };
 
@@ -64,6 +74,7 @@ public class GameService : IGameService
 
         await _context.Games.AddAsync(game);
         await _context.SaveChangesAsync();
+        _cache.Remove("TotalGamesCount");
 
         return new GameDto
         {
@@ -71,8 +82,9 @@ public class GameService : IGameService
             Key = game.Key,
             Description = game.Description
         };
+
     }
-    public async Task<GameResponseDto> GetGameByKeyAsync(string key)
+    public async Task<GameResponseDto?> GetGameByKeyAsync(string key)
     {
         var game = await _context.Games
             .FirstOrDefaultAsync(g => g.Key == key);
@@ -80,7 +92,7 @@ public class GameService : IGameService
         return _mapper.Map<GameResponseDto>(game);
     }
 
-    public async Task<GameResponseDto> GetGameByIdAsync(Guid id)
+    public async Task<GameResponseDto?> GetGameByIdAsync(Guid id)
     {
         var game = await _context.Games.FindAsync(id);
         return _mapper.Map<GameResponseDto>(game);
@@ -156,6 +168,7 @@ public class GameService : IGameService
 
         _context.Games.Remove(game);
         await _context.SaveChangesAsync();
+        _cache.Remove("TotalGamesCount");
     }
     public async Task<IActionResult> SimulateDownloadAsync(string key)
     {
