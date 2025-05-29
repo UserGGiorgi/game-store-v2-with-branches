@@ -6,42 +6,54 @@ using GameStore.Application.Dtos.Games.UpdateGames;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
+using GameStore.Domain.Interfaces.Repositories;
+using GameStore.Domain.Interfaces;
 using GameStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 
-namespace GameStore.Infrastructure.Services;
+namespace GameStore.Application.Services;
 
 public class GameService : IGameService
 {
-    private readonly GameStoreDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IGameRepository _gameRepository;
+    private readonly IRepository<Genre> _genreRepository;
+    private readonly IRepository<Platform> _platformRepository;
     private readonly IMapper _mapper;
 
-    public GameService(GameStoreDbContext context, IMapper mapper)
+    public GameService(
+        IUnitOfWork unitOfWork,
+        IGameRepository gameRepository,
+        IRepository<Genre> genreRepository,
+        IRepository<Platform> platformRepository,
+        IMapper mapper)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _gameRepository = gameRepository;
+        _genreRepository = genreRepository;
+        _platformRepository = platformRepository;
         _mapper = mapper;
-
     }
 
     public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
     {
-        if (await _context.Games.AnyAsync(g => g.Key == request.Game.Key))
+        if (await _gameRepository.GetByKeyAsync(request.Game.Key) != null)
             throw new BadRequestException("Game key must be unique.");
 
-        var genres = await _context.Genres
-            .Where(g => request.Genres.Contains(g.Id))
-            .ToListAsync();
+        var genreIds = request.Genres.ToList();
+        var validGenres = await _genreRepository.GetAllAsync();
+        validGenres = validGenres.Where(g => genreIds.Contains(g.Id)).ToList();
 
-        if (genres.Count != request.Genres.Count)
+        if (validGenres.Count() != request.Genres.Count)
             throw new BadRequestException("One or more genres are invalid.");
 
-        var platforms = await _context.Platforms
-            .Where(p => request.Platforms.Contains(p.Id))
-            .ToListAsync();
+        var platformIds = request.Platforms.ToList();
+        var validPlatforms = await _platformRepository.GetAllAsync();
+        validPlatforms = validPlatforms.Where(p => platformIds.Contains(p.Id)).ToList();
 
-        if (platforms.Count != request.Platforms.Count)
+        if (validPlatforms.Count() != request.Platforms.Count)
             throw new BadRequestException("One or more platforms are invalid.");
 
         var game = new Game
@@ -52,18 +64,18 @@ public class GameService : IGameService
             Description = request.Game.Description
         };
 
-        foreach (var genreId in request.Genres)
+        foreach (var genre in validGenres)
         {
-            game.Genres.Add(new GameGenre { GenreId = genreId });
+            game.Genres.Add(new GameGenre { GenreId = genre.Id });
         }
 
-        foreach (var platformId in request.Platforms)
+        foreach (var platform in validPlatforms)
         {
-            game.Platforms.Add(new GamePlatform { PlatformId = platformId });
+            game.Platforms.Add(new GamePlatform { PlatformId = platform.Id });
         }
 
-        await _context.Games.AddAsync(game);
-        await _context.SaveChangesAsync();
+        await _gameRepository.AddAsync(game);
+        await _unitOfWork.CommitAsync();
 
         return new GameDto
         {
@@ -72,50 +84,39 @@ public class GameService : IGameService
             Description = game.Description
         };
     }
+
     public async Task<GameResponseDto?> GetGameByKeyAsync(string key)
     {
-        var game = await _context.Games
-            .FirstOrDefaultAsync(g => g.Key == key);
-
+        var game = await _gameRepository.GetByKeyAsync(key);
         return _mapper.Map<GameResponseDto>(game);
     }
 
     public async Task<GameResponseDto?> GetGameByIdAsync(Guid id)
     {
-        var game = await _context.Games.FindAsync(id);
+        var game = await _gameRepository.GetByIdAsync(id);
         return _mapper.Map<GameResponseDto>(game);
     }
 
     public async Task<IEnumerable<GameResponseDto>> GetGamesByPlatformAsync(Guid platformId)
     {
-        return await _context.Games
-            .Include(g => g.Platforms)
-            .Where(g => g.Platforms.Any(p => p.PlatformId == platformId))
-            .ProjectTo<GameResponseDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+        var games = await _gameRepository.GetGamesByPlatformAsync(platformId);
+        return _mapper.Map<IEnumerable<GameResponseDto>>(games);
     }
 
     public async Task<IEnumerable<GameResponseDto>> GetGamesByGenreAsync(Guid genreId)
     {
-        return await _context.Games
-            .Include(g => g.Genres)
-            .Where(g => g.Genres.Any(gg => gg.GenreId == genreId))
-            .ProjectTo<GameResponseDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+        var games = await _gameRepository.GetGamesByGenreAsync(genreId);
+        return _mapper.Map<IEnumerable<GameResponseDto>>(games);
     }
 
     public async Task<GameResponseDto> UpdateGameAsync(UpdateGameRequestDto request)
     {
-        var game = await _context.Games
-            .Include(g => g.Genres)
-            .Include(g => g.Platforms)
-            .FirstOrDefaultAsync(g => g.Id == request.Game.Id);
-
+        var game = await _gameRepository.GetByIdAsync(request.Game.Id);
         if (game == null)
             throw new NotFoundException("Game not found");
 
         if (game.Key != request.Game.Key &&
-            await _context.Games.AnyAsync(g => g.Key == request.Game.Key))
+            await _gameRepository.GetByKeyAsync(request.Game.Key) != null)
         {
             throw new BadRequestException("Game key must be unique");
         }
@@ -124,45 +125,52 @@ public class GameService : IGameService
         game.Key = request.Game.Key;
         game.Description = request.Game.Description;
 
-        game.Genres.Clear();
-        foreach (var genreId in request.Genres)
-        {
-            if (!await _context.Genres.AnyAsync(g => g.Id == genreId))
-                throw new BadRequestException($"Genre {genreId} not found");
+        var genreIds = request.Genres.ToList();
+        var validGenres = await _genreRepository.GetAllAsync();
+        validGenres = validGenres.Where(g => genreIds.Contains(g.Id)).ToList();
 
-            game.Genres.Add(new GameGenre { GenreId = genreId });
+        if (validGenres.Count() != request.Genres.Count)
+            throw new BadRequestException("One or more genres are invalid");
+
+        game.Genres.Clear();
+        foreach (var genre in validGenres)
+        {
+            game.Genres.Add(new GameGenre { GenreId = genre.Id });
         }
+
+        var platformIds = request.Platforms.ToList();
+        var validPlatforms = await _platformRepository.GetAllAsync();
+        validPlatforms = validPlatforms.Where(p => platformIds.Contains(p.Id)).ToList();
+
+        if (validPlatforms.Count() != request.Platforms.Count)
+            throw new BadRequestException("One or more platforms are invalid");
 
         game.Platforms.Clear();
-        foreach (var platformId in request.Platforms)
+        foreach (var platform in validPlatforms)
         {
-            if (!await _context.Platforms.AnyAsync(p => p.Id == platformId))
-                throw new BadRequestException($"Platform {platformId} not found");
-
-            game.Platforms.Add(new GamePlatform { PlatformId = platformId });
+            game.Platforms.Add(new GamePlatform { PlatformId = platform.Id });
         }
 
-        await _context.SaveChangesAsync();
+        _gameRepository.Update(game);
+        await _unitOfWork.CommitAsync();
+
         return _mapper.Map<GameResponseDto>(game);
     }
 
     public async Task DeleteGameAsync(string key)
     {
-        var game = await _context.Games
-            .FirstOrDefaultAsync(g => g.Key == key);
-
+        var game = await _gameRepository.GetByKeyAsync(key);
         if (game == null)
             throw new NotFoundException("Game not found");
 
-        _context.Games.Remove(game);
-        await _context.SaveChangesAsync();
+        _gameRepository.Delete(game);
+        await _unitOfWork.CommitAsync();
     }
+
     public async Task<IActionResult> SimulateDownloadAsync(string key)
     {
-        var gameExists = await _context.Games
-            .AnyAsync(g => g.Key == key);
-
-        if (!gameExists)
+        var game = await _gameRepository.GetByKeyAsync(key);
+        if (game == null)
             throw new NotFoundException("Game not found");
 
         var mockFileContent = $"This would be the game file for {key}";
@@ -173,11 +181,10 @@ public class GameService : IGameService
             FileDownloadName = $"{key}_mock_download.txt"
         };
     }
+
     public async Task<IEnumerable<GameResponseDto>> GetAllGamesAsync()
     {
-        return await _context.Games
-            .OrderBy(g => g.Name)
-            .ProjectTo<GameResponseDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+        var games = await _gameRepository.GetAllAsync();
+        return _mapper.Map<IEnumerable<GameResponseDto>>(games);
     }
 }

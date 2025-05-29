@@ -36,14 +36,11 @@ namespace GameStore.Web.Middleware
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            // Log the exception
             _logger.LogError(exception, "An error occurred: {Message}", exception.Message);
 
-            // Create response
             var statusCode = GetStatusCode(exception);
             var response = CreateErrorResponse(context, exception, statusCode);
 
-            // Write response
             context.Response.StatusCode = statusCode;
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonSerializer.Serialize(response));
@@ -61,7 +58,6 @@ namespace GameStore.Web.Middleware
                 Errors = GetErrors(exception)
             };
 
-            // Add development-only details
             if (_isDevelopment)
             {
                 return new
@@ -106,7 +102,6 @@ namespace GameStore.Web.Middleware
             };
     }
 
-    // Example custom exceptions
     public class BadRequestException : Exception
     {
         public object? Errors { get; }

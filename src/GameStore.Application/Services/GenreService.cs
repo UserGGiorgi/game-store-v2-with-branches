@@ -6,6 +6,8 @@ using GameStore.Application.Dtos.Genres.UpdateGenre;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
+using GameStore.Domain.Interfaces.Repositories;
+using GameStore.Domain.Interfaces;
 using GameStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,29 +18,35 @@ using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Services
 {
-    // GenreService.cs
     public class GenreService : IGenreService
     {
-        private readonly GameStoreDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IGenreRepository _genreRepository;
+        private readonly IGameRepository _gameRepository;
         private readonly IMapper _mapper;
 
-        public GenreService(GameStoreDbContext context, IMapper mapper)
+        public GenreService(
+            IUnitOfWork unitOfWork,
+            IGenreRepository genreRepository,
+            IGameRepository gameRepository,
+            IMapper mapper)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
+            _genreRepository = genreRepository;
+            _gameRepository = gameRepository;
             _mapper = mapper;
         }
 
         public async Task<GenreResponseDto> CreateGenreAsync(CreateGenreRequestDto request)
         {
-            if (await _context.Genres.AnyAsync(g => g.Name == request.Genre.Name))
+            if (await _genreRepository.GetByNameAsync(request.Genre.Name) != null)
             {
                 throw new BadRequestException("Genre name must be unique");
             }
+
             if (request.Genre.ParentGenreId.HasValue)
             {
-                var parentExists = await _context.Genres
-                    .AnyAsync(g => g.Id == request.Genre.ParentGenreId);
-
+                var parentExists = await _genreRepository.ExistsAsync(request.Genre.ParentGenreId.Value);
                 if (!parentExists)
                 {
                     throw new BadRequestException("Parent genre not found");
@@ -51,17 +59,15 @@ namespace GameStore.Infrastructure.Services
                 ParentGenreId = request.Genre.ParentGenreId
             };
 
-            await _context.Genres.AddAsync(genre);
-            await _context.SaveChangesAsync();
+            await _genreRepository.AddAsync(genre);
+            await _unitOfWork.CommitAsync();
 
             return _mapper.Map<GenreResponseDto>(genre);
         }
 
         public async Task<GenreDetailsDto> GetGenreByIdAsync(Guid id)
         {
-            var genre = await _context.Genres
-                .FirstOrDefaultAsync(g => g.Id == id);
-
+            var genre = await _genreRepository.GetByIdAsync(id);
             return genre == null
                 ? throw new NotFoundException("Genre not found")
                 : _mapper.Map<GenreDetailsDto>(genre);
@@ -69,41 +75,32 @@ namespace GameStore.Infrastructure.Services
 
         public async Task<IEnumerable<GenreListDto>> GetAllGenresAsync()
         {
-            return await _context.Genres
-                .OrderBy(g => g.Name)
-                .ProjectTo<GenreListDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+            var genres = await _genreRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<GenreListDto>>(genres.OrderBy(g => g.Name));
         }
 
         public async Task<IEnumerable<GenreListDto>> GetGenresByGameKeyAsync(string key)
         {
-            var game = await _context.Games
-                .Include(g => g.Genres)
-                .ThenInclude(gg => gg.Genre)
-                .FirstOrDefaultAsync(g => g.Key == key)
-                ?? throw new NotFoundException("Game not found");
+            if (await _gameRepository.GetByKeyAsync(key) == null)
+                throw new NotFoundException("Game not found");
 
-            return game.Genres
-                .Select(gg => _mapper.Map<GenreListDto>(gg.Genre))
-                .ToList();
+            var genres = await _genreRepository.GetGenresByGameKeyAsync(key);
+            return _mapper.Map<IEnumerable<GenreListDto>>(genres);
         }
 
         public async Task<IEnumerable<GenreListDto>> GetSubGenresAsync(Guid parentId)
         {
-            return await _context.Genres
-                .Where(g => g.ParentGenreId == parentId)
-                .OrderBy(g => g.Name)
-                .ProjectTo<GenreListDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+            var subGenres = await _genreRepository.GetSubGenresAsync(parentId);
+            return _mapper.Map<IEnumerable<GenreListDto>>(subGenres.OrderBy(g => g.Name));
         }
+
         public async Task<GenreDetailsDto> UpdateGenreAsync(UpdateGenreRequestDto request)
         {
-            var genre = await _context.Genres
-                .FirstOrDefaultAsync(g => g.Id == request.Genre.Id)
+            var genre = await _genreRepository.GetByIdAsync(request.Genre.Id)
                 ?? throw new NotFoundException("Genre not found");
 
-            if (genre.Name != request.Genre.Name &&
-                await _context.Genres.AnyAsync(g => g.Name == request.Genre.Name))
+            var existingByName = await _genreRepository.GetByNameAsync(request.Genre.Name);
+            if (existingByName != null && existingByName.Id != request.Genre.Id)
             {
                 throw new BadRequestException("Genre name must be unique");
             }
@@ -113,48 +110,42 @@ namespace GameStore.Infrastructure.Services
                 if (request.Genre.ParentGenreId == genre.Id)
                     throw new BadRequestException("Genre cannot be its own parent");
 
-                var parentExists = await _context.Genres
-                    .AnyAsync(g => g.Id == request.Genre.ParentGenreId);
-
-                if (!parentExists)
-                    throw new BadRequestException("Parent genre not found");
-            }
-
-            if (request.Genre.ParentGenreId.HasValue)
-            {
-                Guid? currentParentId = request.Genre.ParentGenreId;
-
-                while (currentParentId != null)
+                var current = await _genreRepository.GetByIdAsync(request.Genre.ParentGenreId.Value);
+                while (current != null)
                 {
-                    if (currentParentId == genre.Id)
+                    if (current.ParentGenreId == genre.Id)
                         throw new BadRequestException("Circular genre hierarchy detected");
 
-                    currentParentId = await _context.Genres
-                        .Where(g => g.Id == currentParentId)
-                        .Select(g => g.ParentGenreId)
-                        .FirstOrDefaultAsync();
+                    current = current.ParentGenreId.HasValue
+                        ? await _genreRepository.GetByIdAsync(current.ParentGenreId.Value)
+                        : null;
                 }
-            }
 
+                if (!await _genreRepository.ExistsAsync(request.Genre.ParentGenreId.Value))
+                    throw new BadRequestException("Parent genre not found");
+            }
             genre.Name = request.Genre.Name;
             genre.ParentGenreId = request.Genre.ParentGenreId;
 
-            await _context.SaveChangesAsync();
+            _genreRepository.Update(genre);
+            await _unitOfWork.CommitAsync();
+
             return _mapper.Map<GenreDetailsDto>(genre);
         }
+
         public async Task DeleteGenreAsync(Guid id)
         {
-            var genre = await _context.Genres.FindAsync(id);
-            if (genre == null) throw new KeyNotFoundException("Genre not found");
+            var genre = await _genreRepository.GetByIdAsync(id);
+            if (genre == null) throw new NotFoundException("Genre not found");
 
-            if (await _context.Genres.AnyAsync(g => g.ParentGenreId == id))
+            if (await _genreRepository.HasSubGenresAsync(id))
                 throw new BadRequestException("Cannot delete genre with sub-genres");
 
-            if (await _context.GameGenres.AnyAsync(gg => gg.GenreId == id))
+            if (await _genreRepository.IsAttachedToGamesAsync(id))
                 throw new BadRequestException("Cannot delete genre associated with games");
 
-            _context.Genres.Remove(genre);
-            await _context.SaveChangesAsync();
+            _genreRepository.Delete(genre);
+            await _unitOfWork.CommitAsync();
         }
     }
 }

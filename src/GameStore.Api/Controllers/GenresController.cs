@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Genres.CreateGenre;
+using GameStore.Application.Dtos.Genres.GetGenre;
 using GameStore.Application.Dtos.Genres.UpdateGenre;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
 using GameStore.Application.Dtos.Platforms.UpdatePlatform;
@@ -27,9 +28,12 @@ namespace GameStore.Web.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGenre([FromBody] CreateGenreRequestDto request)
+        [ProducesResponseType(typeof(GenreResponseDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateGenre([FromBody] CreateGenreRequestDto request,
+        CancellationToken cancellationToken)
         {
-            var validationResult = await _createValidator.ValidateAsync(request);
+            var validationResult = await _createValidator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.ToDictionary());
@@ -46,7 +50,10 @@ namespace GameStore.Web.Controller
             }
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetGenreById(Guid id)
+        [ProducesResponseType(typeof(GenreDetailsDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetGenreById(Guid id,
+        CancellationToken cancellationToken)
         {
             try
             {
@@ -60,22 +67,28 @@ namespace GameStore.Web.Controller
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllGenres()
+        [ProducesResponseType(typeof(IEnumerable<GenreListDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllGenres(CancellationToken cancellationToken)
         {
             var genres = await _genreService.GetAllGenresAsync();
             return Ok(genres);
         }
 
         [HttpGet("{id}/genres")]
-        public async Task<IActionResult> GetSubGenres(Guid id)
+        [ProducesResponseType(typeof(IEnumerable<GenreListDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetSubGenres(Guid id, CancellationToken cancellationToken)
         {
             var subGenres = await _genreService.GetSubGenresAsync(id);
             return Ok(subGenres);
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateGenre([FromBody] UpdateGenreRequestDto request)
+        [ProducesResponseType(typeof(GenreDetailsDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateGenre([FromBody] UpdateGenreRequestDto request,
+        CancellationToken cancellationToken)
         {
-            var validationResult = await _updateValidator.ValidateAsync(request);
+            var validationResult = await _updateValidator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.ToDictionary());
@@ -99,7 +112,8 @@ namespace GameStore.Web.Controller
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteGenre(Guid id)
+        public async Task<IActionResult> DeleteGenre(Guid id,
+        CancellationToken cancellationToken)
         {
             try
             {

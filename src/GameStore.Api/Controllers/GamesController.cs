@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
 using GameStore.Application.Dtos.Platforms.UpdatePlatform;
@@ -15,29 +16,27 @@ namespace GameStore.Web.Controller;
 public class GamesController : ControllerBase
 {
     private readonly IGameService _gameService;
-    private readonly IGenreService _genreService;
-    private readonly IPlatformService _platformService;
     private readonly IValidator<CreateGameRequestDto> _createValidator;
     private readonly IValidator<UpdateGameRequestDto> _updateValidator;
 
     public GamesController(
-        IGameService gameService 
-        ,IGenreService genreService
-        ,IPlatformService platformService,
+        IGameService gameService,
         IValidator<CreateGameRequestDto> createValidator,
         IValidator<UpdateGameRequestDto> updateValidator)
     {
         _gameService = gameService;
-        _genreService = genreService;
-        _platformService = platformService;
         _createValidator = createValidator;
         _updateValidator = updateValidator;
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateGame([FromBody] CreateGameRequestDto request)
+    [ProducesResponseType(typeof(GameDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateGame(
+        [FromBody] CreateGameRequestDto request,
+        CancellationToken cancellationToken)
     {
-        var validationResult = await _createValidator.ValidateAsync(request);
+        var validationResult = await _createValidator.ValidateAsync(request, cancellationToken);
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.ToDictionary());
@@ -46,44 +45,66 @@ public class GamesController : ControllerBase
         try
         {
             var createdGame = await _gameService.CreateGameAsync(request);
-            return CreatedAtAction(nameof(GetGameByKey), new { key = createdGame.Key }, createdGame);
+            return CreatedAtAction(nameof(GetByKey), new { key = createdGame.Key }, createdGame);
         }
         catch (BadRequestException ex)
         {
             return BadRequest(ex.Message);
         }
     }
+
     [HttpGet("{key}")]
-    public async Task<IActionResult> GetGameByKey(string key)
+    [ResponseCache(Duration = 30)]
+    [ProducesResponseType(typeof(GameResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetByKey(
+        string key,
+        CancellationToken cancellationToken)
     {
         var game = await _gameService.GetGameByKeyAsync(key);
         return game != null ? Ok(game) : NotFound();
     }
 
-    [HttpGet("find/{id}")]
-    public async Task<IActionResult> GetGameById(Guid id)
+    [HttpGet("id/{id}")]
+    [ProducesResponseType(typeof(GameResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(
+        Guid id,
+        CancellationToken cancellationToken)
     {
         var game = await _gameService.GetGameByIdAsync(id);
         return game != null ? Ok(game) : NotFound();
     }
 
-    [HttpGet("~/platforms/{platformId}/games")]
-    public async Task<IActionResult> GetGamesByPlatform(Guid platformId)
+    [HttpGet("platform/{platformId}")]
+    [ProducesResponseType(typeof(IEnumerable<GameResponseDto>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetByPlatform(
+        Guid platformId,
+        CancellationToken cancellationToken)
     {
         var games = await _gameService.GetGamesByPlatformAsync(platformId);
         return Ok(games);
     }
 
-    [HttpGet("~/genres/{genreId}/games")]
-    public async Task<IActionResult> GetGamesByGenre(Guid genreId)
+    [HttpGet("genre/{genreId}")]
+    [ProducesResponseType(typeof(IEnumerable<GameResponseDto>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetByGenre(
+        Guid genreId,
+        CancellationToken cancellationToken)
     {
         var games = await _gameService.GetGamesByGenreAsync(genreId);
         return Ok(games);
     }
+
     [HttpPut]
-    public async Task<IActionResult> UpdateGame([FromBody] UpdateGameRequestDto request)
+    [ProducesResponseType(typeof(GameResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(
+        [FromBody] UpdateGameRequestDto request,
+        CancellationToken cancellationToken)
     {
-        var validationResult = await _updateValidator.ValidateAsync(request);
+        var validationResult = await _updateValidator.ValidateAsync(request, cancellationToken);
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.ToDictionary());
@@ -103,16 +124,24 @@ public class GamesController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
     [HttpDelete("{key}")]
-    public async Task<IActionResult> DeleteGame(string key)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(
+        string key,
+        CancellationToken cancellationToken)
     {
         await _gameService.DeleteGameAsync(key);
         return NoContent();
     }
-    [HttpGet("{key}/file")]
+
+    [HttpGet("{key}/download")]
     [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> SimulateDownload(string key)
+    public async Task<IActionResult> Download(
+        string key,
+        CancellationToken cancellationToken)
     {
         try
         {
@@ -125,35 +154,10 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllGames()
+    [ProducesResponseType(typeof(IEnumerable<GameResponseDto>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
         var games = await _gameService.GetAllGamesAsync();
         return Ok(games);
-    }
-    [HttpGet("{key}/genres")]
-    public async Task<IActionResult> GetGameGenres(string key)
-    {
-        try
-        {
-            var genres = await _genreService.GetGenresByGameKeyAsync(key);
-            return Ok(genres);
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
-    }
-    [HttpGet("{key}/platforms")]
-    public async Task<IActionResult> GetGamePlatforms(string key)
-    {
-        try
-        {
-            var platforms = await _platformService.GetPlatformsByGameKeyAsync(key);
-            return Ok(platforms);
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
     }
 }

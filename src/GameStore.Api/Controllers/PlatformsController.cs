@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using GameStore.Application.Dtos.Genres.GetGenre;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
+using GameStore.Application.Dtos.Platforms.GetPlatform;
 using GameStore.Application.Dtos.Platforms.UpdatePlatform;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Exceptions;
@@ -26,9 +28,12 @@ namespace GameStore.Web.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePlatform([FromBody] CreatePlatformRequestDto request)
+        [ProducesResponseType(typeof(PlatformResponseDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreatePlatform([FromBody] CreatePlatformRequestDto request,
+        CancellationToken cancellationToken)
         {
-            var validationResult = await _createValidator.ValidateAsync(request);
+            var validationResult = await _createValidator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.ToDictionary());
@@ -46,7 +51,10 @@ namespace GameStore.Web.Controller
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPlatformById(Guid id)
+        [ProducesResponseType(typeof(PlatformDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetPlatformById(Guid id,
+        CancellationToken cancellationToken)
         {
             try
             {
@@ -60,16 +68,21 @@ namespace GameStore.Web.Controller
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPlatforms()
+        [ProducesResponseType(typeof(IEnumerable<GenreListDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllPlatforms(CancellationToken cancellationToken)
         {
             var platforms = await _platformService.GetAllPlatformsAsync();
             return Ok(platforms);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdatePlatform([FromBody] UpdatePlatformRequestDto request)
+        [ProducesResponseType(typeof(PlatformDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdatePlatform([FromBody] UpdatePlatformRequestDto request,
+        CancellationToken cancellationToken)
         {
-            var validationResult = await _updateValidator.ValidateAsync(request);
+            var validationResult = await _updateValidator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.ToDictionary());
@@ -93,7 +106,8 @@ namespace GameStore.Web.Controller
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeletePlatform(Guid id)
+        public async Task<IActionResult> DeletePlatform(Guid id,
+        CancellationToken cancellationToken)
         {
             try
             {

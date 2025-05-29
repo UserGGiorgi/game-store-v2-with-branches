@@ -6,6 +6,13 @@ using GameStore.Infrastructure.Data;
 using GameStore.Application.Mapping;
 using GameStore.Application.Interfaces;
 using GameStore.Infrastructure.Services;
+using GameStore.Application.Services;
+using GameStore.Domain.Entities;
+using GameStore.Domain.Interfaces.Repositories;
+using GameStore.Domain.Interfaces;
+using GameStore.Infrastructure.Data.Repository;
+using GameStore.Infrastructure.Data.Repositories;
+using GameStore.Shared.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,9 +30,28 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
+builder.Services.AddScoped<IRepository<Genre>, Repository<Genre>>();
+builder.Services.AddScoped<IRepository<Platform>, Repository<Platform>>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .WithExposedHeaders("x-total-numbers-of-games");
+    });
+});
 
 var app = builder.Build();
+app.UseCors("AllowAll");
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<TotalGamesHeaderMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
