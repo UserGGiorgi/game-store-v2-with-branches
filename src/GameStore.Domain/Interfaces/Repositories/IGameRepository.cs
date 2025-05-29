@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Domain.Interfaces.Repositories
 {
-    public interface IGameRepository : IRepository<Game>
+    public interface IGameRepository : IGenericRepository<Game>
     {
         Task<int> CountAsync();
         Task<Game> GetByKeyAsync(string key);

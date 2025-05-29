@@ -35,8 +35,9 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
-builder.Services.AddScoped<IRepository<Genre>, Repository<Genre>>();
-builder.Services.AddScoped<IRepository<Platform>, Repository<Platform>>();
+
+builder.Services.AddScoped<IGenericRepository<Genre>, GenericRepository<Genre>>();
+builder.Services.AddScoped<IGenericRepository<Platform>, GenericRepository<Platform>>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>

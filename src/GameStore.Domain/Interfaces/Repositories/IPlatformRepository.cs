@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Domain.Interfaces.Repositories
 {
-    public interface IPlatformRepository : IRepository<Platform>
+    public interface IPlatformRepository : IGenericRepository<Platform>
     {
         Task<Platform?> GetByNameAsync(string name);
         Task<IEnumerable<Platform>> GetPlatformsByGameKeyAsync(string gameKey);

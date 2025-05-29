@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Data.Repository
 {
-    public class GameRepository : Repository<Game>, IGameRepository
+    public class GameRepository : GenericRepository<Game>, IGameRepository
     {
         public GameRepository(GameStoreDbContext context) : base(context) { }
         public async Task<int> CountAsync()

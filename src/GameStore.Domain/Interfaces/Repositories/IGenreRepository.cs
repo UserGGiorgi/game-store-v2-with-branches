@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Domain.Interfaces.Repositories
 {
-    public interface IGenreRepository : IRepository<Genre>
+    public interface IGenreRepository : IGenericRepository<Genre>
     {
         Task<Genre?> GetByNameAsync(string name);
         Task<IEnumerable<Genre>> GetGenresByGameKeyAsync(string gameKey);

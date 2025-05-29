@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Data.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         protected readonly GameStoreDbContext _context;
 
-        public Repository(GameStoreDbContext context)
+        public GenericRepository(GameStoreDbContext context)
         {
             _context = context;
         }

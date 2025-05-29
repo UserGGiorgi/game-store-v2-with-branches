@@ -19,15 +19,15 @@ public class GameService : IGameService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IGameRepository _gameRepository;
-    private readonly IRepository<Genre> _genreRepository;
-    private readonly IRepository<Platform> _platformRepository;
+    private readonly IGenericRepository<Genre> _genreRepository;
+    private readonly IGenericRepository<Platform> _platformRepository;
     private readonly IMapper _mapper;
 
     public GameService(
         IUnitOfWork unitOfWork,
         IGameRepository gameRepository,
-        IRepository<Genre> genreRepository,
-        IRepository<Platform> platformRepository,
+        IGenericRepository<Genre> genreRepository,
+        IGenericRepository<Platform> platformRepository,
         IMapper mapper)
     {
         _unitOfWork = unitOfWork;

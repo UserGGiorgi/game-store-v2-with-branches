@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Domain.Interfaces.Repositories
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
         Task<TEntity> GetByIdAsync(Guid id);
         Task<IEnumerable<TEntity>> GetAllAsync();

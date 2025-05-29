@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Data.Repository
 {
-    public class PlatformRepository : Repository<Platform>, IPlatformRepository
+    public class PlatformRepository : GenericRepository<Platform>, IPlatformRepository
     {
         public PlatformRepository(GameStoreDbContext context) : base(context) { }
 
