@@ -129,11 +129,18 @@ public class GamesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(
-        string key,
-        CancellationToken cancellationToken)
+    string key,
+    CancellationToken cancellationToken)
     {
-        await _gameService.DeleteGameAsync(key);
-        return NoContent();
+        try
+        {
+            await _gameService.DeleteGameAsync(key);
+            return NoContent();
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpGet("{key}/download")]

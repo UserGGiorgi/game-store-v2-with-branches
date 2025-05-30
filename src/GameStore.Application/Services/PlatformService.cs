@@ -24,7 +24,7 @@ namespace GameStore.Infrastructure.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public PlatformService(GameStoreDbContext context,
+        public PlatformService(
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
