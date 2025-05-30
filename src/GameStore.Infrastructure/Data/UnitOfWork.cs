@@ -1,4 +1,6 @@
 ﻿using GameStore.Domain.Interfaces;
+using GameStore.Domain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +9,23 @@ using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Data
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork(
+        GameStoreDbContext context,
+        Lazy<IGameRepository> gameRepository,
+        Lazy<IGenreRepository> genreRepository,
+        Lazy<IPlatformRepository> platformRepository)
+        : IUnitOfWork
     {
-        private readonly GameStoreDbContext _context;
+       // private IDbContextTransaction _transaction;
         private bool _disposed;
 
-        public UnitOfWork(GameStoreDbContext context)
-        {
-            _context = context;
-        }
+        public IGameRepository GameRepository => gameRepository.Value;
 
-        public async Task<int> CommitAsync() => await _context.SaveChangesAsync();
+        public IGenreRepository GenreRepository => genreRepository.Value;
+
+        public IPlatformRepository PlatformRepository => platformRepository.Value;
+
+        public async Task<int> CommitAsync() => await context.SaveChangesAsync();
 
         public void Dispose()
         {
@@ -29,7 +37,7 @@ namespace GameStore.Infrastructure.Data
         {
             if (!_disposed && disposing)
             {
-                _context.Dispose();
+                context.Dispose();
             }
             _disposed = true;
         }

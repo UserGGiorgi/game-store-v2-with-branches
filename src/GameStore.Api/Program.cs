@@ -26,18 +26,27 @@ builder.Services.AddDbContext<GameStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 
-builder.Services.AddScoped<IGenericRepository<Genre>, GenericRepository<Genre>>();
-builder.Services.AddScoped<IGenericRepository<Platform>, GenericRepository<Platform>>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped(provider => new Lazy<IGameRepository>(
+    () => provider.GetRequiredService<IGameRepository>()));
+
+builder.Services.AddScoped(provider => new Lazy<IGenreRepository>(
+    () => provider.GetRequiredService<IGenreRepository>()));
+
+builder.Services.AddScoped(provider => new Lazy<IPlatformRepository>(
+    () => provider.GetRequiredService<IPlatformRepository>()));
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -51,8 +60,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 app.UseCors("AllowAll");
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseMiddleware<TotalGamesHeaderMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

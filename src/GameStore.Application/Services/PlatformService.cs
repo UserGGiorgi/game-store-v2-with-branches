@@ -21,23 +21,20 @@ namespace GameStore.Infrastructure.Services
 {
     public class PlatformService : IPlatformService
     {
-        private readonly IPlatformRepository _platformRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public PlatformService(GameStoreDbContext context,
             IUnitOfWork unitOfWork,
-            IPlatformRepository platformRepository,
             IMapper mapper)
         {
-            _platformRepository = platformRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<PlatformResponseDto> CreatePlatformAsync(CreatePlatformRequestDto request)
         {
-            if (await _platformRepository.GetByNameAsync(request.Platform.Type) != null)
+            if (await _unitOfWork.PlatformRepository.GetByNameAsync(request.Platform.Type) != null)
             {
                 throw new BadRequestException("Platform type must be unique");
             }
@@ -47,7 +44,7 @@ namespace GameStore.Infrastructure.Services
                 Type = request.Platform.Type
             };
 
-            await _platformRepository.AddAsync(platform);
+            await _unitOfWork.PlatformRepository.AddAsync(platform);
             await _unitOfWork.CommitAsync();
 
             return _mapper.Map<PlatformResponseDto>(platform);
@@ -55,7 +52,7 @@ namespace GameStore.Infrastructure.Services
 
         public async Task<PlatformResponseDto> GetPlatformByIdAsync(Guid id)
         {
-            var platform = await _platformRepository.GetByIdAsync(id);
+            var platform = await _unitOfWork.PlatformRepository.GetByIdAsync(id);
             return platform == null
                 ? throw new NotFoundException("Platform not found")
                 : _mapper.Map<PlatformResponseDto>(platform);
@@ -63,47 +60,47 @@ namespace GameStore.Infrastructure.Services
 
         public async Task<IEnumerable<PlatformResponseDto>> GetAllPlatformsAsync()
         {
-            var platforms = await _platformRepository.GetAllAsync();
+            var platforms = await _unitOfWork.PlatformRepository.GetAllAsync();
             return _mapper.Map<IEnumerable<PlatformResponseDto>>(platforms.OrderBy(g => g.Type));
         }
 
         public async Task<IEnumerable<PlatformResponseDto>> GetPlatformsByGameKeyAsync(string key)
         {
-            if(await _platformRepository.GetPlatformsByGameKeyAsync(key) == null)
+            if(await _unitOfWork.PlatformRepository.GetPlatformsByGameKeyAsync(key) == null)
             {
                 throw new NotFoundException("No platforms found for the specified game key");
             }
 
-            var platforms = await _platformRepository.GetPlatformsByGameKeyAsync(key);
+            var platforms = await _unitOfWork.PlatformRepository.GetPlatformsByGameKeyAsync(key);
             return _mapper.Map<IEnumerable<PlatformResponseDto>>(platforms);
         }
         public async Task<PlatformResponseDto> UpdatePlatformAsync(UpdatePlatformRequestDto request)
         {
-            var platform = await _platformRepository.GetByIdAsync(request.Platform.Id)
+            var platform = await _unitOfWork.PlatformRepository.GetByIdAsync(request.Platform.Id)
                 ?? throw new NotFoundException("Platform not found");
 
-            var existingByType = await _platformRepository.GetByNameAsync(request.Platform.Type);
+            var existingByType = await _unitOfWork.PlatformRepository.GetByNameAsync(request.Platform.Type);
             if(existingByType != null && existingByType.Id != platform.Id)
             {
                 throw new BadRequestException("Platform type must be unique");
             }
 
             platform.Type = request.Platform.Type;
-            _platformRepository.Update(platform);
+            _unitOfWork.PlatformRepository.Update(platform);
             await _unitOfWork.CommitAsync();
 
             return _mapper.Map<PlatformResponseDto>(platform);
         }
         public async Task DeletePlatformAsync(Guid id)
         {
-            var platform = await _platformRepository.GetByIdAsync(id);
+            var platform = await _unitOfWork.PlatformRepository.GetByIdAsync(id);
             if (platform == null)
                 throw new NotFoundException("Platform not found");
 
             if (platform.Games.Count != 0)
                 throw new BadRequestException("Cannot delete platform associated with games");
 
-            _platformRepository.Delete(platform);
+            _unitOfWork.PlatformRepository.Delete(platform);
             await _unitOfWork.CommitAsync();
         }
     }
