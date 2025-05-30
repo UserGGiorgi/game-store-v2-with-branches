@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Api", "src\GameSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Shared", "src\GameStore.Shared\GameStore.Shared.csproj", "{61F3DA1F-D9DC-4087-BA0A-D4D0BA418A90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Test", "Gamestore.Test\Gamestore.Test.csproj", "{2B14690C-C129-4A2A-9A05-94C2608F457B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,18 @@ Global
 		{61F3DA1F-D9DC-4087-BA0A-D4D0BA418A90}.Release|x64.Build.0 = Release|Any CPU
 		{61F3DA1F-D9DC-4087-BA0A-D4D0BA418A90}.Release|x86.ActiveCfg = Release|Any CPU
 		{61F3DA1F-D9DC-4087-BA0A-D4D0BA418A90}.Release|x86.Build.0 = Release|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Debug|x64.Build.0 = Debug|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Debug|x86.Build.0 = Debug|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Release|x64.ActiveCfg = Release|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Release|x64.Build.0 = Release|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Release|x86.ActiveCfg = Release|Any CPU
+		{2B14690C-C129-4A2A-9A05-94C2608F457B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +109,8 @@ Global
 		{239EE415-01BB-4562-9C93-07C103DAF44A} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{5E89092F-EE3D-4729-9482-2F23C7EF3E5B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{61F3DA1F-D9DC-4087-BA0A-D4D0BA418A90} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A96DEB39-851F-48EE-A8DA-897B4C9142B5}
 	EndGlobalSection
 EndGlobal
