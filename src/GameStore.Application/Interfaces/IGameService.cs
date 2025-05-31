@@ -1,5 +1,6 @@
-﻿using GameStore.Application.Dtos.Games;
-using GameStore.Application.DTOs.Games;
+﻿using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.GetGames;
+using GameStore.Application.Dtos.Games.UpdateGames;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Application.Interfaces;

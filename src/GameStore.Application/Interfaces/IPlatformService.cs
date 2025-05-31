@@ -1,4 +1,6 @@
-﻿using GameStore.Application.Dtos.Platform;
+﻿using GameStore.Application.Dtos.Platforms.CreatePlatform;
+using GameStore.Application.Dtos.Platforms.GetPlatform;
+using GameStore.Application.Dtos.Platforms.UpdatePlatform;
 using System;
 using System.Collections.Generic;
 using System.Linq;
