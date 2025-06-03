@@ -4,6 +4,7 @@ using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
 using GameStore.Application.Interfaces;
 using GameStore.Web.Controller;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Gamestore.Test.Api.Controller
         public Mock<IGameService> MockGameService { get; }
         public Mock<IValidator<CreateGameRequestDto>> MockCreateValidator { get; }
         public Mock<IValidator<UpdateGameRequestDto>> MockUpdateValidator { get; }
+        public Mock<ILogger<GamesController>> MockLogger { get; }
 
         public GamesController Controller { get; }
 
@@ -38,11 +40,14 @@ namespace Gamestore.Test.Api.Controller
             MockGameService = new Mock<IGameService>();
             MockCreateValidator = new Mock<IValidator<CreateGameRequestDto>>();
             MockUpdateValidator = new Mock<IValidator<UpdateGameRequestDto>>();
+            // Add mock logger
+            MockLogger = new Mock<ILogger<GamesController>>();
 
             Controller = new GamesController(
                 MockGameService.Object,
                 MockCreateValidator.Object,
-                MockUpdateValidator.Object
+                MockUpdateValidator.Object,
+                MockLogger.Object  // Include the mock logger
             );
         }
 

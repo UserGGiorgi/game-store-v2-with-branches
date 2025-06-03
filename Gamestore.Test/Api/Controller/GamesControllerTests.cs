@@ -7,6 +7,7 @@ using GameStore.Application.Interfaces;
 using GameStore.Domain.Exceptions;
 using GameStore.Web.Controller;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -666,11 +667,14 @@ namespace Gamestore.Test.Api.Controller
             // Arrange
             const string gameKey = "test-game";
             var mockService = new Mock<IGameService>();
+            // Add mock logger
+            var mockLogger = new Mock<ILogger<GamesController>>();
 
             var controller = new GamesController(
                 mockService.Object,
                 _fixture.MockCreateValidator.Object,
-                _fixture.MockUpdateValidator.Object
+                _fixture.MockUpdateValidator.Object,
+                mockLogger.Object  // Add mocked logger
             );
 
             // Act
