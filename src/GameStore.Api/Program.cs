@@ -15,6 +15,7 @@ using GameStore.Infrastructure.Data.Repositories;
 using GameStore.Shared.Middleware;
 using GameStore.Api.Configuration;
 using Microsoft.AspNetCore.Http.Features;
+using GameStore.Shared.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.Configure<TotalGamesCacheOptions>(
+    builder.Configuration.GetSection(TotalGamesCacheOptions.SectionName));
+
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<TimeProvider>(TimeProvider.System);
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
