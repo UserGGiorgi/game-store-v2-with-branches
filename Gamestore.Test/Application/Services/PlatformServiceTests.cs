@@ -223,20 +223,20 @@ namespace Gamestore.Test.Application.Services
             // Arrange
             const string gameKey = "valid-game";
             var platforms = new List<Platform>
-    {
-        new Platform { Id = Guid.NewGuid(), Type = "PC" },
-        new Platform { Id = Guid.NewGuid(), Type = "Xbox" }
-    };
+            {
+            new Platform { Id = Guid.NewGuid(), Type = "PC" },
+            new Platform { Id = Guid.NewGuid(), Type = "Xbox" }
+             };
 
             var expectedDtos = new List<PlatformResponseDto>
-    {
-        new PlatformResponseDto { Id = platforms[0].Id, Type = "PC" },
-        new PlatformResponseDto { Id = platforms[1].Id, Type = "Xbox" }
-    };
+            {
+            new PlatformResponseDto { Id = platforms[0].Id, Type = "PC" },
+            new PlatformResponseDto { Id = platforms[1].Id, Type = "Xbox" }
+            };
 
             _mockUnitOfWork.SetupSequence(u => u.PlatformRepository.GetPlatformsByGameKeyAsync(gameKey))
-                .ReturnsAsync((IEnumerable<Platform>?)platforms)
-                .ReturnsAsync(platforms);
+           .ReturnsAsync(platforms)
+           .ReturnsAsync(platforms);
 
             _mockMapper.Setup(m => m.Map<IEnumerable<PlatformResponseDto>>(platforms))
                 .Returns(expectedDtos);
@@ -260,7 +260,7 @@ namespace Gamestore.Test.Application.Services
             var emptyDtos = new List<PlatformResponseDto>();
 
             _mockUnitOfWork.SetupSequence(u => u.PlatformRepository.GetPlatformsByGameKeyAsync(gameKey))
-                .ReturnsAsync((IEnumerable<Platform>?)emptyPlatforms)
+                .ReturnsAsync(emptyPlatforms)
                 .ReturnsAsync(emptyPlatforms);
 
             _mockMapper.Setup(m => m.Map<IEnumerable<PlatformResponseDto>>(emptyPlatforms))

@@ -21,7 +21,7 @@ namespace Gamestore.Test.Api.Controller
 
         public GamesController Controller { get; }
 
-        public CreateGameRequestDto ValidCreateRequest => new()
+        public static CreateGameRequestDto ValidCreateRequest => new()
         {
             Game = new GameDto
             {
@@ -101,7 +101,7 @@ namespace Gamestore.Test.Api.Controller
         }
         public void Dispose()
         {
-            //nothing for this time
+            GC.SuppressFinalize(this);
         }
     }
 }

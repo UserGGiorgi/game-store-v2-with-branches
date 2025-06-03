@@ -15,18 +15,15 @@ namespace GameStore.Shared.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly IMemoryCache _cache;
-        private readonly TimeProvider _timeProvider;
         private readonly TotalGamesCacheOptions _options;
 
         public TotalGamesHeaderMiddleware(
             RequestDelegate next,
             IMemoryCache cache,
-            TimeProvider timeProvider,
             IOptions<TotalGamesCacheOptions> options)
         {
             _next = next;
             _cache = cache;
-            _timeProvider = timeProvider;
             _options = options.Value;
         }
 
