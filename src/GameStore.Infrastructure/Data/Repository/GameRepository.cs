@@ -16,7 +16,7 @@ namespace GameStore.Infrastructure.Data.Repository
         {
             return await _context.Games.CountAsync();
         }
-        public async Task<Game> GetByKeyAsync(string key)
+        public async Task<Game?> GetByKeyAsync(string key)
         {
             return await _context.Games
                 .Include(g => g.Genres)

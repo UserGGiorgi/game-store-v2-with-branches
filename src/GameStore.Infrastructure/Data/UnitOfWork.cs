@@ -16,7 +16,6 @@ namespace GameStore.Infrastructure.Data
         Lazy<IPlatformRepository> platformRepository)
         : IUnitOfWork
     {
-       // private IDbContextTransaction _transaction;
         private bool _disposed;
 
         public IGameRepository GameRepository => gameRepository.Value;

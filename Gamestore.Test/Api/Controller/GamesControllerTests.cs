@@ -68,7 +68,7 @@ namespace Gamestore.Test.Api.Controller
         public async Task CreateGame_WhenServiceThrowsBadRequest_ReturnsBadRequest()
         {
             // Arrange
-            var request = _fixture.ValidCreateRequest;
+            var request = GamesControllerFixture.ValidCreateRequest;
             var validationResult = new ValidationResult();
             const string errorMessage = "Invalid genre provided";
 
@@ -92,7 +92,7 @@ namespace Gamestore.Test.Api.Controller
         public async Task CreateGame_WhenValid_ReturnsCreatedAtAction()
         {
             // Arrange
-            var request = _fixture.ValidCreateRequest;
+            var request = GamesControllerFixture.ValidCreateRequest;
             var validationResult = new ValidationResult();
             var expectedGame = new GameDto
             {
@@ -116,14 +116,14 @@ namespace Gamestore.Test.Api.Controller
             var createdAt = Assert.IsType<CreatedAtActionResult>(result);
             Assert.Equal(nameof(GamesController.GetByKey), createdAt.ActionName);
             Assert.Equal(expectedGame, createdAt.Value);
-            Assert.Equal("test-key", createdAt.RouteValues["key"]);
+            Assert.Equal("test-key", createdAt.RouteValues?["key"]);
         }
 
         [Fact]
         public async Task CreateGame_WhenKeyInvalid_ReturnsValidationError()
         {
             // Arrange
-            var request = _fixture.ValidCreateRequest;
+            var request = GamesControllerFixture.ValidCreateRequest;
             request.Game.Key = "Invalid Key!";
 
             var validationFailures = new List<ValidationFailure>

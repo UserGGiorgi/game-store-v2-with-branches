@@ -50,34 +50,31 @@ namespace GameStore.Web.Middleware
             await context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
 
-        private object CreateErrorResponse(HttpContext context, Exception exception, int statusCode)
+        private sealed class ErrorResponse
         {
-            var errorResponse = new
+            public int Status { get; init; }
+            public string Title { get; init; } = string.Empty;
+            public string Detail { get; init; } = string.Empty;
+            public PathString Instance { get; init; }
+            public string TraceId { get; init; } = string.Empty;
+            public object? Errors { get; init; }
+            public string[]? StackTrace { get; init; }
+            public string? InnerException { get; init; }
+        }
+
+        private ErrorResponse CreateErrorResponse(HttpContext context, Exception exception, int statusCode)
+        {
+            return new ErrorResponse
             {
                 Status = statusCode,
                 Title = GetTitle(exception),
                 Detail = exception.Message,
                 Instance = context.Request.Path,
                 TraceId = context.TraceIdentifier,
-                Errors = GetErrors(exception)
+                Errors = GetErrors(exception),
+                StackTrace = _isDevelopment ? exception.StackTrace?.Split('\n') : null,
+                InnerException = _isDevelopment ? exception.InnerException?.Message : null
             };
-
-            if (_isDevelopment)
-            {
-                return new
-                {
-                    errorResponse.Status,
-                    errorResponse.Title,
-                    errorResponse.Detail,
-                    errorResponse.Instance,
-                    errorResponse.TraceId,
-                    errorResponse.Errors,
-                    StackTrace = exception.StackTrace?.Split('\n'),
-                    InnerException = exception.InnerException?.Message
-                };
-            }
-
-            return errorResponse;
         }
 
         private static int GetStatusCode(Exception exception) =>

@@ -235,7 +235,7 @@ namespace Gamestore.Test.Application.Services
     };
 
             _mockUnitOfWork.SetupSequence(u => u.PlatformRepository.GetPlatformsByGameKeyAsync(gameKey))
-                .ReturnsAsync((IEnumerable<Platform>?)platforms)
+                .ReturnsAsync(platforms)
                 .ReturnsAsync(platforms);
 
             _mockMapper.Setup(m => m.Map<IEnumerable<PlatformResponseDto>>(platforms))
@@ -260,7 +260,7 @@ namespace Gamestore.Test.Application.Services
             var emptyDtos = new List<PlatformResponseDto>();
 
             _mockUnitOfWork.SetupSequence(u => u.PlatformRepository.GetPlatformsByGameKeyAsync(gameKey))
-                .ReturnsAsync((IEnumerable<Platform>?)emptyPlatforms)
+                .ReturnsAsync(emptyPlatforms)
                 .ReturnsAsync(emptyPlatforms);
 
             _mockMapper.Setup(m => m.Map<IEnumerable<PlatformResponseDto>>(emptyPlatforms))

@@ -23,7 +23,7 @@ namespace Gamestore.Test.Api.Controller
 
         public GamesController Controller { get; }
 
-        public CreateGameRequestDto ValidCreateRequest => new()
+        public static CreateGameRequestDto ValidCreateRequest => new()
         {
             Game = new GameDto
             {
@@ -40,14 +40,13 @@ namespace Gamestore.Test.Api.Controller
             MockGameService = new Mock<IGameService>();
             MockCreateValidator = new Mock<IValidator<CreateGameRequestDto>>();
             MockUpdateValidator = new Mock<IValidator<UpdateGameRequestDto>>();
-            // Add mock logger
             MockLogger = new Mock<ILogger<GamesController>>();
 
             Controller = new GamesController(
                 MockGameService.Object,
                 MockCreateValidator.Object,
                 MockUpdateValidator.Object,
-                MockLogger.Object  // Include the mock logger
+                MockLogger.Object
             );
         }
 
@@ -106,7 +105,7 @@ namespace Gamestore.Test.Api.Controller
         }
         public void Dispose()
         {
-            //nothing for this time
+            GC.SuppressFinalize(this);
         }
     }
 }
