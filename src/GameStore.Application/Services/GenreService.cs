@@ -136,31 +136,7 @@ namespace GameStore.Infrastructure.Services
 
             if (request.Genre.ParentGenreId.HasValue)
             {
-                if (request.Genre.ParentGenreId == genre.Id)
-                {
-                    _logger.LogWarning("Invalid parent - self reference: {GenreId}", genre.Id);
-                    throw new BadRequestException("Genre cannot be its own parent");
-                }
-
-                var current = await _unitOfWork.GenreRepository.GetByIdAsync(request.Genre.ParentGenreId.Value);
-                while (current != null)
-                {
-                    if (current.ParentGenreId == genre.Id)
-                    {
-                        _logger.LogWarning("Circular hierarchy detected for genre: {GenreId}", genre.Id);
-                        throw new BadRequestException("Circular genre hierarchy detected");
-                    }
-
-                    current = current.ParentGenreId.HasValue
-                        ? await _unitOfWork.GenreRepository.GetByIdAsync(current.ParentGenreId.Value)
-                        : null;
-                }
-
-                if (!await _unitOfWork.GenreRepository.ExistsAsync(request.Genre.ParentGenreId.Value))
-                {
-                    _logger.LogWarning("Parent genre not found: {ParentId}", request.Genre.ParentGenreId);
-                    throw new BadRequestException("Parent genre not found");
-                }
+                await ValidateParentGenre(request.Genre.ParentGenreId.Value, genre.Id);
             }
             genre.Name = request.Genre.Name;
             genre.ParentGenreId = request.Genre.ParentGenreId;
@@ -207,6 +183,33 @@ namespace GameStore.Infrastructure.Services
                 await _unitOfWork.RollbackTransactionAsync();
                 throw;
                 }
+        }
+        private async Task ValidateParentGenre(Guid parentGenreId, Guid currentGenreId)
+        {
+            if (parentGenreId == currentGenreId)
+            {
+                _logger.LogWarning("Invalid parent - self reference: {GenreId}", currentGenreId);
+                throw new BadRequestException("Genre cannot be its own parent");
+            }
+
+            var current = await _unitOfWork.GenreRepository.GetByIdAsync(parentGenreId);
+            while (current != null)
+            {
+                if (current.ParentGenreId == currentGenreId)
+                {
+                    _logger.LogWarning("Circular hierarchy detected for genre: {GenreId}", currentGenreId);
+                    throw new BadRequestException("Circular genre hierarchy detected");
+                }
+                current = current.ParentGenreId.HasValue
+                    ? await _unitOfWork.GenreRepository.GetByIdAsync(current.ParentGenreId.Value)
+                    : null;
+            }
+
+            if (!await _unitOfWork.GenreRepository.ExistsAsync(parentGenreId))
+            {
+                _logger.LogWarning("Parent genre not found: {ParentId}", parentGenreId);
+                throw new BadRequestException("Parent genre not found");
+            }
         }
     }
 }
