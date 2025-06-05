@@ -1,11 +1,12 @@
-﻿using GameStore.Application.Dtos.Games;
-using GameStore.Application.DTOs.Games;
+﻿using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.GetGames;
+using GameStore.Application.Dtos.Games.UpdateGames;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Application.Interfaces;
 public interface IGameService
 {
-    Task<GameResponseDto> CreateGameAsync(CreateGameRequestDto request);
+    Task<GameDto> CreateGameAsync(CreateGameRequestDto request);
     Task<GameResponseDto?> GetGameByKeyAsync(string key);
     Task<GameResponseDto?> GetGameByIdAsync(Guid id);
     Task<IEnumerable<GameResponseDto>> GetGamesByPlatformAsync(Guid platformId);

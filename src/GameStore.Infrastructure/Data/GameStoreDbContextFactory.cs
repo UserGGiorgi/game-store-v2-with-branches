@@ -10,7 +10,7 @@ public class GameStoreDbContextFactory : IDesignTimeDbContextFactory<GameStoreDb
     public GameStoreDbContext CreateDbContext(string[] args)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../GameStore.Web"))
+            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../GameStore.Api"))
             .AddJsonFile("appsettings.json")
             .Build();
 

@@ -1,15 +1,11 @@
 ﻿using AutoMapper;
-using GameStore.Application.Dtos.Games;
-using GameStore.Application.Dtos.Genre;
-using GameStore.Application.Dtos.Platform;
-using GameStore.Application.Dtos.Publisher;
 using GameStore.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using GameStore.Application.Dtos.Games;
+using GameStore.Application.Dtos.Genres;
+using GameStore.Application.Dtos.Platforms;
+using GameStore.Application.Dtos.Games.GetGames;
+using GameStore.Application.Dtos.Genres.GetGenre;
+using GameStore.Application.Dtos.Platforms.GetPlatform;
 
 namespace GameStore.Application.Mapping
 {
@@ -17,22 +13,15 @@ namespace GameStore.Application.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Game, GameResponseDto>()
-            .ForMember(dest => dest.Genres,
-                opt => opt.MapFrom(src => src.Genres.Select(g => g.GenreId)))
-            .ForMember(dest => dest.Platforms,
-                opt => opt.MapFrom(src => src.Platforms.Select(p => p.PlatformId)));
+            CreateMap<Game, GameResponseDto>();
 
             CreateMap<Genre, GenreDetailsDto>();
             CreateMap<Genre, GenreListDto>();
-            CreateMap<Genre, GenreResponseDto>();
+            CreateMap<Genre, GenreResponseDto>()
+                .ForMember(dest => dest.ParentGenreName,
+                    opt => opt.MapFrom(src => src.ParentGenre != null ? src.ParentGenre.Name : "None"));
 
             CreateMap<Platform, PlatformResponseDto>();
-
-            CreateMap<CreatePublisherDto, Publisher>();
-            CreateMap<Publisher, PublisherDto>();
-
-            CreateMap<UpdatePublisherDto, Publisher>();
         }
     }
 }

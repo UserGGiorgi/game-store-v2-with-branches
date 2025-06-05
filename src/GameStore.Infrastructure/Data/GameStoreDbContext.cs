@@ -15,7 +15,6 @@ public class GameStoreDbContext : DbContext
     public DbSet<Platform> Platforms => Set<Platform>();
     public DbSet<GameGenre> GameGenres => Set<GameGenre>();
     public DbSet<GamePlatform> GamePlatforms => Set<GamePlatform>();
-    public DbSet<Publisher> Publishers => Set<Publisher>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -72,16 +71,5 @@ public class GameStoreDbContext : DbContext
                   .WithMany(p => p.Games)
                   .HasForeignKey(gp => gp.PlatformId);
         });
-
-        modelBuilder.Entity<Publisher>(entity =>
-        {
-            entity.HasIndex(p => p.CompanyName).IsUnique();
-        });
-
-        modelBuilder.Entity<Game>()
-            .HasOne(g => g.Publisher)
-            .WithMany(p => p.Games)
-            .HasForeignKey(g => g.PublisherId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }
