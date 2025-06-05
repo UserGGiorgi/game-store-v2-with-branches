@@ -5,6 +5,7 @@ using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
 using GameStore.Infrastructure.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,16 @@ namespace Gamestore.Test.Application.Services
     {
         private readonly Mock<IUnitOfWork> _mockUnitOfWork = new();
         private readonly Mock<IMapper> _mockMapper = new();
+        private readonly Mock<ILogger<PlatformService>> _mockLogger;
         private readonly PlatformService _platformService;
 
         public PlatformServiceTests()
         {
+            _mockLogger = new Mock<ILogger<PlatformService>>();
             _platformService = new PlatformService(
                 unitOfWork: _mockUnitOfWork.Object,
-                mapper: _mockMapper.Object
+                mapper: _mockMapper.Object,
+                logger: _mockLogger.Object
             );
         }
 
@@ -76,7 +80,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.PlatformRepository.AddAsync(It.IsAny<Platform>()))
                 .Callback<Platform>(p => p.Id = newPlatform.Id);  // Simulate ID assignment
 
-            _mockUnitOfWork.Setup(u => u.CommitAsync())
+            _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);
 
             _mockMapper.Setup(m => m.Map<PlatformResponseDto>(It.Is<Platform>(p =>
@@ -97,7 +101,7 @@ namespace Gamestore.Test.Application.Services
                     p.Type == request.Platform.Type)),
                 Times.Once);
 
-            _mockUnitOfWork.Verify(u => u.CommitAsync(), Times.Once);
+            _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
         }
         [Fact]
         public async Task GetPlatformByIdAsync_ReturnsPlatform_WhenPlatformExists()
@@ -338,7 +342,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetByIdAsync(platformId))
                 .ReturnsAsync(platform);
 
-            _mockUnitOfWork.Setup(u => u.CommitAsync())
+            _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);
 
             // Act
@@ -349,7 +353,7 @@ namespace Gamestore.Test.Application.Services
                 u.PlatformRepository.Delete(platform), Times.Once);
 
             _mockUnitOfWork.Verify(u =>
-                u.CommitAsync(), Times.Once);
+                u.SaveChangesAsync(), Times.Once);
         }
     }
 }

@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameStore.Domain.Exceptions;
+using GameStore.Web.Controller;
+using Microsoft.Extensions.Logging;
 
 namespace Gamestore.Test.Application.Services
 {
@@ -19,12 +21,14 @@ namespace Gamestore.Test.Application.Services
         private readonly Mock<IUnitOfWork> _mockUnitOfWork;
         private readonly Mock<IMapper> _mockMapper;
         private readonly GameService _gameService;
+        public Mock<ILogger<GameService>> _mockLogger { get; }
 
         public GameServiceTests()
         {
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _mockMapper = new Mock<IMapper>();
-            _gameService = new GameService(_mockUnitOfWork.Object, _mockMapper.Object);
+            _mockLogger = new Mock<ILogger<GameService>>();
+            _gameService = new GameService(_mockUnitOfWork.Object, _mockMapper.Object, _mockLogger.Object);
         }
 
         [Fact]
@@ -140,7 +144,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
                 .ReturnsAsync(new List<Platform> { validPlatform });
 
-            _mockUnitOfWork.Setup(u => u.CommitAsync())
+            _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);
 
             var result = await _gameService.CreateGameAsync(request);
@@ -158,7 +162,7 @@ namespace Gamestore.Test.Application.Services
                 g.Platforms.Count == 1)),
                 Times.Once);
 
-            _mockUnitOfWork.Verify(u => u.CommitAsync(), Times.Once);
+            _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
         }
 
         [Fact]
@@ -187,7 +191,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
                 .ReturnsAsync(validPlatforms);
 
-            _mockUnitOfWork.Setup(u => u.CommitAsync())
+            _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);
 
             var result = await _gameService.CreateGameAsync(request);

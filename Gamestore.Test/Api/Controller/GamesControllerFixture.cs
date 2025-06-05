@@ -19,7 +19,7 @@ namespace Gamestore.Test.Api.Controller
         public Mock<IGameService> MockGameService { get; }
         public Mock<IValidator<CreateGameRequestDto>> MockCreateValidator { get; }
         public Mock<IValidator<UpdateGameRequestDto>> MockUpdateValidator { get; }
-        public Mock<ILogger<GamesController>> MockLogger { get; }
+        public Mock<ILogger<GamesController>> _mockLogger { get; }
 
         public GamesController Controller { get; }
 
@@ -40,13 +40,13 @@ namespace Gamestore.Test.Api.Controller
             MockGameService = new Mock<IGameService>();
             MockCreateValidator = new Mock<IValidator<CreateGameRequestDto>>();
             MockUpdateValidator = new Mock<IValidator<UpdateGameRequestDto>>();
-            MockLogger = new Mock<ILogger<GamesController>>();
+            _mockLogger = new Mock<ILogger<GamesController>>();
 
             Controller = new GamesController(
                 MockGameService.Object,
                 MockCreateValidator.Object,
                 MockUpdateValidator.Object,
-                MockLogger.Object
+                _mockLogger.Object
             );
         }
 

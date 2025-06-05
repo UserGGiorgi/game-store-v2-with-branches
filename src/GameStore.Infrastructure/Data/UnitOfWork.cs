@@ -16,29 +16,22 @@ namespace GameStore.Infrastructure.Data
         Lazy<IPlatformRepository> platformRepository)
         : IUnitOfWork
     {
-        private bool _disposed;
-
+        private IDbContextTransaction _transaction = null!;
         public IGameRepository GameRepository => gameRepository.Value;
 
         public IGenreRepository GenreRepository => genreRepository.Value;
 
         public IPlatformRepository PlatformRepository => platformRepository.Value;
+        public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
+        => _transaction = await context.Database.BeginTransactionAsync(cancellationToken);
 
-        public async Task<int> CommitAsync() => await context.SaveChangesAsync();
+        public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
+            => await _transaction.CommitAsync(cancellationToken);
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
+            => await _transaction.RollbackAsync(cancellationToken);
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-            {
-                context.Dispose();
-            }
-            _disposed = true;
-        }
+        public async Task<int> SaveChangesAsync() => await context.SaveChangesAsync();
+
     }
 }

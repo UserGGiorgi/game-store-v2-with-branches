@@ -16,6 +16,7 @@ using GameStore.Shared.Middleware;
 using GameStore.Api.Configuration;
 using Microsoft.AspNetCore.Http.Features;
 using GameStore.Shared.Configuration;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 

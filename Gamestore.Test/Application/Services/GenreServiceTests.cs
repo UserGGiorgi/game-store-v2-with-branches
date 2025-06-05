@@ -5,6 +5,8 @@ using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
 using GameStore.Infrastructure.Services;
+using GameStore.Web.Controller;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -18,11 +20,13 @@ namespace Gamestore.Test.Application.Services
     {
         private readonly Mock<IUnitOfWork> _mockUnitOfWork = new();
         private readonly Mock<IMapper> _mockMapper = new();
+        public Mock<ILogger<GenreService>> _mockLogger { get; }
         private readonly GenreService _genreService;
 
         public GenreServiceTests()
         {
-            _genreService = new GenreService(_mockUnitOfWork.Object, _mockMapper.Object);
+            _mockLogger = new Mock<ILogger<GenreService>>();
+            _genreService = new GenreService(_mockUnitOfWork.Object, _mockMapper.Object, _mockLogger.Object);
         }
 
         [Fact]
@@ -109,7 +113,7 @@ namespace Gamestore.Test.Application.Services
                     g.Id = expectedGenre.Id; // Simulate ID generation
                 });
 
-            _mockUnitOfWork.Setup(u => u.CommitAsync())
+            _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);
 
             _mockMapper.Setup(m => m.Map<GenreResponseDto>(It.IsAny<Genre>()))
@@ -131,7 +135,7 @@ namespace Gamestore.Test.Application.Services
                     g.ParentGenreId == parentId)),
                 Times.Once);
 
-            _mockUnitOfWork.Verify(u => u.CommitAsync(), Times.Once);
+            _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
         }
 
         [Fact]
@@ -169,7 +173,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.GenreRepository.AddAsync(It.IsAny<Genre>()))
                 .Callback<Genre>(g => g.Id = expectedGenre.Id);
 
-            _mockUnitOfWork.Setup(u => u.CommitAsync())
+            _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);
 
             _mockMapper.Setup(m => m.Map<GenreResponseDto>(It.Is<Genre>(g =>
@@ -513,7 +517,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.GenreRepository.IsAttachedToGamesAsync(genreId))
                 .ReturnsAsync(false);
 
-            _mockUnitOfWork.Setup(u => u.CommitAsync())
+            _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);
 
             // Act
@@ -524,7 +528,7 @@ namespace Gamestore.Test.Application.Services
                 u.GenreRepository.Delete(genre), Times.Once);
 
             _mockUnitOfWork.Verify(u =>
-                u.CommitAsync(), Times.Once);
+                u.SaveChangesAsync(), Times.Once);
         }
     }
 }
