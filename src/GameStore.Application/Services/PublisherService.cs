@@ -35,7 +35,7 @@ namespace GameStore.Application.Services
             _logger = logger;
         }
 
-        public async Task<PublisherResponseDto> CreatePublisherAsync(CreatePublisherDto createPublisherDto)
+        public async Task<PublisherResponseDto> CreatePublisherAsync(CreatePublisherRequestDto createPublisherDto)
         {
             _logger.LogInformation("Creating publisher: {CompanyName}", createPublisherDto.publisher.CompanyName);
 
@@ -56,6 +56,12 @@ namespace GameStore.Application.Services
         }
         public async Task<PublisherResponseDto> GetPublisherByCompanyNameAsync(string companyName)
         {
+            if (string.IsNullOrWhiteSpace(companyName))
+            {
+                _logger.LogWarning("GetPublisherByCompanyName called with empty company name");
+                throw new BadRequestException("Company name cannot be empty.");
+            }
+
             _logger.LogInformation("Retrieving publisher by company name: {CompanyName}", companyName);
 
             var publisher = await _unitOfWork.PublisherRepository.GetByCompanyNameAsync(companyName);
@@ -64,7 +70,7 @@ namespace GameStore.Application.Services
                 _logger.LogWarning("Publisher not found: {CompanyName}", companyName);
                 throw new NotFoundException("Publisher not found.");
             }
-
+            _logger.LogInformation("Successfully retrieved publisher: {CompanyName} (ID: {Id})",publisher.CompanyName, publisher.Id);
             return _mapper.Map<PublisherResponseDto>(publisher);
         }
 
@@ -143,15 +149,38 @@ namespace GameStore.Application.Services
                 publisher.CompanyName, publisher.Id);
         }
 
-        public Task<PublisherResponseDto> GetPublisherByIdAsync(Guid id)
+        public async Task<PublisherResponseDto> GetPublisherByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation("Retrieving publisher by ID: {PublisherId}", id);
+
+            var publisher = await _unitOfWork.PublisherRepository.GetByIdAsync(id);
+            if (publisher == null)
+            {
+                _logger.LogWarning("Publisher not found: {PublisherId}", id);
+                throw new NotFoundException($"Publisher with ID {id} not found.");
+            }
+
+            _logger.LogInformation("Successfully retrieved publisher: {CompanyName} (ID: {PublisherId})",
+                publisher.CompanyName, publisher.Id);
+
+            return _mapper.Map<PublisherResponseDto>(publisher);
         }
 
-        public Task<IEnumerable<GameResponseDto>> GetGamesByPublisherNameAsync(string companyName)
+        public async Task<IEnumerable<GameResponseDto>> GetGamesByPublisherNameAsync(string companyName)
         {
-            throw new NotImplementedException();
+            var publisherExists = await _unitOfWork.PublisherRepository.ExistsByCompanyNameAsync(companyName);
+            if (!publisherExists)
+            {
+                _logger.LogWarning("Publisher not found: {CompanyName}", companyName);
+                throw new NotFoundException($"Publisher with company name '{companyName}' not found.");
+            }
+
+            var games = await _unitOfWork.PublisherRepository.GetGamesByPublisherNameAsync(companyName);
+
+            _logger.LogInformation("Found {GameCount} games for publisher: {CompanyName}",
+                games.Count(), companyName);
+
+            return _mapper.Map<IEnumerable<GameResponseDto>>(games);
         }
     }
-
 }

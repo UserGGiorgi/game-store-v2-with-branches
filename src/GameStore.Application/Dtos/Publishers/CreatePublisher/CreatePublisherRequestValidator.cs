@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Application.Dtos.Publishers.CreatePublisher
 {
-    public class CreatePublisherRequestValidator : AbstractValidator<CreatePublisherDto>
+    public class CreatePublisherRequestValidator : AbstractValidator<CreatePublisherRequestDto>
     {
         public CreatePublisherRequestValidator()
         {

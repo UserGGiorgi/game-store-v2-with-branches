@@ -26,7 +26,7 @@ namespace GameStore.Application.Mapping
 
             CreateMap<Platform, PlatformResponseDto>();
 
-            CreateMap<CreatePublisherDto, Publisher>();
+            CreateMap<CreatePublisherRequestDto, Publisher>();
             CreateMap<Publisher, PublisherResponseDto>();
 
             CreateMap<UpdatePublisherDto, Publisher>();

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Application.Dtos.Publishers.CreatePublisher
 {
-    public class CreatePublisherDto
+    public class CreatePublisherRequestDto
     {
         public PublisherDto publisher { get; set; } = new();
     }
