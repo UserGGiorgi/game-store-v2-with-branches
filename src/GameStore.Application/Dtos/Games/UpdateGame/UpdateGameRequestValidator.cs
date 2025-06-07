@@ -18,6 +18,9 @@ namespace GameStore.Application.Dtos.Games.UpdateGames
             RuleFor(x => x.Platforms)
                 .NotEmpty().WithMessage("At least one platform is required.")
                 .ForEach(id => id.NotEmpty().WithMessage("Platform ID cannot be empty."));
+
+            RuleFor(x => x.Publisher)
+                .NotEmpty().WithMessage("Publisher is required.");
         }
     }
 
@@ -40,6 +43,15 @@ namespace GameStore.Application.Dtos.Games.UpdateGames
             RuleFor(x => x.Description)
                 .MaximumLength(500).WithMessage("Description cannot exceed 500 characters.")
                 .When(x => !string.IsNullOrEmpty(x.Description));
+
+            RuleFor(x => x.Price)
+                .GreaterThanOrEqualTo(0).WithMessage("Price cannot be negative.");
+
+            RuleFor(x => x.UnitInStock)
+                .GreaterThanOrEqualTo(0).WithMessage("Unit in stock cannot be negative.");
+
+            RuleFor(x => x.Discount)
+                .InclusiveBetween(0, 100).WithMessage("Discount must be between 0 and 100 percent.");
         }
     }
 }

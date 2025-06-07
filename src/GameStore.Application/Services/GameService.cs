@@ -36,6 +36,13 @@ public class GameService : IGameService
     {
         _logger.LogInformation("Starting game creation process for game key: {GameKey}", request.Game.Key);
 
+        var publisher = await _unitOfWork.PublisherRepository.GetByIdAsync(request.Publisher);
+        if (publisher == null)
+        {
+            _logger.LogWarning("Game creation failed - invalid publisher ID: {PublisherId}", request.Publisher);
+            throw new BadRequestException("Specified publisher does not exist.");
+        }
+
         var existingGame = await _unitOfWork.GameRepository.GetByKeyAsync(request.Game.Key);
         if (existingGame != null)
         {
@@ -67,11 +74,15 @@ public class GameService : IGameService
         }
         var game = new Game
         {
-            Id = Guid.NewGuid(),
             Name = request.Game.Name,
             Key = request.Game.Key,
-            Description = request.Game.Description
+            Description = request.Game.Description,
+            Price = request.Game.Price,
+            UnitInStock = request.Game.UnitInStock,
+            Discount = request.Game.Discount,
+            PublisherId = request.Publisher
         };
+
         _logger.LogDebug("Creating game entity with ID: {GameId}", game.Id);
         foreach (var genre in validGenres)
         {
@@ -99,12 +110,7 @@ public class GameService : IGameService
             throw;
         }
 
-        return new GameDto
-        {
-            Name = game.Name,
-            Key = game.Key,
-            Description = game.Description
-        };
+        return _mapper.Map<GameDto>(game);
     }
 
     public async Task<GameResponseDto?> GetGameByKeyAsync(string key)

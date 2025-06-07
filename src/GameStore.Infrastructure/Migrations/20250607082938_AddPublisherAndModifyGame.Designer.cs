@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStore.Infrastructure.Migrations
 {
     [DbContext(typeof(GameStoreDbContext))]
-    [Migration("20250528123351_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250607082938_AddPublisherAndModifyGame")]
+    partial class AddPublisherAndModifyGame
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace GameStore.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Discount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Key")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -43,10 +46,21 @@ namespace GameStore.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("PublisherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UnitInStock")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Key")
                         .IsUnique();
+
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Games");
                 });
@@ -124,6 +138,41 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("Platforms");
                 });
 
+            modelBuilder.Entity("GameStore.Domain.Entities.Publisher", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomePage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyName")
+                        .IsUnique();
+
+                    b.ToTable("Publishers");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.Game", b =>
+                {
+                    b.HasOne("GameStore.Domain.Entities.Publisher", "Publisher")
+                        .WithMany("Games")
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Publisher");
+                });
+
             modelBuilder.Entity("GameStore.Domain.Entities.GameGenre", b =>
                 {
                     b.HasOne("GameStore.Domain.Entities.Game", "Game")
@@ -187,6 +236,11 @@ namespace GameStore.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("GameStore.Domain.Entities.Platform", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.Publisher", b =>
                 {
                     b.Navigation("Games");
                 });

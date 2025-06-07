@@ -13,13 +13,15 @@ namespace GameStore.Infrastructure.Data
         GameStoreDbContext context,
         Lazy<IGameRepository> gameRepository,
         Lazy<IGenreRepository> genreRepository,
-        Lazy<IPlatformRepository> platformRepository)
+        Lazy<IPlatformRepository> platformRepository,
+        Lazy<IPublisherRepository> publisherRepository)
         : IUnitOfWork
     {
         private IDbContextTransaction _transaction = null!;
         public IGameRepository GameRepository => gameRepository.Value;
 
         public IGenreRepository GenreRepository => genreRepository.Value;
+        public IPublisherRepository PublisherRepository => publisherRepository.Value;
 
         public IPlatformRepository PlatformRepository => platformRepository.Value;
         public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)

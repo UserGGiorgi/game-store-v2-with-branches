@@ -46,10 +46,12 @@ builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
+builder.Services.AddScoped<IPublisherService, PublisherService>();
 
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
+builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -62,6 +64,8 @@ builder.Services.AddScoped(provider => new Lazy<IGenreRepository>(
 builder.Services.AddScoped(provider => new Lazy<IPlatformRepository>(
     () => provider.GetRequiredService<IPlatformRepository>()));
 
+builder.Services.AddScoped(provider => new Lazy<IPublisherRepository>(
+    () => provider.GetRequiredService<PublisherRepository>()));
 
 builder.Services.AddCors(options =>
 {

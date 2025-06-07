@@ -6,6 +6,11 @@ public class Game
     public required string Name { get; set; }
     public required string Key { get; set; }
     public string? Description { get; set; }
+    public double Price { get; set; }
+    public int UnitInStock { get; set; }
+    public int Discount { get; set; }
+    public Guid PublisherId { get; set; }
+    public Publisher Publisher { get; set; } = null!;
 
     public ICollection<GameGenre> Genres { get; set; } = new List<GameGenre>();
     public ICollection<GamePlatform> Platforms { get; set; } = new List<GamePlatform>();
