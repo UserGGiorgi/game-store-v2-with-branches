@@ -83,7 +83,7 @@ public class GamesController : ControllerBase
         return Ok(game);
     }
 
-    [HttpGet("id/{id}")]
+    [HttpGet("find/{id}")]
     [ProducesResponseType(typeof(GameResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(
@@ -104,27 +104,27 @@ public class GamesController : ControllerBase
         return Ok(game);
     }
 
-    [HttpGet("platform/{platformId}")]
+    [HttpGet("platform/{id}/games")]
     [ProducesResponseType(typeof(IEnumerable<GameResponseDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByPlatform(
-        Guid platformId,
+        Guid id,
         CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Fetching games by platform ID: {PlatformId}", platformId);
+        _logger.LogInformation("Fetching games by platform ID: {PlatformId}", id);
 
-        var games = await _gameService.GetGamesByPlatformAsync(platformId);
+        var games = await _gameService.GetGamesByPlatformAsync(id);
 
         return Ok(games);
     }
 
-    [HttpGet("genre/{genreId}")]
+    [HttpGet("genre/{id}/games")]
     [ProducesResponseType(typeof(IEnumerable<GameResponseDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByGenre(
-        Guid genreId,
+        Guid id,
         CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Fetching games by genre ID: {GenreId}", genreId);
-        var games = await _gameService.GetGamesByGenreAsync(genreId);
+        _logger.LogInformation("Fetching games by genre ID: {GenreId}", id);
+        var games = await _gameService.GetGamesByGenreAsync(id);
         return Ok(games);
     }
 

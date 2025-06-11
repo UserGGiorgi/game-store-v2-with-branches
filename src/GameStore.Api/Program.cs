@@ -65,7 +65,7 @@ builder.Services.AddScoped(provider => new Lazy<IPlatformRepository>(
     () => provider.GetRequiredService<IPlatformRepository>()));
 
 builder.Services.AddScoped(provider => new Lazy<IPublisherRepository>(
-    () => provider.GetRequiredService<PublisherRepository>()));
+    () => provider.GetRequiredService<IPublisherRepository>()));
 
 builder.Services.AddCors(options =>
 {
@@ -79,6 +79,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
 app.UseMiddleware<RequestLoggingMiddleware>();
@@ -91,7 +92,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

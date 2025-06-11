@@ -192,17 +192,10 @@ namespace GameStore.Infrastructure.Services
                 throw new BadRequestException("Genre cannot be its own parent");
             }
 
-            var current = await _unitOfWork.GenreRepository.GetByIdAsync(parentGenreId);
-            while (current != null)
+            if (await _unitOfWork.GenreRepository.IsCircularHierarchyAsync(currentGenreId, parentGenreId))
             {
-                if (current.ParentGenreId == currentGenreId)
-                {
-                    _logger.LogWarning("Circular hierarchy detected for genre: {GenreId}", currentGenreId);
-                    throw new BadRequestException("Circular genre hierarchy detected");
-                }
-                current = current.ParentGenreId.HasValue
-                    ? await _unitOfWork.GenreRepository.GetByIdAsync(current.ParentGenreId.Value)
-                    : null;
+                _logger.LogWarning("Circular hierarchy detected for genre: {GenreId}", currentGenreId);
+                throw new BadRequestException("Circular genre hierarchy detected");
             }
 
             if (!await _unitOfWork.GenreRepository.ExistsAsync(parentGenreId))

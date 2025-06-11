@@ -70,31 +70,31 @@ namespace GameStore.Api.Controllers
             }
         }
 
-        [HttpGet("Name/{companyName}")]
+        [HttpGet("games/{key}/publisher")]
         [ProducesResponseType(typeof(PublisherResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetPublisherByCompanyName(string companyName)
+        public async Task<IActionResult> GetPublisherByGameKey(string key)
         {
-            _logger.LogInformation("Fetching publisher by name: {CompanyName}", companyName);
+            _logger.LogInformation("Retrieving publisher for game key: {GameKey}", key);
 
             try
             {
-                var publisher = await _publisherService.GetPublisherByCompanyNameAsync(companyName);
-                _logger.LogInformation("Retrieved publisher: {CompanyName} (ID: {Id})",
-                    publisher.CompanyName, publisher.Id);
+                var publisher = await _publisherService.GetPublisherByGameKeyAsync(key);
+                _logger.LogInformation("Retrieved publisher for game key: {GameKey} (Publisher ID: {Id})",
+                    key, publisher.Id);
 
                 return Ok(publisher);
             }
             catch (NotFoundException ex)
             {
-                _logger.LogWarning(ex, "Publisher not found: {CompanyName}", companyName);
+                _logger.LogWarning(ex, "Publisher not found for game key: {GameKey}", key);
                 return NotFound(ex.Message);
             }
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PublisherResponseDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllPublishers()
+        public async Task<IActionResult> GetAllPublishers()//user story 4
         {
             _logger.LogInformation("Fetching all publishers");
             var publishers = await _publisherService.GetAllPublishersAsync();

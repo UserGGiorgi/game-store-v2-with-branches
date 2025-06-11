@@ -1,6 +1,8 @@
 ﻿using GameStore.Domain.Entities;
 using GameStore.Domain.Interfaces.Repositories;
 using GameStore.Infrastructure.Data.Repository;
+using GameStore.Shared.Helpers;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -38,4 +40,34 @@ public class GenreRepository : GenericRepository<Genre>, IGenreRepository
 
     public async Task<bool> IsAttachedToGamesAsync(Guid genreId)
         => await _context.GameGenres.AnyAsync(gg => gg.GenreId == genreId);
+    public async Task<bool> IsCircularHierarchyAsync(Guid genreId, Guid parentGenreId)
+    {
+        var query = @"
+        WITH GenreHierarchy AS (
+        SELECT Id, ParentGenreId
+        FROM Genres
+        WHERE Id = @parentGenreId
+        
+        UNION ALL
+        
+        SELECT g.Id, g.ParentGenreId
+        FROM Genres g
+        INNER JOIN GenreHierarchy gh ON g.Id = gh.ParentGenreId
+        )
+        SELECT COUNT(*) AS Count
+        FROM GenreHierarchy
+        WHERE Id = @genreId";
+
+        var parameters = new[]
+        {
+        new SqlParameter("@parentGenreId", parentGenreId),
+        new SqlParameter("@genreId", genreId)
+    };
+
+        var result = await _context.Database
+            .SqlQueryRaw<HierarchyCheckResult>(query, parameters)
+            .FirstOrDefaultAsync();
+
+        return result?.Count > 0;
+    }
 }

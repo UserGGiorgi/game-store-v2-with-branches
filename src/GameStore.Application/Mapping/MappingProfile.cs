@@ -29,6 +29,9 @@ namespace GameStore.Application.Mapping
             CreateMap<CreatePublisherRequestDto, Publisher>();
             CreateMap<Publisher, PublisherResponseDto>();
 
+            CreateMap<PublisherDto, Publisher>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Games, opt => opt.Ignore());
             CreateMap<UpdatePublisherDto, Publisher>();
 
         }

@@ -1,0 +1,224 @@
+2025-06-11 11:25:40.464 +04:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-06-11 11:28:46.540 +04:00 [INF] Starting request: GET /swagger from ::1
+2025-06-11 11:28:48.028 +04:00 [INF] Completed request: GET /swagger - Status: 301 - Time: 1492ms
+2025-06-11 11:28:48.044 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-11 11:28:48.096 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 52ms
+2025-06-11 11:28:48.126 +04:00 [INF] Starting request: GET /swagger/index.css from ::1
+2025-06-11 11:28:48.126 +04:00 [INF] Starting request: GET /swagger/swagger-ui-standalone-preset.js from ::1
+2025-06-11 11:28:48.127 +04:00 [INF] Starting request: GET /swagger/swagger-ui.css from ::1
+2025-06-11 11:28:48.128 +04:00 [INF] Starting request: GET /swagger/index.js from ::1
+2025-06-11 11:28:48.126 +04:00 [INF] Starting request: GET /swagger/swagger-ui-bundle.js from ::1
+2025-06-11 11:28:48.140 +04:00 [INF] Completed request: GET /swagger/index.js - Status: 200 - Time: 13ms
+2025-06-11 11:28:48.155 +04:00 [INF] Completed request: GET /swagger/index.css - Status: 200 - Time: 28ms
+2025-06-11 11:28:48.185 +04:00 [INF] Completed request: GET /swagger/swagger-ui-standalone-preset.js - Status: 200 - Time: 58ms
+2025-06-11 11:28:48.185 +04:00 [INF] Completed request: GET /swagger/swagger-ui.css - Status: 200 - Time: 58ms
+2025-06-11 11:28:48.196 +04:00 [INF] Completed request: GET /swagger/swagger-ui-bundle.js - Status: 200 - Time: 70ms
+2025-06-11 11:28:48.355 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-11 11:28:48.356 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-11 11:28:48.440 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 11:28:48.448 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-11 11:28:48.449 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-11 11:28:48.519 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 79ms
+2025-06-11 11:31:30.656 +04:00 [INF] Starting request: GET /swagger from ::1
+2025-06-11 11:31:31.344 +04:00 [INF] Completed request: GET /swagger - Status: 301 - Time: 690ms
+2025-06-11 11:31:31.353 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-11 11:31:31.382 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 29ms
+2025-06-11 11:31:31.399 +04:00 [INF] Starting request: GET /swagger/swagger-ui-bundle.js from ::1
+2025-06-11 11:31:31.399 +04:00 [INF] Starting request: GET /swagger/index.js from ::1
+2025-06-11 11:31:31.399 +04:00 [INF] Starting request: GET /swagger/swagger-ui.css from ::1
+2025-06-11 11:31:31.399 +04:00 [INF] Starting request: GET /swagger/swagger-ui-standalone-preset.js from ::1
+2025-06-11 11:31:31.399 +04:00 [INF] Starting request: GET /swagger/index.css from ::1
+2025-06-11 11:31:31.403 +04:00 [INF] Completed request: GET /swagger/index.js - Status: 200 - Time: 3ms
+2025-06-11 11:31:31.416 +04:00 [INF] Completed request: GET /swagger/index.css - Status: 200 - Time: 16ms
+2025-06-11 11:31:31.428 +04:00 [INF] Completed request: GET /swagger/swagger-ui.css - Status: 200 - Time: 28ms
+2025-06-11 11:31:31.428 +04:00 [INF] Completed request: GET /swagger/swagger-ui-standalone-preset.js - Status: 200 - Time: 28ms
+2025-06-11 11:31:31.444 +04:00 [INF] Completed request: GET /swagger/swagger-ui-bundle.js - Status: 200 - Time: 44ms
+2025-06-11 11:31:31.595 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-11 11:31:31.595 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-11 11:31:31.629 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 11:31:31.648 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 18ms
+2025-06-11 11:35:39.780 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 11:35:40.522 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 744ms
+2025-06-11 11:35:55.481 +04:00 [INF] Starting request: GET /api/Publisher from ::1
+2025-06-11 11:35:55.618 +04:00 [INF] Fetching all publishers
+2025-06-11 11:35:55.620 +04:00 [INF] Retrieving all publishers
+2025-06-11 11:41:07.646 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 11:41:08.369 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 725ms
+2025-06-11 11:41:20.393 +04:00 [INF] Starting request: GET /api/Publisher from ::1
+2025-06-11 11:41:20.506 +04:00 [INF] Fetching all publishers
+2025-06-11 11:41:20.507 +04:00 [INF] Retrieving all publishers
+2025-06-11 11:41:20.625 +04:00 [INF] Retrieved 0 publishers
+2025-06-11 11:41:20.637 +04:00 [INF] Completed request: GET /api/Publisher - Status: 200 - Time: 243ms
+2025-06-11 12:50:00.424 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 12:50:01.192 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 770ms
+2025-06-11 12:50:06.576 +04:00 [INF] Starting request: GET /api/Publisher from ::1
+2025-06-11 12:50:06.703 +04:00 [INF] Fetching all publishers
+2025-06-11 12:50:06.705 +04:00 [INF] Retrieving all publishers
+2025-06-11 12:50:06.818 +04:00 [INF] Retrieved 0 publishers
+2025-06-11 12:50:06.831 +04:00 [INF] Completed request: GET /api/Publisher - Status: 200 - Time: 254ms
+2025-06-11 12:50:30.964 +04:00 [INF] Starting request: POST /api/Publisher from ::1
+2025-06-11 12:50:31.043 +04:00 [INF] Creating new publisher: EPICGAMES
+2025-06-11 12:50:31.061 +04:00 [WRN] Validation failed for publisher creation: ["Home page must be a valid URL."]
+2025-06-11 12:50:31.067 +04:00 [INF] Completed request: POST /api/Publisher - Status: 400 - Time: 103ms
+2025-06-11 12:50:56.376 +04:00 [INF] Starting request: POST /api/Publisher from ::1
+2025-06-11 12:50:56.386 +04:00 [INF] Creating new publisher: EPICGAMES
+2025-06-11 12:50:56.388 +04:00 [INF] Creating publisher: EPICGAMES
+2025-06-11 12:50:56.660 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+PublisherDto -> Publisher
+GameStore.Application.Dtos.Publishers.GetPublisher.PublisherDto -> GameStore.Domain.Entities.Publisher
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+PublisherDto -> Publisher
+GameStore.Application.Dtos.Publishers.GetPublisher.PublisherDto -> GameStore.Domain.Entities.Publisher
+   at lambda_method36(Closure, Object, Publisher, ResolutionContext)
+   at GameStore.Application.Services.PublisherService.CreatePublisherAsync(CreatePublisherRequestDto createPublisherDto) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 48
+   at GameStore.Api.Controllers.PublisherController.CreatePublisher(CreatePublisherRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublisherController.cs:line 55
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 12:50:56.724 +04:00 [INF] Completed request: POST /api/Publisher - Status: 500 - Time: 347ms
+2025-06-11 12:55:33.674 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 12:55:34.424 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 752ms
+2025-06-11 12:55:54.981 +04:00 [INF] Starting request: POST /api/Publisher from ::1
+2025-06-11 12:56:05.093 +04:00 [INF] Creating new publisher: string
+2025-06-11 12:56:10.829 +04:00 [INF] Creating publisher: string
+2025-06-11 12:56:10.979 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+PublisherDto -> Publisher
+GameStore.Application.Dtos.Publishers.GetPublisher.PublisherDto -> GameStore.Domain.Entities.Publisher
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+PublisherDto -> Publisher
+GameStore.Application.Dtos.Publishers.GetPublisher.PublisherDto -> GameStore.Domain.Entities.Publisher
+   at lambda_method25(Closure, Object, Publisher, ResolutionContext)
+   at GameStore.Application.Services.PublisherService.CreatePublisherAsync(CreatePublisherRequestDto createPublisherDto) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 48
+   at GameStore.Api.Controllers.PublisherController.CreatePublisher(CreatePublisherRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublisherController.cs:line 55
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 12:56:11.005 +04:00 [INF] Completed request: POST /api/Publisher - Status: 500 - Time: 16023ms
+2025-06-11 12:58:54.227 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 12:58:55.012 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 787ms
+2025-06-11 12:59:25.552 +04:00 [INF] Starting request: POST /api/Publisher from ::1
+2025-06-11 12:59:27.534 +04:00 [INF] Creating new publisher: string
+2025-06-11 12:59:27.555 +04:00 [INF] Creating publisher: string
+2025-06-11 12:59:27.892 +04:00 [INF] Publisher created successfully: string (ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-11 12:59:27.894 +04:00 [INF] Publisher created: string (ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-11 12:59:27.928 +04:00 [INF] Completed request: POST /api/Publisher - Status: 201 - Time: 2375ms
+2025-06-11 12:59:41.121 +04:00 [INF] Starting request: POST /api/Publisher from ::1
+2025-06-11 12:59:44.749 +04:00 [INF] Creating new publisher: @@@string
+2025-06-11 12:59:44.749 +04:00 [INF] Creating publisher: @@@string
+2025-06-11 12:59:44.763 +04:00 [INF] Publisher created successfully: @@@string (ID: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563")
+2025-06-11 12:59:44.763 +04:00 [INF] Publisher created: @@@string (ID: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563")
+2025-06-11 12:59:44.764 +04:00 [INF] Completed request: POST /api/Publisher - Status: 201 - Time: 3642ms
+2025-06-11 13:00:03.444 +04:00 [INF] Starting request: GET /api/Publisher from ::1
+2025-06-11 13:00:03.459 +04:00 [INF] Fetching all publishers
+2025-06-11 13:00:03.460 +04:00 [INF] Retrieving all publishers
+2025-06-11 13:00:03.514 +04:00 [INF] Retrieved 2 publishers
+2025-06-11 13:00:03.514 +04:00 [INF] Completed request: GET /api/Publisher - Status: 200 - Time: 70ms
+2025-06-11 13:01:27.573 +04:00 [INF] Starting request: PUT /api/Publisher from ::1
+2025-06-11 13:01:27.590 +04:00 [INF] Updating publisher: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563"
+2025-06-11 13:01:27.598 +04:00 [WRN] Validation failed for publisher update: ["Home page must be a valid URL."]
+2025-06-11 13:01:27.601 +04:00 [INF] Completed request: PUT /api/Publisher - Status: 400 - Time: 28ms
+2025-06-11 13:01:44.522 +04:00 [INF] Starting request: PUT /api/Publisher from ::1
+2025-06-11 13:01:44.523 +04:00 [INF] Updating publisher: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563"
+2025-06-11 13:01:44.526 +04:00 [INF] Updating publisher: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563"
+2025-06-11 13:01:44.569 +04:00 [INF] Publisher updated successfully: string12 (ID: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563")
+2025-06-11 13:01:44.569 +04:00 [INF] Publisher updated: string12 (ID: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563")
+2025-06-11 13:01:44.569 +04:00 [INF] Completed request: PUT /api/Publisher - Status: 200 - Time: 47ms
+2025-06-11 13:01:53.588 +04:00 [INF] Starting request: GET /api/Publisher from ::1
+2025-06-11 13:01:53.589 +04:00 [INF] Fetching all publishers
+2025-06-11 13:01:53.589 +04:00 [INF] Retrieving all publishers
+2025-06-11 13:01:53.595 +04:00 [INF] Retrieved 2 publishers
+2025-06-11 13:01:53.596 +04:00 [INF] Completed request: GET /api/Publisher - Status: 200 - Time: 8ms
+2025-06-11 13:02:13.890 +04:00 [INF] Starting request: GET /api/Publisher/Name/string12 from ::1
+2025-06-11 13:02:13.905 +04:00 [INF] Fetching publisher by name: string12
+2025-06-11 13:02:13.906 +04:00 [INF] Retrieving publisher by company name: string12
+2025-06-11 13:02:13.914 +04:00 [INF] Successfully retrieved publisher: string12 (ID: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563")
+2025-06-11 13:02:13.915 +04:00 [INF] Retrieved publisher: string12 (ID: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563")
+2025-06-11 13:02:13.915 +04:00 [INF] Completed request: GET /api/Publisher/Name/string12 - Status: 200 - Time: 25ms
+2025-06-11 13:02:26.487 +04:00 [INF] Starting request: GET /api/Publisher/string12 from ::1
+2025-06-11 13:02:26.497 +04:00 [INF] Fetching publisher by name: string12
+2025-06-11 13:02:26.497 +04:00 [INF] Retrieving publisher by company name: string12
+2025-06-11 13:02:26.500 +04:00 [INF] Successfully retrieved publisher: string12 (ID: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563")
+2025-06-11 13:02:26.501 +04:00 [INF] Retrieved publisher: string12 (ID: "bb1d25f7-2c3c-44a0-5a79-08dda8c64563")
+2025-06-11 13:02:26.501 +04:00 [INF] Completed request: GET /api/Publisher/string12 - Status: 200 - Time: 13ms
+2025-06-11 13:15:13.110 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 13:15:13.811 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 703ms
+2025-06-11 13:26:00.146 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 13:26:00.849 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 707ms
+2025-06-11 13:26:08.402 +04:00 [INF] Starting request: GET /api/Publisher from ::1
+2025-06-11 13:26:08.522 +04:00 [INF] Fetching all publishers
+2025-06-11 13:26:08.523 +04:00 [INF] Retrieving all publishers
+2025-06-11 13:26:08.706 +04:00 [INF] Retrieved 2 publishers
+2025-06-11 13:26:08.732 +04:00 [INF] Completed request: GET /api/Publisher - Status: 200 - Time: 330ms
+2025-06-11 13:26:17.854 +04:00 [INF] Starting request: GET /api/Publisher/games/key123/publisher from ::1
+2025-06-11 13:26:17.892 +04:00 [INF] Retrieving publisher for game key: key123
+2025-06-11 13:26:17.893 +04:00 [INF] Retrieving publisher by game key: key123
+2025-06-11 13:26:18.036 +04:00 [WRN] Publisher not found for game key: key123
+2025-06-11 13:26:18.117 +04:00 [WRN] Publisher not found for game key: key123
+GameStore.Domain.Exceptions.NotFoundException: Game or associated publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByGameKeyAsync(String gameKey) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 93
+   at GameStore.Api.Controllers.PublisherController.GetPublisherByGameKey(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublisherController.cs:line 82
+2025-06-11 13:26:18.147 +04:00 [INF] Completed request: GET /api/Publisher/games/key123/publisher - Status: 404 - Time: 293ms
+2025-06-11 13:33:48.783 +04:00 [INF] Starting request: POST /api/Platforms from ::1
+2025-06-11 13:33:48.840 +04:00 [INF] Creating new platform: @PC
+2025-06-11 13:33:48.857 +04:00 [WRN] Validation failed for genre creation: ["Platform type must start with a letter and can only contain alphanumeric characters and spaces."]
+2025-06-11 13:33:48.862 +04:00 [INF] Completed request: POST /api/Platforms - Status: 400 - Time: 79ms
+2025-06-11 13:33:53.685 +04:00 [INF] Starting request: POST /api/Platforms from ::1
+2025-06-11 13:33:53.689 +04:00 [INF] Creating new platform: PC
+2025-06-11 13:33:53.694 +04:00 [INF] Creating platform: PC
+2025-06-11 13:33:53.847 +04:00 [INF] Platform created successfully: PC
+2025-06-11 13:33:53.849 +04:00 [INF] platform created successfully. Key: PC
+2025-06-11 13:33:53.860 +04:00 [INF] Completed request: POST /api/Platforms - Status: 201 - Time: 175ms
+2025-06-11 13:37:23.953 +04:00 [INF] Starting request: GET /api/Platforms from ::1
+2025-06-11 13:37:23.971 +04:00 [INF] Fetching all platforms
+2025-06-11 13:37:23.972 +04:00 [INF] Retrieving all platforms
+2025-06-11 13:37:23.981 +04:00 [INF] Completed request: GET /api/Platforms - Status: 200 - Time: 28ms
+2025-06-11 13:37:53.596 +04:00 [INF] Starting request: GET /api/Platforms from ::1
+2025-06-11 13:37:53.606 +04:00 [INF] Fetching all platforms
+2025-06-11 13:37:53.606 +04:00 [INF] Retrieving all platforms
+2025-06-11 13:37:53.657 +04:00 [INF] Completed request: GET /api/Platforms - Status: 200 - Time: 61ms
+2025-06-11 13:37:59.365 +04:00 [INF] Starting request: GET /api/Platforms/d446485e-bc04-4dcb-ba36-08dda8cb14ce from ::1
+2025-06-11 13:37:59.372 +04:00 [INF] Fetching platform by ID: "d446485e-bc04-4dcb-ba36-08dda8cb14ce"
+2025-06-11 13:37:59.373 +04:00 [INF] Retrieving platform by ID: "d446485e-bc04-4dcb-ba36-08dda8cb14ce"
+2025-06-11 13:37:59.402 +04:00 [INF] Completed request: GET /api/Platforms/d446485e-bc04-4dcb-ba36-08dda8cb14ce - Status: 200 - Time: 36ms
+2025-06-11 13:42:22.470 +04:00 [INF] Starting request: POST /api/Genres from ::1
+2025-06-11 13:42:22.510 +04:00 [INF] Creating new genre: shooter
+2025-06-11 13:42:22.514 +04:00 [INF] Creating genre: shooter
+2025-06-11 13:42:22.571 +04:00 [INF] Created genre ID: "705fe630-7a76-4fd6-339a-08dda8cc4412"
+2025-06-11 13:42:22.578 +04:00 [INF] genre created successfully. Key: shooter
+2025-06-11 13:42:22.589 +04:00 [INF] Completed request: POST /api/Genres - Status: 201 - Time: 119ms
+2025-06-11 13:43:40.526 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 13:43:41.251 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 728ms
+2025-06-11 13:44:06.213 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 13:44:06.923 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 713ms
+2025-06-11 13:44:34.317 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 13:44:35.073 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 758ms
+2025-06-11 14:30:53.043 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-11 14:30:53.832 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 791ms

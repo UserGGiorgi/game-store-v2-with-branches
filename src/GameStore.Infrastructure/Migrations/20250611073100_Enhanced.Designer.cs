@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStore.Infrastructure.Migrations
 {
     [DbContext(typeof(GameStoreDbContext))]
-    [Migration("20250607082938_AddPublisherAndModifyGame")]
-    partial class AddPublisherAndModifyGame
+    [Migration("20250611073100_Enhanced")]
+    partial class Enhanced
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
