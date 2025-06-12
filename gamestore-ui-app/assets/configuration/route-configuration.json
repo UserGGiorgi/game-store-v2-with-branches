@@ -1,25 +1,25 @@
 {
   "Game": "/game/{key}",
-  "UpdateGame": "/game/{key}/edit",
-  "DeleteGame": "/game/{key}/delete",
-  "AddGame": "/games/add",
+  "UpdateGame": "/games",
+  "DeleteGame": "/games{key} ",
+  "AddGame": "/games",
   "Games": "/games",
 
   "Genres": "/genres",
-  "Genre": "/genre/{id}",
+  "Genre": "/genres/{id}",
   "AddGenre": "/genres/add",
-  "DeleteGenre": "/genre/{id}/delete",
-  "UpdateGenre": "/genre/{id}/edit",
+  "DeleteGenre": "/genres/{id}/delete",
+  "UpdateGenre": "/genres/{id}/edit",
 
-  "Platform": "/platform/{id}",
+  "Platform": "/platforms/{companyName}",
   "Platforms": "/platforms",
   "AddPlatform": "/platforms/add",
-  "DeletePlatform": "/platform/{id}/delete",
-  "UpdatePlatform": "/platform/{id}/edit",
+  "DeletePlatform": "/platforms/{id}",
+  "UpdatePlatform": "/platforms",
 
   "Publishers": "/publishers",
-  "Publisher": "/publisher/{id}",
-  "UpdatePublisher": "/publisher/{id}/edit",
-  "DeletePublisher": "/publisher/{id}/delete",
+  "Publisher": "/publishers/{companyName}",
+  "UpdatePublisher": "/publishers",
+  "DeletePublisher": "/publishers/{id}",
   "AddPublisher": "/publishers/add"
 }

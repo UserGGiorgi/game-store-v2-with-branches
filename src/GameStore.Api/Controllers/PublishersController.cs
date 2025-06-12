@@ -15,18 +15,18 @@ namespace GameStore.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PublisherController : ControllerBase
+    public class PublishersController : ControllerBase
     {
         private readonly IPublisherService _publisherService;
         private readonly IValidator<CreatePublisherRequestDto> _createValidator;
         private readonly IValidator<UpdatePublisherRequestDto> _updateValidator;
-        private readonly ILogger<PublisherController> _logger;
+        private readonly ILogger<PublishersController> _logger;
 
-        public PublisherController(
+        public PublishersController(
             IPublisherService publisherService,
             IValidator<CreatePublisherRequestDto> createValidator,
             IValidator<UpdatePublisherRequestDto> updateValidator,
-            ILogger<PublisherController> logger
+            ILogger<PublishersController> logger
             )
         {
             _publisherService = publisherService;
@@ -70,7 +70,7 @@ namespace GameStore.Api.Controllers
             }
         }
 
-        [HttpGet("games/{key}/publisher")]
+        [HttpGet("/api/games/{key}/publisher")]
         [ProducesResponseType(typeof(PublisherResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPublisherByGameKey(string key)
@@ -94,7 +94,7 @@ namespace GameStore.Api.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PublisherResponseDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllPublishers()//user story 4
+        public async Task<IActionResult> GetAllPublishers()
         {
             _logger.LogInformation("Fetching all publishers");
             var publishers = await _publisherService.GetAllPublishersAsync();
@@ -165,14 +165,13 @@ namespace GameStore.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpGet("{companyName}")]
         [ProducesResponseType(typeof(PublisherResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetPublisherByCompanyName(
-    string companyName,
-    CancellationToken cancellationToken)
+        string companyName,
+        CancellationToken cancellationToken)
         {
             _logger.LogInformation("Fetching publisher by name: {CompanyName}", companyName);
 

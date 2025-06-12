@@ -50,3 +50,529 @@ GameStore.Application.Dtos.Publishers.GetPublisher.PublisherDto -> GameStore.Dom
    at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
    at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
    at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 16:41:04.048 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+   at lambda_method406(Closure, Object, GameDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 113
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 53
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 16:42:58.927 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 50
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 53
+2025-06-11 18:20:46.963 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+ ---> AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+GameGenre -> Guid
+GameStore.Domain.Entities.GameGenre -> System.Guid
+   at lambda_method166(Closure, GameGenre, Guid, ResolutionContext)
+   at lambda_method165(Closure, Object, GameResponseDto, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method165(Closure, Object, GameResponseDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.GetGameByKeyAsync(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 125
+   at GameStore.Web.Controller.GamesController.GetByKey(String key, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 75
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 19:36:18.155 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+   at lambda_method455(Closure, Object, GameDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 114
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 19:37:38.399 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-11 19:37:59.255 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+ ---> AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+GameGenre -> Guid
+GameStore.Domain.Entities.GameGenre -> System.Guid
+   at lambda_method468(Closure, GameGenre, Guid, ResolutionContext)
+   at lambda_method467(Closure, Object, GameResponseDto, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method467(Closure, Object, GameResponseDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.GetGameByKeyAsync(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 125
+   at GameStore.Web.Controller.GamesController.GetByKey(String key, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 75
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 19:38:02.428 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+ ---> AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+GameGenre -> Guid
+GameStore.Domain.Entities.GameGenre -> System.Guid
+   at lambda_method468(Closure, GameGenre, Guid, ResolutionContext)
+   at lambda_method467(Closure, Object, GameResponseDto, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method467(Closure, Object, GameResponseDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.GetGameByKeyAsync(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 125
+   at GameStore.Web.Controller.GamesController.GetByKey(String key, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 75
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 21:36:30.329 +04:00 [ERR] An exception occurred while iterating over the results of a query for context type 'GameStore.Infrastructure.Data.GameStoreDbContext'.
+System.InvalidOperationException: 'FromSql' or 'SqlQuery' was called with non-composable SQL and with a query composing over it. Consider calling 'AsEnumerable' after the method to perform the composition on the client side.
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.CheckComposableSqlTrimmed(ReadOnlySpan`1 sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.CheckComposableSql(String sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitFromSql(FromSqlExpression fromSqlExpression)
+   at Microsoft.EntityFrameworkCore.Query.SqlExpressionVisitor.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.<VisitSelect>b__21_1(TableExpressionBase e)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateList[T](IReadOnlyList`1 items, Action`1 generationAction, Action`1 joinAction)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitSelect(SelectExpression selectExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateRootCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GetCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalCommandCache.GetRelationalCommandTemplate(IReadOnlyDictionary`2 parameters)
+   at Microsoft.EntityFrameworkCore.Internal.RelationCommandCacheExtensions.RentAndPopulateRelationalCommand(RelationalCommandCache relationalCommandCache, RelationalQueryContext queryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: 'FromSql' or 'SqlQuery' was called with non-composable SQL and with a query composing over it. Consider calling 'AsEnumerable' after the method to perform the composition on the client side.
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.CheckComposableSqlTrimmed(ReadOnlySpan`1 sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.CheckComposableSql(String sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitFromSql(FromSqlExpression fromSqlExpression)
+   at Microsoft.EntityFrameworkCore.Query.SqlExpressionVisitor.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.<VisitSelect>b__21_1(TableExpressionBase e)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateList[T](IReadOnlyList`1 items, Action`1 generationAction, Action`1 joinAction)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitSelect(SelectExpression selectExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateRootCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GetCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalCommandCache.GetRelationalCommandTemplate(IReadOnlyDictionary`2 parameters)
+   at Microsoft.EntityFrameworkCore.Internal.RelationCommandCacheExtensions.RentAndPopulateRelationalCommand(RelationalCommandCache relationalCommandCache, RelationalQueryContext queryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2025-06-11 21:36:32.770 +04:00 [ERR] Exception Details: Type: InvalidOperationException, Message: 'FromSql' or 'SqlQuery' was called with non-composable SQL and with a query composing over it. Consider calling 'AsEnumerable' after the method to perform the composition on the client side.
+System.InvalidOperationException: 'FromSql' or 'SqlQuery' was called with non-composable SQL and with a query composing over it. Consider calling 'AsEnumerable' after the method to perform the composition on the client side.
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.CheckComposableSqlTrimmed(ReadOnlySpan`1 sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.CheckComposableSql(String sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitFromSql(FromSqlExpression fromSqlExpression)
+   at Microsoft.EntityFrameworkCore.Query.SqlExpressionVisitor.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.<VisitSelect>b__21_1(TableExpressionBase e)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateList[T](IReadOnlyList`1 items, Action`1 generationAction, Action`1 joinAction)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitSelect(SelectExpression selectExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateRootCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GetCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalCommandCache.GetRelationalCommandTemplate(IReadOnlyDictionary`2 parameters)
+   at Microsoft.EntityFrameworkCore.Internal.RelationCommandCacheExtensions.RentAndPopulateRelationalCommand(RelationalCommandCache relationalCommandCache, RelationalQueryContext queryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at GameStore.Infrastructure.Data.Repositories.GenreRepository.IsCircularHierarchyAsync(Guid genreId, Guid parentGenreId) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Infrastructure\Data\Repository\GenreRepository.cs:line 67
+   at GameStore.Infrastructure.Services.GenreService.ValidateParentGenre(Guid parentGenreId, Guid currentGenreId) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GenreService.cs:line 195
+   at GameStore.Infrastructure.Services.GenreService.UpdateGenreAsync(UpdateGenreRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GenreService.cs:line 139
+   at GameStore.Web.Controller.GenresController.UpdateGenre(UpdateGenreRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GenresController.cs:line 114
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 21:36:36.036 +04:00 [ERR] An exception occurred while iterating over the results of a query for context type 'GameStore.Infrastructure.Data.GameStoreDbContext'.
+System.InvalidOperationException: 'FromSql' or 'SqlQuery' was called with non-composable SQL and with a query composing over it. Consider calling 'AsEnumerable' after the method to perform the composition on the client side.
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.CheckComposableSqlTrimmed(ReadOnlySpan`1 sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.CheckComposableSql(String sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitFromSql(FromSqlExpression fromSqlExpression)
+   at Microsoft.EntityFrameworkCore.Query.SqlExpressionVisitor.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.<VisitSelect>b__21_1(TableExpressionBase e)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateList[T](IReadOnlyList`1 items, Action`1 generationAction, Action`1 joinAction)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitSelect(SelectExpression selectExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateRootCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GetCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalCommandCache.GetRelationalCommandTemplate(IReadOnlyDictionary`2 parameters)
+   at Microsoft.EntityFrameworkCore.Internal.RelationCommandCacheExtensions.RentAndPopulateRelationalCommand(RelationalCommandCache relationalCommandCache, RelationalQueryContext queryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: 'FromSql' or 'SqlQuery' was called with non-composable SQL and with a query composing over it. Consider calling 'AsEnumerable' after the method to perform the composition on the client side.
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.CheckComposableSqlTrimmed(ReadOnlySpan`1 sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.CheckComposableSql(String sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitFromSql(FromSqlExpression fromSqlExpression)
+   at Microsoft.EntityFrameworkCore.Query.SqlExpressionVisitor.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.<VisitSelect>b__21_1(TableExpressionBase e)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateList[T](IReadOnlyList`1 items, Action`1 generationAction, Action`1 joinAction)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitSelect(SelectExpression selectExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateRootCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GetCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalCommandCache.GetRelationalCommandTemplate(IReadOnlyDictionary`2 parameters)
+   at Microsoft.EntityFrameworkCore.Internal.RelationCommandCacheExtensions.RentAndPopulateRelationalCommand(RelationalCommandCache relationalCommandCache, RelationalQueryContext queryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2025-06-11 21:36:37.437 +04:00 [ERR] Exception Details: Type: InvalidOperationException, Message: 'FromSql' or 'SqlQuery' was called with non-composable SQL and with a query composing over it. Consider calling 'AsEnumerable' after the method to perform the composition on the client side.
+System.InvalidOperationException: 'FromSql' or 'SqlQuery' was called with non-composable SQL and with a query composing over it. Consider calling 'AsEnumerable' after the method to perform the composition on the client side.
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.CheckComposableSqlTrimmed(ReadOnlySpan`1 sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.CheckComposableSql(String sql)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitFromSql(FromSqlExpression fromSqlExpression)
+   at Microsoft.EntityFrameworkCore.Query.SqlExpressionVisitor.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.SqlServer.Query.Internal.SqlServerQuerySqlGenerator.VisitExtension(Expression extensionExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.<VisitSelect>b__21_1(TableExpressionBase e)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateList[T](IReadOnlyList`1 items, Action`1 generationAction, Action`1 joinAction)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.VisitSelect(SelectExpression selectExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GenerateRootCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.QuerySqlGenerator.GetCommand(Expression queryExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalCommandCache.GetRelationalCommandTemplate(IReadOnlyDictionary`2 parameters)
+   at Microsoft.EntityFrameworkCore.Internal.RelationCommandCacheExtensions.RentAndPopulateRelationalCommand(RelationalCommandCache relationalCommandCache, RelationalQueryContext queryContext)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at GameStore.Infrastructure.Data.Repositories.GenreRepository.IsCircularHierarchyAsync(Guid genreId, Guid parentGenreId) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Infrastructure\Data\Repository\GenreRepository.cs:line 67
+   at GameStore.Infrastructure.Services.GenreService.ValidateParentGenre(Guid parentGenreId, Guid currentGenreId) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GenreService.cs:line 195
+   at GameStore.Infrastructure.Services.GenreService.UpdateGenreAsync(UpdateGenreRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GenreService.cs:line 139
+   at GameStore.Web.Controller.GenresController.UpdateGenre(UpdateGenreRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GenresController.cs:line 114
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 21:36:52.890 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+ ---> AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+GameGenre -> Guid
+GameStore.Domain.Entities.GameGenre -> System.Guid
+   at lambda_method458(Closure, GameGenre, Guid, ResolutionContext)
+   at lambda_method457(Closure, Object, GameResponseDto, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method457(Closure, Object, GameResponseDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.GetGameByKeyAsync(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 125
+   at GameStore.Web.Controller.GamesController.GetByKey(String key, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 75
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 22:25:07.225 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Type Map configuration:
+Game -> GameResponseDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameResponseDto
+
+Destination Member:
+Genres
+
+ ---> AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+GameGenre -> Guid
+GameStore.Domain.Entities.GameGenre -> System.Guid
+   at lambda_method166(Closure, GameGenre, Guid, ResolutionContext)
+   at lambda_method165(Closure, Object, GameResponseDto, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method165(Closure, Object, GameResponseDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.GetGameByKeyAsync(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 125
+   at GameStore.Web.Controller.GamesController.GetByKey(String key, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 75
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 22:31:31.876 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+   at lambda_method165(Closure, Object, GameDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.GetGameByKeyAsync(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 125
+   at GameStore.Web.Controller.GamesController.GetByKey(String key, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 75
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 22:31:45.054 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+   at lambda_method165(Closure, Object, GameDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.GetGameByKeyAsync(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 125
+   at GameStore.Web.Controller.GamesController.GetByKey(String key, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 75
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-11 22:32:01.385 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+   at lambda_method165(Closure, Object, GameDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.GetGameByKeyAsync(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 125
+   at GameStore.Web.Controller.GamesController.GetByKey(String key, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 75
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29

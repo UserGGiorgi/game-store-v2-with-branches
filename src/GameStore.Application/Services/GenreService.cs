@@ -38,18 +38,28 @@ namespace GameStore.Infrastructure.Services
         public async Task<GenreResponseDto> CreateGenreAsync(CreateGenreRequestDto request)
         {
             _logger.LogInformation("Creating genre: {Name}", request.Genre.Name);
+
             if (await _unitOfWork.GenreRepository.GetByNameAsync(request.Genre.Name) != null)
             {
                 _logger.LogWarning("Duplicate genre name: {Name}", request.Genre.Name);
                 throw new BadRequestException("Genre name must be unique");
             }
 
-            if (request.Genre.ParentGenreId.HasValue)
+            Guid? parentGenreId = null;
+            if (!string.IsNullOrEmpty(request.Genre.ParentGenreId))
             {
-                var parentExists = await _unitOfWork.GenreRepository.ExistsAsync(request.Genre.ParentGenreId.Value);
+                if (!Guid.TryParse(request.Genre.ParentGenreId, out var parsedGuid))
+                {
+                    _logger.LogWarning("Invalid GUID format for parent genre: {ParentId}", request.Genre.ParentGenreId);
+                    throw new BadRequestException("ParentGenreId must be a valid GUID");
+                }
+
+                parentGenreId = parsedGuid;
+
+                var parentExists = await _unitOfWork.GenreRepository.ExistsAsync(parentGenreId.Value);
                 if (!parentExists)
                 {
-                    _logger.LogWarning("Invalid parent genre: {ParentId}", request.Genre.ParentGenreId);
+                    _logger.LogWarning("Invalid parent genre: {ParentId}", parentGenreId);
                     throw new BadRequestException("Parent genre not found");
                 }
             }
@@ -57,7 +67,7 @@ namespace GameStore.Infrastructure.Services
             var genre = new Genre
             {
                 Name = request.Genre.Name,
-                ParentGenreId = request.Genre.ParentGenreId
+                ParentGenreId = parentGenreId
             };
 
             await _unitOfWork.GenreRepository.AddAsync(genre);
@@ -119,13 +129,13 @@ namespace GameStore.Infrastructure.Services
         public async Task<GenreDetailsDto> UpdateGenreAsync(UpdateGenreRequestDto request)
         {
             _logger.LogInformation("Updating genre ID: {GenreId}", request.Genre.Id);
+
             var genre = await _unitOfWork.GenreRepository.GetByIdAsync(request.Genre.Id);
             if (genre == null)
             {
                 _logger.LogWarning("Genre not found: {GenreId}", request.Genre.Id);
                 throw new NotFoundException("Genre not found");
             }
-
 
             var existingByName = await _unitOfWork.GenreRepository.GetByNameAsync(request.Genre.Name);
             if (existingByName != null && existingByName.Id != request.Genre.Id)
@@ -134,15 +144,28 @@ namespace GameStore.Infrastructure.Services
                 throw new BadRequestException("Genre name must be unique");
             }
 
-            if (request.Genre.ParentGenreId.HasValue)
+            Guid? parentGenreId = null;
+            if (!string.IsNullOrEmpty(request.Genre.ParentGenreId))
             {
-                await ValidateParentGenre(request.Genre.ParentGenreId.Value, genre.Id);
+                if (!Guid.TryParse(request.Genre.ParentGenreId, out var parsedGuid))
+                {
+                    _logger.LogWarning("Invalid ParentGenreId format: {ParentId}", request.Genre.ParentGenreId);
+                    throw new BadRequestException("ParentGenreId must be a valid GUID");
+                }
+                parentGenreId = parsedGuid;
             }
+
+            if (parentGenreId.HasValue)
+            {
+                await ValidateParentGenre(parentGenreId.Value, genre.Id);
+            }
+
             genre.Name = request.Genre.Name;
-            genre.ParentGenreId = request.Genre.ParentGenreId;
+            genre.ParentGenreId = parentGenreId;
 
             _unitOfWork.GenreRepository.Update(genre);
             await _unitOfWork.SaveChangesAsync();
+
             _logger.LogInformation("Successfully updated genre ID: {GenreId}", genre.Id);
             return _mapper.Map<GenreDetailsDto>(genre);
         }
@@ -188,17 +211,12 @@ namespace GameStore.Infrastructure.Services
         {
             if (parentGenreId == currentGenreId)
             {
-                _logger.LogWarning("Invalid parent - self reference: {GenreId}", currentGenreId);
+                _logger.LogWarning("Genre cannot be its own parent: {GenreId}", currentGenreId);
                 throw new BadRequestException("Genre cannot be its own parent");
             }
 
-            if (await _unitOfWork.GenreRepository.IsCircularHierarchyAsync(currentGenreId, parentGenreId))
-            {
-                _logger.LogWarning("Circular hierarchy detected for genre: {GenreId}", currentGenreId);
-                throw new BadRequestException("Circular genre hierarchy detected");
-            }
-
-            if (!await _unitOfWork.GenreRepository.ExistsAsync(parentGenreId))
+            var parentExists = await _unitOfWork.GenreRepository.ExistsAsync(parentGenreId);
+            if (!parentExists)
             {
                 _logger.LogWarning("Parent genre not found: {ParentId}", parentGenreId);
                 throw new BadRequestException("Parent genre not found");

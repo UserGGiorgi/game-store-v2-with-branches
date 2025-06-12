@@ -66,21 +66,23 @@ builder.Services.AddScoped(provider => new Lazy<IPlatformRepository>(
 
 builder.Services.AddScoped(provider => new Lazy<IPublisherRepository>(
     () => provider.GetRequiredService<IPublisherRepository>()));
-
+//for angularr
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader()
-               .WithExposedHeaders("x-total-numbers-of-games");
-    });
+    options.AddPolicy("AllowFrontend",
+        builder => builder
+            .WithOrigins("http://localhost:8080") // Your http-server port
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithExposedHeaders("x-total-numbers-of-games")
+    );
 });
 
 var app = builder.Build();
-app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+// In Configure() before app.UseRouting()
+
+//app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 
 app.UseMiddleware<RequestLoggingMiddleware>();
 app.UseMiddleware<TotalGamesHeaderMiddleware>();

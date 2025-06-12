@@ -9,6 +9,6 @@ namespace GameStore.Application.Dtos.Genres.GetGenre
     public class GenreDto
     {
         public string Name { get; set; } = string.Empty;
-        public Guid? ParentGenreId { get; set; }
+        public string? ParentGenreId { get; set; }
     }
 }

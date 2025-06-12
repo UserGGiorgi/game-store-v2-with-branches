@@ -26,15 +26,16 @@ namespace GameStore.Application.Dtos.Genres.UpdateGenre
                 .Matches("^[a-zA-Z0-9 ]+$").WithMessage("Genre name can only contain alphanumeric characters and spaces.");
 
             RuleFor(x => x.ParentGenreId)
-                .Must(BeAValidGuidIfPresent).WithMessage("Parent genre ID must be a valid GUID or null.")
-                .When(x => x.ParentGenreId.HasValue)
-                .Must((dto, parentId) => parentId != dto.Id).WithMessage("Genre cannot be its own parent.")
-                .When(x => x.ParentGenreId.HasValue);
+           .Must(BeValidGuidOrNullOrEmpty)
+           .WithMessage("ParentGenreId must be a valid GUID or empty");
         }
 
-        private bool BeAValidGuidIfPresent(Guid? guid)
+        private bool BeValidGuidOrNullOrEmpty(string? parentGenreId)
         {
-            return !guid.HasValue || guid.Value != Guid.Empty;
+            if (string.IsNullOrEmpty(parentGenreId))
+                return true;
+
+            return Guid.TryParse(parentGenreId, out _);
         }
     }
 }

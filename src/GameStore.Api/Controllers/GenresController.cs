@@ -50,7 +50,8 @@ namespace GameStore.Web.Controller
             {
                 var createdGenre = await _genreService.CreateGenreAsync(request);
                 _logger.LogInformation("genre created successfully. Key: {Genre}", createdGenre.Name);
-                return CreatedAtAction(nameof(GetGenreById), new { id = createdGenre.Id }, createdGenre);
+                var genres = await _genreService.GetAllGenresAsync();
+                return CreatedAtAction(nameof(GetAllGenres), genres);
             }
             catch (BadRequestException ex)
             {
@@ -85,6 +86,33 @@ namespace GameStore.Web.Controller
             var genres = await _genreService.GetAllGenresAsync();
             return Ok(genres);
         }
+        [HttpGet("/api/games/{key}/genres")]
+        [ProducesResponseType(typeof(IEnumerable<GenreListDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetGenresByGameKey(
+        string key,
+        CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("Fetching genres for game: {GameKey}", key);
+
+            try
+            {
+                var genres = await _genreService.GetGenresByGameKeyAsync(key);
+                _logger.LogInformation("Found {GenreCount} genres for game {GameKey}",
+                    genres.Count(), key);
+                return Ok(genres);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogWarning(ex, "Game not found: {GameKey}", key);
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching genres for game {GameKey}", key);
+                return StatusCode(500, "An error occurred while processing your request");
+            }
+        }
 
         [HttpGet("{id}/genres")]
         [ProducesResponseType(typeof(IEnumerable<GenreListDto>), StatusCodes.Status200OK)]
@@ -112,7 +140,9 @@ namespace GameStore.Web.Controller
             try
             {
                 var updatedGenre = await _genreService.UpdateGenreAsync(request);
-                return Ok(updatedGenre);
+                _logger.LogInformation("genre updated successfully. Key: {Genre}", updatedGenre.Name);
+                var genres = await _genreService.GetAllGenresAsync();
+                return CreatedAtAction(nameof(GetAllGenres), genres);
             }
             catch (NotFoundException ex)
             {

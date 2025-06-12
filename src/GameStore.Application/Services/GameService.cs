@@ -1,18 +1,19 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
-using GameStore.Domain.Interfaces.Repositories;
 using GameStore.Domain.Interfaces;
+using GameStore.Domain.Interfaces.Repositories;
 using GameStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
 using Microsoft.Extensions.Logging;
+using System.Text;
 
 namespace GameStore.Application.Services;
 
@@ -113,7 +114,7 @@ public class GameService : IGameService
         return _mapper.Map<GameDto>(game);
     }
 
-    public async Task<GameResponseDto?> GetGameByKeyAsync(string key)
+    public async Task<GameDto?> GetGameByKeyAsync(string key)
     {
         _logger.LogInformation("Getting game by key: {key}", key);
         var game = await _unitOfWork.GameRepository.GetByKeyAsync(key);
@@ -121,10 +122,10 @@ public class GameService : IGameService
         {
             _logger.LogWarning("Game not found - Key: {key}", key);
         }
-        return _mapper.Map<GameResponseDto>(game);
+        return _mapper.Map<GameDto>(game);
     }
 
-    public async Task<GameResponseDto?> GetGameByIdAsync(Guid id)
+    public async Task<GameDto?> GetGameByIdAsync(Guid id)
     {
         _logger.LogInformation("Getting game by ID: {id}", id);
         var game = await _unitOfWork.GameRepository.GetByIdAsync(id);
@@ -132,23 +133,23 @@ public class GameService : IGameService
         {
             _logger.LogWarning("Game not found - ID: {id}", id);
         }
-        return _mapper.Map<GameResponseDto>(game);
+        return _mapper.Map<GameDto>(game);
     }
 
-    public async Task<IEnumerable<GameResponseDto>> GetGamesByPlatformAsync(Guid platformId)
+    public async Task<IEnumerable<SimpleGameResponseDto>> GetGamesByPlatformAsync(Guid platformId)
     {
         _logger.LogInformation("Getting games for platform: {platformId}", platformId);
         var games = await _unitOfWork.GameRepository.GetGamesByPlatformAsync(platformId);
         _logger.LogInformation("Found {count} games for platform {platformId}", games.Count(), platformId);
-        return _mapper.Map<IEnumerable<GameResponseDto>>(games);
+        return _mapper.Map<IEnumerable<SimpleGameResponseDto>>(games);
     }
 
-    public async Task<IEnumerable<GameResponseDto>> GetGamesByGenreAsync(Guid genreId)
+    public async Task<IEnumerable<SimpleGameResponseDto>> GetGamesByGenreAsync(Guid genreId)
     {
         _logger.LogInformation("Getting games for genre: {genreId}", genreId);
         var games = await _unitOfWork.GameRepository.GetGamesByGenreAsync(genreId);
         _logger.LogInformation("Found {count} games for genre {genreId}", games.Count(), genreId);
-        return _mapper.Map<IEnumerable<GameResponseDto>>(games);
+        return _mapper.Map<IEnumerable<SimpleGameResponseDto>>(games);
     }
 
     public async Task<GameResponseDto> UpdateGameAsync(UpdateGameRequestDto request)
@@ -162,11 +163,15 @@ public class GameService : IGameService
             throw new NotFoundException("Game not found");
         }
 
-        if (game.Key != request.Game.Key &&
-            await _unitOfWork.GameRepository.GetByKeyAsync(request.Game.Key) != null)
+        if (game.Key != request.Game.Key)
         {
-            _logger.LogWarning("Duplicate key: {GameKey}", request.Game.Key);
-            throw new BadRequestException("Game key must be unique");
+            var existingGameWithKey = await _unitOfWork.GameRepository.GetByKeyAsync(request.Game.Key);
+            if (existingGameWithKey != null)
+            {
+                _logger.LogWarning("Duplicate key detected. Requested: {RequestKey}, Existing: {ExistingGameId}",
+                    request.Game.Key, existingGameWithKey.Id);
+                throw new BadRequestException("Game key must be unique");
+            }
         }
 
         game.Name = request.Game.Name;
@@ -262,7 +267,7 @@ public class GameService : IGameService
         };
     }
 
-    public async Task<IEnumerable<GameResponseDto>> GetAllGamesAsync()
+    public async Task<IEnumerable<SimpleGameResponseDto>> GetAllGamesAsync()
     {
         _logger.LogInformation("Fetching all games");
         try
@@ -271,7 +276,7 @@ public class GameService : IGameService
             var gameList = games.ToList();
 
             _logger.LogInformation("Retrieved {GameCount} games", gameList.Count);
-            return _mapper.Map<IEnumerable<GameResponseDto>>(gameList);
+            return _mapper.Map<IEnumerable<SimpleGameResponseDto>>(gameList);
         }
         catch (Exception ex)
         {

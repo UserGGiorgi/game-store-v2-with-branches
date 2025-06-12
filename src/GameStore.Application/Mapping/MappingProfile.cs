@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using GameStore.Domain.Entities;
 using GameStore.Application.Dtos.Games;
-using GameStore.Application.Dtos.Genres;
-using GameStore.Application.Dtos.Platforms;
+using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
+using GameStore.Application.Dtos.Genres;
 using GameStore.Application.Dtos.Genres.GetGenre;
+using GameStore.Application.Dtos.Platforms;
 using GameStore.Application.Dtos.Platforms.GetPlatform;
 using GameStore.Application.Dtos.Publishers.CreatePublisher;
 using GameStore.Application.Dtos.Publishers.GetPublisher;
 using GameStore.Application.Dtos.Publishers.UpdatePublisher;
+using GameStore.Domain.Entities;
 
 namespace GameStore.Application.Mapping
 {
@@ -16,7 +17,9 @@ namespace GameStore.Application.Mapping
     {
         public MappingProfile()
         {
+            CreateMap<Game, GameDto>();
             CreateMap<Game, GameResponseDto>();
+            CreateMap<Game, SimpleGameResponseDto>();
 
             CreateMap<Genre, GenreDetailsDto>();
             CreateMap<Genre, GenreListDto>();

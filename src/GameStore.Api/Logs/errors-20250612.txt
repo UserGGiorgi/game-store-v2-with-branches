@@ -1,0 +1,189 @@
+2025-06-12 11:38:13.553 +04:00 [ERR] Bad request creating genre: Genre name must be unique
+GameStore.Domain.Exceptions.BadRequestException: Genre name must be unique
+   at GameStore.Infrastructure.Services.GenreService.CreateGenreAsync(CreateGenreRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GenreService.cs:line 45
+   at GameStore.Web.Controller.GenresController.CreateGenre(CreateGenreRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GenresController.cs:line 51
+2025-06-12 12:12:17.313 +04:00 [ERR] Bad request updating genre : dfhfdhf
+GameStore.Domain.Exceptions.BadRequestException: Genre cannot be its own parent
+   at GameStore.Infrastructure.Services.GenreService.ValidateParentGenre(Guid parentGenreId, Guid currentGenreId) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GenreService.cs:line 215
+   at GameStore.Infrastructure.Services.GenreService.UpdateGenreAsync(UpdateGenreRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GenreService.cs:line 160
+   at GameStore.Web.Controller.GenresController.UpdateGenre(UpdateGenreRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GenresController.cs:line 115
+2025-06-12 13:44:54.167 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+   at lambda_method434(Closure, Object, GameDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 114
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-12 13:45:17.278 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 13:48:34.408 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+   at lambda_method423(Closure, Object, GameDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 114
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-12 13:49:42.898 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+   at lambda_method423(Closure, Object, GameDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 114
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-12 13:52:07.120 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Game -> GameDto
+GameStore.Domain.Entities.Game -> GameStore.Application.Dtos.Games.GetGames.GameDto
+   at lambda_method423(Closure, Object, GameDto, ResolutionContext)
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 114
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-12 14:50:00.317 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 14:50:36.808 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 14:50:51.700 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 14:51:16.974 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 14:54:27.725 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 14:55:00.122 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:04:04.678 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:10:09.020 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:10:17.829 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:11:40.097 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:19:29.390 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:32:27.839 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:44:33.702 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:45:04.407 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:47:16.435 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 15:52:46.050 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 16:01:02.601 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 16:01:56.820 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54

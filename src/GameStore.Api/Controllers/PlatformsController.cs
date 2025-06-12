@@ -49,7 +49,8 @@ namespace GameStore.Web.Controller
             {
                 var createdPlatform = await _platformService.CreatePlatformAsync(request);
                 _logger.LogInformation("platform created successfully. Key: {platform}", createdPlatform.Type);
-                return CreatedAtAction(nameof(GetPlatformById), new { id = createdPlatform.Id }, createdPlatform);
+                var platforms = await _platformService.GetAllPlatformsAsync();
+                return CreatedAtAction(nameof(GetAllPlatforms), platforms);
             }
             catch (BadRequestException ex)
             {
@@ -77,6 +78,33 @@ namespace GameStore.Web.Controller
             }
         }
 
+        [HttpGet("/api/games/{key}/platforms")]
+        [ProducesResponseType(typeof(IEnumerable<PlatformResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetPlatformsByGameKey(
+            string key,
+            CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("Fetching platforms for game: {GameKey}", key);
+
+            try
+            {
+                var platforms = await _platformService.GetPlatformsByGameKeyAsync(key);
+                _logger.LogInformation("Found {PlatformCount} platforms for game {GameKey}",
+                    platforms.Count(), key);
+                return Ok(platforms);
+            }
+            catch (NotFoundException ex)
+            {
+                _logger.LogWarning(ex, "No platforms found for game: {GameKey}", key);
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching platforms for game {GameKey}", key);
+                return StatusCode(500, "An error occurred while processing your request");
+            }
+        }
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<GenreListDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllPlatforms(CancellationToken cancellationToken)
@@ -104,7 +132,9 @@ namespace GameStore.Web.Controller
             try
             {
                 var updatedPlatform = await _platformService.UpdatePlatformAsync(request);
-                return Ok(updatedPlatform);
+                _logger.LogInformation("platform updated successfully. Key: {platform}", updatedPlatform.Type);
+                var platforms = await _platformService.GetAllPlatformsAsync();
+                return CreatedAtAction(nameof(GetAllPlatforms), platforms);
             }
             catch (NotFoundException ex)
             {
