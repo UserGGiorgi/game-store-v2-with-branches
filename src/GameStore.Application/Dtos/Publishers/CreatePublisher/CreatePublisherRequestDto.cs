@@ -11,6 +11,6 @@ namespace GameStore.Application.Dtos.Publishers.CreatePublisher
 {
     public class CreatePublisherRequestDto
     {
-        public PublisherDto publisher { get; set; } = new();
+        public PublisherDto Publisher { get; set; } = new();
     }
 }

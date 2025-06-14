@@ -187,3 +187,51 @@ GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
 GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
    at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
    at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 54
+2025-06-12 17:51:25.658 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 17:52:09.570 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:26:32.548 +04:00 [ERR] Bad request creating publisher: Company name must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Company name must be unique.
+   at GameStore.Application.Services.PublisherService.CreatePublisherAsync(CreatePublisherRequestDto createPublisherDto) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 45
+   at GameStore.Api.Controllers.PublishersController.CreatePublisher(CreatePublisherRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 55
+2025-06-12 22:31:34.741 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:37:51.626 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:53:53.669 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:56:54.832 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:57:16.236 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 23:02:14.121 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 23:12:19.726 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 23:15:35.418 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 23:16:20.211 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64

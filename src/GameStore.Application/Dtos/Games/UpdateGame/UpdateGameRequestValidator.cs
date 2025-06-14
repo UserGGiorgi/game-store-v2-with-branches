@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using GameStore.Application.Dtos.Games.UpdateGames;
 
 namespace GameStore.Application.Dtos.Games.UpdateGames
 {
@@ -12,15 +11,21 @@ namespace GameStore.Application.Dtos.Games.UpdateGames
                 .SetValidator(new GameUpdateDtoValidator());
 
             RuleFor(x => x.Genres)
-                .NotEmpty().WithMessage("At least one genre is required.")
-                .ForEach(id => id.NotEmpty().WithMessage("Genre ID cannot be empty."));
+                .NotEmpty().WithMessage(GameValidationConstraints.Messages.GenresRequired)
+                .ForEach(id => id.NotEmpty()
+                    .WithMessage(string.Format(
+                        GameValidationConstraints.Messages.IdNotEmpty,
+                        "Genre")));
 
             RuleFor(x => x.Platforms)
-                .NotEmpty().WithMessage("At least one platform is required.")
-                .ForEach(id => id.NotEmpty().WithMessage("Platform ID cannot be empty."));
+                .NotEmpty().WithMessage(GameValidationConstraints.Messages.PlatformsRequired)
+                .ForEach(id => id.NotEmpty()
+                    .WithMessage(string.Format(
+                        GameValidationConstraints.Messages.IdNotEmpty,
+                        "Platform")));
 
             RuleFor(x => x.Publisher)
-                .NotEmpty().WithMessage("Publisher is required.");
+                .NotEmpty().WithMessage(GameValidationConstraints.Messages.Required);
         }
     }
 
@@ -29,29 +34,38 @@ namespace GameStore.Application.Dtos.Games.UpdateGames
         public GameUpdateDtoValidator()
         {
             RuleFor(x => x.Id)
-                .NotEmpty().WithMessage("Game ID is required.");
+                .NotEmpty().WithMessage(GameValidationConstraints.Messages.Required);
 
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Name is required.")
-                .MaximumLength(100).WithMessage("Name cannot exceed 100 characters.");
+                .NotEmpty().WithMessage(GameValidationConstraints.Messages.Required)
+                .MaximumLength(GameValidationConstraints.Limits.Name)
+                .WithMessage(GameValidationConstraints.Messages.NameLength);
 
             RuleFor(x => x.Key)
-                .NotEmpty().WithMessage("Key is required.")
-                .Matches("^[a-z0-9-]+$").WithMessage("Key must contain only lowercase letters, numbers, and hyphens.")
-                .MaximumLength(50).WithMessage("Key cannot exceed 50 characters.");
+                .NotEmpty().WithMessage(GameValidationConstraints.Messages.Required)
+                .Matches(GameValidationConstraints.Patterns.Key)
+                .WithMessage(GameValidationConstraints.Messages.KeyFormat)
+                .MaximumLength(GameValidationConstraints.Limits.Key)
+                .WithMessage(GameValidationConstraints.Messages.KeyLength);
 
             RuleFor(x => x.Description)
-                .MaximumLength(500).WithMessage("Description cannot exceed 500 characters.")
+                .MaximumLength(GameValidationConstraints.Limits.Description)
+                .WithMessage(GameValidationConstraints.Messages.DescriptionLength)
                 .When(x => !string.IsNullOrEmpty(x.Description));
 
             RuleFor(x => x.Price)
-                .GreaterThanOrEqualTo(0).WithMessage("Price cannot be negative.");
+                .GreaterThanOrEqualTo(GameValidationConstraints.Limits.MinPrice)
+                .WithMessage(GameValidationConstraints.Messages.PriceMin);
 
             RuleFor(x => x.UnitInStock)
-                .GreaterThanOrEqualTo(0).WithMessage("Unit in stock cannot be negative.");
+                .GreaterThanOrEqualTo(GameValidationConstraints.Limits.MinStock)
+                .WithMessage(GameValidationConstraints.Messages.StockMin);
 
             RuleFor(x => x.Discount)
-                .InclusiveBetween(0, 100).WithMessage("Discount must be between 0 and 100 percent.");
+                .InclusiveBetween(
+                    GameValidationConstraints.Limits.MinDiscount,
+                    GameValidationConstraints.Limits.MaxDiscount)
+                .WithMessage(GameValidationConstraints.Messages.DiscountRange);
         }
     }
 }

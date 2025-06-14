@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Platforms.GetPlatform;
+using GameStore.Domain.Constraints;
 using System.Text.RegularExpressions;
 
 namespace GameStore.Application.Dtos.Platforms.CreatePlatform
@@ -19,10 +20,11 @@ namespace GameStore.Application.Dtos.Platforms.CreatePlatform
         public PlatformDtoValidator()
         {
             RuleFor(x => x.Type)
-                .NotEmpty().WithMessage("Platform type is required.")
-                .MaximumLength(50).WithMessage("Platform type cannot exceed 50 characters.")
-                .Matches(@"^[a-zA-Z][a-zA-Z0-9 ]*$")
-                .WithMessage("Platform type must start with a letter and can only contain alphanumeric characters and spaces.");
+                .NotEmpty().WithMessage(PlatformValidationConstraints.Messages.TypeRequired)
+                .MaximumLength(PlatformValidationConstraints.Limits.Type)
+                .WithMessage(PlatformValidationConstraints.Messages.TypeLength)
+                .Matches(PlatformValidationConstraints.Patterns.Type)
+                .WithMessage(PlatformValidationConstraints.Messages.TypeFormat);
         }
     }
 }

@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace GameStore.Web.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class GenresController : ControllerBase
     {
         private readonly IGenreService _genreService;
@@ -86,7 +86,7 @@ namespace GameStore.Web.Controller
             var genres = await _genreService.GetAllGenresAsync();
             return Ok(genres);
         }
-        [HttpGet("/api/games/{key}/genres")]
+        [HttpGet("/games/{key}/genres")]
         [ProducesResponseType(typeof(IEnumerable<GenreListDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetGenresByGameKey(

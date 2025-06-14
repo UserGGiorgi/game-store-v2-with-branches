@@ -14,7 +14,7 @@ using System.Threading;
 namespace GameStore.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class PublishersController : ControllerBase
     {
         private readonly IPublisherService _publisherService;
@@ -41,7 +41,7 @@ namespace GameStore.Api.Controllers
         public async Task<IActionResult> CreatePublisher([FromBody] CreatePublisherRequestDto request,
             CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Creating new publisher: {CompanyName}", request.publisher.CompanyName);
+            _logger.LogInformation("Creating new publisher: {CompanyName}", request.Publisher.CompanyName);
 
             var validationResult = await _createValidator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
@@ -70,7 +70,7 @@ namespace GameStore.Api.Controllers
             }
         }
 
-        [HttpGet("/api/games/{key}/publisher")]
+        [HttpGet("/games/{key}/publisher")]
         [ProducesResponseType(typeof(PublisherResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPublisherByGameKey(string key)
@@ -165,6 +165,7 @@ namespace GameStore.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
         [HttpGet("{companyName}")]
         [ProducesResponseType(typeof(PublisherResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

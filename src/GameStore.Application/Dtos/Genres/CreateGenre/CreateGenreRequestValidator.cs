@@ -1,6 +1,7 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using GameStore.Application.Dtos.Genres.GetGenre;
+using GameStore.Domain.Constraints;
+using System;
 
 namespace GameStore.Application.Dtos.Genres.CreateGenre
 {
@@ -19,13 +20,15 @@ namespace GameStore.Application.Dtos.Genres.CreateGenre
         public GenreDtoValidator()
         {
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Genre name is required.")
-                .MaximumLength(50).WithMessage("Genre name cannot exceed 50 characters.")
-                .Matches("^[a-zA-Z0-9 ]+$").WithMessage("Genre name can only contain alphanumeric characters and spaces.");
+                .NotEmpty().WithMessage(GenreValidationConstraints.Messages.NameRequired)
+                .MaximumLength(GenreValidationConstraints.Limits.Name)
+                .WithMessage(GenreValidationConstraints.Messages.NameLength)
+                .Matches(GenreValidationConstraints.Patterns.Name)
+                .WithMessage(GenreValidationConstraints.Messages.NameFormat);
 
             RuleFor(x => x.ParentGenreId)
-            .Must(BeValidGuidOrNullOrEmpty)
-            .WithMessage("ParentGenreId must be a valid GUID or empty");
+                .Must(BeValidGuidOrNullOrEmpty)
+                .WithMessage(GenreValidationConstraints.Messages.ParentIdFormat);
         }
 
         private bool BeValidGuidOrNullOrEmpty(string? parentGenreId)

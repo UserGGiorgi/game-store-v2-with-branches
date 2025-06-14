@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 namespace GameStore.Web.Controller;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class GamesController : ControllerBase
 {
     private readonly IGameService _gameService;
@@ -116,7 +116,7 @@ public class GamesController : ControllerBase
         return Ok(game);
     }
 
-    [HttpGet("/api/platforms/{id}/games")]
+    [HttpGet("/platforms/{id}/games")]
     [ProducesResponseType(typeof(IEnumerable<SimpleGameResponseDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByPlatform(
         Guid id,
@@ -129,7 +129,7 @@ public class GamesController : ControllerBase
         return Ok(games);
     }
 
-    [HttpGet("/api/genres/{id}/games")]
+    [HttpGet("/genres/{id}/games")]
     [ProducesResponseType(typeof(IEnumerable<SimpleGameResponseDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByGenre(
         Guid id,

@@ -37,15 +37,15 @@ namespace GameStore.Application.Services
 
         public async Task<PublisherResponseDto> CreatePublisherAsync(CreatePublisherRequestDto createPublisherDto)
         {
-            _logger.LogInformation("Creating publisher: {CompanyName}", createPublisherDto.publisher.CompanyName);
+            _logger.LogInformation("Creating publisher: {CompanyName}", createPublisherDto.Publisher.CompanyName);
 
-            if (await _unitOfWork.PublisherRepository.ExistsByCompanyNameAsync(createPublisherDto.publisher.CompanyName))
+            if (await _unitOfWork.PublisherRepository.ExistsByCompanyNameAsync(createPublisherDto.Publisher.CompanyName))
             {
-                _logger.LogWarning("Duplicate company name: {CompanyName}", createPublisherDto.publisher.CompanyName);
+                _logger.LogWarning("Duplicate company name: {CompanyName}", createPublisherDto.Publisher.CompanyName);
                 throw new BadRequestException("Company name must be unique.");
             }
 
-            var publisher = _mapper.Map<Publisher>(createPublisherDto.publisher);
+            var publisher = _mapper.Map<Publisher>(createPublisherDto.Publisher);
             await _unitOfWork.PublisherRepository.AddAsync(publisher);
             await _unitOfWork.SaveChangesAsync();
 

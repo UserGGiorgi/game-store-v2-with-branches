@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GameStore.Web.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class PlatformsController : ControllerBase
     {
         private readonly IPlatformService _platformService;
@@ -78,7 +78,7 @@ namespace GameStore.Web.Controller
             }
         }
 
-        [HttpGet("/api/games/{key}/platforms")]
+        [HttpGet("/games/{key}/platforms")]
         [ProducesResponseType(typeof(IEnumerable<PlatformResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPlatformsByGameKey(

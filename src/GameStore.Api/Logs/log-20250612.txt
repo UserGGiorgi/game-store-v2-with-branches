@@ -2425,3 +2425,2130 @@ GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
 2025-06-12 16:44:36.215 +04:00 [INF] Fetching all games
 2025-06-12 16:44:36.219 +04:00 [INF] Retrieved 6 games
 2025-06-12 16:44:36.229 +04:00 [INF] Completed request: POST /api/games - Status: 201 - Time: 1695ms
+2025-06-12 16:48:40.906 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 16:48:41.610 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 705ms
+2025-06-12 16:48:45.970 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:48:45.970 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 16:48:45.970 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:48:46.046 +04:00 [INF] Fetching all publishers
+2025-06-12 16:48:46.047 +04:00 [INF] Retrieving all publishers
+2025-06-12 16:48:46.056 +04:00 [INF] Fetching all genres
+2025-06-12 16:48:46.056 +04:00 [INF] Fetching all platforms
+2025-06-12 16:48:46.056 +04:00 [INF] Getting all genres
+2025-06-12 16:48:46.056 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:48:46.189 +04:00 [INF] Retrieved 5 publishers
+2025-06-12 16:48:46.191 +04:00 [INF] Returning 3 genres
+2025-06-12 16:48:46.196 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 226ms
+2025-06-12 16:48:46.196 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 226ms
+2025-06-12 16:48:46.196 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 226ms
+2025-06-12 16:48:48.084 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:48:48.088 +04:00 [INF] Fetching all genres
+2025-06-12 16:48:48.089 +04:00 [INF] Getting all genres
+2025-06-12 16:48:48.110 +04:00 [INF] Returning 3 genres
+2025-06-12 16:48:48.112 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 27ms
+2025-06-12 16:48:49.726 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:48:49.728 +04:00 [INF] Fetching all platforms
+2025-06-12 16:48:49.729 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:48:49.739 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 12ms
+2025-06-12 16:48:51.099 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 16:48:51.103 +04:00 [INF] Fetching all publishers
+2025-06-12 16:48:51.103 +04:00 [INF] Retrieving all publishers
+2025-06-12 16:48:51.110 +04:00 [INF] Retrieved 5 publishers
+2025-06-12 16:48:51.111 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 11ms
+2025-06-12 16:48:52.618 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:48:52.619 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:48:52.620 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 16:48:52.626 +04:00 [INF] Fetching all genres
+2025-06-12 16:48:52.626 +04:00 [INF] Getting all genres
+2025-06-12 16:48:52.626 +04:00 [INF] Fetching all platforms
+2025-06-12 16:48:52.626 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:48:52.627 +04:00 [INF] Fetching all publishers
+2025-06-12 16:48:52.627 +04:00 [INF] Retrieving all publishers
+2025-06-12 16:48:52.633 +04:00 [INF] Returning 3 genres
+2025-06-12 16:48:52.634 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 14ms
+2025-06-12 16:48:52.634 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 15ms
+2025-06-12 16:48:52.634 +04:00 [INF] Retrieved 5 publishers
+2025-06-12 16:48:52.635 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 15ms
+2025-06-12 16:51:00.021 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 16:51:00.757 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 739ms
+2025-06-12 16:51:14.564 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 16:51:14.564 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:51:14.564 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:51:14.704 +04:00 [INF] Fetching all publishers
+2025-06-12 16:51:14.705 +04:00 [INF] Retrieving all publishers
+2025-06-12 16:51:14.710 +04:00 [INF] Fetching all genres
+2025-06-12 16:51:14.710 +04:00 [INF] Fetching all platforms
+2025-06-12 16:51:14.711 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:51:14.711 +04:00 [INF] Getting all genres
+2025-06-12 16:51:14.889 +04:00 [INF] Retrieved 5 publishers
+2025-06-12 16:51:14.897 +04:00 [INF] Returning 3 genres
+2025-06-12 16:51:14.904 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 340ms
+2025-06-12 16:51:14.904 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 340ms
+2025-06-12 16:51:14.904 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 340ms
+2025-06-12 16:51:16.584 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:51:16.590 +04:00 [INF] Fetching all genres
+2025-06-12 16:51:16.590 +04:00 [INF] Getting all genres
+2025-06-12 16:51:16.606 +04:00 [INF] Returning 3 genres
+2025-06-12 16:51:16.607 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 22ms
+2025-06-12 16:51:18.082 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:51:18.085 +04:00 [INF] Fetching all platforms
+2025-06-12 16:51:18.085 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:51:18.090 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 7ms
+2025-06-12 16:51:19.647 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 16:51:19.649 +04:00 [INF] Fetching all publishers
+2025-06-12 16:51:19.649 +04:00 [INF] Retrieving all publishers
+2025-06-12 16:51:19.656 +04:00 [INF] Retrieved 5 publishers
+2025-06-12 16:51:19.657 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 9ms
+2025-06-12 16:51:21.841 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:51:21.848 +04:00 [INF] Fetching all platforms
+2025-06-12 16:51:21.848 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:51:21.853 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 12ms
+2025-06-12 16:51:24.386 +04:00 [INF] Starting request: POST /api/platforms from ::1
+2025-06-12 16:51:24.416 +04:00 [INF] Creating new platform: safsaf
+2025-06-12 16:51:24.430 +04:00 [INF] Creating platform: safsaf
+2025-06-12 16:51:24.585 +04:00 [INF] Platform created successfully: safsaf
+2025-06-12 16:51:24.586 +04:00 [INF] platform created successfully. Key: safsaf
+2025-06-12 16:51:24.586 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:51:24.608 +04:00 [INF] Completed request: POST /api/platforms - Status: 201 - Time: 222ms
+2025-06-12 16:51:24.620 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:51:24.621 +04:00 [INF] Fetching all platforms
+2025-06-12 16:51:24.621 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:51:24.624 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 4ms
+2025-06-12 16:51:26.358 +04:00 [INF] Starting request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 from ::1
+2025-06-12 16:51:26.368 +04:00 [INF] Fetching platform by ID: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:26.370 +04:00 [INF] Retrieving platform by ID: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:26.408 +04:00 [INF] Completed request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 - Status: 200 - Time: 49ms
+2025-06-12 16:51:27.752 +04:00 [INF] Starting request: PUT /api/platforms from ::1
+2025-06-12 16:51:27.760 +04:00 [INF] Updating game: safsafsfaf
+2025-06-12 16:51:27.765 +04:00 [INF] Updating platform: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:27.801 +04:00 [INF] platform updated successfully. Key: safsafsfaf
+2025-06-12 16:51:27.801 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:51:27.803 +04:00 [INF] Completed request: PUT /api/platforms - Status: 201 - Time: 51ms
+2025-06-12 16:51:27.812 +04:00 [INF] Starting request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 from ::1
+2025-06-12 16:51:27.813 +04:00 [INF] Fetching platform by ID: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:27.813 +04:00 [INF] Retrieving platform by ID: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:27.818 +04:00 [INF] Completed request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 - Status: 200 - Time: 5ms
+2025-06-12 16:51:27.822 +04:00 [INF] Starting request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1/games from ::1
+2025-06-12 16:51:34.187 +04:00 [INF] Fetching games by platform ID: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:34.190 +04:00 [INF] Getting games for platform: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:34.234 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 16:51:34.250 +04:00 [INF] Found 0 games for platform "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:34.254 +04:00 [INF] Completed request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1/games - Status: 200 - Time: 6432ms
+2025-06-12 16:51:40.565 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:51:40.566 +04:00 [INF] Fetching all platforms
+2025-06-12 16:51:40.566 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:51:40.572 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 7ms
+2025-06-12 16:51:41.848 +04:00 [INF] Starting request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 from ::1
+2025-06-12 16:51:41.849 +04:00 [INF] Fetching platform by ID: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:41.849 +04:00 [INF] Retrieving platform by ID: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:41.856 +04:00 [INF] Completed request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 - Status: 200 - Time: 8ms
+2025-06-12 16:51:42.634 +04:00 [INF] Starting request: DELETE /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 from ::1
+2025-06-12 16:51:42.639 +04:00 [INF] Deleting platform: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:42.655 +04:00 [INF] Deleting platform: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:42.714 +04:00 [INF] paltform deleted successfully. id: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:42.714 +04:00 [INF] Completed request: DELETE /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 - Status: 204 - Time: 79ms
+2025-06-12 16:51:42.731 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:51:42.731 +04:00 [INF] Fetching all platforms
+2025-06-12 16:51:42.731 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:51:42.735 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 4ms
+2025-06-12 16:51:43.990 +04:00 [INF] Starting request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 from ::1
+2025-06-12 16:51:43.991 +04:00 [INF] Fetching platform by ID: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:43.991 +04:00 [INF] Retrieving platform by ID: "60fb66d7-e3a8-41c4-284b-08dda9afd6d1"
+2025-06-12 16:51:43.993 +04:00 [WRN] Platform "60fb66d7-e3a8-41c4-284b-08dda9afd6d1" not found
+2025-06-12 16:51:44.082 +04:00 [INF] Completed request: GET /api/platforms/60fb66d7-e3a8-41c4-284b-08dda9afd6d1 - Status: 404 - Time: 92ms
+2025-06-12 16:51:46.141 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 16:51:46.145 +04:00 [INF] Fetching all publishers
+2025-06-12 16:51:46.145 +04:00 [INF] Retrieving all publishers
+2025-06-12 16:51:46.152 +04:00 [INF] Retrieved 5 publishers
+2025-06-12 16:51:46.153 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 11ms
+2025-06-12 16:51:51.316 +04:00 [INF] Starting request: POST /api/publishers from ::1
+2025-06-12 16:51:51.328 +04:00 [INF] Creating new publisher: asfasf
+2025-06-12 16:51:51.331 +04:00 [INF] Creating publisher: asfasf
+2025-06-12 16:51:51.372 +04:00 [INF] Publisher created successfully: asfasf (ID: "a33d6db2-e85b-40a0-a9af-08dda9afe6d4")
+2025-06-12 16:51:51.374 +04:00 [INF] Publisher created: asfasf (ID: "a33d6db2-e85b-40a0-a9af-08dda9afe6d4")
+2025-06-12 16:51:51.375 +04:00 [INF] Completed request: POST /api/publishers - Status: 201 - Time: 58ms
+2025-06-12 16:51:51.387 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 16:51:51.387 +04:00 [INF] Fetching all publishers
+2025-06-12 16:51:51.387 +04:00 [INF] Retrieving all publishers
+2025-06-12 16:51:51.391 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 16:51:51.391 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 4ms
+2025-06-12 16:51:56.055 +04:00 [INF] Starting request: GET /api/publishers/%7BcompanyName%7D from ::1
+2025-06-12 16:51:59.241 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 16:51:59.242 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 16:51:59.250 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 16:51:59.277 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 16:51:59.305 +04:00 [INF] Completed request: GET /api/publishers/%7BcompanyName%7D - Status: 404 - Time: 3250ms
+2025-06-12 16:54:21.731 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 16:54:22.476 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 748ms
+2025-06-12 16:54:49.873 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 16:54:49.873 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:54:49.873 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 16:54:49.957 +04:00 [INF] Fetching all publishers
+2025-06-12 16:54:49.957 +04:00 [INF] Retrieving all publishers
+2025-06-12 16:54:49.966 +04:00 [INF] Fetching all platforms
+2025-06-12 16:54:49.966 +04:00 [INF] Fetching all genres
+2025-06-12 16:54:49.967 +04:00 [INF] Retrieving all platforms
+2025-06-12 16:54:49.967 +04:00 [INF] Getting all genres
+2025-06-12 16:54:50.075 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 16:54:50.078 +04:00 [INF] Returning 3 genres
+2025-06-12 16:54:50.082 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 209ms
+2025-06-12 16:54:50.082 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 209ms
+2025-06-12 16:54:50.082 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 209ms
+2025-06-12 16:54:55.667 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 16:54:55.673 +04:00 [INF] Fetching all publishers
+2025-06-12 16:54:55.673 +04:00 [INF] Retrieving all publishers
+2025-06-12 16:54:55.691 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 16:54:55.692 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 24ms
+2025-06-12 16:54:59.641 +04:00 [INF] Starting request: GET /api/publishers/%7BcompanyName%7D from ::1
+2025-06-12 16:55:06.566 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 16:55:06.566 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 16:55:06.611 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 16:55:06.646 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 16:55:06.662 +04:00 [INF] Completed request: GET /api/publishers/%7BcompanyName%7D - Status: 404 - Time: 7021ms
+2025-06-12 16:55:30.153 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:55:30.156 +04:00 [INF] Fetching all genres
+2025-06-12 16:55:30.156 +04:00 [INF] Getting all genres
+2025-06-12 16:55:30.160 +04:00 [INF] Returning 3 genres
+2025-06-12 16:55:30.161 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 7ms
+2025-06-12 16:55:31.252 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:55:31.255 +04:00 [INF] Fetching all genres
+2025-06-12 16:55:31.255 +04:00 [INF] Getting all genres
+2025-06-12 16:55:31.260 +04:00 [INF] Returning 3 genres
+2025-06-12 16:55:31.260 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 8ms
+2025-06-12 16:55:33.247 +04:00 [INF] Starting request: POST /api/genres from ::1
+2025-06-12 16:55:33.271 +04:00 [INF] Creating new genre: safasf
+2025-06-12 16:55:33.284 +04:00 [INF] Creating genre: safasf
+2025-06-12 16:55:33.427 +04:00 [INF] Created genre ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:33.430 +04:00 [INF] genre created successfully. Key: safasf
+2025-06-12 16:55:33.430 +04:00 [INF] Getting all genres
+2025-06-12 16:55:33.431 +04:00 [INF] Returning 4 genres
+2025-06-12 16:55:33.445 +04:00 [INF] Completed request: POST /api/genres - Status: 201 - Time: 198ms
+2025-06-12 16:55:33.455 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:55:33.456 +04:00 [INF] Fetching all genres
+2025-06-12 16:55:33.456 +04:00 [INF] Getting all genres
+2025-06-12 16:55:33.460 +04:00 [INF] Returning 4 genres
+2025-06-12 16:55:33.460 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 4ms
+2025-06-12 16:55:35.666 +04:00 [INF] Starting request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24 from ::1
+2025-06-12 16:55:35.675 +04:00 [INF] Fetching genre by ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:35.676 +04:00 [INF] Getting genre by ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:35.702 +04:00 [INF] Completed request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24 - Status: 200 - Time: 35ms
+2025-06-12 16:55:35.723 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:55:35.724 +04:00 [INF] Fetching all genres
+2025-06-12 16:55:35.724 +04:00 [INF] Getting all genres
+2025-06-12 16:55:35.727 +04:00 [INF] Returning 4 genres
+2025-06-12 16:55:35.728 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 4ms
+2025-06-12 16:55:38.111 +04:00 [INF] Starting request: PUT /api/genres from ::1
+2025-06-12 16:55:38.128 +04:00 [INF] Updating genre: safasf
+2025-06-12 16:55:38.136 +04:00 [INF] Updating genre ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:38.200 +04:00 [INF] Successfully updated genre ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:38.200 +04:00 [INF] genre updated successfully. Key: safasf
+2025-06-12 16:55:38.200 +04:00 [INF] Getting all genres
+2025-06-12 16:55:38.205 +04:00 [INF] Returning 4 genres
+2025-06-12 16:55:38.206 +04:00 [INF] Completed request: PUT /api/genres - Status: 201 - Time: 95ms
+2025-06-12 16:55:38.223 +04:00 [INF] Starting request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24 from ::1
+2025-06-12 16:55:38.223 +04:00 [INF] Fetching genre by ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:38.223 +04:00 [INF] Getting genre by ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:38.229 +04:00 [INF] Completed request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24 - Status: 200 - Time: 6ms
+2025-06-12 16:55:38.234 +04:00 [INF] Starting request: GET /api/genres/f5256767-3f50-4c79-6589-08dda90d28de from ::1
+2025-06-12 16:55:38.235 +04:00 [INF] Starting request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24/genres from ::1
+2025-06-12 16:55:38.235 +04:00 [INF] Starting request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24/games from ::1
+2025-06-12 16:55:38.235 +04:00 [INF] Fetching genre by ID: "f5256767-3f50-4c79-6589-08dda90d28de"
+2025-06-12 16:55:38.235 +04:00 [INF] Getting genre by ID: "f5256767-3f50-4c79-6589-08dda90d28de"
+2025-06-12 16:55:38.239 +04:00 [INF] Completed request: GET /api/genres/f5256767-3f50-4c79-6589-08dda90d28de - Status: 200 - Time: 4ms
+2025-06-12 16:55:38.242 +04:00 [INF] Fetching all subGenres
+2025-06-12 16:55:38.242 +04:00 [INF] Getting subgenres for parent: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:40.423 +04:00 [INF] Fetching games by genre ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:40.424 +04:00 [INF] Getting games for genre: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:40.436 +04:00 [INF] Found 0 subgenres for parent "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:40.436 +04:00 [INF] Completed request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24/genres - Status: 200 - Time: 2201ms
+2025-06-12 16:55:40.476 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 16:55:40.491 +04:00 [INF] Found 0 games for genre "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:40.494 +04:00 [INF] Completed request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24/games - Status: 200 - Time: 2260ms
+2025-06-12 16:55:44.762 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:55:44.764 +04:00 [INF] Fetching all genres
+2025-06-12 16:55:44.764 +04:00 [INF] Getting all genres
+2025-06-12 16:55:44.768 +04:00 [INF] Returning 4 genres
+2025-06-12 16:55:44.768 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 6ms
+2025-06-12 16:55:47.137 +04:00 [INF] Starting request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24 from ::1
+2025-06-12 16:55:47.138 +04:00 [INF] Fetching genre by ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:47.138 +04:00 [INF] Getting genre by ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:47.143 +04:00 [INF] Completed request: GET /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24 - Status: 200 - Time: 6ms
+2025-06-12 16:55:47.898 +04:00 [INF] Starting request: DELETE /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24 from ::1
+2025-06-12 16:55:47.902 +04:00 [INF] Deleting genre: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:47.914 +04:00 [INF] Deleting genre ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:47.948 +04:00 [INF] Successfully deleted genre ID: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:47.999 +04:00 [INF] genre deleted successfully. id: "b39dcb1e-d570-49a4-3cdf-08dda9b06b24"
+2025-06-12 16:55:47.999 +04:00 [INF] Completed request: DELETE /api/genres/b39dcb1e-d570-49a4-3cdf-08dda9b06b24 - Status: 204 - Time: 101ms
+2025-06-12 16:55:48.012 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 16:55:48.013 +04:00 [INF] Fetching all genres
+2025-06-12 16:55:48.013 +04:00 [INF] Getting all genres
+2025-06-12 16:55:48.020 +04:00 [INF] Returning 3 genres
+2025-06-12 16:55:48.020 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 7ms
+2025-06-12 17:21:35.239 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 17:21:35.239 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 17:21:35.240 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 17:21:35.269 +04:00 [INF] Fetching all genres
+2025-06-12 17:21:35.269 +04:00 [INF] Getting all genres
+2025-06-12 17:21:35.271 +04:00 [INF] Fetching all publishers
+2025-06-12 17:21:35.272 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:21:35.275 +04:00 [INF] Returning 3 genres
+2025-06-12 17:21:35.276 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:21:35.276 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 37ms
+2025-06-12 17:21:35.276 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 37ms
+2025-06-12 17:21:35.277 +04:00 [INF] Fetching all platforms
+2025-06-12 17:21:35.277 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:21:35.284 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 44ms
+2025-06-12 17:29:34.970 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 17:29:34.973 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 17:29:34.986 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 17:29:35.002 +04:00 [INF] Fetching all genres
+2025-06-12 17:29:35.002 +04:00 [INF] Getting all genres
+2025-06-12 17:29:35.006 +04:00 [INF] Fetching all publishers
+2025-06-12 17:29:35.007 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:29:35.015 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:29:35.015 +04:00 [INF] Returning 3 genres
+2025-06-12 17:29:35.016 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 45ms
+2025-06-12 17:29:35.015 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 29ms
+2025-06-12 17:29:35.018 +04:00 [INF] Fetching all platforms
+2025-06-12 17:29:35.018 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:29:35.021 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 48ms
+2025-06-12 17:30:07.481 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 17:30:08.230 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 752ms
+2025-06-12 17:30:28.008 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 17:30:28.008 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 17:30:28.008 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 17:30:28.144 +04:00 [INF] Fetching all publishers
+2025-06-12 17:30:28.145 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:30:28.157 +04:00 [INF] Fetching all platforms
+2025-06-12 17:30:28.158 +04:00 [INF] Fetching all genres
+2025-06-12 17:30:28.158 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:30:28.159 +04:00 [INF] Getting all genres
+2025-06-12 17:30:28.357 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:30:28.366 +04:00 [INF] Returning 3 genres
+2025-06-12 17:30:28.371 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 363ms
+2025-06-12 17:30:28.371 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 363ms
+2025-06-12 17:30:28.371 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 363ms
+2025-06-12 17:30:36.050 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 17:30:36.050 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 17:30:36.050 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 17:30:36.055 +04:00 [INF] Fetching all publishers
+2025-06-12 17:30:36.055 +04:00 [INF] Fetching all genres
+2025-06-12 17:30:36.055 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:30:36.055 +04:00 [INF] Fetching all platforms
+2025-06-12 17:30:36.055 +04:00 [INF] Getting all genres
+2025-06-12 17:30:36.055 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:30:36.087 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:30:36.087 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 37ms
+2025-06-12 17:30:36.087 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 37ms
+2025-06-12 17:30:36.089 +04:00 [INF] Returning 3 genres
+2025-06-12 17:30:36.090 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 40ms
+2025-06-12 17:32:00.596 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 17:32:00.597 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 17:32:00.597 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 17:32:00.623 +04:00 [INF] Fetching all genres
+2025-06-12 17:32:00.623 +04:00 [INF] Getting all genres
+2025-06-12 17:32:00.623 +04:00 [INF] Fetching all platforms
+2025-06-12 17:32:00.623 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:32:00.624 +04:00 [INF] Fetching all publishers
+2025-06-12 17:32:00.624 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:32:00.629 +04:00 [INF] Returning 3 genres
+2025-06-12 17:32:00.631 +04:00 [INF] Completed request: GET /api/platforms - Status: 200 - Time: 34ms
+2025-06-12 17:32:00.631 +04:00 [INF] Completed request: GET /api/genres - Status: 200 - Time: 35ms
+2025-06-12 17:32:00.632 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:32:00.632 +04:00 [INF] Completed request: GET /api/publishers - Status: 200 - Time: 34ms
+2025-06-12 17:39:06.340 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 17:39:07.065 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 727ms
+2025-06-12 17:39:57.207 +04:00 [INF] Starting request: GET /api/games from ::1
+2025-06-12 17:39:57.210 +04:00 [INF] Completed request: GET /api/games - Status: 404 - Time: 3ms
+2025-06-12 17:40:05.393 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 17:40:05.396 +04:00 [INF] Completed request: GET /api/genres - Status: 404 - Time: 2ms
+2025-06-12 17:40:07.610 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 17:40:07.610 +04:00 [INF] Completed request: GET /api/platforms - Status: 404 - Time: 0ms
+2025-06-12 17:40:09.371 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 17:40:09.372 +04:00 [INF] Completed request: GET /api/publishers - Status: 404 - Time: 0ms
+2025-06-12 17:40:38.050 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 17:40:38.836 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 788ms
+2025-06-12 17:40:44.543 +04:00 [INF] Starting request: GET /api/games from ::1
+2025-06-12 17:40:44.548 +04:00 [INF] Completed request: GET /api/games - Status: 404 - Time: 4ms
+2025-06-12 17:40:46.988 +04:00 [INF] Starting request: GET /api/genres from ::1
+2025-06-12 17:40:46.992 +04:00 [INF] Completed request: GET /api/genres - Status: 404 - Time: 4ms
+2025-06-12 17:40:48.828 +04:00 [INF] Starting request: GET /api/platforms from ::1
+2025-06-12 17:40:48.829 +04:00 [INF] Completed request: GET /api/platforms - Status: 404 - Time: 0ms
+2025-06-12 17:40:50.375 +04:00 [INF] Starting request: GET /api/publishers from ::1
+2025-06-12 17:40:50.376 +04:00 [INF] Completed request: GET /api/publishers - Status: 404 - Time: 0ms
+2025-06-12 17:40:54.627 +04:00 [INF] Starting request: GET /api/games from ::1
+2025-06-12 17:40:54.629 +04:00 [INF] Completed request: GET /api/games - Status: 404 - Time: 1ms
+2025-06-12 17:43:03.621 +04:00 [INF] Starting request: GET /swagger from ::1
+2025-06-12 17:43:04.322 +04:00 [INF] Completed request: GET /swagger - Status: 301 - Time: 703ms
+2025-06-12 17:43:04.346 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-12 17:43:04.374 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 28ms
+2025-06-12 17:43:04.392 +04:00 [INF] Starting request: GET /swagger/swagger-ui.css from ::1
+2025-06-12 17:43:04.392 +04:00 [INF] Starting request: GET /swagger/index.js from ::1
+2025-06-12 17:43:04.392 +04:00 [INF] Starting request: GET /swagger/swagger-ui-standalone-preset.js from ::1
+2025-06-12 17:43:04.392 +04:00 [INF] Starting request: GET /swagger/swagger-ui-bundle.js from ::1
+2025-06-12 17:43:04.392 +04:00 [INF] Starting request: GET /swagger/index.css from ::1
+2025-06-12 17:43:04.394 +04:00 [INF] Completed request: GET /swagger/index.js - Status: 200 - Time: 2ms
+2025-06-12 17:43:04.409 +04:00 [INF] Completed request: GET /swagger/index.css - Status: 200 - Time: 17ms
+2025-06-12 17:43:04.421 +04:00 [INF] Completed request: GET /swagger/swagger-ui.css - Status: 200 - Time: 29ms
+2025-06-12 17:43:04.424 +04:00 [INF] Completed request: GET /swagger/swagger-ui-standalone-preset.js - Status: 200 - Time: 31ms
+2025-06-12 17:43:04.438 +04:00 [INF] Completed request: GET /swagger/swagger-ui-bundle.js - Status: 200 - Time: 45ms
+2025-06-12 17:43:04.592 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-12 17:43:04.593 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-12 17:43:04.627 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 17:43:04.646 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 19ms
+2025-06-12 17:43:11.289 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 17:43:17.074 +04:00 [INF] Fetching all games
+2025-06-12 17:43:17.075 +04:00 [INF] Fetching all games
+2025-06-12 17:43:17.172 +04:00 [INF] Retrieved 6 games
+2025-06-12 17:43:17.178 +04:00 [INF] Retrieved  games
+2025-06-12 17:43:17.184 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 5895ms
+2025-06-12 17:43:24.513 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 17:43:34.302 +04:00 [INF] Fetching all games
+2025-06-12 17:43:34.893 +04:00 [INF] Fetching all games
+2025-06-12 17:43:34.903 +04:00 [INF] Retrieved 6 games
+2025-06-12 17:43:35.578 +04:00 [INF] Retrieved  games
+2025-06-12 17:44:02.208 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 17:44:02.941 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 735ms
+2025-06-12 17:44:06.697 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 17:44:06.768 +04:00 [INF] Fetching all publishers
+2025-06-12 17:44:06.769 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:44:06.856 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:44:06.863 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 165ms
+2025-06-12 17:44:08.518 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:44:08.558 +04:00 [INF] Fetching all platforms
+2025-06-12 17:44:08.559 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:44:08.594 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 75ms
+2025-06-12 17:44:10.196 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:44:10.208 +04:00 [INF] Fetching all genres
+2025-06-12 17:44:10.209 +04:00 [INF] Getting all genres
+2025-06-12 17:44:10.264 +04:00 [INF] Returning 3 genres
+2025-06-12 17:44:10.265 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 68ms
+2025-06-12 17:44:11.574 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:44:11.580 +04:00 [INF] Fetching all platforms
+2025-06-12 17:44:11.580 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:44:11.588 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 13ms
+2025-06-12 17:44:15.007 +04:00 [INF] Starting request: POST /platforms from ::1
+2025-06-12 17:44:15.046 +04:00 [INF] Creating new platform: qe
+2025-06-12 17:44:15.057 +04:00 [INF] Creating platform: qe
+2025-06-12 17:44:15.223 +04:00 [INF] Platform created successfully: qe
+2025-06-12 17:44:15.225 +04:00 [INF] platform created successfully. Key: qe
+2025-06-12 17:44:15.225 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:44:15.242 +04:00 [INF] Completed request: POST /platforms - Status: 201 - Time: 235ms
+2025-06-12 17:44:15.256 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:44:15.257 +04:00 [INF] Fetching all platforms
+2025-06-12 17:44:15.257 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:44:15.261 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 4ms
+2025-06-12 17:44:16.398 +04:00 [INF] Starting request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab from ::1
+2025-06-12 17:44:16.407 +04:00 [INF] Fetching platform by ID: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:16.409 +04:00 [INF] Retrieving platform by ID: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:16.443 +04:00 [INF] Completed request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab - Status: 200 - Time: 44ms
+2025-06-12 17:44:19.890 +04:00 [INF] Starting request: PUT /platforms from ::1
+2025-06-12 17:44:19.901 +04:00 [INF] Updating game: qeshegfeci
+2025-06-12 17:44:19.905 +04:00 [INF] Updating platform: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:19.948 +04:00 [INF] platform updated successfully. Key: qeshegfeci
+2025-06-12 17:44:19.948 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:44:19.951 +04:00 [INF] Completed request: PUT /platforms - Status: 201 - Time: 61ms
+2025-06-12 17:44:19.964 +04:00 [INF] Starting request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab from ::1
+2025-06-12 17:44:19.965 +04:00 [INF] Fetching platform by ID: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:19.965 +04:00 [INF] Retrieving platform by ID: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:19.970 +04:00 [INF] Completed request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab - Status: 200 - Time: 5ms
+2025-06-12 17:44:19.975 +04:00 [INF] Starting request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab/games from ::1
+2025-06-12 17:44:23.032 +04:00 [INF] Fetching games by platform ID: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:23.036 +04:00 [INF] Getting games for platform: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:23.111 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 17:44:23.145 +04:00 [INF] Found 0 games for platform "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:23.149 +04:00 [INF] Completed request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab/games - Status: 200 - Time: 3173ms
+2025-06-12 17:44:30.071 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:44:30.073 +04:00 [INF] Fetching all genres
+2025-06-12 17:44:30.073 +04:00 [INF] Getting all genres
+2025-06-12 17:44:30.077 +04:00 [INF] Returning 3 genres
+2025-06-12 17:44:30.078 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 6ms
+2025-06-12 17:44:31.824 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:44:31.825 +04:00 [INF] Fetching all platforms
+2025-06-12 17:44:31.825 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:44:31.832 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 8ms
+2025-06-12 17:44:33.326 +04:00 [INF] Starting request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab from ::1
+2025-06-12 17:44:33.327 +04:00 [INF] Fetching platform by ID: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:33.327 +04:00 [INF] Retrieving platform by ID: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:33.334 +04:00 [INF] Completed request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab - Status: 200 - Time: 8ms
+2025-06-12 17:44:34.636 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:44:34.638 +04:00 [INF] Fetching all platforms
+2025-06-12 17:44:34.638 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:44:34.643 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 7ms
+2025-06-12 17:44:35.312 +04:00 [INF] Starting request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab from ::1
+2025-06-12 17:44:35.313 +04:00 [INF] Fetching platform by ID: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:35.313 +04:00 [INF] Retrieving platform by ID: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:35.317 +04:00 [INF] Completed request: GET /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab - Status: 200 - Time: 5ms
+2025-06-12 17:44:36.028 +04:00 [INF] Starting request: DELETE /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab from ::1
+2025-06-12 17:44:36.035 +04:00 [INF] Deleting platform: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:36.050 +04:00 [INF] Deleting platform: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:36.086 +04:00 [INF] paltform deleted successfully. id: "f0aedcf2-1df1-4b01-8863-08dda9b738ab"
+2025-06-12 17:44:36.086 +04:00 [INF] Completed request: DELETE /platforms/f0aedcf2-1df1-4b01-8863-08dda9b738ab - Status: 204 - Time: 58ms
+2025-06-12 17:44:36.096 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:44:36.097 +04:00 [INF] Fetching all platforms
+2025-06-12 17:44:36.097 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:44:36.100 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 4ms
+2025-06-12 17:44:38.912 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:44:38.917 +04:00 [INF] Fetching all genres
+2025-06-12 17:44:38.917 +04:00 [INF] Getting all genres
+2025-06-12 17:44:38.924 +04:00 [INF] Returning 3 genres
+2025-06-12 17:44:38.924 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 11ms
+2025-06-12 17:44:40.461 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:44:40.462 +04:00 [INF] Fetching all genres
+2025-06-12 17:44:40.462 +04:00 [INF] Getting all genres
+2025-06-12 17:44:40.467 +04:00 [INF] Returning 3 genres
+2025-06-12 17:44:40.467 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 5ms
+2025-06-12 17:44:43.557 +04:00 [INF] Starting request: POST /genres from ::1
+2025-06-12 17:44:43.567 +04:00 [INF] Creating new genre: fafasfa
+2025-06-12 17:44:43.569 +04:00 [INF] Creating genre: fafasfa
+2025-06-12 17:44:43.611 +04:00 [INF] Created genre ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:43.615 +04:00 [INF] genre created successfully. Key: fafasfa
+2025-06-12 17:44:43.615 +04:00 [INF] Getting all genres
+2025-06-12 17:44:43.616 +04:00 [INF] Returning 4 genres
+2025-06-12 17:44:43.616 +04:00 [INF] Completed request: POST /genres - Status: 201 - Time: 59ms
+2025-06-12 17:44:43.631 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:44:43.632 +04:00 [INF] Fetching all genres
+2025-06-12 17:44:43.632 +04:00 [INF] Getting all genres
+2025-06-12 17:44:43.635 +04:00 [INF] Returning 4 genres
+2025-06-12 17:44:43.636 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 4ms
+2025-06-12 17:44:45.198 +04:00 [INF] Starting request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2 from ::1
+2025-06-12 17:44:45.205 +04:00 [INF] Fetching genre by ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:45.206 +04:00 [INF] Getting genre by ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:45.220 +04:00 [INF] Completed request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2 - Status: 200 - Time: 21ms
+2025-06-12 17:44:45.226 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:44:45.226 +04:00 [INF] Fetching all genres
+2025-06-12 17:44:45.226 +04:00 [INF] Getting all genres
+2025-06-12 17:44:45.230 +04:00 [INF] Returning 4 genres
+2025-06-12 17:44:45.231 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 5ms
+2025-06-12 17:44:48.628 +04:00 [INF] Starting request: PUT /genres from ::1
+2025-06-12 17:44:48.641 +04:00 [INF] Updating genre: fafasfa122222
+2025-06-12 17:44:48.643 +04:00 [INF] Updating genre ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:48.675 +04:00 [INF] Successfully updated genre ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:48.675 +04:00 [INF] genre updated successfully. Key: fafasfa122222
+2025-06-12 17:44:48.675 +04:00 [INF] Getting all genres
+2025-06-12 17:44:48.678 +04:00 [INF] Returning 4 genres
+2025-06-12 17:44:48.678 +04:00 [INF] Completed request: PUT /genres - Status: 201 - Time: 50ms
+2025-06-12 17:44:48.689 +04:00 [INF] Starting request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2 from ::1
+2025-06-12 17:44:48.690 +04:00 [INF] Fetching genre by ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:48.690 +04:00 [INF] Getting genre by ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:48.694 +04:00 [INF] Completed request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2 - Status: 200 - Time: 4ms
+2025-06-12 17:44:48.700 +04:00 [INF] Starting request: GET /genres/f5256767-3f50-4c79-6589-08dda90d28de from ::1
+2025-06-12 17:44:48.700 +04:00 [INF] Starting request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2/games from ::1
+2025-06-12 17:44:48.700 +04:00 [INF] Starting request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2/genres from ::1
+2025-06-12 17:44:48.701 +04:00 [INF] Fetching genre by ID: "f5256767-3f50-4c79-6589-08dda90d28de"
+2025-06-12 17:44:48.701 +04:00 [INF] Getting genre by ID: "f5256767-3f50-4c79-6589-08dda90d28de"
+2025-06-12 17:44:48.708 +04:00 [INF] Completed request: GET /genres/f5256767-3f50-4c79-6589-08dda90d28de - Status: 200 - Time: 7ms
+2025-06-12 17:44:48.711 +04:00 [INF] Fetching all subGenres
+2025-06-12 17:44:48.713 +04:00 [INF] Getting subgenres for parent: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:55.410 +04:00 [INF] Fetching games by genre ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:55.410 +04:00 [INF] Getting games for genre: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:55.422 +04:00 [INF] Found 0 subgenres for parent "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:55.422 +04:00 [INF] Completed request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2/genres - Status: 200 - Time: 6721ms
+2025-06-12 17:44:55.430 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 17:44:55.442 +04:00 [INF] Found 0 games for genre "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:44:55.442 +04:00 [INF] Completed request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2/games - Status: 200 - Time: 6741ms
+2025-06-12 17:44:58.902 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:44:58.902 +04:00 [INF] Fetching all genres
+2025-06-12 17:44:58.902 +04:00 [INF] Getting all genres
+2025-06-12 17:44:58.906 +04:00 [INF] Returning 4 genres
+2025-06-12 17:44:58.906 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 4ms
+2025-06-12 17:45:00.363 +04:00 [INF] Starting request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2 from ::1
+2025-06-12 17:45:00.364 +04:00 [INF] Fetching genre by ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:45:00.364 +04:00 [INF] Getting genre by ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:45:00.367 +04:00 [INF] Completed request: GET /genres/cbc738df-300f-4de4-fba3-08dda9b749a2 - Status: 200 - Time: 3ms
+2025-06-12 17:45:01.043 +04:00 [INF] Starting request: DELETE /genres/cbc738df-300f-4de4-fba3-08dda9b749a2 from ::1
+2025-06-12 17:45:01.047 +04:00 [INF] Deleting genre: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:45:01.049 +04:00 [INF] Deleting genre ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:45:01.060 +04:00 [INF] Successfully deleted genre ID: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:45:01.061 +04:00 [INF] genre deleted successfully. id: "cbc738df-300f-4de4-fba3-08dda9b749a2"
+2025-06-12 17:45:01.061 +04:00 [INF] Completed request: DELETE /genres/cbc738df-300f-4de4-fba3-08dda9b749a2 - Status: 204 - Time: 18ms
+2025-06-12 17:45:01.075 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:45:01.075 +04:00 [INF] Fetching all genres
+2025-06-12 17:45:01.075 +04:00 [INF] Getting all genres
+2025-06-12 17:45:01.079 +04:00 [INF] Returning 3 genres
+2025-06-12 17:45:01.079 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 4ms
+2025-06-12 17:45:02.799 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 17:45:15.810 +04:00 [INF] Fetching all games
+2025-06-12 17:45:15.811 +04:00 [INF] Fetching all games
+2025-06-12 17:45:15.824 +04:00 [INF] Retrieved 6 games
+2025-06-12 17:45:15.824 +04:00 [INF] Retrieved  games
+2025-06-12 17:45:15.825 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 13025ms
+2025-06-12 17:46:40.223 +04:00 [INF] Starting request: GET /games/tom223444 from ::1
+2025-06-12 17:46:44.139 +04:00 [INF] Fetching game by key: tom223444
+2025-06-12 17:46:44.140 +04:00 [INF] Getting game by key: tom223444
+2025-06-12 17:46:44.159 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 17:46:44.195 +04:00 [INF] Completed request: GET /games/tom223444 - Status: 200 - Time: 3972ms
+2025-06-12 17:46:44.205 +04:00 [INF] Starting request: GET /games/tom223444/genres from ::1
+2025-06-12 17:46:44.205 +04:00 [INF] Starting request: GET /games/tom223444/platforms from ::1
+2025-06-12 17:46:44.206 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:46:44.207 +04:00 [INF] Starting request: GET /games/tom223444/publisher from ::1
+2025-06-12 17:46:44.207 +04:00 [INF] Fetching all genres
+2025-06-12 17:46:44.207 +04:00 [INF] Getting all genres
+2025-06-12 17:46:44.208 +04:00 [INF] Completed request: GET /games/tom223444/publisher - Status: 404 - Time: 1ms
+2025-06-12 17:46:44.210 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:46:44.210 +04:00 [INF] Fetching all platforms
+2025-06-12 17:46:44.210 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:46:44.214 +04:00 [INF] Returning 3 genres
+2025-06-12 17:46:44.214 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 8ms
+2025-06-12 17:46:44.217 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 17:46:44.220 +04:00 [INF] Fetching platforms for game: tom223444
+2025-06-12 17:46:44.221 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 10ms
+2025-06-12 17:46:44.222 +04:00 [INF] Fetching genres for game: tom223444
+2025-06-12 17:46:44.222 +04:00 [INF] Retrieving platforms for game key: tom223444
+2025-06-12 17:46:44.224 +04:00 [INF] Fetching all publishers
+2025-06-12 17:46:44.224 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:46:44.224 +04:00 [INF] Getting genres for game: tom223444
+2025-06-12 17:46:44.229 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:46:44.230 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 13ms
+2025-06-12 17:46:44.252 +04:00 [INF] Found 1 genres for game tom223444
+2025-06-12 17:46:44.252 +04:00 [INF] Found 1 genres for game tom223444
+2025-06-12 17:46:44.256 +04:00 [INF] Completed request: GET /games/tom223444/genres - Status: 200 - Time: 50ms
+2025-06-12 17:46:44.261 +04:00 [INF] Found 1 platforms for game tom223444
+2025-06-12 17:46:44.261 +04:00 [INF] Completed request: GET /games/tom223444/platforms - Status: 200 - Time: 55ms
+2025-06-12 17:46:58.420 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 17:47:04.334 +04:00 [INF] Fetching all games
+2025-06-12 17:47:04.334 +04:00 [INF] Fetching all games
+2025-06-12 17:47:04.339 +04:00 [INF] Retrieved 6 games
+2025-06-12 17:47:04.339 +04:00 [INF] Retrieved  games
+2025-06-12 17:47:04.339 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 5919ms
+2025-06-12 17:47:31.660 +04:00 [INF] Starting request: GET /games/tom223444 from ::1
+2025-06-12 17:47:48.127 +04:00 [INF] Fetching game by key: tom223444
+2025-06-12 17:47:48.127 +04:00 [INF] Getting game by key: tom223444
+2025-06-12 17:47:48.134 +04:00 [INF] Completed request: GET /games/tom223444 - Status: 200 - Time: 16473ms
+2025-06-12 17:47:48.142 +04:00 [INF] Starting request: GET /games/tom223444/genres from ::1
+2025-06-12 17:47:48.142 +04:00 [INF] Fetching genres for game: tom223444
+2025-06-12 17:47:48.143 +04:00 [INF] Getting genres for game: tom223444
+2025-06-12 17:47:48.143 +04:00 [INF] Starting request: GET /games/tom223444/platforms from ::1
+2025-06-12 17:47:48.143 +04:00 [INF] Starting request: GET /games/tom223444/publisher from ::1
+2025-06-12 17:47:48.144 +04:00 [INF] Completed request: GET /games/tom223444/publisher - Status: 404 - Time: 0ms
+2025-06-12 17:47:48.144 +04:00 [INF] Fetching platforms for game: tom223444
+2025-06-12 17:47:48.144 +04:00 [INF] Retrieving platforms for game key: tom223444
+2025-06-12 17:47:48.147 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:47:48.147 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:47:48.150 +04:00 [INF] Fetching all genres
+2025-06-12 17:47:48.150 +04:00 [INF] Fetching all platforms
+2025-06-12 17:47:48.150 +04:00 [INF] Getting all genres
+2025-06-12 17:47:48.150 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:47:48.152 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 17:47:48.162 +04:00 [INF] Found 1 genres for game tom223444
+2025-06-12 17:47:48.162 +04:00 [INF] Found 1 genres for game tom223444
+2025-06-12 17:47:48.162 +04:00 [INF] Completed request: GET /games/tom223444/genres - Status: 200 - Time: 19ms
+2025-06-12 17:47:48.166 +04:00 [INF] Fetching all publishers
+2025-06-12 17:47:48.166 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:47:48.167 +04:00 [INF] Returning 3 genres
+2025-06-12 17:47:48.172 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 25ms
+2025-06-12 17:47:48.173 +04:00 [INF] Found 1 platforms for game tom223444
+2025-06-12 17:47:48.175 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:47:48.175 +04:00 [INF] Completed request: GET /games/tom223444/platforms - Status: 200 - Time: 32ms
+2025-06-12 17:47:48.176 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 24ms
+2025-06-12 17:47:48.176 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 28ms
+2025-06-12 17:49:10.520 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 17:49:11.269 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 751ms
+2025-06-12 17:49:15.719 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 17:49:18.116 +04:00 [INF] Fetching all games
+2025-06-12 17:49:18.119 +04:00 [INF] Fetching all games
+2025-06-12 17:49:18.265 +04:00 [INF] Retrieved 6 games
+2025-06-12 17:49:18.275 +04:00 [INF] Retrieved  games
+2025-06-12 17:49:18.289 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2570ms
+2025-06-12 17:49:21.413 +04:00 [INF] Starting request: GET /games/124124 from ::1
+2025-06-12 17:49:23.553 +04:00 [INF] Fetching game by key: 124124
+2025-06-12 17:49:23.555 +04:00 [INF] Getting game by key: 124124
+2025-06-12 17:49:23.659 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 17:49:23.738 +04:00 [INF] Completed request: GET /games/124124 - Status: 200 - Time: 2324ms
+2025-06-12 17:49:23.763 +04:00 [INF] Starting request: GET /games/124124/genres from ::1
+2025-06-12 17:49:23.763 +04:00 [INF] Starting request: GET /games/124124/publisher from ::1
+2025-06-12 17:49:23.763 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:49:23.763 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:49:23.766 +04:00 [INF] Starting request: GET /games/124124/platforms from ::1
+2025-06-12 17:49:23.769 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 17:49:23.782 +04:00 [INF] Fetching all platforms
+2025-06-12 17:49:23.783 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:49:23.784 +04:00 [INF] Fetching platforms for game: 124124
+2025-06-12 17:49:23.784 +04:00 [INF] Fetching all genres
+2025-06-12 17:49:23.784 +04:00 [INF] Retrieving platforms for game key: 124124
+2025-06-12 17:49:23.785 +04:00 [INF] Fetching genres for game: 124124
+2025-06-12 17:49:23.785 +04:00 [INF] Getting all genres
+2025-06-12 17:49:23.785 +04:00 [INF] Getting genres for game: 124124
+2025-06-12 17:49:23.786 +04:00 [INF] Fetching all publishers
+2025-06-12 17:49:23.786 +04:00 [INF] Retrieving publisher for game key: 124124
+2025-06-12 17:49:23.788 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:49:23.789 +04:00 [INF] Retrieving publisher by game key: 124124
+2025-06-12 17:49:23.826 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 62ms
+2025-06-12 17:49:23.847 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:49:23.847 +04:00 [INF] Retrieved publisher for game key: 124124 (Publisher ID: "9999ceb9-c4ff-46bd-ed42-08dda98a939b")
+2025-06-12 17:49:23.848 +04:00 [INF] Completed request: GET /games/124124/publisher - Status: 200 - Time: 85ms
+2025-06-12 17:49:23.848 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 79ms
+2025-06-12 17:49:23.849 +04:00 [INF] Returning 3 genres
+2025-06-12 17:49:23.851 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 87ms
+2025-06-12 17:49:23.855 +04:00 [INF] Found 1 genres for game 124124
+2025-06-12 17:49:23.855 +04:00 [INF] Found 1 genres for game 124124
+2025-06-12 17:49:23.855 +04:00 [INF] Completed request: GET /games/124124/genres - Status: 200 - Time: 92ms
+2025-06-12 17:49:23.860 +04:00 [INF] Found 1 platforms for game 124124
+2025-06-12 17:49:23.860 +04:00 [INF] Completed request: GET /games/124124/platforms - Status: 200 - Time: 93ms
+2025-06-12 17:49:48.854 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 17:51:25.582 +04:00 [INF] Creating new game: namenamee
+2025-06-12 17:51:25.607 +04:00 [INF] Starting game creation process for game key: 124124
+2025-06-12 17:51:25.621 +04:00 [WRN] Game creation failed - duplicate key: 124124
+2025-06-12 17:51:25.658 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 17:51:25.683 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 96830ms
+2025-06-12 17:51:42.769 +04:00 [INF] Starting request: GET /games/124124 from ::1
+2025-06-12 17:51:48.407 +04:00 [INF] Fetching game by key: 124124
+2025-06-12 17:51:48.407 +04:00 [INF] Getting game by key: 124124
+2025-06-12 17:51:48.414 +04:00 [INF] Completed request: GET /games/124124 - Status: 200 - Time: 5644ms
+2025-06-12 17:51:48.423 +04:00 [INF] Starting request: GET /games/124124/genres from ::1
+2025-06-12 17:51:48.423 +04:00 [INF] Starting request: GET /games/124124/publisher from ::1
+2025-06-12 17:51:48.423 +04:00 [INF] Starting request: GET /games/124124/file from ::1
+2025-06-12 17:51:48.426 +04:00 [INF] Starting request: GET /games/124124/platforms from ::1
+2025-06-12 17:51:48.429 +04:00 [INF] Retrieving publisher for game key: 124124
+2025-06-12 17:51:48.429 +04:00 [INF] Fetching genres for game: 124124
+2025-06-12 17:51:48.429 +04:00 [INF] Retrieving publisher by game key: 124124
+2025-06-12 17:51:48.429 +04:00 [INF] Getting genres for game: 124124
+2025-06-12 17:51:48.430 +04:00 [INF] Fetching platforms for game: 124124
+2025-06-12 17:51:48.430 +04:00 [INF] Retrieving platforms for game key: 124124
+2025-06-12 17:51:48.437 +04:00 [INF] Retrieved publisher for game key: 124124 (Publisher ID: "9999ceb9-c4ff-46bd-ed42-08dda98a939b")
+2025-06-12 17:51:49.107 +04:00 [INF] Completed request: GET /games/124124/publisher - Status: 200 - Time: 684ms
+2025-06-12 17:51:50.878 +04:00 [INF] Download requested for game: 124124
+2025-06-12 17:51:50.880 +04:00 [INF] Preparing download for game: 124124
+2025-06-12 17:51:50.883 +04:00 [INF] Found 1 platforms for game 124124
+2025-06-12 17:51:50.883 +04:00 [INF] Successfully prepared download for: 124124
+2025-06-12 17:51:50.884 +04:00 [INF] Download completed for game: 124124
+2025-06-12 17:51:50.884 +04:00 [INF] Found 1 genres for game 124124
+2025-06-12 17:51:50.884 +04:00 [INF] Completed request: GET /games/124124/platforms - Status: 200 - Time: 2458ms
+2025-06-12 17:51:50.884 +04:00 [INF] Found 1 genres for game 124124
+2025-06-12 17:51:50.884 +04:00 [INF] Completed request: GET /games/124124/genres - Status: 200 - Time: 2461ms
+2025-06-12 17:51:50.887 +04:00 [INF] Completed request: GET /games/124124/file - Status: 200 - Time: 2463ms
+2025-06-12 17:51:59.979 +04:00 [INF] Starting request: GET /games/124124/genres from ::1
+2025-06-12 17:51:59.979 +04:00 [INF] Starting request: GET /games/124124/platforms from ::1
+2025-06-12 17:51:59.980 +04:00 [INF] Fetching genres for game: 124124
+2025-06-12 17:51:59.980 +04:00 [INF] Getting genres for game: 124124
+2025-06-12 17:51:59.980 +04:00 [INF] Fetching platforms for game: 124124
+2025-06-12 17:51:59.980 +04:00 [INF] Retrieving platforms for game key: 124124
+2025-06-12 17:51:59.983 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 17:51:59.983 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 17:51:59.983 +04:00 [INF] Starting request: GET /games/124124/publisher from ::1
+2025-06-12 17:51:59.983 +04:00 [INF] Fetching all platforms
+2025-06-12 17:51:59.983 +04:00 [INF] Retrieving publisher for game key: 124124
+2025-06-12 17:51:59.983 +04:00 [INF] Fetching all genres
+2025-06-12 17:51:59.984 +04:00 [INF] Retrieving publisher by game key: 124124
+2025-06-12 17:51:59.984 +04:00 [INF] Retrieving all platforms
+2025-06-12 17:51:59.984 +04:00 [INF] Getting all genres
+2025-06-12 17:51:59.986 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 17:51:59.991 +04:00 [INF] Fetching all publishers
+2025-06-12 17:51:59.992 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:51:59.992 +04:00 [INF] Returning 3 genres
+2025-06-12 17:51:59.994 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 10ms
+2025-06-12 17:52:00.001 +04:00 [INF] Found 1 platforms for game 124124
+2025-06-12 17:52:00.004 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:52:00.004 +04:00 [INF] Completed request: GET /games/124124/platforms - Status: 200 - Time: 24ms
+2025-06-12 17:52:00.004 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 18ms
+2025-06-12 17:52:00.022 +04:00 [INF] Found 1 genres for game 124124
+2025-06-12 17:52:00.022 +04:00 [INF] Found 1 genres for game 124124
+2025-06-12 17:52:00.022 +04:00 [INF] Completed request: GET /games/124124/genres - Status: 200 - Time: 43ms
+2025-06-12 17:52:00.022 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 39ms
+2025-06-12 17:52:00.028 +04:00 [INF] Retrieved publisher for game key: 124124 (Publisher ID: "9999ceb9-c4ff-46bd-ed42-08dda98a939b")
+2025-06-12 17:52:00.029 +04:00 [INF] Completed request: GET /games/124124/publisher - Status: 200 - Time: 45ms
+2025-06-12 17:52:05.384 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 17:52:09.526 +04:00 [INF] Creating new game: fsfsf232
+2025-06-12 17:52:09.527 +04:00 [INF] Starting game creation process for game key: 124124
+2025-06-12 17:52:09.537 +04:00 [WRN] Game creation failed - duplicate key: 124124
+2025-06-12 17:52:09.570 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 17:52:09.572 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 4188ms
+2025-06-12 17:52:16.346 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 17:52:16.347 +04:00 [INF] Fetching all publishers
+2025-06-12 17:52:16.347 +04:00 [INF] Retrieving all publishers
+2025-06-12 17:52:16.354 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 17:52:16.355 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 8ms
+2025-06-12 17:52:22.267 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 17:52:24.874 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 17:52:24.876 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 17:52:24.891 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 17:52:24.924 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 17:52:24.925 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 2657ms
+2025-06-12 18:14:45.600 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 18:14:46.444 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 846ms
+2025-06-12 18:14:51.325 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:14:51.395 +04:00 [INF] Fetching all publishers
+2025-06-12 18:14:51.396 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:14:51.502 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:14:51.517 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 192ms
+2025-06-12 18:14:53.288 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 18:15:16.244 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 18:15:16.250 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 18:15:16.302 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 18:15:16.337 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:15:16.349 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 23061ms
+2025-06-12 18:15:26.519 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:15:26.525 +04:00 [INF] Fetching all publishers
+2025-06-12 18:15:26.525 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:15:26.531 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:15:26.531 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 12ms
+2025-06-12 18:18:16.293 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 18:18:17.043 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 752ms
+2025-06-12 18:18:20.525 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:18:20.599 +04:00 [INF] Fetching all publishers
+2025-06-12 18:18:20.599 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:18:20.699 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:18:20.707 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 181ms
+2025-06-12 18:18:47.357 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 18:18:52.283 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 18:18:52.284 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 18:18:52.375 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 18:18:52.411 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:18:52.428 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 5071ms
+2025-06-12 18:31:50.835 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 18:31:51.607 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 775ms
+2025-06-12 18:32:00.671 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:32:00.804 +04:00 [INF] Fetching all publishers
+2025-06-12 18:32:00.805 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:32:01.008 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:32:01.025 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 353ms
+2025-06-12 18:32:02.925 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 18:32:20.464 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 18:32:20.465 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 18:32:20.530 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 18:32:20.554 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:32:20.565 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 17640ms
+2025-06-12 18:33:36.474 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:33:36.485 +04:00 [INF] Fetching all publishers
+2025-06-12 18:33:36.485 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:33:36.488 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:33:36.488 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 14ms
+2025-06-12 18:34:00.610 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 18:34:01.376 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 769ms
+2025-06-12 18:34:09.773 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:34:09.909 +04:00 [INF] Fetching all publishers
+2025-06-12 18:34:09.910 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:34:10.068 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:34:10.082 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 308ms
+2025-06-12 18:34:40.558 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 18:34:50.953 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 18:34:50.954 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 18:34:51.006 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 18:34:51.040 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:34:51.052 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 10494ms
+2025-06-12 18:35:06.378 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:35:06.385 +04:00 [INF] Fetching all publishers
+2025-06-12 18:35:06.385 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:35:06.391 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:35:06.391 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 13ms
+2025-06-12 18:35:13.484 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 18:35:27.236 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 18:35:27.237 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 18:35:27.241 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 18:35:27.264 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:35:27.265 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 13781ms
+2025-06-12 18:36:18.409 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:36:18.418 +04:00 [INF] Fetching all publishers
+2025-06-12 18:36:18.418 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:36:18.421 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:36:18.421 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 12ms
+2025-06-12 18:36:19.463 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 18:36:23.744 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 18:36:23.744 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 18:36:23.751 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 18:36:23.783 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:36:23.785 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 4321ms
+2025-06-12 18:37:04.116 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 18:37:04.919 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 805ms
+2025-06-12 18:37:09.043 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:37:09.109 +04:00 [INF] Fetching all publishers
+2025-06-12 18:37:09.110 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:37:09.194 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:37:09.202 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 159ms
+2025-06-12 18:37:17.852 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 18:37:22.185 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 18:37:22.186 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 18:37:22.270 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 18:37:22.293 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:37:22.308 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 4455ms
+2025-06-12 18:38:02.005 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:38:02.016 +04:00 [INF] Fetching all publishers
+2025-06-12 18:38:02.016 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:38:02.023 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:38:02.023 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 18ms
+2025-06-12 18:38:25.166 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 18:38:51.179 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 18:38:51.180 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 18:38:51.208 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 18:38:51.239 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:38:51.241 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 26074ms
+2025-06-12 18:39:13.734 +04:00 [INF] Starting request: GET /Publishers from ::1
+2025-06-12 18:39:13.763 +04:00 [INF] Fetching all publishers
+2025-06-12 18:39:13.763 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:39:13.766 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:39:13.767 +04:00 [INF] Completed request: GET /Publishers - Status: 200 - Time: 32ms
+2025-06-12 18:39:23.018 +04:00 [INF] Starting request: GET /Publishers/string from ::1
+2025-06-12 18:39:27.828 +04:00 [INF] Fetching publisher by name: string
+2025-06-12 18:39:27.828 +04:00 [INF] Retrieving publisher by company name: string
+2025-06-12 18:39:27.833 +04:00 [INF] Successfully retrieved publisher: string (ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 18:39:27.834 +04:00 [INF] Retrieved publisher: string (ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 18:39:27.835 +04:00 [INF] Completed request: GET /Publishers/string - Status: 200 - Time: 4817ms
+2025-06-12 18:41:12.933 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 18:41:13.686 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 755ms
+2025-06-12 18:41:39.736 +04:00 [INF] Starting request: GET /Publishers/string from ::1
+2025-06-12 18:41:44.428 +04:00 [INF] Fetching publisher by name: string
+2025-06-12 18:41:44.431 +04:00 [INF] Retrieving publisher by company name: string
+2025-06-12 18:41:44.606 +04:00 [INF] Successfully retrieved publisher: string (ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 18:41:44.610 +04:00 [INF] Retrieved publisher: string (ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 18:41:44.617 +04:00 [INF] Completed request: GET /Publishers/string - Status: 200 - Time: 4880ms
+2025-06-12 18:42:29.988 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 18:42:30.719 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 733ms
+2025-06-12 18:42:32.860 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:42:32.927 +04:00 [INF] Fetching all publishers
+2025-06-12 18:42:32.928 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:42:33.018 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:42:33.025 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 165ms
+2025-06-12 18:42:34.182 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 18:42:37.730 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 18:42:37.731 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 18:42:37.781 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 18:42:37.816 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:42:37.828 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 3646ms
+2025-06-12 18:46:42.254 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 18:46:42.985 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 733ms
+2025-06-12 18:46:46.241 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:46:46.310 +04:00 [INF] Fetching all publishers
+2025-06-12 18:46:46.310 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:46:46.395 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:46:46.402 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 161ms
+2025-06-12 18:46:47.862 +04:00 [INF] Starting request: GET /publishers/%7Bid%7D from ::1
+2025-06-12 18:46:55.693 +04:00 [INF] Fetching publisher by name: {id}
+2025-06-12 18:46:55.694 +04:00 [INF] Retrieving publisher by company name: {id}
+2025-06-12 18:46:55.745 +04:00 [WRN] Publisher not found: {id}
+2025-06-12 18:46:55.780 +04:00 [WRN] Publisher not found: {id}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String id, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:46:55.797 +04:00 [INF] Completed request: GET /publishers/%7Bid%7D - Status: 404 - Time: 7935ms
+2025-06-12 18:48:08.432 +04:00 [INF] Starting request: GET /swagger from ::1
+2025-06-12 18:48:09.156 +04:00 [INF] Completed request: GET /swagger - Status: 301 - Time: 726ms
+2025-06-12 18:48:09.168 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-12 18:48:09.201 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 32ms
+2025-06-12 18:48:09.220 +04:00 [INF] Starting request: GET /swagger/swagger-ui.css from ::1
+2025-06-12 18:48:09.221 +04:00 [INF] Starting request: GET /swagger/swagger-ui-standalone-preset.js from ::1
+2025-06-12 18:48:09.221 +04:00 [INF] Starting request: GET /swagger/index.css from ::1
+2025-06-12 18:48:09.221 +04:00 [INF] Starting request: GET /swagger/index.js from ::1
+2025-06-12 18:48:09.221 +04:00 [INF] Starting request: GET /swagger/swagger-ui-bundle.js from ::1
+2025-06-12 18:48:09.223 +04:00 [INF] Completed request: GET /swagger/index.js - Status: 200 - Time: 1ms
+2025-06-12 18:48:09.231 +04:00 [INF] Completed request: GET /swagger/index.css - Status: 200 - Time: 11ms
+2025-06-12 18:48:09.241 +04:00 [INF] Completed request: GET /swagger/swagger-ui.css - Status: 200 - Time: 21ms
+2025-06-12 18:48:09.242 +04:00 [INF] Completed request: GET /swagger/swagger-ui-standalone-preset.js - Status: 200 - Time: 21ms
+2025-06-12 18:48:09.255 +04:00 [INF] Completed request: GET /swagger/swagger-ui-bundle.js - Status: 200 - Time: 33ms
+2025-06-12 18:48:09.618 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-12 18:48:09.619 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-12 18:48:09.673 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 18:48:09.694 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 21ms
+2025-06-12 18:48:17.656 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 18:48:17.776 +04:00 [INF] Fetching all publishers
+2025-06-12 18:48:17.777 +04:00 [INF] Retrieving all publishers
+2025-06-12 18:48:17.952 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 18:48:17.967 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 310ms
+2025-06-12 18:48:19.219 +04:00 [INF] Starting request: GET /publishers/%7Bid%7D from ::1
+2025-06-12 18:48:25.136 +04:00 [INF] Fetching publisher by name: {id}
+2025-06-12 18:48:25.137 +04:00 [INF] Retrieving publisher by company name: {id}
+2025-06-12 18:48:25.186 +04:00 [WRN] Publisher not found: {id}
+2025-06-12 18:48:25.222 +04:00 [WRN] Publisher not found: {id}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String id, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 18:48:25.234 +04:00 [INF] Completed request: GET /publishers/%7Bid%7D - Status: 404 - Time: 6015ms
+2025-06-12 19:02:17.858 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 19:02:18.617 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 760ms
+2025-06-12 19:02:21.311 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 19:02:21.396 +04:00 [INF] Fetching all platforms
+2025-06-12 19:02:21.396 +04:00 [INF] Retrieving all platforms
+2025-06-12 19:02:21.491 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 179ms
+2025-06-12 19:02:22.944 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 19:02:22.954 +04:00 [INF] Fetching all publishers
+2025-06-12 19:02:22.954 +04:00 [INF] Retrieving all publishers
+2025-06-12 19:02:22.975 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 19:02:22.977 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 33ms
+2025-06-12 19:02:25.168 +04:00 [INF] Starting request: GET /publishers/%7Bid%7D from ::1
+2025-06-12 19:11:23.689 +04:00 [INF] Starting request: GET /swagger from ::1
+2025-06-12 19:11:24.514 +04:00 [INF] Completed request: GET /swagger - Status: 301 - Time: 827ms
+2025-06-12 19:11:24.523 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-12 19:11:24.556 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 32ms
+2025-06-12 19:11:24.576 +04:00 [INF] Starting request: GET /swagger/swagger-ui-standalone-preset.js from ::1
+2025-06-12 19:11:24.576 +04:00 [INF] Starting request: GET /swagger/index.css from ::1
+2025-06-12 19:11:24.576 +04:00 [INF] Starting request: GET /swagger/swagger-ui-bundle.js from ::1
+2025-06-12 19:11:24.576 +04:00 [INF] Starting request: GET /swagger/index.js from ::1
+2025-06-12 19:11:24.576 +04:00 [INF] Starting request: GET /swagger/swagger-ui.css from ::1
+2025-06-12 19:11:24.579 +04:00 [INF] Completed request: GET /swagger/index.js - Status: 200 - Time: 3ms
+2025-06-12 19:11:24.593 +04:00 [INF] Completed request: GET /swagger/index.css - Status: 200 - Time: 17ms
+2025-06-12 19:11:24.607 +04:00 [INF] Completed request: GET /swagger/swagger-ui.css - Status: 200 - Time: 30ms
+2025-06-12 19:11:24.607 +04:00 [INF] Completed request: GET /swagger/swagger-ui-standalone-preset.js - Status: 200 - Time: 30ms
+2025-06-12 19:11:24.626 +04:00 [INF] Completed request: GET /swagger/swagger-ui-bundle.js - Status: 200 - Time: 50ms
+2025-06-12 19:11:24.771 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-12 19:11:24.772 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-12 19:11:24.806 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 19:11:24.831 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 24ms
+2025-06-12 19:11:36.106 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 19:11:36.233 +04:00 [INF] Fetching all publishers
+2025-06-12 19:11:36.233 +04:00 [INF] Retrieving all publishers
+2025-06-12 19:11:36.377 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 19:11:36.384 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 277ms
+2025-06-12 19:11:37.443 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 19:11:56.277 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 19:11:56.278 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 19:11:56.339 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 19:11:56.379 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 19:11:56.402 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 18958ms
+2025-06-12 19:12:04.209 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 19:12:04.213 +04:00 [INF] Fetching all publishers
+2025-06-12 19:12:04.214 +04:00 [INF] Retrieving all publishers
+2025-06-12 19:12:04.218 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 19:12:04.218 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 8ms
+2025-06-12 19:13:24.629 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 19:13:28.152 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 19:13:28.153 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 19:13:28.169 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 19:13:28.192 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 19:13:28.193 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 3564ms
+2025-06-12 19:13:33.722 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 19:13:33.722 +04:00 [INF] Fetching all publishers
+2025-06-12 19:13:33.722 +04:00 [INF] Retrieving all publishers
+2025-06-12 19:13:33.725 +04:00 [INF] Retrieved 6 publishers
+2025-06-12 19:13:33.726 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 3ms
+2025-06-12 19:13:40.617 +04:00 [INF] Starting request: POST /publishers from ::1
+2025-06-12 19:13:40.666 +04:00 [INF] Creating new publisher: dsgsdg
+2025-06-12 19:13:40.680 +04:00 [INF] Creating publisher: dsgsdg
+2025-06-12 19:13:40.813 +04:00 [INF] Publisher created successfully: dsgsdg (ID: "7a080067-326b-4373-17a7-08dda9c3b6d1")
+2025-06-12 19:13:40.815 +04:00 [INF] Publisher created: dsgsdg (ID: "7a080067-326b-4373-17a7-08dda9c3b6d1")
+2025-06-12 19:13:40.830 +04:00 [INF] Completed request: POST /publishers - Status: 201 - Time: 213ms
+2025-06-12 19:13:40.843 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 19:13:40.843 +04:00 [INF] Fetching all publishers
+2025-06-12 19:13:40.843 +04:00 [INF] Retrieving all publishers
+2025-06-12 19:13:40.848 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 19:13:40.848 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 5ms
+2025-06-12 19:13:46.058 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 19:13:48.828 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 19:13:48.829 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 19:13:48.835 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 19:13:48.864 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 19:13:48.865 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 2806ms
+2025-06-12 19:14:21.941 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 19:14:21.945 +04:00 [INF] Fetching all publishers
+2025-06-12 19:14:21.946 +04:00 [INF] Retrieving all publishers
+2025-06-12 19:14:21.952 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 19:14:21.952 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 11ms
+2025-06-12 19:14:28.212 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 19:14:32.393 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 19:14:32.393 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 19:14:32.400 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 19:14:32.427 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 19:14:32.428 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 4216ms
+2025-06-12 19:16:07.994 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 19:16:08.718 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 726ms
+2025-06-12 19:16:11.838 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 19:16:11.906 +04:00 [INF] Fetching all publishers
+2025-06-12 19:16:11.907 +04:00 [INF] Retrieving all publishers
+2025-06-12 19:16:11.993 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 19:16:12.000 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 162ms
+2025-06-12 19:16:13.068 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 19:16:21.674 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 19:16:21.675 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 19:16:21.723 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 19:16:21.747 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 19:16:21.768 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 8700ms
+2025-06-12 19:16:30.721 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 19:16:30.728 +04:00 [INF] Fetching all publishers
+2025-06-12 19:16:30.728 +04:00 [INF] Retrieving all publishers
+2025-06-12 19:16:30.734 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 19:16:30.735 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 13ms
+2025-06-12 19:18:30.559 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 19:18:31.304 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 747ms
+2025-06-12 19:19:08.603 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 19:19:08.733 +04:00 [INF] Fetching all publishers
+2025-06-12 19:19:08.735 +04:00 [INF] Retrieving all publishers
+2025-06-12 19:19:08.900 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 19:19:08.913 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 310ms
+2025-06-12 19:19:18.239 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 19:19:22.580 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 19:19:22.582 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 19:19:22.666 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 19:19:22.692 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 19:19:22.718 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 4478ms
+2025-06-12 21:11:57.061 +04:00 [INF] Starting request: GET /swagger from ::1
+2025-06-12 21:11:57.752 +04:00 [INF] Completed request: GET /swagger - Status: 301 - Time: 693ms
+2025-06-12 21:11:57.764 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-12 21:11:57.794 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 30ms
+2025-06-12 21:11:57.811 +04:00 [INF] Starting request: GET /swagger/index.css from ::1
+2025-06-12 21:11:57.811 +04:00 [INF] Starting request: GET /swagger/swagger-ui.css from ::1
+2025-06-12 21:11:57.811 +04:00 [INF] Starting request: GET /swagger/swagger-ui-bundle.js from ::1
+2025-06-12 21:11:57.813 +04:00 [INF] Starting request: GET /swagger/swagger-ui-standalone-preset.js from ::1
+2025-06-12 21:11:57.814 +04:00 [INF] Starting request: GET /swagger/index.js from ::1
+2025-06-12 21:11:57.822 +04:00 [INF] Completed request: GET /swagger/index.js - Status: 200 - Time: 8ms
+2025-06-12 21:11:57.830 +04:00 [INF] Completed request: GET /swagger/index.css - Status: 200 - Time: 19ms
+2025-06-12 21:11:57.847 +04:00 [INF] Completed request: GET /swagger/swagger-ui-standalone-preset.js - Status: 200 - Time: 34ms
+2025-06-12 21:11:57.847 +04:00 [INF] Completed request: GET /swagger/swagger-ui.css - Status: 200 - Time: 35ms
+2025-06-12 21:11:57.858 +04:00 [INF] Completed request: GET /swagger/swagger-ui-bundle.js - Status: 200 - Time: 46ms
+2025-06-12 21:11:58.219 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-12 21:11:58.220 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-12 21:11:58.279 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 21:11:58.304 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 25ms
+2025-06-12 21:12:07.360 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 21:12:07.484 +04:00 [INF] Fetching all publishers
+2025-06-12 21:12:07.485 +04:00 [INF] Retrieving all publishers
+2025-06-12 21:12:07.654 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 21:12:07.668 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 308ms
+2025-06-12 21:12:10.493 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 21:12:15.445 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 21:12:15.447 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 21:12:15.533 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 21:12:15.575 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 21:12:15.595 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 5102ms
+2025-06-12 22:10:09.521 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:10:10.276 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 757ms
+2025-06-12 22:10:51.372 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:10:57.530 +04:00 [INF] Fetching all games
+2025-06-12 22:10:57.531 +04:00 [INF] Fetching all games
+2025-06-12 22:10:57.627 +04:00 [INF] Retrieved 6 games
+2025-06-12 22:10:57.632 +04:00 [INF] Retrieved  games
+2025-06-12 22:10:57.640 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 6269ms
+2025-06-12 22:11:02.002 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:11:02.011 +04:00 [INF] Fetching all publishers
+2025-06-12 22:11:02.012 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:11:02.034 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:11:02.036 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 33ms
+2025-06-12 22:11:03.030 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 22:11:06.386 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 22:11:06.386 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 22:11:06.432 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 22:11:06.455 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 22:11:06.466 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 3435ms
+2025-06-12 22:11:29.491 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:11:29.495 +04:00 [INF] Fetching all publishers
+2025-06-12 22:11:29.495 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:11:29.499 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:11:29.500 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 8ms
+2025-06-12 22:11:31.811 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 22:11:31.812 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 22:11:31.812 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 22:11:31.816 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 22:11:31.879 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 180
+2025-06-12 22:11:31.880 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 68ms
+2025-06-12 22:18:04.193 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:18:04.912 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 721ms
+2025-06-12 22:18:24.386 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:18:24.508 +04:00 [INF] Fetching all publishers
+2025-06-12 22:18:24.509 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:18:24.679 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:18:24.693 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 306ms
+2025-06-12 22:18:25.576 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 22:18:38.017 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 22:18:38.018 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 22:18:38.069 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 22:18:38.098 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 177
+2025-06-12 22:18:38.113 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 12536ms
+2025-06-12 22:22:02.180 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:22:02.919 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 741ms
+2025-06-12 22:22:05.704 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:22:05.778 +04:00 [INF] Fetching all publishers
+2025-06-12 22:22:05.778 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:22:05.871 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:22:05.878 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 174ms
+2025-06-12 22:22:06.769 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 22:22:17.100 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 22:22:33.319 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 22:22:33.370 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 22:22:33.394 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 201
+2025-06-12 22:22:33.410 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 26641ms
+2025-06-12 22:24:15.132 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:24:15.901 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 772ms
+2025-06-12 22:24:17.919 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:24:17.987 +04:00 [INF] Fetching all publishers
+2025-06-12 22:24:17.988 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:24:18.081 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:24:18.090 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 170ms
+2025-06-12 22:24:19.162 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 22:24:19.207 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 400 - Time: 44ms
+2025-06-12 22:24:59.747 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:25:00.532 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 787ms
+2025-06-12 22:25:03.049 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:25:03.121 +04:00 [INF] Fetching all publishers
+2025-06-12 22:25:03.121 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:25:03.215 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:25:03.223 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 173ms
+2025-06-12 22:25:04.230 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 22:25:04.260 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 400 - Time: 30ms
+2025-06-12 22:26:25.712 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:26:26.458 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 748ms
+2025-06-12 22:26:29.232 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:26:29.302 +04:00 [INF] Fetching all publishers
+2025-06-12 22:26:29.303 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:26:29.402 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:26:29.411 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 178ms
+2025-06-12 22:26:32.325 +04:00 [INF] Starting request: POST /publishers from ::1
+2025-06-12 22:26:32.372 +04:00 [INF] Creating new publisher: testname
+2025-06-12 22:26:32.385 +04:00 [INF] Creating publisher: testname
+2025-06-12 22:26:32.490 +04:00 [WRN] Duplicate company name: testname
+2025-06-12 22:26:32.548 +04:00 [ERR] Bad request creating publisher: Company name must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Company name must be unique.
+   at GameStore.Application.Services.PublisherService.CreatePublisherAsync(CreatePublisherRequestDto createPublisherDto) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 45
+   at GameStore.Api.Controllers.PublishersController.CreatePublisher(CreatePublisherRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 55
+2025-06-12 22:26:32.582 +04:00 [INF] Completed request: POST /publishers - Status: 400 - Time: 257ms
+2025-06-12 22:26:38.677 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:26:50.078 +04:00 [INF] Fetching all games
+2025-06-12 22:26:50.082 +04:00 [INF] Fetching all games
+2025-06-12 22:26:50.097 +04:00 [INF] Retrieved 6 games
+2025-06-12 22:26:50.099 +04:00 [INF] Retrieved  games
+2025-06-12 22:26:50.100 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 11422ms
+2025-06-12 22:27:23.625 +04:00 [INF] Starting request: GET /games/124124 from ::1
+2025-06-12 22:27:31.643 +04:00 [INF] Fetching game by key: 124124
+2025-06-12 22:27:31.643 +04:00 [INF] Getting game by key: 124124
+2025-06-12 22:27:31.687 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 22:27:31.717 +04:00 [INF] Completed request: GET /games/124124 - Status: 200 - Time: 8091ms
+2025-06-12 22:27:34.255 +04:00 [INF] Starting request: DELETE /games/124124 from ::1
+2025-06-12 22:27:40.292 +04:00 [INF] Deleting game: 124124
+2025-06-12 22:27:40.301 +04:00 [INF] Attempting to delete game: 124124
+2025-06-12 22:27:40.378 +04:00 [INF] Successfully deleted game: 124124
+2025-06-12 22:27:40.382 +04:00 [INF] Game deleted successfully. Key: 124124
+2025-06-12 22:27:40.382 +04:00 [INF] Completed request: DELETE /games/124124 - Status: 204 - Time: 6127ms
+2025-06-12 22:27:40.398 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:27:43.583 +04:00 [INF] Fetching all games
+2025-06-12 22:27:43.583 +04:00 [INF] Fetching all games
+2025-06-12 22:27:43.586 +04:00 [INF] Retrieved 5 games
+2025-06-12 22:27:43.586 +04:00 [INF] Retrieved  games
+2025-06-12 22:27:43.587 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 3188ms
+2025-06-12 22:27:52.924 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:27:52.928 +04:00 [INF] Fetching all publishers
+2025-06-12 22:27:52.928 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:27:52.940 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:27:52.940 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 16ms
+2025-06-12 22:28:12.055 +04:00 [INF] Starting request: GET /publishers/%7BcompanyName%7D from ::1
+2025-06-12 22:29:10.997 +04:00 [INF] Fetching publisher by name: {companyName}
+2025-06-12 22:29:10.999 +04:00 [INF] Retrieving publisher by company name: {companyName}
+2025-06-12 22:29:11.016 +04:00 [WRN] Publisher not found: {companyName}
+2025-06-12 22:29:11.050 +04:00 [WRN] Publisher not found: {companyName}
+GameStore.Domain.Exceptions.NotFoundException: Publisher not found.
+   at GameStore.Application.Services.PublisherService.GetPublisherByCompanyNameAsync(String companyName) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 71
+   at GameStore.Api.Controllers.PublishersController.GetPublisherByCompanyName(String companyName, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 181
+2025-06-12 22:29:11.051 +04:00 [INF] Completed request: GET /publishers/%7BcompanyName%7D - Status: 404 - Time: 58995ms
+2025-06-12 22:29:21.366 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:29:24.575 +04:00 [INF] Fetching all games
+2025-06-12 22:29:24.576 +04:00 [INF] Fetching all games
+2025-06-12 22:29:24.580 +04:00 [INF] Retrieved 5 games
+2025-06-12 22:29:24.581 +04:00 [INF] Retrieved  games
+2025-06-12 22:29:24.581 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 3215ms
+2025-06-12 22:29:31.667 +04:00 [INF] Starting request: GET /games/tom22 from ::1
+2025-06-12 22:29:36.281 +04:00 [INF] Fetching game by key: tom22
+2025-06-12 22:29:36.281 +04:00 [INF] Getting game by key: tom22
+2025-06-12 22:29:36.288 +04:00 [INF] Completed request: GET /games/tom22 - Status: 200 - Time: 4621ms
+2025-06-12 22:29:36.298 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 22:29:36.298 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 22:29:36.303 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 22:29:36.306 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 22:29:36.310 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 22:29:36.319 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:29:36.320 +04:00 [INF] Fetching all publishers
+2025-06-12 22:29:36.320 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:29:36.320 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 22:29:36.322 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 22:29:36.326 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:29:36.326 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 7ms
+2025-06-12 22:29:36.327 +04:00 [INF] Fetching all platforms
+2025-06-12 22:29:36.328 +04:00 [INF] Fetching all genres
+2025-06-12 22:29:36.328 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 22:29:36.328 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 22:29:36.329 +04:00 [INF] Retrieving all platforms
+2025-06-12 22:29:36.329 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 22:29:36.329 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 22:29:36.329 +04:00 [INF] Getting all genres
+2025-06-12 22:29:36.373 +04:00 [INF] Returning 3 genres
+2025-06-12 22:29:36.378 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 72ms
+2025-06-12 22:29:36.379 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 69ms
+2025-06-12 22:29:36.380 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:29:36.381 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:29:36.381 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 82ms
+2025-06-12 22:29:36.381 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 22:29:36.382 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 78ms
+2025-06-12 22:29:36.387 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 22:29:36.387 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 89ms
+2025-06-12 22:30:05.775 +04:00 [INF] Starting request: GET /games/tom22 from ::1
+2025-06-12 22:30:09.167 +04:00 [INF] Fetching game by key: tom22
+2025-06-12 22:30:09.167 +04:00 [INF] Getting game by key: tom22
+2025-06-12 22:30:09.176 +04:00 [INF] Completed request: GET /games/tom22 - Status: 200 - Time: 3400ms
+2025-06-12 22:30:09.188 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 22:30:09.188 +04:00 [INF] Starting request: GET /games/tom22/file from ::1
+2025-06-12 22:30:09.189 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 22:30:09.191 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 22:30:09.192 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 22:30:09.192 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 22:30:09.196 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 22:30:09.196 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 22:30:09.197 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 22:30:09.198 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 8ms
+2025-06-12 22:30:09.198 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 22:30:09.198 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 22:30:10.086 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:30:10.086 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:30:11.627 +04:00 [INF] Download requested for game: tom22
+2025-06-12 22:30:11.627 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 2439ms
+2025-06-12 22:30:11.634 +04:00 [INF] Preparing download for game: tom22
+2025-06-12 22:30:11.637 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 22:30:11.637 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 2445ms
+2025-06-12 22:30:11.639 +04:00 [INF] Successfully prepared download for: tom22
+2025-06-12 22:30:11.639 +04:00 [INF] Download completed for game: tom22
+2025-06-12 22:30:11.642 +04:00 [INF] Completed request: GET /games/tom22/file - Status: 200 - Time: 2454ms
+2025-06-12 22:30:48.639 +04:00 [INF] Starting request: GET /games/tom22 from ::1
+2025-06-12 22:30:59.493 +04:00 [INF] Fetching game by key: tom22
+2025-06-12 22:30:59.493 +04:00 [INF] Getting game by key: tom22
+2025-06-12 22:30:59.500 +04:00 [INF] Completed request: GET /games/tom22 - Status: 200 - Time: 10860ms
+2025-06-12 22:30:59.510 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 22:30:59.510 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 22:30:59.510 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 22:30:59.511 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 22:30:59.512 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 22:30:59.514 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 22:30:59.514 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 22:30:59.514 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 22:30:59.514 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 22:30:59.514 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 22:30:59.514 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 22:30:59.516 +04:00 [INF] Fetching all genres
+2025-06-12 22:30:59.516 +04:00 [INF] Fetching all platforms
+2025-06-12 22:30:59.516 +04:00 [INF] Retrieving all platforms
+2025-06-12 22:30:59.516 +04:00 [INF] Getting all genres
+2025-06-12 22:30:59.520 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:30:59.520 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:30:59.520 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 22:30:59.522 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 12ms
+2025-06-12 22:30:59.525 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:30:59.529 +04:00 [INF] Fetching all publishers
+2025-06-12 22:30:59.529 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:30:59.534 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 22ms
+2025-06-12 22:30:59.537 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 22:30:59.537 +04:00 [INF] Returning 3 genres
+2025-06-12 22:30:59.538 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 26ms
+2025-06-12 22:30:59.543 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 28ms
+2025-06-12 22:30:59.546 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:30:59.546 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 32ms
+2025-06-12 22:30:59.548 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 22ms
+2025-06-12 22:31:13.188 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:31:34.689 +04:00 [INF] Creating new game: tomrider000
+2025-06-12 22:31:34.703 +04:00 [INF] Starting game creation process for game key: tom22
+2025-06-12 22:31:34.712 +04:00 [WRN] Game creation failed - duplicate key: tom22
+2025-06-12 22:31:34.741 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:31:34.742 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 21553ms
+2025-06-12 22:31:54.098 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:31:54.821 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 724ms
+2025-06-12 22:31:57.368 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:32:02.787 +04:00 [INF] Fetching all games
+2025-06-12 22:32:02.792 +04:00 [INF] Fetching all games
+2025-06-12 22:32:02.949 +04:00 [INF] Retrieved 5 games
+2025-06-12 22:32:02.959 +04:00 [INF] Retrieved  games
+2025-06-12 22:32:02.971 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 5602ms
+2025-06-12 22:32:07.979 +04:00 [INF] Starting request: GET /games/tom22 from ::1
+2025-06-12 22:32:11.101 +04:00 [INF] Fetching game by key: tom22
+2025-06-12 22:32:11.103 +04:00 [INF] Getting game by key: tom22
+2025-06-12 22:32:11.210 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 22:32:11.270 +04:00 [INF] Completed request: GET /games/tom22 - Status: 200 - Time: 3290ms
+2025-06-12 22:32:11.283 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 22:32:11.283 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 22:32:11.283 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 22:32:11.283 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 22:32:11.286 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 22:32:11.301 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:32:11.350 +04:00 [INF] Fetching all platforms
+2025-06-12 22:32:11.351 +04:00 [INF] Retrieving all platforms
+2025-06-12 22:32:11.352 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 22:32:11.352 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 22:32:11.352 +04:00 [INF] Fetching all publishers
+2025-06-12 22:32:11.353 +04:00 [INF] Fetching all genres
+2025-06-12 22:32:11.353 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 22:32:11.354 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 22:32:11.354 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 22:32:11.353 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:32:11.354 +04:00 [INF] Getting all genres
+2025-06-12 22:32:11.356 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 22:32:11.382 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 96ms
+2025-06-12 22:32:11.394 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:32:11.400 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 99ms
+2025-06-12 22:32:11.402 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 22:32:11.407 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 124ms
+2025-06-12 22:32:11.412 +04:00 [INF] Returning 3 genres
+2025-06-12 22:32:11.413 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:32:11.413 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:32:11.414 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 130ms
+2025-06-12 22:32:11.414 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 130ms
+2025-06-12 22:32:11.417 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 22:32:11.418 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 134ms
+2025-06-12 22:32:20.446 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:32:22.207 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 1761ms
+2025-06-12 22:33:16.793 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:33:17.525 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 734ms
+2025-06-12 22:33:19.755 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:33:25.694 +04:00 [INF] Fetching all games
+2025-06-12 22:33:25.694 +04:00 [INF] Fetching all games
+2025-06-12 22:33:25.782 +04:00 [INF] Retrieved 5 games
+2025-06-12 22:33:25.788 +04:00 [INF] Retrieved  games
+2025-06-12 22:33:25.797 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 6041ms
+2025-06-12 22:33:28.992 +04:00 [INF] Starting request: GET /games/tom22 from ::1
+2025-06-12 22:33:31.121 +04:00 [INF] Fetching game by key: tom22
+2025-06-12 22:33:31.121 +04:00 [INF] Getting game by key: tom22
+2025-06-12 22:33:31.181 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 22:33:31.227 +04:00 [INF] Completed request: GET /games/tom22 - Status: 200 - Time: 2234ms
+2025-06-12 22:33:31.239 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 22:33:31.239 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 22:33:31.239 +04:00 [INF] Starting request: GET /games/tom22/file from ::1
+2025-06-12 22:33:31.239 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 22:33:32.174 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 22:33:34.726 +04:00 [INF] Download requested for game: tom22
+2025-06-12 22:33:34.727 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 22:33:34.727 +04:00 [INF] Preparing download for game: tom22
+2025-06-12 22:33:34.728 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 22:33:34.729 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 22:33:34.730 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 22:33:34.730 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 22:33:34.781 +04:00 [INF] Successfully prepared download for: tom22
+2025-06-12 22:33:34.781 +04:00 [INF] Download completed for game: tom22
+2025-06-12 22:33:34.787 +04:00 [INF] Completed request: GET /games/tom22/file - Status: 200 - Time: 3547ms
+2025-06-12 22:33:34.806 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 22:33:34.807 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 3568ms
+2025-06-12 22:33:34.810 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 22:33:34.811 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 3571ms
+2025-06-12 22:33:34.812 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:33:34.812 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:33:34.813 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 3574ms
+2025-06-12 22:33:39.536 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:33:41.353 +04:00 [INF] Fetching all games
+2025-06-12 22:33:41.353 +04:00 [INF] Fetching all games
+2025-06-12 22:33:41.357 +04:00 [INF] Retrieved 5 games
+2025-06-12 22:33:41.358 +04:00 [INF] Retrieved  games
+2025-06-12 22:33:41.358 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 1821ms
+2025-06-12 22:33:44.072 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 22:33:44.072 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 22:33:44.073 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:33:44.076 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 22:33:44.076 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 22:33:44.076 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 22:33:44.078 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 22:33:44.078 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 22:33:44.078 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 22:33:44.078 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 22:33:44.078 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 22:33:44.078 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 22:33:44.095 +04:00 [INF] Fetching all genres
+2025-06-12 22:33:44.095 +04:00 [INF] Fetching all publishers
+2025-06-12 22:33:44.095 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:33:44.096 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 22:33:44.097 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:33:44.097 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 22:33:44.098 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 21ms
+2025-06-12 22:33:44.098 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 21ms
+2025-06-12 22:33:44.098 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 21ms
+2025-06-12 22:33:44.098 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:33:44.098 +04:00 [INF] Fetching all platforms
+2025-06-12 22:33:44.098 +04:00 [INF] Getting all genres
+2025-06-12 22:33:44.098 +04:00 [INF] Retrieving all platforms
+2025-06-12 22:33:44.108 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:33:44.108 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 35ms
+2025-06-12 22:33:44.108 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 35ms
+2025-06-12 22:33:44.108 +04:00 [INF] Returning 3 genres
+2025-06-12 22:33:44.109 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 36ms
+2025-06-12 22:33:52.034 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:33:52.034 +04:00 [INF] Completed request: POST /games - Status: 405 - Time: 0ms
+2025-06-12 22:33:58.171 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:33:58.172 +04:00 [INF] Completed request: POST /games - Status: 405 - Time: 0ms
+2025-06-12 22:35:42.145 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:35:42.871 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 729ms
+2025-06-12 22:35:45.355 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:35:51.956 +04:00 [INF] Fetching all games
+2025-06-12 22:35:51.959 +04:00 [INF] Fetching all games
+2025-06-12 22:35:52.123 +04:00 [INF] Retrieved 5 games
+2025-06-12 22:35:52.133 +04:00 [INF] Retrieved  games
+2025-06-12 22:35:52.154 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 6799ms
+2025-06-12 22:36:05.813 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:36:05.813 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 22:36:05.813 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 22:36:05.830 +04:00 [INF] Fetching all platforms
+2025-06-12 22:36:05.830 +04:00 [INF] Retrieving all platforms
+2025-06-12 22:36:05.831 +04:00 [INF] Fetching all publishers
+2025-06-12 22:36:05.831 +04:00 [INF] Fetching all genres
+2025-06-12 22:36:05.831 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:36:05.832 +04:00 [INF] Getting all genres
+2025-06-12 22:36:05.884 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:36:05.885 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 72ms
+2025-06-12 22:36:05.886 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 73ms
+2025-06-12 22:36:05.914 +04:00 [INF] Returning 3 genres
+2025-06-12 22:36:05.915 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 102ms
+2025-06-12 22:36:28.590 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:36:30.902 +04:00 [INF] Creating new game: 3
+2025-06-12 22:36:30.940 +04:00 [WRN] Validation failed for game creation: ["Key is required.","Key must be lowercase alphanumeric with hyphens."]
+2025-06-12 22:36:30.945 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 2355ms
+2025-06-12 22:37:13.172 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:37:15.466 +04:00 [INF] Creating new game: 3
+2025-06-12 22:37:15.469 +04:00 [INF] Starting game creation process for game key: keykey
+2025-06-12 22:37:15.617 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 22:37:15.828 +04:00 [INF] Successfully created game keykey with ID "e3b6a1cf-9ea8-44e5-4394-08dda9e02778"
+2025-06-12 22:37:15.830 +04:00 [INF] Game created successfully. Key: keykey
+2025-06-12 22:37:15.831 +04:00 [INF] Fetching all games
+2025-06-12 22:37:15.834 +04:00 [INF] Retrieved 6 games
+2025-06-12 22:37:15.852 +04:00 [INF] Completed request: POST /games - Status: 201 - Time: 2680ms
+2025-06-12 22:37:15.906 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:37:21.174 +04:00 [INF] Fetching all games
+2025-06-12 22:37:21.174 +04:00 [INF] Fetching all games
+2025-06-12 22:37:21.177 +04:00 [INF] Retrieved 6 games
+2025-06-12 22:37:21.177 +04:00 [INF] Retrieved  games
+2025-06-12 22:37:21.177 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 5271ms
+2025-06-12 22:37:35.491 +04:00 [INF] Starting request: GET /games/tom22 from ::1
+2025-06-12 22:37:38.101 +04:00 [INF] Fetching game by key: tom22
+2025-06-12 22:37:38.103 +04:00 [INF] Getting game by key: tom22
+2025-06-12 22:37:38.120 +04:00 [INF] Completed request: GET /games/tom22 - Status: 200 - Time: 2629ms
+2025-06-12 22:37:38.129 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 22:37:38.129 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 22:37:38.131 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 22:37:38.136 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 22:37:38.139 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 22:37:38.139 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 22:37:38.139 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 22:37:38.140 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 22:37:38.140 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 22:37:38.139 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 22:37:38.145 +04:00 [INF] Fetching all genres
+2025-06-12 22:37:38.145 +04:00 [INF] Getting all genres
+2025-06-12 22:37:38.146 +04:00 [INF] Fetching all platforms
+2025-06-12 22:37:38.146 +04:00 [INF] Retrieving all platforms
+2025-06-12 22:37:38.151 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 22:37:38.152 +04:00 [INF] Returning 3 genres
+2025-06-12 22:37:38.152 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 12ms
+2025-06-12 22:37:38.152 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 12ms
+2025-06-12 22:37:38.153 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:37:38.159 +04:00 [INF] Fetching all publishers
+2025-06-12 22:37:38.159 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:37:38.167 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:37:38.167 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 13ms
+2025-06-12 22:37:38.220 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 22:37:38.220 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 88ms
+2025-06-12 22:37:38.227 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:37:38.227 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:37:38.228 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 99ms
+2025-06-12 22:37:38.228 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 22:37:38.228 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 99ms
+2025-06-12 22:37:49.998 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:37:51.575 +04:00 [INF] Creating new game: tomrider22
+2025-06-12 22:37:51.576 +04:00 [INF] Starting game creation process for game key: tom22
+2025-06-12 22:37:51.585 +04:00 [WRN] Game creation failed - duplicate key: tom22
+2025-06-12 22:37:51.626 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:37:51.669 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 1670ms
+2025-06-12 22:39:53.964 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:39:56.655 +04:00 [INF] Fetching all games
+2025-06-12 22:39:56.655 +04:00 [INF] Fetching all games
+2025-06-12 22:39:56.657 +04:00 [INF] Retrieved 6 games
+2025-06-12 22:39:56.657 +04:00 [INF] Retrieved  games
+2025-06-12 22:39:56.657 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2693ms
+2025-06-12 22:40:03.829 +04:00 [INF] Starting request: GET /games/keykey from ::1
+2025-06-12 22:40:05.643 +04:00 [INF] Fetching game by key: keykey
+2025-06-12 22:40:05.643 +04:00 [INF] Getting game by key: keykey
+2025-06-12 22:40:05.647 +04:00 [INF] Completed request: GET /games/keykey - Status: 200 - Time: 1817ms
+2025-06-12 22:40:07.917 +04:00 [INF] Starting request: DELETE /games/keykey from ::1
+2025-06-12 22:40:09.430 +04:00 [INF] Deleting game: keykey
+2025-06-12 22:40:09.433 +04:00 [INF] Attempting to delete game: keykey
+2025-06-12 22:40:09.456 +04:00 [INF] Successfully deleted game: keykey
+2025-06-12 22:40:09.469 +04:00 [INF] Game deleted successfully. Key: keykey
+2025-06-12 22:40:09.470 +04:00 [INF] Completed request: DELETE /games/keykey - Status: 204 - Time: 1552ms
+2025-06-12 22:40:09.478 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:40:14.429 +04:00 [INF] Fetching all games
+2025-06-12 22:40:14.429 +04:00 [INF] Fetching all games
+2025-06-12 22:40:14.432 +04:00 [INF] Retrieved 5 games
+2025-06-12 22:40:14.432 +04:00 [INF] Retrieved  games
+2025-06-12 22:40:14.432 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 4954ms
+2025-06-12 22:40:28.372 +04:00 [INF] Starting request: GET /games/tom223444 from ::1
+2025-06-12 22:40:29.941 +04:00 [INF] Fetching game by key: tom223444
+2025-06-12 22:40:29.942 +04:00 [INF] Getting game by key: tom223444
+2025-06-12 22:40:29.948 +04:00 [INF] Completed request: GET /games/tom223444 - Status: 200 - Time: 1576ms
+2025-06-12 22:40:42.390 +04:00 [INF] Starting request: DELETE /games/tom223444 from ::1
+2025-06-12 22:40:44.719 +04:00 [INF] Deleting game: tom223444
+2025-06-12 22:40:44.720 +04:00 [INF] Attempting to delete game: tom223444
+2025-06-12 22:40:44.725 +04:00 [INF] Successfully deleted game: tom223444
+2025-06-12 22:40:44.738 +04:00 [INF] Game deleted successfully. Key: tom223444
+2025-06-12 22:40:44.738 +04:00 [INF] Completed request: DELETE /games/tom223444 - Status: 204 - Time: 2348ms
+2025-06-12 22:40:44.751 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:40:47.999 +04:00 [INF] Fetching all games
+2025-06-12 22:40:47.999 +04:00 [INF] Fetching all games
+2025-06-12 22:40:48.002 +04:00 [INF] Retrieved 4 games
+2025-06-12 22:40:48.002 +04:00 [INF] Retrieved  games
+2025-06-12 22:40:48.002 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 3251ms
+2025-06-12 22:53:01.794 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:53:02.575 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 784ms
+2025-06-12 22:53:21.257 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:53:23.545 +04:00 [INF] Fetching all games
+2025-06-12 22:53:23.546 +04:00 [INF] Fetching all games
+2025-06-12 22:53:23.637 +04:00 [INF] Retrieved 4 games
+2025-06-12 22:53:23.643 +04:00 [INF] Retrieved  games
+2025-06-12 22:53:23.651 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2393ms
+2025-06-12 22:53:33.117 +04:00 [INF] Starting request: GET /games/tom22 from ::1
+2025-06-12 22:53:36.041 +04:00 [INF] Fetching game by key: tom22
+2025-06-12 22:53:36.043 +04:00 [INF] Getting game by key: tom22
+2025-06-12 22:53:36.145 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 22:53:36.208 +04:00 [INF] Completed request: GET /games/tom22 - Status: 200 - Time: 3091ms
+2025-06-12 22:53:36.228 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 22:53:36.228 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 22:53:36.228 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 22:53:36.229 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 22:53:36.229 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 22:53:36.248 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:53:36.252 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 22:53:36.254 +04:00 [INF] Fetching all platforms
+2025-06-12 22:53:36.255 +04:00 [INF] Fetching all genres
+2025-06-12 22:53:36.255 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 22:53:36.255 +04:00 [INF] Retrieving all platforms
+2025-06-12 22:53:36.259 +04:00 [INF] Getting all genres
+2025-06-12 22:53:36.260 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 22:53:36.265 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 22:53:36.266 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 22:53:36.267 +04:00 [INF] Fetching all publishers
+2025-06-12 22:53:36.267 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 22:53:36.267 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:53:36.294 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 65ms
+2025-06-12 22:53:36.304 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:53:36.306 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 58ms
+2025-06-12 22:53:36.314 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 22:53:36.316 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 87ms
+2025-06-12 22:53:36.325 +04:00 [INF] Returning 3 genres
+2025-06-12 22:53:36.325 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:53:36.325 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:53:36.325 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 22:53:36.325 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 97ms
+2025-06-12 22:53:36.326 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 97ms
+2025-06-12 22:53:36.326 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 97ms
+2025-06-12 22:53:46.141 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:53:53.601 +04:00 [INF] Creating new game: tomrider22
+2025-06-12 22:53:53.621 +04:00 [INF] Starting game creation process for game key: tom22
+2025-06-12 22:53:53.632 +04:00 [WRN] Game creation failed - duplicate key: tom22
+2025-06-12 22:53:53.669 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:53:53.690 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 7549ms
+2025-06-12 22:55:21.177 +04:00 [INF] Starting request: GET /swagger from ::1
+2025-06-12 22:55:21.901 +04:00 [INF] Completed request: GET /swagger - Status: 301 - Time: 726ms
+2025-06-12 22:55:21.990 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-12 22:55:22.023 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 33ms
+2025-06-12 22:55:22.039 +04:00 [INF] Starting request: GET /swagger/swagger-ui-standalone-preset.js from ::1
+2025-06-12 22:55:22.039 +04:00 [INF] Starting request: GET /swagger/index.css from ::1
+2025-06-12 22:55:22.039 +04:00 [INF] Starting request: GET /swagger/swagger-ui.css from ::1
+2025-06-12 22:55:22.040 +04:00 [INF] Starting request: GET /swagger/index.js from ::1
+2025-06-12 22:55:22.040 +04:00 [INF] Starting request: GET /swagger/swagger-ui-bundle.js from ::1
+2025-06-12 22:55:22.046 +04:00 [INF] Completed request: GET /swagger/index.js - Status: 200 - Time: 5ms
+2025-06-12 22:55:22.054 +04:00 [INF] Completed request: GET /swagger/index.css - Status: 200 - Time: 15ms
+2025-06-12 22:55:22.063 +04:00 [INF] Completed request: GET /swagger/swagger-ui.css - Status: 200 - Time: 24ms
+2025-06-12 22:55:22.063 +04:00 [INF] Completed request: GET /swagger/swagger-ui-standalone-preset.js - Status: 200 - Time: 24ms
+2025-06-12 22:55:22.077 +04:00 [INF] Completed request: GET /swagger/swagger-ui-bundle.js - Status: 200 - Time: 36ms
+2025-06-12 22:55:22.460 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-12 22:55:22.461 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-12 22:55:22.506 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:55:22.525 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 19ms
+2025-06-12 22:55:44.560 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:55:49.069 +04:00 [INF] Fetching all games
+2025-06-12 22:55:49.071 +04:00 [INF] Fetching all games
+2025-06-12 22:55:49.220 +04:00 [INF] Retrieved 4 games
+2025-06-12 22:55:49.230 +04:00 [INF] Retrieved  games
+2025-06-12 22:55:49.240 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 4680ms
+2025-06-12 22:55:56.735 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:56:00.592 +04:00 [INF] Fetching all games
+2025-06-12 22:56:00.593 +04:00 [INF] Fetching all games
+2025-06-12 22:56:00.616 +04:00 [INF] Retrieved 4 games
+2025-06-12 22:56:00.616 +04:00 [INF] Retrieved  games
+2025-06-12 22:56:00.617 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 3882ms
+2025-06-12 22:56:26.190 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:56:26.958 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 770ms
+2025-06-12 22:56:29.108 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:56:31.824 +04:00 [INF] Fetching all games
+2025-06-12 22:56:31.825 +04:00 [INF] Fetching all games
+2025-06-12 22:56:31.918 +04:00 [INF] Retrieved 4 games
+2025-06-12 22:56:31.924 +04:00 [INF] Retrieved  games
+2025-06-12 22:56:31.932 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2824ms
+2025-06-12 22:56:35.536 +04:00 [INF] Starting request: GET /games/tom22 from ::1
+2025-06-12 22:56:38.061 +04:00 [INF] Fetching game by key: tom22
+2025-06-12 22:56:38.062 +04:00 [INF] Getting game by key: tom22
+2025-06-12 22:56:38.124 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 22:56:38.173 +04:00 [INF] Completed request: GET /games/tom22 - Status: 200 - Time: 2637ms
+2025-06-12 22:56:38.187 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 22:56:38.187 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:56:38.187 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 22:56:38.190 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 22:56:38.190 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 22:56:38.191 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 22:56:38.200 +04:00 [INF] Fetching all platforms
+2025-06-12 22:56:38.201 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 22:56:38.201 +04:00 [INF] Retrieving all platforms
+2025-06-12 22:56:38.202 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 22:56:38.202 +04:00 [INF] Fetching all genres
+2025-06-12 22:56:38.203 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 22:56:38.203 +04:00 [INF] Fetching all publishers
+2025-06-12 22:56:38.204 +04:00 [INF] Getting all genres
+2025-06-12 22:56:38.204 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 22:56:38.204 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 22:56:38.205 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:56:38.205 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 22:56:38.223 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 36ms
+2025-06-12 22:56:38.232 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:56:38.235 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 48ms
+2025-06-12 22:56:38.237 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 22:56:38.238 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 47ms
+2025-06-12 22:56:38.241 +04:00 [INF] Returning 3 genres
+2025-06-12 22:56:38.241 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:56:38.241 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 22:56:38.241 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 22:56:38.242 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 51ms
+2025-06-12 22:56:38.242 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 55ms
+2025-06-12 22:56:38.242 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 52ms
+2025-06-12 22:56:46.524 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:56:54.761 +04:00 [INF] Creating new game: tomrider22
+2025-06-12 22:56:54.782 +04:00 [INF] Starting game creation process for game key: tom22
+2025-06-12 22:56:54.794 +04:00 [WRN] Game creation failed - duplicate key: tom22
+2025-06-12 22:56:54.832 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:56:54.847 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 8322ms
+2025-06-12 22:57:03.775 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 22:57:16.207 +04:00 [INF] Creating new game: tomrider22
+2025-06-12 22:57:16.207 +04:00 [INF] Starting game creation process for game key: tom22
+2025-06-12 22:57:16.212 +04:00 [WRN] Game creation failed - duplicate key: tom22
+2025-06-12 22:57:16.236 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 22:57:16.237 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 12461ms
+2025-06-12 22:59:38.026 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 22:59:38.793 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 769ms
+2025-06-12 22:59:41.601 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 22:59:44.128 +04:00 [INF] Fetching all games
+2025-06-12 22:59:44.129 +04:00 [INF] Fetching all games
+2025-06-12 22:59:44.219 +04:00 [INF] Retrieved 4 games
+2025-06-12 22:59:44.225 +04:00 [INF] Retrieved  games
+2025-06-12 22:59:44.233 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2631ms
+2025-06-12 22:59:47.276 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 22:59:47.276 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 22:59:47.276 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 22:59:47.283 +04:00 [INF] Fetching all platforms
+2025-06-12 22:59:47.284 +04:00 [INF] Retrieving all platforms
+2025-06-12 22:59:47.284 +04:00 [INF] Fetching all genres
+2025-06-12 22:59:47.285 +04:00 [INF] Fetching all publishers
+2025-06-12 22:59:47.285 +04:00 [INF] Getting all genres
+2025-06-12 22:59:47.285 +04:00 [INF] Retrieving all publishers
+2025-06-12 22:59:47.344 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 22:59:47.345 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 69ms
+2025-06-12 22:59:47.345 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 69ms
+2025-06-12 22:59:47.362 +04:00 [INF] Returning 3 genres
+2025-06-12 22:59:47.363 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 86ms
+2025-06-12 23:00:00.744 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:00:05.372 +04:00 [INF] Creating new game: 3
+2025-06-12 23:00:05.408 +04:00 [INF] Starting game creation process for game key: 3
+2025-06-12 23:00:05.536 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 23:00:05.748 +04:00 [INF] Successfully created game 3 with ID "02ad8026-dfdf-451d-5eba-08dda9e35802"
+2025-06-12 23:00:05.751 +04:00 [INF] Game created successfully. Key: 3
+2025-06-12 23:00:05.751 +04:00 [INF] Fetching all games
+2025-06-12 23:00:05.754 +04:00 [INF] Retrieved 5 games
+2025-06-12 23:00:05.773 +04:00 [INF] Completed request: POST /games - Status: 201 - Time: 5029ms
+2025-06-12 23:00:05.803 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 23:00:07.870 +04:00 [INF] Fetching all games
+2025-06-12 23:00:07.870 +04:00 [INF] Fetching all games
+2025-06-12 23:00:07.872 +04:00 [INF] Retrieved 5 games
+2025-06-12 23:00:07.872 +04:00 [INF] Retrieved  games
+2025-06-12 23:00:07.873 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2070ms
+2025-06-12 23:01:00.308 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 23:01:00.309 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 23:01:00.308 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 23:01:00.322 +04:00 [INF] Fetching all publishers
+2025-06-12 23:01:00.322 +04:00 [INF] Retrieving all publishers
+2025-06-12 23:01:00.323 +04:00 [INF] Fetching all platforms
+2025-06-12 23:01:00.323 +04:00 [INF] Retrieving all platforms
+2025-06-12 23:01:00.322 +04:00 [INF] Fetching all genres
+2025-06-12 23:01:00.323 +04:00 [INF] Getting all genres
+2025-06-12 23:01:00.334 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 23:01:00.335 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 26ms
+2025-06-12 23:01:00.335 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 26ms
+2025-06-12 23:01:00.335 +04:00 [INF] Returning 3 genres
+2025-06-12 23:01:00.339 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 31ms
+2025-06-12 23:01:18.177 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:01:26.852 +04:00 [INF] Creating new game: 4
+2025-06-12 23:01:26.853 +04:00 [INF] Starting game creation process for game key: 4
+2025-06-12 23:01:26.880 +04:00 [INF] Successfully created game 4 with ID "54d1627b-d375-4838-5ebb-08dda9e35802"
+2025-06-12 23:01:26.881 +04:00 [INF] Game created successfully. Key: 4
+2025-06-12 23:01:26.881 +04:00 [INF] Fetching all games
+2025-06-12 23:01:26.882 +04:00 [INF] Retrieved 6 games
+2025-06-12 23:01:26.883 +04:00 [INF] Completed request: POST /games - Status: 201 - Time: 8706ms
+2025-06-12 23:01:26.904 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 23:01:29.616 +04:00 [INF] Fetching all games
+2025-06-12 23:01:29.616 +04:00 [INF] Fetching all games
+2025-06-12 23:01:29.619 +04:00 [INF] Retrieved 6 games
+2025-06-12 23:01:29.619 +04:00 [INF] Retrieved  games
+2025-06-12 23:01:29.619 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2715ms
+2025-06-12 23:02:00.908 +04:00 [INF] Starting request: GET /games/tom22 from ::1
+2025-06-12 23:02:04.204 +04:00 [INF] Fetching game by key: tom22
+2025-06-12 23:02:04.204 +04:00 [INF] Getting game by key: tom22
+2025-06-12 23:02:04.218 +04:00 [INF] Completed request: GET /games/tom22 - Status: 200 - Time: 3310ms
+2025-06-12 23:02:04.231 +04:00 [INF] Starting request: GET /games/tom22/genres from ::1
+2025-06-12 23:02:04.231 +04:00 [INF] Starting request: GET /games/tom22/platforms from ::1
+2025-06-12 23:02:04.233 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 23:02:04.233 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 23:02:04.235 +04:00 [INF] Fetching all genres
+2025-06-12 23:02:04.235 +04:00 [INF] Getting all genres
+2025-06-12 23:02:04.236 +04:00 [INF] Fetching all platforms
+2025-06-12 23:02:04.236 +04:00 [INF] Retrieving all platforms
+2025-06-12 23:02:04.241 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 23:02:04.242 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 8ms
+2025-06-12 23:02:04.242 +04:00 [INF] Fetching genres for game: tom22
+2025-06-12 23:02:04.242 +04:00 [INF] Returning 3 genres
+2025-06-12 23:02:04.242 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 9ms
+2025-06-12 23:02:04.242 +04:00 [INF] Starting request: GET /games/tom22/publisher from ::1
+2025-06-12 23:02:04.243 +04:00 [INF] Fetching platforms for game: tom22
+2025-06-12 23:02:04.244 +04:00 [INF] Getting genres for game: tom22
+2025-06-12 23:02:04.244 +04:00 [INF] Retrieving platforms for game key: tom22
+2025-06-12 23:02:04.246 +04:00 [INF] Fetching all publishers
+2025-06-12 23:02:04.246 +04:00 [INF] Retrieving all publishers
+2025-06-12 23:02:04.256 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 23:02:04.256 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 14ms
+2025-06-12 23:02:04.258 +04:00 [INF] Retrieving publisher for game key: tom22
+2025-06-12 23:02:04.264 +04:00 [INF] Retrieving publisher by game key: tom22
+2025-06-12 23:02:04.290 +04:00 [INF] Retrieved publisher for game key: tom22 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 23:02:04.291 +04:00 [INF] Completed request: GET /games/tom22/publisher - Status: 200 - Time: 48ms
+2025-06-12 23:02:04.295 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 23:02:04.295 +04:00 [INF] Found 1 genres for game tom22
+2025-06-12 23:02:04.295 +04:00 [INF] Completed request: GET /games/tom22/genres - Status: 200 - Time: 64ms
+2025-06-12 23:02:04.297 +04:00 [INF] Found 1 platforms for game tom22
+2025-06-12 23:02:04.297 +04:00 [INF] Completed request: GET /games/tom22/platforms - Status: 200 - Time: 66ms
+2025-06-12 23:02:11.948 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:02:14.063 +04:00 [INF] Creating new game: tomrider2
+2025-06-12 23:02:14.063 +04:00 [INF] Starting game creation process for game key: tom22
+2025-06-12 23:02:14.073 +04:00 [WRN] Game creation failed - duplicate key: tom22
+2025-06-12 23:02:14.121 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 23:02:14.159 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 2210ms
+2025-06-12 23:09:34.940 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 23:09:35.708 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 770ms
+2025-06-12 23:09:40.461 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 23:09:43.698 +04:00 [INF] Fetching all games
+2025-06-12 23:09:43.702 +04:00 [INF] Fetching all games
+2025-06-12 23:09:43.859 +04:00 [INF] Retrieved 6 games
+2025-06-12 23:09:43.871 +04:00 [INF] Retrieved  games
+2025-06-12 23:09:43.885 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 3423ms
+2025-06-12 23:09:46.896 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 23:09:46.896 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 23:09:46.896 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 23:09:46.914 +04:00 [INF] Fetching all genres
+2025-06-12 23:09:46.915 +04:00 [INF] Fetching all publishers
+2025-06-12 23:09:46.915 +04:00 [INF] Fetching all platforms
+2025-06-12 23:09:46.915 +04:00 [INF] Retrieving all publishers
+2025-06-12 23:09:46.916 +04:00 [INF] Getting all genres
+2025-06-12 23:09:46.916 +04:00 [INF] Retrieving all platforms
+2025-06-12 23:09:46.961 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 64ms
+2025-06-12 23:09:46.964 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 23:09:46.966 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 69ms
+2025-06-12 23:09:46.994 +04:00 [INF] Returning 3 genres
+2025-06-12 23:09:46.995 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 98ms
+2025-06-12 23:10:01.985 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:10:05.198 +04:00 [INF] Creating new game: 5
+2025-06-12 23:10:05.250 +04:00 [WRN] Validation failed for game creation: ["At least one platform is required."]
+2025-06-12 23:10:05.253 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 3268ms
+2025-06-12 23:10:14.900 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:10:16.827 +04:00 [INF] Creating new game: 5
+2025-06-12 23:10:16.834 +04:00 [INF] Starting game creation process for game key: 5
+2025-06-12 23:10:16.985 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 23:10:17.201 +04:00 [INF] Successfully created game 5 with ID "3fdc6547-1496-4ea8-7fe5-08dda9e4c478"
+2025-06-12 23:10:17.202 +04:00 [INF] Game created successfully. Key: 5
+2025-06-12 23:10:17.202 +04:00 [INF] Fetching all games
+2025-06-12 23:10:17.207 +04:00 [INF] Retrieved 7 games
+2025-06-12 23:10:17.237 +04:00 [INF] Completed request: POST /games - Status: 201 - Time: 2336ms
+2025-06-12 23:10:17.258 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 23:10:19.907 +04:00 [INF] Fetching all games
+2025-06-12 23:10:19.907 +04:00 [INF] Fetching all games
+2025-06-12 23:10:19.914 +04:00 [INF] Retrieved 7 games
+2025-06-12 23:10:19.914 +04:00 [INF] Retrieved  games
+2025-06-12 23:10:19.916 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2657ms
+2025-06-12 23:12:08.715 +04:00 [INF] Starting request: GET /games/3 from ::1
+2025-06-12 23:12:10.842 +04:00 [INF] Fetching game by key: 3
+2025-06-12 23:12:10.844 +04:00 [INF] Getting game by key: 3
+2025-06-12 23:12:10.865 +04:00 [INF] Completed request: GET /games/3 - Status: 200 - Time: 2149ms
+2025-06-12 23:12:10.876 +04:00 [INF] Starting request: GET /games/3/genres from ::1
+2025-06-12 23:12:10.881 +04:00 [INF] Starting request: GET /games/3/platforms from ::1
+2025-06-12 23:12:10.884 +04:00 [INF] Starting request: GET /games/3/publisher from ::1
+2025-06-12 23:12:10.889 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 23:12:10.893 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 23:12:10.893 +04:00 [INF] Fetching all genres
+2025-06-12 23:12:10.893 +04:00 [INF] Getting all genres
+2025-06-12 23:12:10.894 +04:00 [INF] Fetching all platforms
+2025-06-12 23:12:10.894 +04:00 [INF] Retrieving all platforms
+2025-06-12 23:12:10.894 +04:00 [INF] Fetching genres for game: 3
+2025-06-12 23:12:10.898 +04:00 [INF] Getting genres for game: 3
+2025-06-12 23:12:10.900 +04:00 [INF] Fetching platforms for game: 3
+2025-06-12 23:12:10.900 +04:00 [INF] Returning 3 genres
+2025-06-12 23:12:10.901 +04:00 [INF] Retrieving publisher for game key: 3
+2025-06-12 23:12:10.902 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 8ms
+2025-06-12 23:12:10.902 +04:00 [INF] Retrieving platforms for game key: 3
+2025-06-12 23:12:10.903 +04:00 [INF] Retrieving publisher by game key: 3
+2025-06-12 23:12:10.908 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 23:12:10.909 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 20ms
+2025-06-12 23:12:10.913 +04:00 [INF] Fetching all publishers
+2025-06-12 23:12:10.913 +04:00 [INF] Retrieving all publishers
+2025-06-12 23:12:10.920 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 23:12:10.921 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 13ms
+2025-06-12 23:12:10.954 +04:00 [INF] Retrieved publisher for game key: 3 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 23:12:10.954 +04:00 [INF] Completed request: GET /games/3/publisher - Status: 200 - Time: 70ms
+2025-06-12 23:12:10.955 +04:00 [INF] Found 1 genres for game 3
+2025-06-12 23:12:10.955 +04:00 [INF] Found 1 genres for game 3
+2025-06-12 23:12:10.955 +04:00 [INF] Completed request: GET /games/3/genres - Status: 200 - Time: 79ms
+2025-06-12 23:12:10.955 +04:00 [INF] Found 1 platforms for game 3
+2025-06-12 23:12:10.956 +04:00 [INF] Completed request: GET /games/3/platforms - Status: 200 - Time: 75ms
+2025-06-12 23:12:17.467 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:12:19.682 +04:00 [INF] Creating new game: 32
+2025-06-12 23:12:19.683 +04:00 [INF] Starting game creation process for game key: 3
+2025-06-12 23:12:19.691 +04:00 [WRN] Game creation failed - duplicate key: 3
+2025-06-12 23:12:19.726 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 23:12:19.770 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 2302ms
+2025-06-12 23:15:04.146 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-12 23:15:04.934 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 791ms
+2025-06-12 23:15:08.010 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 23:15:10.065 +04:00 [INF] Fetching all games
+2025-06-12 23:15:10.066 +04:00 [INF] Fetching all games
+2025-06-12 23:15:10.154 +04:00 [INF] Retrieved 7 games
+2025-06-12 23:15:10.160 +04:00 [INF] Retrieved  games
+2025-06-12 23:15:10.171 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2160ms
+2025-06-12 23:15:13.465 +04:00 [INF] Starting request: GET /games/3 from ::1
+2025-06-12 23:15:15.072 +04:00 [INF] Fetching game by key: 3
+2025-06-12 23:15:15.073 +04:00 [INF] Getting game by key: 3
+2025-06-12 23:15:15.133 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-12 23:15:15.181 +04:00 [INF] Completed request: GET /games/3 - Status: 200 - Time: 1716ms
+2025-06-12 23:15:15.194 +04:00 [INF] Starting request: GET /games/3/genres from ::1
+2025-06-12 23:15:15.194 +04:00 [INF] Starting request: GET /games/3/platforms from ::1
+2025-06-12 23:15:15.196 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 23:15:15.196 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 23:15:15.199 +04:00 [INF] Starting request: GET /games/3/publisher from ::1
+2025-06-12 23:15:15.201 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 23:15:15.211 +04:00 [INF] Fetching all platforms
+2025-06-12 23:15:15.212 +04:00 [INF] Fetching platforms for game: 3
+2025-06-12 23:15:15.212 +04:00 [INF] Retrieving all platforms
+2025-06-12 23:15:15.212 +04:00 [INF] Fetching all genres
+2025-06-12 23:15:15.213 +04:00 [INF] Retrieving platforms for game key: 3
+2025-06-12 23:15:15.213 +04:00 [INF] Fetching genres for game: 3
+2025-06-12 23:15:15.213 +04:00 [INF] Getting all genres
+2025-06-12 23:15:15.213 +04:00 [INF] Getting genres for game: 3
+2025-06-12 23:15:15.214 +04:00 [INF] Fetching all publishers
+2025-06-12 23:15:15.214 +04:00 [INF] Retrieving publisher for game key: 3
+2025-06-12 23:15:15.214 +04:00 [INF] Retrieving all publishers
+2025-06-12 23:15:15.214 +04:00 [INF] Retrieving publisher by game key: 3
+2025-06-12 23:15:15.251 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 55ms
+2025-06-12 23:15:15.255 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 23:15:15.259 +04:00 [INF] Returning 3 genres
+2025-06-12 23:15:15.259 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 57ms
+2025-06-12 23:15:15.260 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 63ms
+2025-06-12 23:15:15.262 +04:00 [INF] Retrieved publisher for game key: 3 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 23:15:15.263 +04:00 [INF] Completed request: GET /games/3/publisher - Status: 200 - Time: 64ms
+2025-06-12 23:15:15.265 +04:00 [INF] Found 1 genres for game 3
+2025-06-12 23:15:15.265 +04:00 [INF] Found 1 genres for game 3
+2025-06-12 23:15:15.265 +04:00 [INF] Completed request: GET /games/3/genres - Status: 200 - Time: 70ms
+2025-06-12 23:15:15.266 +04:00 [INF] Found 1 platforms for game 3
+2025-06-12 23:15:15.266 +04:00 [INF] Completed request: GET /games/3/platforms - Status: 200 - Time: 71ms
+2025-06-12 23:15:19.393 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:15:21.545 +04:00 [INF] Creating new game: 3
+2025-06-12 23:15:21.566 +04:00 [INF] Starting game creation process for game key: 32
+2025-06-12 23:15:21.669 +04:00 [INF] Successfully created game 32 with ID "b9e3dc08-3d34-46a2-4312-08dda9e57a00"
+2025-06-12 23:15:21.669 +04:00 [INF] Game created successfully. Key: 32
+2025-06-12 23:15:21.669 +04:00 [INF] Fetching all games
+2025-06-12 23:15:21.671 +04:00 [INF] Retrieved 8 games
+2025-06-12 23:15:21.678 +04:00 [INF] Completed request: POST /games - Status: 201 - Time: 2285ms
+2025-06-12 23:15:21.704 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 23:15:25.590 +04:00 [INF] Fetching all games
+2025-06-12 23:15:25.590 +04:00 [INF] Fetching all games
+2025-06-12 23:15:25.596 +04:00 [INF] Retrieved 8 games
+2025-06-12 23:15:25.596 +04:00 [INF] Retrieved  games
+2025-06-12 23:15:25.596 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 3892ms
+2025-06-12 23:15:30.297 +04:00 [INF] Starting request: GET /games/3/publisher from ::1
+2025-06-12 23:15:30.297 +04:00 [INF] Starting request: GET /games/3/platforms from ::1
+2025-06-12 23:15:30.297 +04:00 [INF] Starting request: GET /games/3/genres from ::1
+2025-06-12 23:15:30.297 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 23:15:30.297 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 23:15:30.297 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 23:15:30.299 +04:00 [INF] Fetching all genres
+2025-06-12 23:15:30.299 +04:00 [INF] Fetching all publishers
+2025-06-12 23:15:30.299 +04:00 [INF] Getting all genres
+2025-06-12 23:15:30.300 +04:00 [INF] Retrieving publisher for game key: 3
+2025-06-12 23:15:30.300 +04:00 [INF] Retrieving all publishers
+2025-06-12 23:15:30.300 +04:00 [INF] Fetching genres for game: 3
+2025-06-12 23:15:30.300 +04:00 [INF] Retrieving publisher by game key: 3
+2025-06-12 23:15:30.300 +04:00 [INF] Getting genres for game: 3
+2025-06-12 23:15:30.300 +04:00 [INF] Fetching all platforms
+2025-06-12 23:15:30.300 +04:00 [INF] Retrieving all platforms
+2025-06-12 23:15:30.300 +04:00 [INF] Fetching platforms for game: 3
+2025-06-12 23:15:30.300 +04:00 [INF] Retrieving platforms for game key: 3
+2025-06-12 23:15:30.319 +04:00 [INF] Returning 3 genres
+2025-06-12 23:15:30.334 +04:00 [INF] Found 1 genres for game 3
+2025-06-12 23:15:30.334 +04:00 [INF] Found 1 genres for game 3
+2025-06-12 23:15:30.337 +04:00 [INF] Retrieved publisher for game key: 3 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 23:15:30.337 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 23:15:30.341 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 43ms
+2025-06-12 23:15:30.341 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 43ms
+2025-06-12 23:15:30.341 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 43ms
+2025-06-12 23:15:30.343 +04:00 [INF] Completed request: GET /games/3/publisher - Status: 200 - Time: 46ms
+2025-06-12 23:15:30.344 +04:00 [INF] Completed request: GET /games/3/genres - Status: 200 - Time: 47ms
+2025-06-12 23:15:30.345 +04:00 [INF] Found 1 platforms for game 3
+2025-06-12 23:15:30.345 +04:00 [INF] Completed request: GET /games/3/platforms - Status: 200 - Time: 48ms
+2025-06-12 23:15:33.333 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:15:35.359 +04:00 [INF] Creating new game: 32
+2025-06-12 23:15:35.360 +04:00 [INF] Starting game creation process for game key: 3
+2025-06-12 23:15:35.370 +04:00 [WRN] Game creation failed - duplicate key: 3
+2025-06-12 23:15:35.418 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 23:15:35.447 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 2113ms
+2025-06-12 23:16:16.505 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:16:20.173 +04:00 [INF] Creating new game: 32
+2025-06-12 23:16:20.174 +04:00 [INF] Starting game creation process for game key: 32
+2025-06-12 23:16:20.182 +04:00 [WRN] Game creation failed - duplicate key: 32
+2025-06-12 23:16:20.211 +04:00 [ERR] Bad request creating game: Game key must be unique.
+GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
+   at GameStore.Application.Services.GameService.CreateGameAsync(CreateGameRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\GameService.cs:line 51
+   at GameStore.Web.Controller.GamesController.CreateGame(CreateGameRequestDto request, CancellationToken cancellationToken) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\GamesController.cs:line 64
+2025-06-12 23:16:20.213 +04:00 [INF] Completed request: POST /games - Status: 400 - Time: 3708ms
+2025-06-12 23:16:27.230 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:16:28.989 +04:00 [INF] Creating new game: 32
+2025-06-12 23:16:28.989 +04:00 [INF] Starting game creation process for game key: 323
+2025-06-12 23:16:29.010 +04:00 [INF] Successfully created game 323 with ID "b7b2dd9a-1484-4440-4313-08dda9e57a00"
+2025-06-12 23:16:29.010 +04:00 [INF] Game created successfully. Key: 323
+2025-06-12 23:16:29.010 +04:00 [INF] Fetching all games
+2025-06-12 23:16:29.011 +04:00 [INF] Retrieved 9 games
+2025-06-12 23:16:29.011 +04:00 [INF] Completed request: POST /games - Status: 201 - Time: 1781ms
+2025-06-12 23:16:29.032 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 23:16:32.573 +04:00 [INF] Fetching all games
+2025-06-12 23:16:32.573 +04:00 [INF] Fetching all games
+2025-06-12 23:16:32.578 +04:00 [INF] Retrieved 9 games
+2025-06-12 23:16:32.578 +04:00 [INF] Retrieved  games
+2025-06-12 23:16:32.578 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 3545ms
+2025-06-12 23:16:58.485 +04:00 [INF] Starting request: GET /games/3 from ::1
+2025-06-12 23:17:00.533 +04:00 [INF] Fetching game by key: 3
+2025-06-12 23:17:00.533 +04:00 [INF] Getting game by key: 3
+2025-06-12 23:17:00.539 +04:00 [INF] Completed request: GET /games/3 - Status: 200 - Time: 2054ms
+2025-06-12 23:17:00.550 +04:00 [INF] Starting request: GET /games/3/genres from ::1
+2025-06-12 23:17:00.551 +04:00 [INF] Starting request: GET /games/3/platforms from ::1
+2025-06-12 23:17:00.553 +04:00 [INF] Fetching genres for game: 3
+2025-06-12 23:17:00.553 +04:00 [INF] Getting genres for game: 3
+2025-06-12 23:17:00.555 +04:00 [INF] Fetching platforms for game: 3
+2025-06-12 23:17:00.555 +04:00 [INF] Retrieving platforms for game key: 3
+2025-06-12 23:17:00.555 +04:00 [INF] Starting request: GET /games/3/publisher from ::1
+2025-06-12 23:17:00.556 +04:00 [INF] Starting request: GET /genres from ::1
+2025-06-12 23:17:00.556 +04:00 [INF] Retrieving publisher for game key: 3
+2025-06-12 23:17:00.556 +04:00 [INF] Retrieving publisher by game key: 3
+2025-06-12 23:17:00.556 +04:00 [INF] Fetching all genres
+2025-06-12 23:17:00.556 +04:00 [INF] Getting all genres
+2025-06-12 23:17:00.567 +04:00 [INF] Returning 3 genres
+2025-06-12 23:17:00.568 +04:00 [INF] Completed request: GET /genres - Status: 200 - Time: 11ms
+2025-06-12 23:17:00.568 +04:00 [INF] Retrieved publisher for game key: 3 (Publisher ID: "5e781235-7c93-4ec5-5a78-08dda8c64563")
+2025-06-12 23:17:00.568 +04:00 [INF] Found 1 genres for game 3
+2025-06-12 23:17:00.568 +04:00 [INF] Found 1 genres for game 3
+2025-06-12 23:17:00.568 +04:00 [INF] Completed request: GET /games/3/publisher - Status: 200 - Time: 12ms
+2025-06-12 23:17:00.568 +04:00 [INF] Found 1 platforms for game 3
+2025-06-12 23:17:00.568 +04:00 [INF] Completed request: GET /games/3/genres - Status: 200 - Time: 18ms
+2025-06-12 23:17:00.568 +04:00 [INF] Starting request: GET /platforms from ::1
+2025-06-12 23:17:00.568 +04:00 [INF] Starting request: GET /publishers from ::1
+2025-06-12 23:17:00.568 +04:00 [INF] Completed request: GET /games/3/platforms - Status: 200 - Time: 17ms
+2025-06-12 23:17:00.571 +04:00 [INF] Fetching all publishers
+2025-06-12 23:17:00.571 +04:00 [INF] Fetching all platforms
+2025-06-12 23:17:00.571 +04:00 [INF] Retrieving all publishers
+2025-06-12 23:17:00.571 +04:00 [INF] Retrieving all platforms
+2025-06-12 23:17:00.581 +04:00 [INF] Retrieved 7 publishers
+2025-06-12 23:17:00.581 +04:00 [INF] Completed request: GET /publishers - Status: 200 - Time: 12ms
+2025-06-12 23:17:00.581 +04:00 [INF] Completed request: GET /platforms - Status: 200 - Time: 12ms
+2025-06-12 23:17:06.621 +04:00 [INF] Starting request: POST /games from ::1
+2025-06-12 23:17:08.500 +04:00 [INF] Creating new game: 3
+2025-06-12 23:17:08.500 +04:00 [INF] Starting game creation process for game key: 33333
+2025-06-12 23:17:08.514 +04:00 [INF] Successfully created game 33333 with ID "9c280ece-65d7-47e7-4314-08dda9e57a00"
+2025-06-12 23:17:08.515 +04:00 [INF] Game created successfully. Key: 33333
+2025-06-12 23:17:08.515 +04:00 [INF] Fetching all games
+2025-06-12 23:17:08.516 +04:00 [INF] Retrieved 10 games
+2025-06-12 23:17:08.516 +04:00 [INF] Completed request: POST /games - Status: 201 - Time: 1895ms
+2025-06-12 23:17:08.535 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-12 23:17:10.875 +04:00 [INF] Fetching all games
+2025-06-12 23:17:10.875 +04:00 [INF] Fetching all games
+2025-06-12 23:17:10.884 +04:00 [INF] Retrieved 10 games
+2025-06-12 23:17:10.884 +04:00 [INF] Retrieved  games
+2025-06-12 23:17:10.884 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 2349ms

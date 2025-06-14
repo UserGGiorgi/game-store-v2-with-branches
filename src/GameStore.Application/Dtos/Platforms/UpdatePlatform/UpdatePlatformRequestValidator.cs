@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Platforms.UpdatePlatform;
+using GameStore.Domain.Constraints;
 
 namespace GameStore.Application.Dtos.Platforms.UpdatePlatform
 {
@@ -18,13 +19,14 @@ namespace GameStore.Application.Dtos.Platforms.UpdatePlatform
         public PlatformUpdateDtoValidator()
         {
             RuleFor(x => x.Id)
-                .NotEmpty().WithMessage("Platform ID is required.");
+                .NotEmpty().WithMessage(PlatformValidationConstraints.Messages.PlatformIdRequired);
 
             RuleFor(x => x.Type)
-                .NotEmpty().WithMessage("Platform type is required.")
-                .MaximumLength(50).WithMessage("Platform type cannot exceed 50 characters.")
-                .Matches(@"^[a-zA-Z][a-zA-Z0-9 ]*$")
-                .WithMessage("Platform type must start with a letter and can only contain alphanumeric characters and spaces.");
+                .NotEmpty().WithMessage(PlatformValidationConstraints.Messages.TypeRequired)
+                .MaximumLength(PlatformValidationConstraints.Limits.Type)
+                .WithMessage(PlatformValidationConstraints.Messages.TypeLength)
+                .Matches(PlatformValidationConstraints.Patterns.Type)
+                .WithMessage(PlatformValidationConstraints.Messages.TypeFormat);
         }
     }
 }

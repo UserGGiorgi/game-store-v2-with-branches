@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Publishers.GetPublisher;
+using GameStore.Domain.Constraints;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace GameStore.Application.Dtos.Publishers.CreatePublisher
     {
         public CreatePublisherRequestValidator()
         {
-            RuleFor(x => x.publisher)
-                .NotNull().WithMessage("Publisher information is required.")
+            RuleFor(x => x.Publisher)
+                .NotNull().WithMessage(PublisherValidationConstraints.Messages.PublisherRequired)
                 .SetValidator(new PublisherDtoValidator());
         }
     }
@@ -22,18 +23,21 @@ namespace GameStore.Application.Dtos.Publishers.CreatePublisher
         public PublisherDtoValidator()
         {
             RuleFor(x => x.CompanyName)
-                .NotEmpty().WithMessage("Company name is required.")
-                .MaximumLength(100).WithMessage("Company name cannot exceed 100 characters.");
+                .NotEmpty().WithMessage(PublisherValidationConstraints.Messages.CompanyNameRequired)
+                .MaximumLength(PublisherValidationConstraints.Limits.CompanyName)
+                .WithMessage(PublisherValidationConstraints.Messages.CompanyNameLength);
 
             RuleFor(x => x.HomePage)
-                .MaximumLength(200).When(x => !string.IsNullOrEmpty(x.HomePage))
-                .WithMessage("Home page URL cannot exceed 200 characters.")
+                .MaximumLength(PublisherValidationConstraints.Limits.HomePage)
+                .When(x => !string.IsNullOrEmpty(x.HomePage))
+                .WithMessage(PublisherValidationConstraints.Messages.HomePageLength)
                 .Must(BeAValidUrl).When(x => !string.IsNullOrEmpty(x.HomePage))
-                .WithMessage("Home page must be a valid URL.");
+                .WithMessage(PublisherValidationConstraints.Messages.HomePageFormat);
 
             RuleFor(x => x.Description)
-                .MaximumLength(500).When(x => !string.IsNullOrEmpty(x.Description))
-                .WithMessage("Description cannot exceed 500 characters.");
+                .MaximumLength(PublisherValidationConstraints.Limits.Description)
+                .When(x => !string.IsNullOrEmpty(x.Description))
+                .WithMessage(PublisherValidationConstraints.Messages.DescriptionLength);
         }
 
         private bool BeAValidUrl(string url)
