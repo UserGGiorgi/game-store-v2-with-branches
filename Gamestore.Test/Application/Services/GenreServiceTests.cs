@@ -52,7 +52,8 @@ namespace Gamestore.Test.Application.Services
         public async Task CreateGenreAsync_ThrowsBadRequest_WhenParentNotFound()
         {
             // Arrange
-            var parentId = Guid.NewGuid();
+            var parentId = "valid guid";
+            var guid = Guid.NewGuid();
             var request = new CreateGenreRequestDto
             {
                 Genre = new GenreDto
@@ -65,7 +66,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.GenreRepository.GetByNameAsync(request.Genre.Name))
                 .ReturnsAsync((Genre?)null!);
 
-            _mockUnitOfWork.Setup(u => u.GenreRepository.ExistsAsync(parentId))
+            _mockUnitOfWork.Setup(u => u.GenreRepository.ExistsAsync(Guid.NewGuid()))
                 .ReturnsAsync(false);
 
             // Act & Assert
@@ -78,12 +79,13 @@ namespace Gamestore.Test.Application.Services
         {
             // Arrange
             var parentId = Guid.NewGuid();
+            var parentidString = parentId.ToString();
             var request = new CreateGenreRequestDto
             {
                 Genre = new GenreDto
                 {
                     Name = "Child Genre",
-                    ParentGenreId = parentId
+                    ParentGenreId = parentidString
                 }
             };
 

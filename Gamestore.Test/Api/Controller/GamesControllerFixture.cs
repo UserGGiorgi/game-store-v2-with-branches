@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
 using GameStore.Application.Interfaces;
@@ -51,9 +52,9 @@ namespace Gamestore.Test.Api.Controller
         }
 
         public void SetupGameServiceForGetByPlatform(
-             Guid platformId,
-             IEnumerable<GameResponseDto> returnValue = null!,
-             Exception exception = null!)
+    Guid platformId,
+    IEnumerable<SimpleGameResponseDto> returnValue = null!,
+    Exception exception = null!)
         {
             if (exception != null)
             {
@@ -65,12 +66,13 @@ namespace Gamestore.Test.Api.Controller
             {
                 MockGameService
                     .Setup(s => s.GetGamesByPlatformAsync(platformId))
-                    .ReturnsAsync(returnValue ?? Enumerable.Empty<GameResponseDto>());
+                    .ReturnsAsync(returnValue ?? Enumerable.Empty<SimpleGameResponseDto>());
             }
         }
+
         public void SetupGameServiceForGetByGenre(
             Guid genreId,
-            IEnumerable<GameResponseDto> returnValue = null!,
+            IEnumerable<SimpleGameResponseDto> returnValue = null!,
             Exception exception = null!)
         {
             if (exception != null)
@@ -83,7 +85,7 @@ namespace Gamestore.Test.Api.Controller
             {
                 MockGameService
                     .Setup(s => s.GetGamesByGenreAsync(genreId))
-                    .ReturnsAsync(returnValue ?? Enumerable.Empty<GameResponseDto>());
+                    .ReturnsAsync(returnValue ?? Enumerable.Empty<SimpleGameResponseDto>());
             }
         }
         public void SetupGameServiceForDelete(

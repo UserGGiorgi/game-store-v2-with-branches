@@ -1,18 +1,19 @@
 ﻿using AutoMapper;
 using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Services;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
+using GameStore.Web.Controller;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameStore.Domain.Exceptions;
-using GameStore.Web.Controller;
-using Microsoft.Extensions.Logging;
 
 namespace Gamestore.Test.Application.Services
 {
@@ -34,28 +35,46 @@ namespace Gamestore.Test.Application.Services
         [Fact]
         public async Task CreateGameAsync_ThrowsBadRequest_WhenKeyExists()
         {
+            // Arrange
             var request = new CreateGameRequestDto
             {
                 Game = new GameDto
                 {
                     Key = "existing-key",
-                    Name = "Existing Game"
+                    Name = "Existing Game"  // Required for GameDto
                 },
+                Publisher = Guid.NewGuid(),
                 Genres = new List<Guid> { Guid.NewGuid() },
                 Platforms = new List<Guid> { Guid.NewGuid() }
             };
 
-            var existingGame = new Game
-            {
-                Key = "existing-key",
-                Name = "Existing Game",
-                Description = "Test Description",
-                Id = Guid.NewGuid()
-            };
+            // Mock publisher exists
+            _mockUnitOfWork.Setup(u => u.PublisherRepository.GetByIdAsync(request.Publisher))
+                .ReturnsAsync(new Publisher { CompanyName = "Test Publisher" });  // Required Name
 
+            // Mock genres exist
+            _mockUnitOfWork.Setup(u => u.GenreRepository.GetAllAsync())
+                .ReturnsAsync(new List<Genre>
+                {
+            new Genre { Id = request.Genres.First(), Name = "Action" }  // Required Name
+                });
+
+            // Mock platforms exist
+            _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
+                .ReturnsAsync(new List<Platform>
+                {
+            new Platform { Id = request.Platforms.First(), Type = "Console" }  // Required Type
+                });
+
+            // Mock duplicate key exists
             _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(request.Game.Key))
-                .ReturnsAsync(existingGame);
+                .ReturnsAsync(new Game
+                {
+                    Key = "existing-key",  // Required
+                    Name = "Existing Game"  // Required
+                });
 
+            // Act & Assert
             await Assert.ThrowsAsync<BadRequestException>(() =>
                 _gameService.CreateGameAsync(request));
         }
@@ -63,6 +82,7 @@ namespace Gamestore.Test.Application.Services
         [Fact]
         public async Task CreateGameAsync_ThrowsBadRequest_WhenInvalidGenres()
         {
+            // Arrange
             var request = new CreateGameRequestDto
             {
                 Game = new GameDto
@@ -70,16 +90,29 @@ namespace Gamestore.Test.Application.Services
                     Key = "new-key",
                     Name = "Test Game"
                 },
+                Publisher = Guid.NewGuid(),
                 Genres = new List<Guid> { Guid.NewGuid() },
                 Platforms = new List<Guid> { Guid.NewGuid() }
             };
 
+            _mockUnitOfWork.Setup(u => u.PublisherRepository.GetByIdAsync(request.Publisher))
+                .ReturnsAsync(new Publisher { CompanyName = "Test Publisher" });
+
             _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(request.Game.Key))
-                .ReturnsAsync((Game?)null!);
+                .ReturnsAsync((Game?)null);
+
+            _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
+                .ReturnsAsync(new List<Platform> {
+            new Platform {
+                Id = request.Platforms.First(),
+                Type = "Console"
+            }
+                });
 
             _mockUnitOfWork.Setup(u => u.GenreRepository.GetAllAsync())
                 .ReturnsAsync(new List<Genre>());
 
+            // Act & Assert
             await Assert.ThrowsAsync<BadRequestException>(() =>
                 _gameService.CreateGameAsync(request));
         }
@@ -87,95 +120,68 @@ namespace Gamestore.Test.Application.Services
         [Fact]
         public async Task CreateGameAsync_ThrowsBadRequest_WhenInvalidPlatforms()
         {
+            // Arrange
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto { Key = "new-key" },
+                Game = new GameDto
+                {
+                    Key = "new-key",
+                    Name = "Test Game"
+                },
+                Publisher = Guid.NewGuid(),
                 Genres = new List<Guid> { Guid.NewGuid() },
                 Platforms = new List<Guid> { Guid.NewGuid() }
             };
 
+            _mockUnitOfWork.Setup(u => u.PublisherRepository.GetByIdAsync(request.Publisher))
+                .ReturnsAsync(new Publisher { CompanyName = "Test Publisher" });
+
             _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(request.Game.Key))
-                .ReturnsAsync((Game)null!);
+                .ReturnsAsync((Game?)null);
 
             _mockUnitOfWork.Setup(u => u.GenreRepository.GetAllAsync())
-                .ReturnsAsync(new List<Genre> { new Genre { Id = request.Genres.First(),
-                Name = "Test Genre" } });
+                .ReturnsAsync(new List<Genre> {
+            new Genre {
+                Id = request.Genres.First(),
+                Name = "Test Genre"
+            }
+                });
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
                 .ReturnsAsync(new List<Platform>());
 
+            // Act & Assert
             await Assert.ThrowsAsync<BadRequestException>(() =>
                 _gameService.CreateGameAsync(request));
         }
 
+
+
         [Fact]
-        public async Task CreateGameAsync_ReturnsGameDto_WhenRequestIsValid()
+        public async Task CreateGameAsync_MapsRelationshipsCorrectly()
         {
+            // Arrange
             var request = new CreateGameRequestDto
             {
                 Game = new GameDto
                 {
                     Key = "valid-key",
-                    Name = "Valid Game",
-                    Description = "Test Description"
+                    Name = "Test Game"
                 },
-                Genres = new List<Guid> { Guid.NewGuid() },
-                Platforms = new List<Guid> { Guid.NewGuid() }
-            };
-
-            var validGenre = new Genre
-            {
-                Id = request.Genres.First(),
-                Name = "Test Genre"
-            };
-
-            var validPlatform = new Platform
-            {
-                Id = request.Platforms.First(),
-                Type = "TestPlatformType"
-            };
-
-            _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(request.Game.Key))
-                .ReturnsAsync((Game)null!);
-
-            _mockUnitOfWork.Setup(u => u.GenreRepository.GetAllAsync())
-                .ReturnsAsync(new List<Genre> { validGenre });
-
-            _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
-                .ReturnsAsync(new List<Platform> { validPlatform });
-
-            _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
-                .ReturnsAsync(1);
-
-            var result = await _gameService.CreateGameAsync(request);
-
-            Assert.NotNull(result);
-            Assert.Equal(request.Game.Key, result.Key);
-            Assert.Equal(request.Game.Name, result.Name);
-            Assert.Equal(request.Game.Description, result.Description);
-
-            _mockUnitOfWork.Verify(u => u.GameRepository.AddAsync(It.Is<Game>(g =>
-                g.Key == request.Game.Key &&
-                g.Name == request.Game.Name &&
-                g.Description == request.Game.Description &&
-                g.Genres.Count == 1 &&
-                g.Platforms.Count == 1)),
-                Times.Once);
-
-            _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
-        }
-
-        [Fact]
-        public async Task CreateGameAsync_MapsRelationshipsCorrectly()
-        {
-            var request = new CreateGameRequestDto
-            {
-                Game = new GameDto { Key = "valid-key" },
+                Publisher = Guid.NewGuid(), // Required
                 Genres = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() },
                 Platforms = new List<Guid> { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() }
             };
 
-            var validGenres = request.Genres.Select(id => new Genre { Id = id, Name = "Test Genre" }).ToList();
+            _mockUnitOfWork.Setup(u => u.PublisherRepository.GetByIdAsync(request.Publisher))
+                .ReturnsAsync(new Publisher { CompanyName = "Test Publisher" });
+
+            var validGenres = request.Genres.Select(id => new Genre
+            {
+                Id = id,
+                Name = "Test Genre"
+            }).ToList();
+
             var validPlatforms = request.Platforms.Select(id => new Platform
             {
                 Id = id,
@@ -184,21 +190,20 @@ namespace Gamestore.Test.Application.Services
 
             _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(request.Game.Key))
                 .ReturnsAsync((Game)null!);
-
             _mockUnitOfWork.Setup(u => u.GenreRepository.GetAllAsync())
                 .ReturnsAsync(validGenres);
-
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
                 .ReturnsAsync(validPlatforms);
-
             _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);
-
+            // Act
             var result = await _gameService.CreateGameAsync(request);
 
+            // Assert
             _mockUnitOfWork.Verify(u => u.GameRepository.AddAsync(It.Is<Game>(g =>
                 g.Genres.Count == request.Genres.Count &&
-                g.Platforms.Count == request.Platforms.Count)),
+                g.Platforms.Count == request.Platforms.Count &&
+                g.PublisherId == request.Publisher)),
                 Times.Once);
         }
         [Fact]
@@ -214,9 +219,8 @@ namespace Gamestore.Test.Application.Services
                 Description = "Test Description"
             };
 
-            var expectedDto = new GameResponseDto
+            var expectedDto = new GameDto
             {
-                Id = testGame.Id,
                 Key = testKey,
                 Name = "Test Game",
                 Description = "Test Description"
@@ -225,7 +229,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(testKey))
                 .ReturnsAsync(testGame);
 
-            _mockMapper.Setup(m => m.Map<GameResponseDto>(testGame))
+            _mockMapper.Setup(m => m.Map<GameDto>(testGame))
                 .Returns(expectedDto);
 
             // Act
@@ -233,7 +237,6 @@ namespace Gamestore.Test.Application.Services
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(expectedDto.Id, result.Id);
             Assert.Equal(expectedDto.Key, result.Key);
             Assert.Equal(expectedDto.Name, result.Name);
             Assert.Equal(expectedDto.Description, result.Description);
@@ -255,6 +258,124 @@ namespace Gamestore.Test.Application.Services
             Assert.Null(result);
         }
         [Fact]
+        public async Task CreateGameAsync_ReturnsGameDto_WhenRequestIsValid()
+        {
+            // Arrange
+            var request = new CreateGameRequestDto
+            {
+                Game = new GameDto
+                {
+                    Key = "valid-key",
+                    Name = "Valid Game",
+                    Description = "Test Description",
+                    Price = 19.99,
+                    UnitInStock = 10,
+                    Discount = 10
+                },
+                Publisher = Guid.NewGuid(),
+                Genres = new List<Guid> { Guid.NewGuid() },
+                Platforms = new List<Guid> { Guid.NewGuid() }
+            };
+
+            var validPublisher = new Publisher
+            {
+                Id = request.Publisher,
+                CompanyName = "Test Publisher",
+                Description = "Test Description",
+                HomePage = "https://test.com"
+            };
+
+            var validGenre = new Genre
+            {
+                Id = request.Genres.First(),
+                Name = "Test Genre"
+            };
+
+            var validPlatform = new Platform
+            {
+                Id = request.Platforms.First(),
+                Type = "TestPlatformType"
+            };
+
+            var createdGame = new Game
+            {
+                Id = Guid.NewGuid(),
+                Key = request.Game.Key,
+                Name = request.Game.Name,
+                Description = request.Game.Description,
+                Price = request.Game.Price,
+                UnitInStock = request.Game.UnitInStock,
+                Discount = request.Game.Discount,
+                PublisherId = request.Publisher
+            };
+
+            var expectedDto = new GameDto
+            {
+                Key = request.Game.Key,
+                Name = request.Game.Name,
+                Description = request.Game.Description,
+                Price = request.Game.Price,
+                UnitInStock = request.Game.UnitInStock,
+                Discount = request.Game.Discount
+            };
+
+            // Mock dependencies
+            _mockUnitOfWork.Setup(u => u.PublisherRepository.GetByIdAsync(request.Publisher))
+                .ReturnsAsync(validPublisher);
+
+            _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(request.Game.Key))
+                .ReturnsAsync((Game)null!);
+
+            _mockUnitOfWork.Setup(u => u.GenreRepository.GetAllAsync())
+                .ReturnsAsync(new List<Genre> { validGenre });
+
+            _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
+                .ReturnsAsync(new List<Platform> { validPlatform });
+
+            _mockUnitOfWork.Setup(u => u.GameRepository.AddAsync(It.IsAny<Game>()))
+                .Callback<Game>(g => createdGame = g);
+
+            _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
+                .ReturnsAsync(1);
+
+            _mockMapper.Setup(m => m.Map<GameDto>(It.IsAny<Game>()))
+                .Returns<Game>(g => new GameDto
+                {
+                    Key = g.Key,
+                    Name = g.Name,
+                    Description = g.Description,
+                    Price = g.Price,
+                    UnitInStock = g.UnitInStock,
+                    Discount = g.Discount
+                });
+
+            // Act
+            var result = await _gameService.CreateGameAsync(request);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedDto.Key, result.Key);
+            Assert.Equal(expectedDto.Name, result.Name);
+            Assert.Equal(expectedDto.Description, result.Description);
+            Assert.Equal(expectedDto.Price, result.Price);
+            Assert.Equal(expectedDto.UnitInStock, result.UnitInStock);
+            Assert.Equal(expectedDto.Discount, result.Discount);
+
+            _mockUnitOfWork.Verify(u => u.GameRepository.AddAsync(It.Is<Game>(g =>
+                g.Key == request.Game.Key &&
+                g.Name == request.Game.Name &&
+                g.Description == request.Game.Description &&
+                g.Price == request.Game.Price &&
+                g.UnitInStock == request.Game.UnitInStock &&
+                g.Discount == request.Game.Discount &&
+                g.PublisherId == request.Publisher &&
+                g.Genres.Count == 1 &&
+                g.Platforms.Count == 1)),
+                Times.Once);
+
+            _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
+        }
+        [Fact]
         public async Task GetGameByIdAsync_ReturnsGame_WhenGameExists()
         {
             // Arrange
@@ -267,9 +388,8 @@ namespace Gamestore.Test.Application.Services
                 Description = "Test Description"
             };
 
-            var expectedDto = new GameResponseDto
+            var expectedDto = new GameDto
             {
-                Id = testId,
                 Key = "test-key",
                 Name = "Test Game",
                 Description = "Test Description"
@@ -278,7 +398,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.GameRepository.GetByIdAsync(testId))
                 .ReturnsAsync(testGame);
 
-            _mockMapper.Setup(m => m.Map<GameResponseDto>(testGame))
+            _mockMapper.Setup(m => m.Map<GameDto>(testGame))
                 .Returns(expectedDto);
 
             // Act
@@ -286,7 +406,6 @@ namespace Gamestore.Test.Application.Services
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(expectedDto.Id, result.Id);
             Assert.Equal(expectedDto.Key, result.Key);
             Assert.Equal(expectedDto.Name, result.Name);
             Assert.Equal(expectedDto.Description, result.Description);
@@ -314,11 +433,18 @@ namespace Gamestore.Test.Application.Services
             var platformId = Guid.NewGuid();
             var testGames = new List<Game>
     {
-        new Game { Id = Guid.NewGuid(), Key = "game1", Name = "Game 1" },
-        new Game { Id = Guid.NewGuid(), Key = "game2", Name = "Game 2" }
+        new Game {
+            Id = Guid.NewGuid(),
+            Key = "game1",
+            Name = "Game 1"
+        },
+        new Game {
+            Id = Guid.NewGuid(),
+            Key = "game2",
+            Name = "Game 2"
+        }
     };
-
-            var expectedDtos = testGames.Select(g => new GameResponseDto
+            var expectedDtos = testGames.Select(g => new SimpleGameResponseDto
             {
                 Id = g.Id,
                 Key = g.Key,
@@ -327,8 +453,7 @@ namespace Gamestore.Test.Application.Services
 
             _mockUnitOfWork.Setup(u => u.GameRepository.GetGamesByPlatformAsync(platformId))
                 .ReturnsAsync(testGames);
-
-            _mockMapper.Setup(m => m.Map<IEnumerable<GameResponseDto>>(testGames))
+            _mockMapper.Setup(m => m.Map<IEnumerable<SimpleGameResponseDto>>(testGames))
                 .Returns(expectedDtos);
 
             // Act
@@ -368,11 +493,24 @@ namespace Gamestore.Test.Application.Services
             var genreId = Guid.NewGuid();
             var testGames = new List<Game>
     {
-        new Game { Id = Guid.NewGuid(), Key = "action-game1", Name = "Action Game 1" },
-        new Game { Id = Guid.NewGuid(), Key = "action-game2", Name = "Action Game 2" }
+        new Game {
+            Id = Guid.NewGuid(),
+            Key = "action-game1",
+            Name = "Action Game 1",
+            Description = "Test Description",
+            Price = 19.99,
+            UnitInStock = 10
+        },
+        new Game {
+            Id = Guid.NewGuid(),
+            Key = "action-game2",
+            Name = "Action Game 2",
+            Description = "Test Description",
+            Price = 29.99,
+            UnitInStock = 5
+        }
     };
-
-            var expectedDtos = testGames.Select(g => new GameResponseDto
+            var expectedDtos = testGames.Select(g => new SimpleGameResponseDto
             {
                 Id = g.Id,
                 Key = g.Key,
@@ -382,7 +520,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.GameRepository.GetGamesByGenreAsync(genreId))
                 .ReturnsAsync(testGames);
 
-            _mockMapper.Setup(m => m.Map<IEnumerable<GameResponseDto>>(testGames))
+            _mockMapper.Setup(m => m.Map<IEnumerable<SimpleGameResponseDto>>(testGames))
                 .Returns(expectedDtos);
 
             // Act
@@ -392,6 +530,7 @@ namespace Gamestore.Test.Application.Services
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
             Assert.Equal(expectedDtos[0].Id, result[0].Id);
+            Assert.Equal(expectedDtos[0].Key, result[0].Key);
             Assert.Equal(expectedDtos[1].Name, result[1].Name);
         }
 

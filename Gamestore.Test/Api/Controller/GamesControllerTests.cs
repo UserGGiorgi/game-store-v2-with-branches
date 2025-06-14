@@ -1,17 +1,20 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Exceptions;
 using GameStore.Web.Controller;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -93,13 +96,26 @@ namespace Gamestore.Test.Api.Controller
         {
             // Arrange
             var request = GamesControllerFixture.ValidCreateRequest;
-            var validationResult = new ValidationResult();
-            var expectedGame = new GameDto
+
+            // Create valid validation result (no errors = valid)
+            var validationResult = new ValidationResult(new List<ValidationFailure>());
+
+            var expectedCreatedGame = new GameDto
             {
                 Key = "test-key",
                 Name = "Test Game",
                 Description = "Test description"
             };
+
+            var expectedGames = new List<SimpleGameResponseDto>
+    {
+        new SimpleGameResponseDto
+        {
+            Key = "test-key",
+            Name = "Test Game",
+            Description = "Test description"
+        }
+    };
 
             _fixture.MockCreateValidator
                 .Setup(v => v.ValidateAsync(request, It.IsAny<CancellationToken>()))
@@ -107,16 +123,20 @@ namespace Gamestore.Test.Api.Controller
 
             _fixture.MockGameService
                 .Setup(s => s.CreateGameAsync(request))
-                .ReturnsAsync(expectedGame);
+                .ReturnsAsync(expectedCreatedGame);
+
+            _fixture.MockGameService
+                .Setup(s => s.GetAllGamesAsync())
+                .ReturnsAsync(expectedGames);
 
             // Act
             var result = await _fixture.Controller.CreateGame(request, CancellationToken.None);
 
             // Assert
             var createdAt = Assert.IsType<CreatedAtActionResult>(result);
-            Assert.Equal(nameof(GamesController.GetByKey), createdAt.ActionName);
-            Assert.Equal(expectedGame, createdAt.Value);
-            Assert.Equal("test-key", createdAt.RouteValues?["key"]);
+            Assert.Equal(nameof(GamesController.GetAll), createdAt.ActionName);
+            Assert.Equal(expectedGames, createdAt.Value);
+            Assert.Null(createdAt.RouteValues);
         }
 
         [Fact]
@@ -186,9 +206,8 @@ namespace Gamestore.Test.Api.Controller
         {
             // Arrange
             const string gameKey = "test-game";
-            var expectedGame = new GameResponseDto
+            var expectedGame = new GameDto
             {
-                Id = Guid.NewGuid(),
                 Name = "Test Game",
                 Key = gameKey,
                 Description = "Test description"
@@ -203,14 +222,13 @@ namespace Gamestore.Test.Api.Controller
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var gameDto = Assert.IsType<GameResponseDto>(okResult.Value);
 
-            Assert.Equal(expectedGame.Id, gameDto.Id);
+            var gameDto = Assert.IsType<GameDto>(okResult.Value);
+
             Assert.Equal(expectedGame.Name, gameDto.Name);
             Assert.Equal(expectedGame.Key, gameDto.Key);
             Assert.Equal(expectedGame.Description, gameDto.Description);
 
-            // Verify caching attribute
             var cacheAttribute = _fixture.Controller.GetType()
                 .GetMethod(nameof(GamesController.GetByKey))?
                 .GetCustomAttributes(typeof(ResponseCacheAttribute), true);
@@ -229,7 +247,7 @@ namespace Gamestore.Test.Api.Controller
 
             _fixture.MockGameService
                 .Setup(s => s.GetGameByKeyAsync(gameKey))
-                .ReturnsAsync((GameResponseDto)null!);
+                .ReturnsAsync((GameDto)null!);
 
             // Act
             var result = await _fixture.Controller.GetByKey(gameKey, CancellationToken.None);
@@ -247,7 +265,7 @@ namespace Gamestore.Test.Api.Controller
             // Arrange
             _fixture.MockGameService
                 .Setup(s => s.GetGameByKeyAsync(invalidKey))
-                .ReturnsAsync((GameResponseDto)null!);
+                .ReturnsAsync((GameDto)null!);
 
             // Act
             var result = await _fixture.Controller.GetByKey(invalidKey, CancellationToken.None);
@@ -276,35 +294,30 @@ namespace Gamestore.Test.Api.Controller
         [Fact]
         public void GetById_HasCorrectRouteAttribute()
         {
-            // Arrange
             var method = typeof(GamesController).GetMethod(nameof(GamesController.GetById));
 
-            // Act
             var httpGetAttribute = method?.GetCustomAttributes(typeof(HttpGetAttribute), true)
                 .FirstOrDefault() as HttpGetAttribute;
 
-            // Assert
             Assert.NotNull(httpGetAttribute);
-            Assert.Equal("id/{id}", httpGetAttribute.Template);
+            Assert.Equal("find/{id}", httpGetAttribute.Template);
         }
 
         [Fact]
-        public void GetById_HasCorrectResponseTypeAttributes()
+        public void GetById_HasCorrectParameter()
         {
-            // Arrange
             var method = typeof(GamesController).GetMethod(nameof(GamesController.GetById));
+            var parameters = method.GetParameters();
 
-            // Act
-            var producesResponseType200 = method?.GetCustomAttributes(typeof(ProducesResponseTypeAttribute), true)
-                .FirstOrDefault(attr => ((ProducesResponseTypeAttribute)attr).StatusCode == 200);
+            Assert.Equal(2, parameters.Length);
 
-            var producesResponseType404 = method?.GetCustomAttributes(typeof(ProducesResponseTypeAttribute), true)
-                .FirstOrDefault(attr => ((ProducesResponseTypeAttribute)attr).StatusCode == 404);
+            var idParam = parameters[0];
+            Assert.Equal("id", idParam.Name);
+            Assert.Equal(typeof(Guid), idParam.ParameterType);
 
-            // Assert
-            Assert.NotNull(producesResponseType200);
-            Assert.Equal(typeof(GameResponseDto), ((ProducesResponseTypeAttribute)producesResponseType200).Type);
-            Assert.NotNull(producesResponseType404);
+            var cancellationParam = parameters[1];
+            Assert.Equal("cancellationToken", cancellationParam.Name);
+            Assert.Equal(typeof(CancellationToken), cancellationParam.ParameterType);
         }
 
         [Fact]
@@ -312,7 +325,7 @@ namespace Gamestore.Test.Api.Controller
         {
             // Arrange
             var platformId = Guid.NewGuid();
-            var expectedGames = new List<GameResponseDto>
+            var expectedGames = new List<SimpleGameResponseDto>
             {
             new() { Id = Guid.NewGuid(), Name = "Game 1", Key = "game-1" },
             new() { Id = Guid.NewGuid(), Name = "Game 2", Key = "game-2" }
@@ -325,7 +338,7 @@ namespace Gamestore.Test.Api.Controller
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var games = Assert.IsAssignableFrom<IEnumerable<GameResponseDto>>(okResult.Value);
+            var games = Assert.IsAssignableFrom<IEnumerable<SimpleGameResponseDto>>(okResult.Value);
 
             Assert.Equal(2, games.Count());
             Assert.Contains(games, g => g.Name == "Game 1");
@@ -346,7 +359,7 @@ namespace Gamestore.Test.Api.Controller
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var games = Assert.IsAssignableFrom<IEnumerable<GameResponseDto>>(okResult.Value);
+            var games = Assert.IsAssignableFrom<IEnumerable<SimpleGameResponseDto>>(okResult.Value);
 
             Assert.Empty(games);
         }
@@ -356,7 +369,7 @@ namespace Gamestore.Test.Api.Controller
         {
             // Arrange
             var emptyPlatformId = Guid.Empty;
-            var emptyGames = Enumerable.Empty<GameResponseDto>();
+            var emptyGames = Enumerable.Empty<SimpleGameResponseDto>();
 
             _fixture.MockGameService
                 .Setup(s => s.GetGamesByPlatformAsync(emptyPlatformId))
@@ -367,7 +380,7 @@ namespace Gamestore.Test.Api.Controller
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var games = Assert.IsAssignableFrom<IEnumerable<GameResponseDto>>(okResult.Value);
+            var games = Assert.IsAssignableFrom<IEnumerable<SimpleGameResponseDto>>(okResult.Value);
 
             Assert.Empty(games);
         }
@@ -400,7 +413,7 @@ namespace Gamestore.Test.Api.Controller
 
             // Assert
             Assert.NotNull(httpGetAttribute);
-            Assert.Equal("platform/{platformId}", httpGetAttribute.Template);
+            Assert.Equal("/platforms/{id}/games", httpGetAttribute.Template);
         }
 
         [Fact]
@@ -416,7 +429,8 @@ namespace Gamestore.Test.Api.Controller
             // Assert
             Assert.NotNull(producesResponseType200);
             var responseType = ((ProducesResponseTypeAttribute)producesResponseType200).Type;
-            Assert.Equal(typeof(IEnumerable<GameResponseDto>), responseType);
+
+            Assert.Equal(typeof(IEnumerable<SimpleGameResponseDto>), responseType);
         }
 
         [Fact]
@@ -432,17 +446,16 @@ namespace Gamestore.Test.Api.Controller
             // Assert
             Assert.Null(producesResponseType404);
         }
-        // Add to GamesControllerTests class
         [Fact]
         public async Task GetByGenre_WithGames_ReturnsOkWithGames()
         {
             // Arrange
             var genreId = Guid.NewGuid();
-            var expectedGames = new List<GameResponseDto>
-            {
-            new() { Id = Guid.NewGuid(), Name = "RPG Game", Key = "rpg-game" },
-            new() { Id = Guid.NewGuid(), Name = "Adventure Game", Key = "adventure-game" }
-            };
+            var expectedGames = new List<SimpleGameResponseDto>
+    {
+        new() { Id = Guid.NewGuid(), Name = "RPG Game", Key = "rpg-game" },
+        new() { Id = Guid.NewGuid(), Name = "Adventure Game", Key = "adventure-game" }
+    };
 
             _fixture.SetupGameServiceForGetByGenre(genreId, expectedGames);
 
@@ -451,7 +464,8 @@ namespace Gamestore.Test.Api.Controller
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var games = Assert.IsAssignableFrom<IEnumerable<GameResponseDto>>(okResult.Value);
+
+            var games = Assert.IsAssignableFrom<IEnumerable<SimpleGameResponseDto>>(okResult.Value);
 
             Assert.Equal(2, games.Count());
             Assert.Contains(games, g => g.Name == "RPG Game");
@@ -463,16 +477,18 @@ namespace Gamestore.Test.Api.Controller
         {
             // Arrange
             var genreId = Guid.NewGuid();
-            var emptyGames = Enumerable.Empty<GameResponseDto>();
 
-            _fixture.SetupGameServiceForGetByGenre(genreId);
+            var emptyGames = Enumerable.Empty<SimpleGameResponseDto>();
+
+            _fixture.SetupGameServiceForGetByGenre(genreId, emptyGames);
 
             // Act
             var result = await _fixture.Controller.GetByGenre(genreId, CancellationToken.None);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var games = Assert.IsAssignableFrom<IEnumerable<GameResponseDto>>(okResult.Value);
+
+            var games = Assert.IsAssignableFrom<IEnumerable<SimpleGameResponseDto>>(okResult.Value);
 
             Assert.Empty(games);
         }
@@ -482,7 +498,7 @@ namespace Gamestore.Test.Api.Controller
         {
             // Arrange
             var emptyGenreId = Guid.Empty;
-            var emptyGames = Enumerable.Empty<GameResponseDto>();
+            var emptyGames = Enumerable.Empty<SimpleGameResponseDto>();
 
             _fixture.MockGameService
                 .Setup(s => s.GetGamesByGenreAsync(emptyGenreId))
@@ -493,8 +509,7 @@ namespace Gamestore.Test.Api.Controller
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var games = Assert.IsAssignableFrom<IEnumerable<GameResponseDto>>(okResult.Value);
-
+            var games = Assert.IsAssignableFrom<IEnumerable<SimpleGameResponseDto>>(okResult.Value);
             Assert.Empty(games);
         }
 
@@ -515,34 +530,46 @@ namespace Gamestore.Test.Api.Controller
         }
 
         [Fact]
-        public void GetByGenre_HasCorrectRouteAttribute()
+        public async Task GetByGenre_ReturnsOk_WithGames()
         {
             // Arrange
-            var method = typeof(GamesController).GetMethod(nameof(GamesController.GetByGenre));
+            var genreId = Guid.NewGuid();
+            var expectedGames = new List<SimpleGameResponseDto>
+    {
+        new SimpleGameResponseDto { Key = "game1", Name = "Game 1" },
+        new SimpleGameResponseDto { Key = "game2", Name = "Game 2" }
+    };
+
+            // Setup service mock
+            _fixture.SetupGameServiceForGetByGenre(genreId, expectedGames);
 
             // Act
-            var httpGetAttribute = method?.GetCustomAttributes(typeof(HttpGetAttribute), true)
-                .FirstOrDefault() as HttpGetAttribute;
+            var result = await _fixture.Controller.GetByGenre(genreId, CancellationToken.None);
 
             // Assert
-            Assert.NotNull(httpGetAttribute);
-            Assert.Equal("genre/{genreId}", httpGetAttribute.Template);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var games = Assert.IsAssignableFrom<IEnumerable<SimpleGameResponseDto>>(okResult.Value);
+            Assert.Equal(2, games.Count());
+            Assert.Equal("game1", games.First().Key);
         }
 
         [Fact]
-        public void GetByGenre_HasCorrectResponseTypeAttributes()
+        public async Task GetByGenre_ReturnsEmptyList_WhenNoGamesFound()
         {
             // Arrange
-            var method = typeof(GamesController).GetMethod(nameof(GamesController.GetByGenre));
+            var genreId = Guid.NewGuid();
+            var emptyList = Enumerable.Empty<SimpleGameResponseDto>();
+
+            // Setup service mock
+            _fixture.SetupGameServiceForGetByGenre(genreId, emptyList);
 
             // Act
-            var producesResponseType200 = method?.GetCustomAttributes(typeof(ProducesResponseTypeAttribute), true)
-                .FirstOrDefault(attr => ((ProducesResponseTypeAttribute)attr).StatusCode == 200);
+            var result = await _fixture.Controller.GetByGenre(genreId, CancellationToken.None);
 
             // Assert
-            Assert.NotNull(producesResponseType200);
-            var responseType = ((ProducesResponseTypeAttribute)producesResponseType200).Type;
-            Assert.Equal(typeof(IEnumerable<GameResponseDto>), responseType);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var games = Assert.IsAssignableFrom<IEnumerable<SimpleGameResponseDto>>(okResult.Value);
+            Assert.Empty(games);
         }
 
         [Fact]
