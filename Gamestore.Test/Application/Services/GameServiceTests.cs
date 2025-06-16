@@ -297,7 +297,7 @@ namespace Gamestore.Test.Application.Services
                 Type = "TestPlatformType"
             };
 
-            var createdGame = new Game
+            var createdGame= new Game
             {
                 Id = Guid.NewGuid(),
                 Key = request.Game.Key,
@@ -319,7 +319,6 @@ namespace Gamestore.Test.Application.Services
                 Discount = request.Game.Discount
             };
 
-            // Mock dependencies
             _mockUnitOfWork.Setup(u => u.PublisherRepository.GetByIdAsync(request.Publisher))
                 .ReturnsAsync(validPublisher);
 
@@ -343,7 +342,7 @@ namespace Gamestore.Test.Application.Services
                 {
                     Key = g.Key,
                     Name = g.Name,
-                    Description = g.Description,
+                    Description = g.Description!,
                     Price = g.Price,
                     UnitInStock = g.UnitInStock,
                     Discount = g.Discount

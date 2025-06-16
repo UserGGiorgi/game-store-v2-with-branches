@@ -79,9 +79,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-// In Configure() before app.UseRouting()
-
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 
 app.UseMiddleware<RequestLoggingMiddleware>();

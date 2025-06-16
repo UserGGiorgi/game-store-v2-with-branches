@@ -307,6 +307,7 @@ namespace Gamestore.Test.Api.Controller
         public void GetById_HasCorrectParameter()
         {
             var method = typeof(GamesController).GetMethod(nameof(GamesController.GetById));
+            Assert.NotNull(method);
             var parameters = method.GetParameters();
 
             Assert.Equal(2, parameters.Length);

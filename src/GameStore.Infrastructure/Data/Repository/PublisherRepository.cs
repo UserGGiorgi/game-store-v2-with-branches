@@ -17,11 +17,11 @@ namespace GameStore.Infrastructure.Data.Repository
 
         public async Task<bool> ExistsByCompanyNameAsync(string companyName)
             => await _context.Publishers
-                .AnyAsync(p => p.CompanyName.ToLower() == companyName.ToLower());
+                .AnyAsync(p => string.Equals(p.CompanyName, companyName, StringComparison.OrdinalIgnoreCase));
 
         public async Task<Publisher?> GetByCompanyNameAsync(string companyName)
             => await _context.Publishers
-                .FirstOrDefaultAsync(p => p.CompanyName.ToLower() == companyName.ToLower());
+                .FirstOrDefaultAsync(p => string.Equals(p.CompanyName, companyName, StringComparison.OrdinalIgnoreCase));
 
         public async Task<Publisher?> GetByGameKeyAsync(string gameKey)
             => await _context.Publishers
@@ -30,7 +30,7 @@ namespace GameStore.Infrastructure.Data.Repository
 
         public async Task<IEnumerable<Game>> GetGamesByPublisherNameAsync(string companyName)
             => await _context.Games
-                .Where(g => g.Publisher.CompanyName.ToLower() == companyName.ToLower())
+                .Where(g => string.Equals(g.Publisher.CompanyName, companyName, StringComparison.OrdinalIgnoreCase))
                 .ToListAsync();
 
 
