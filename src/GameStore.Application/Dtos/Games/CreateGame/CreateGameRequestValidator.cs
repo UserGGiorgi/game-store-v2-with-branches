@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Dtos.Games.GetGames;
+using GameStore.Domain.Constraints;
 
 namespace GameStore.Dtos.Games.dtos.games
 {
