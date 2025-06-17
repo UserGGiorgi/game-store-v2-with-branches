@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Azure.Core;
 using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
@@ -13,6 +14,7 @@ using GameStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 using System.Text;
 
 namespace GameStore.Application.Services;
@@ -35,44 +37,12 @@ public class GameService : IGameService
 
     public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
     {
-        _logger.LogInformation("Starting game creation process for game key: {GameKey}", request.Game.Key);
+        await ValidatePublisherAsync(request.Publisher);
+        await ValidateGameKeyUniquenessAsync(request.Game.Key);
 
-        var publisher = await _unitOfWork.PublisherRepository.GetByIdAsync(request.Publisher);
-        if (publisher == null)
-        {
-            _logger.LogWarning("Game creation failed - invalid publisher ID: {PublisherId}", request.Publisher);
-            throw new BadRequestException("Specified publisher does not exist.");
-        }
+        var validGenres = await ValidateAndGetGenresAsync(request.Genres);
+        var validPlatforms = await ValidateAndGetPlatformsAsync(request.Platforms);
 
-        var existingGame = await _unitOfWork.GameRepository.GetByKeyAsync(request.Game.Key);
-        if (existingGame != null)
-        {
-            _logger.LogWarning("Game creation failed - duplicate key: {GameKey}", request.Game.Key);
-            throw new BadRequestException("Game key must be unique.");
-        }
-
-
-        var genreIds = request.Genres.ToList();
-        var validGenres = await _unitOfWork.GenreRepository.GetAllAsync();
-        validGenres = validGenres.Where(g => genreIds.Contains(g.Id)).ToList();
-
-        if (validGenres.Count() != request.Genres.Count)
-        {
-            var invalidGenres = request.Genres.Except(validGenres.Select(g => g.Id));
-            _logger.LogWarning("Invalid genres detected: {InvalidGenres}", invalidGenres);
-            throw new BadRequestException("One or more genres are invalid."); 
-        }
-
-        var platformIds = request.Platforms.ToList();
-        var validPlatforms = await _unitOfWork.PlatformRepository.GetAllAsync();
-        validPlatforms = validPlatforms.Where(p => platformIds.Contains(p.Id)).ToList();
-
-        if (validPlatforms.Count() != request.Platforms.Count)
-        {
-            var invalidPlatforms = request.Platforms.Except(validPlatforms.Select(p => p.Id));
-            _logger.LogWarning("Invalid platforms detected: {InvalidPlatforms}", invalidPlatforms);
-            throw new BadRequestException("One or more platforms are invalid.");
-        }
         var game = new Game
         {
             Name = request.Game.Name,
@@ -84,36 +54,64 @@ public class GameService : IGameService
             PublisherId = request.Publisher
         };
 
-        _logger.LogDebug("Creating game entity with ID: {GameId}", game.Id);
         foreach (var genre in validGenres)
         {
             game.Genres.Add(new GameGenre { GenreId = genre.Id });
-            _logger.LogTrace("Added genre {GenreId} to game {GameKey}", genre.Id, game.Key);
         }
 
         foreach (var platform in validPlatforms)
         {
             game.Platforms.Add(new GamePlatform { PlatformId = platform.Id });
-            _logger.LogTrace("Added platform {PlatformId} to game {GameKey}", platform.Id, game.Key);
         }
-
-        try
-        {
-            await _unitOfWork.GameRepository.AddAsync(game);
-            await _unitOfWork.SaveChangesAsync();
-
-            _logger.LogInformation("Successfully created game {GameKey} with ID {GameId}",
-                game.Key, game.Id);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to save game {GameKey} to database", game.Key);
-            throw;
-        }
+        await _unitOfWork.GameRepository.AddAsync(game);
+        await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<GameDto>(game);
     }
+    private async Task ValidatePublisherAsync(Guid publisherId)
+    {
+        var publisher = await _unitOfWork.PublisherRepository.GetByIdAsync(publisherId);
+        if (publisher == null)
+        {
+            _logger.LogWarning("Game creation failed - invalid publisher ID: {PublisherId}", publisherId);
+            throw new BadRequestException("Specified publisher does not exist.");
+        }
+    }
+    private async Task ValidateGameKeyUniquenessAsync(string gameKey)
+    {
+        var existingGame = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey);
+        if (existingGame != null)
+        {
+            _logger.LogWarning("Game creation failed - duplicate key: {GameKey}", gameKey);
+            throw new BadRequestException("Game key must be unique.");
+        }
+    }
+    private async Task<List<Genre>> ValidateAndGetGenresAsync(IEnumerable<Guid> genreIds)
+    {
+        var validGenres = (await _unitOfWork.GenreRepository.GetAllAsync())
+            .Where(g => genreIds.Contains(g.Id))
+            .ToList();
 
+        if (validGenres.Count != genreIds.Count())
+        {
+            throw new BadRequestException("One or more genres are invalid.");
+        }
+
+        return validGenres;
+    }
+    private async Task<List<Platform>> ValidateAndGetPlatformsAsync(IEnumerable<Guid> platformIds)
+    {
+        var validPlatforms = (await _unitOfWork.PlatformRepository.GetAllAsync())
+            .Where(p => platformIds.Contains(p.Id))
+            .ToList();
+
+        if (validPlatforms.Count != platformIds.Count())
+        {
+            throw new BadRequestException("One or more platforms are invalid.");
+        }
+
+        return validPlatforms;
+    }
     public async Task<GameDto?> GetGameByKeyAsync(string key)
     {
         _logger.LogInformation("Getting game by key: {key}", key);
@@ -154,71 +152,61 @@ public class GameService : IGameService
 
     public async Task<GameResponseDto> UpdateGameAsync(UpdateGameRequestDto request)
     {
-        _logger.LogInformation("Updating game {GameId}", request.Game.Id);
-        var game = await _unitOfWork.GameRepository.GetByIdAsync(request.Game.Id);
+        await ValidatePublisherAsync(request.Publisher);
+        var game = await ValidateGameAsync(request.Game.Id);
 
-        if (game == null)
-        {
-            _logger.LogWarning("Game not found: {GameId}", request.Game.Id);
-            throw new NotFoundException("Game not found");
-        }
-
-        if (game.Key != request.Game.Key)
-        {
-            var existingGameWithKey = await _unitOfWork.GameRepository.GetByKeyAsync(request.Game.Key);
-            if (existingGameWithKey != null)
-            {
-                _logger.LogWarning("Duplicate key detected. Requested: {RequestKey}, Existing: {ExistingGameId}",
-                    request.Game.Key, existingGameWithKey.Id);
-                throw new BadRequestException("Game key must be unique");
-            }
-        }
+        await ValidateGameKeyUniquenessAsync(request.Game.Key);
 
         game.Name = request.Game.Name;
         game.Key = request.Game.Key;
         game.Description = request.Game.Description;
-
         var genreIds = request.Genres.ToList();
-        var validGenres = await _unitOfWork.GenreRepository.GetAllAsync();
-        validGenres = validGenres.Where(g => genreIds.Contains(g.Id)).ToList();
 
-        if (validGenres.Count() != request.Genres.Count)
-            throw new BadRequestException("One or more genres are invalid");
+        await UpdateGameGenresAsync(game, request.Genres);
+        await UpdateGamePlatformsAsync(game, request.Platforms);
+
+        _unitOfWork.GameRepository.Update(game);
+
+        await _unitOfWork.SaveChangesAsync();
+        _logger.LogInformation("Game updated: {GameId}", game.Id);
+
+
+        return _mapper.Map<GameResponseDto>(game);
+    }
+    private async Task<Game> ValidateGameAsync(Guid gameId)
+    {
+        var game = await _unitOfWork.GameRepository.GetByIdAsync(gameId);
+
+        if (game == null)
+        {
+            _logger.LogWarning("Game not found: {GameId}", gameId);
+            throw new NotFoundException("Game not found");
+        }
+        return game;
+    }
+    private async Task UpdateGameGenresAsync(Game game, IEnumerable<Guid> genreIds)
+    {
+        var validGenres = await ValidateAndGetGenresAsync(genreIds);
 
         game.Genres.Clear();
         foreach (var genre in validGenres)
         {
             game.Genres.Add(new GameGenre { GenreId = genre.Id });
+            _logger.LogDebug("Added genre {GenreId} to game {GameId}", genre.Id, game.Id);
         }
+    }
 
-        var platformIds = request.Platforms.ToList();
-        var validPlatforms = await _unitOfWork.PlatformRepository.GetAllAsync();
-        validPlatforms = validPlatforms.Where(p => platformIds.Contains(p.Id)).ToList();
-
-        if (validPlatforms.Count() != request.Platforms.Count)
-            throw new BadRequestException("One or more platforms are invalid");
+    private async Task UpdateGamePlatformsAsync(Game game, IEnumerable<Guid> platformIds)
+    {
+        var validPlatforms = await ValidateAndGetPlatformsAsync(platformIds);
 
         game.Platforms.Clear();
         foreach (var platform in validPlatforms)
         {
             game.Platforms.Add(new GamePlatform { PlatformId = platform.Id });
+            _logger.LogDebug("Added platform {PlatformId} to game {GameId}", platform.Id, game.Id);
         }
-
-        _unitOfWork.GameRepository.Update(game);
-        try
-        {
-            await _unitOfWork.SaveChangesAsync();
-            _logger.LogInformation("Game updated: {GameId}", game.Id);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Update failed for game {GameId}", game.Id);
-            throw;
-        }
-
-        return _mapper.Map<GameResponseDto>(game);
     }
-
     public async Task DeleteGameAsync(string key)
     {
         await _unitOfWork.BeginTransactionAsync();
@@ -238,7 +226,7 @@ public class GameService : IGameService
             _logger.LogInformation("Successfully deleted game: {GameKey}", key);
             await _unitOfWork.CommitTransactionAsync();
         }
-        catch (Exception ex)
+        catch(Exception ex) when(ex is not NotFoundException and not BadRequestException)
         {
             await _unitOfWork.RollbackTransactionAsync();
             _logger.LogError(ex, "Failed to delete game: {GameKey}", key);
@@ -248,7 +236,6 @@ public class GameService : IGameService
 
     public async Task<IActionResult> SimulateDownloadAsync(string key)
     {
-        _logger.LogInformation("Preparing download for game: {GameKey}", key);
         var game = await _unitOfWork.GameRepository.GetByKeyAsync(key);
         if (game == null)
         {
@@ -256,11 +243,9 @@ public class GameService : IGameService
             throw new NotFoundException("Game not found");
         }
 
-        _logger.LogDebug("Generating mock download for: {GameKey}", key);
         var mockFileContent = $"This would be the game file for {key}";
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(mockFileContent));
 
-        _logger.LogInformation("Successfully prepared download for: {GameKey}", key);
         return new FileStreamResult(stream, "application/octet-stream")
         {
             FileDownloadName = $"{key}_mock_download.txt"
@@ -269,19 +254,10 @@ public class GameService : IGameService
 
     public async Task<IEnumerable<SimpleGameResponseDto>> GetAllGamesAsync()
     {
-        _logger.LogInformation("Fetching all games");
-        try
-        {
-            var games = await _unitOfWork.GameRepository.GetAllAsync();
-            var gameList = games.ToList();
+        var games = await _unitOfWork.GameRepository.GetAllAsync();
+        var gameList = games.ToList();
 
-            _logger.LogInformation("Retrieved {GameCount} games", gameList.Count);
-            return _mapper.Map<IEnumerable<SimpleGameResponseDto>>(gameList);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to retrieve games");
-            throw;
-        }
+        _logger.LogInformation("Retrieved {GameCount} games", gameList.Count);
+        return _mapper.Map<IEnumerable<SimpleGameResponseDto>>(gameList);
     }
 }

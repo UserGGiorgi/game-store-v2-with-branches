@@ -37,33 +37,9 @@ namespace GameStore.Infrastructure.Services
 
         public async Task<GenreResponseDto> CreateGenreAsync(CreateGenreRequestDto request)
         {
-            _logger.LogInformation("Creating genre: {Name}", request.Genre.Name);
+            await ValidateGenreNameUniquenessAsync(request.Genre.Name);
 
-            if (await _unitOfWork.GenreRepository.GetByNameAsync(request.Genre.Name) != null)
-            {
-                _logger.LogWarning("Duplicate genre name: {Name}", request.Genre.Name);
-                throw new BadRequestException("Genre name must be unique");
-            }
-
-            Guid? parentGenreId = null;
-            if (!string.IsNullOrEmpty(request.Genre.ParentGenreId))
-            {
-                if (!Guid.TryParse(request.Genre.ParentGenreId, out var parsedGuid))
-                {
-                    _logger.LogWarning("Invalid GUID format for parent genre: {ParentId}", request.Genre.ParentGenreId);
-                    throw new BadRequestException("ParentGenreId must be a valid GUID");
-                }
-
-                parentGenreId = parsedGuid;
-
-                var parentExists = await _unitOfWork.GenreRepository.ExistsAsync(parentGenreId.Value);
-                if (!parentExists)
-                {
-                    _logger.LogWarning("Invalid parent genre: {ParentId}", parentGenreId);
-                    throw new BadRequestException("Parent genre not found");
-                }
-            }
-
+            var parentGenreId = await ParseAndValidateParentGenreIdAsync(request.Genre.ParentGenreId);
             var genre = new Genre
             {
                 Name = request.Genre.Name,
@@ -78,7 +54,6 @@ namespace GameStore.Infrastructure.Services
 
         public async Task<GenreDetailsDto> GetGenreByIdAsync(Guid id)
         {
-            _logger.LogInformation("Getting genre by ID: {GenreId}", id);
             var genre = await _unitOfWork.GenreRepository.GetByIdAsync(id);
             if (genre == null)
             {
@@ -91,8 +66,7 @@ namespace GameStore.Infrastructure.Services
 
         public async Task<IEnumerable<GenreListDto>> GetAllGenresAsync()
         {
-            _logger.LogInformation("Getting all genres");
-            var genres = await _unitOfWork.GenreRepository.GetAllAsync();
+           var genres = await _unitOfWork.GenreRepository.GetAllAsync();
             var result = _mapper.Map<IEnumerable<GenreListDto>>(genres.OrderBy(g => g.Name));
 
             _logger.LogInformation("Returning {GenreCount} genres", result.Count());
@@ -101,8 +75,6 @@ namespace GameStore.Infrastructure.Services
 
         public async Task<IEnumerable<GenreListDto>> GetGenresByGameKeyAsync(string key)
         {
-            _logger.LogInformation("Getting genres for game: {GameKey}", key);
-
             if (await _unitOfWork.GameRepository.GetByKeyAsync(key) == null)
             {
                 _logger.LogWarning("Game not found: {GameKey}", key);
@@ -118,7 +90,6 @@ namespace GameStore.Infrastructure.Services
 
         public async Task<IEnumerable<GenreListDto>> GetSubGenresAsync(Guid parentId)
         {
-            _logger.LogInformation("Getting subgenres for parent: {ParentId}", parentId);
             var subGenres = await _unitOfWork.GenreRepository.GetSubGenresAsync(parentId);
             var result = _mapper.Map<IEnumerable<GenreListDto>>(subGenres.OrderBy(g => g.Name));
 
@@ -137,28 +108,8 @@ namespace GameStore.Infrastructure.Services
                 throw new NotFoundException("Genre not found");
             }
 
-            var existingByName = await _unitOfWork.GenreRepository.GetByNameAsync(request.Genre.Name);
-            if (existingByName != null && existingByName.Id != request.Genre.Id)
-            {
-                _logger.LogWarning("Duplicate genre name: {GenreName}", request.Genre.Name);
-                throw new BadRequestException("Genre name must be unique");
-            }
-
-            Guid? parentGenreId = null;
-            if (!string.IsNullOrEmpty(request.Genre.ParentGenreId))
-            {
-                if (!Guid.TryParse(request.Genre.ParentGenreId, out var parsedGuid))
-                {
-                    _logger.LogWarning("Invalid ParentGenreId format: {ParentId}", request.Genre.ParentGenreId);
-                    throw new BadRequestException("ParentGenreId must be a valid GUID");
-                }
-                parentGenreId = parsedGuid;
-            }
-
-            if (parentGenreId.HasValue)
-            {
-                await ValidateParentGenre(parentGenreId.Value, genre.Id);
-            }
+            await ValidateGenreNameUniquenessAsync(request.Genre.Name);
+            var parentGenreId = await ParseAndValidateParentGenreIdAsync(request.Genre.ParentGenreId, request.Genre.Id);
 
             genre.Name = request.Genre.Name;
             genre.ParentGenreId = parentGenreId;
@@ -169,7 +120,6 @@ namespace GameStore.Infrastructure.Services
             _logger.LogInformation("Successfully updated genre ID: {GenreId}", genre.Id);
             return _mapper.Map<GenreDetailsDto>(genre);
         }
-
         public async Task DeleteGenreAsync(Guid id)
         {
             await _unitOfWork.BeginTransactionAsync();
@@ -179,20 +129,17 @@ namespace GameStore.Infrastructure.Services
                 var genre = await _unitOfWork.GenreRepository.GetByIdAsync(id);
                 if (genre == null)
                 {
-                    _logger.LogWarning("Genre not found: {GenreId}", id);
                     throw new NotFoundException("Genre not found");
                 }
 
                 if (await _unitOfWork.GenreRepository.HasSubGenresAsync(id))
                 {
-                    _logger.LogWarning("Delete failed - genre has subgenres: {GenreId}", id);
                     throw new BadRequestException("Cannot delete genre with sub-genres");
                 }
 
 
                 if (await _unitOfWork.GenreRepository.IsAttachedToGamesAsync(id))
                 {
-                    _logger.LogWarning("Delete failed - genre attached to games: {GenreId}", id);
                     throw new BadRequestException("Cannot delete genre associated with games");
                 }
 
@@ -201,13 +148,22 @@ namespace GameStore.Infrastructure.Services
                 _logger.LogInformation("Successfully deleted genre ID: {GenreId}", id);
                 await _unitOfWork.CommitTransactionAsync();
             }
-            catch
+            catch (Exception ex) when (ex is not NotFoundException and not BadRequestException)
             {
                 await _unitOfWork.RollbackTransactionAsync();
                 throw;
-                }
+            }
         }
-        private async Task ValidateParentGenre(Guid parentGenreId, Guid currentGenreId)
+        private async Task ValidateGenreNameUniquenessAsync(string name, Guid? existingGenreId = null)
+        {
+            var existingGenre = await _unitOfWork.GenreRepository.GetByNameAsync(name);
+            if (existingGenre != null && existingGenre.Id != existingGenreId)
+            {
+                _logger.LogWarning("Duplicate genre name: {Name}", name);
+                throw new BadRequestException("Genre name must be unique");
+            }
+        }
+        private async Task ValidateParentGenreAsync(Guid parentGenreId, Guid? currentGenreId)
         {
             if (parentGenreId == currentGenreId)
             {
@@ -221,6 +177,20 @@ namespace GameStore.Infrastructure.Services
                 _logger.LogWarning("Parent genre not found: {ParentId}", parentGenreId);
                 throw new BadRequestException("Parent genre not found");
             }
+        }
+        private async Task<Guid?> ParseAndValidateParentGenreIdAsync(string? parentGenreIdString, Guid? currentGenreId = null)
+        {
+            if (string.IsNullOrEmpty(parentGenreIdString))
+                return null;
+
+            if (!Guid.TryParse(parentGenreIdString, out var parsedGuid))
+            {
+                _logger.LogWarning("Invalid GUID format for parent genre: {ParentId}", parentGenreIdString);
+                throw new BadRequestException("ParentGenreId must be a valid GUID");
+            }
+
+            await ValidateParentGenreAsync(parsedGuid, currentGenreId);
+            return parsedGuid;
         }
     }
 }

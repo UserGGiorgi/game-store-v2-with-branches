@@ -41,37 +41,33 @@ namespace Gamestore.Test.Application.Services
                 Game = new GameDto
                 {
                     Key = "existing-key",
-                    Name = "Existing Game"  // Required for GameDto
+                    Name = "Existing Game"
                 },
                 Publisher = Guid.NewGuid(),
                 Genres = new List<Guid> { Guid.NewGuid() },
                 Platforms = new List<Guid> { Guid.NewGuid() }
             };
 
-            // Mock publisher exists
             _mockUnitOfWork.Setup(u => u.PublisherRepository.GetByIdAsync(request.Publisher))
-                .ReturnsAsync(new Publisher { CompanyName = "Test Publisher" });  // Required Name
+                .ReturnsAsync(new Publisher { CompanyName = "Test Publisher" });
 
-            // Mock genres exist
             _mockUnitOfWork.Setup(u => u.GenreRepository.GetAllAsync())
                 .ReturnsAsync(new List<Genre>
                 {
-            new Genre { Id = request.Genres.First(), Name = "Action" }  // Required Name
+            new Genre { Id = request.Genres.First(), Name = "Action" }
                 });
 
-            // Mock platforms exist
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
                 .ReturnsAsync(new List<Platform>
                 {
-            new Platform { Id = request.Platforms.First(), Type = "Console" }  // Required Type
+            new Platform { Id = request.Platforms.First(), Type = "Console" }
                 });
 
-            // Mock duplicate key exists
             _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(request.Game.Key))
                 .ReturnsAsync(new Game
                 {
-                    Key = "existing-key",  // Required
-                    Name = "Existing Game"  // Required
+                    Key = "existing-key",
+                    Name = "Existing Game"
                 });
 
             // Act & Assert
@@ -168,7 +164,7 @@ namespace Gamestore.Test.Application.Services
                     Key = "valid-key",
                     Name = "Test Game"
                 },
-                Publisher = Guid.NewGuid(), // Required
+                Publisher = Guid.NewGuid(),
                 Genres = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() },
                 Platforms = new List<Guid> { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() }
             };
@@ -245,16 +241,13 @@ namespace Gamestore.Test.Application.Services
         [Fact]
         public async Task GetGameByKeyAsync_ReturnsNull_WhenGameNotFound()
         {
-            // Arrange
             const string nonExistingKey = "non-existing-key";
 
             _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(nonExistingKey))
                 .ReturnsAsync((Game?)null!);
 
-            // Act
             var result = await _gameService.GetGameByKeyAsync(nonExistingKey);
 
-            // Assert
             Assert.Null(result);
         }
         [Fact]
@@ -297,7 +290,7 @@ namespace Gamestore.Test.Application.Services
                 Type = "TestPlatformType"
             };
 
-            var createdGame= new Game
+            var createdGame = new Game
             {
                 Id = Guid.NewGuid(),
                 Key = request.Game.Key,
@@ -536,7 +529,6 @@ namespace Gamestore.Test.Application.Services
         [Fact]
         public async Task GetGamesByGenreAsync_ReturnsEmptyList_WhenNoGamesFound()
         {
-            // Arrange
             var genreId = Guid.NewGuid();
             var emptyGamesList = new List<Game>();
 

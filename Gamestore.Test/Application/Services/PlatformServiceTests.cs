@@ -78,7 +78,7 @@ namespace Gamestore.Test.Application.Services
                 .ReturnsAsync((Platform?)null!);
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.AddAsync(It.IsAny<Platform>()))
-                .Callback<Platform>(p => p.Id = newPlatform.Id);  // Simulate ID assignment
+                .Callback<Platform>(p => p.Id = newPlatform.Id);
 
             _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);

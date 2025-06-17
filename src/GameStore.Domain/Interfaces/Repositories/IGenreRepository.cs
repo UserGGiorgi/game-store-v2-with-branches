@@ -14,6 +14,5 @@ namespace GameStore.Domain.Interfaces.Repositories
         Task<IEnumerable<Genre>> GetSubGenresAsync(Guid parentId);
         Task<bool> HasSubGenresAsync(Guid parentId);
         Task<bool> IsAttachedToGamesAsync(Guid genreId);
-        Task<bool> IsCircularHierarchyAsync(Guid genreId, Guid parentGenreId);
     }
 }

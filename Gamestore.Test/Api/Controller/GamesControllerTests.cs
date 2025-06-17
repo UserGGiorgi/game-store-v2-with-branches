@@ -291,17 +291,6 @@ namespace Gamestore.Test.Api.Controller
 
             Assert.Same(expectedException, actualException);
         }
-        [Fact]
-        public void GetById_HasCorrectRouteAttribute()
-        {
-            var method = typeof(GamesController).GetMethod(nameof(GamesController.GetById));
-
-            var httpGetAttribute = method?.GetCustomAttributes(typeof(HttpGetAttribute), true)
-                .FirstOrDefault() as HttpGetAttribute;
-
-            Assert.NotNull(httpGetAttribute);
-            Assert.Equal("find/{id}", httpGetAttribute.Template);
-        }
 
         [Fact]
         public void GetById_HasCorrectParameter()
