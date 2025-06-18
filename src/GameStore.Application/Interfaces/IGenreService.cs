@@ -1,4 +1,6 @@
-﻿using GameStore.Application.Dtos.Genre;
+﻿using GameStore.Application.Dtos.Genres.CreateGenre;
+using GameStore.Application.Dtos.Genres.GetGenre;
+using GameStore.Application.Dtos.Genres.UpdateGenre;
 using System;
 using System.Collections.Generic;
 using System.Linq;

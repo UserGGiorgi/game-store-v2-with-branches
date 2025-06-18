@@ -9,7 +9,6 @@ public class Game
     public double Price { get; set; }
     public int UnitInStock { get; set; }
     public int Discount { get; set; }
-
     public Guid PublisherId { get; set; }
     public Publisher Publisher { get; set; } = null!;
 

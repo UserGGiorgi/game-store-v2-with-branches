@@ -16,8 +16,6 @@ public class GameStoreDbContext : DbContext
     public DbSet<GameGenre> GameGenres => Set<GameGenre>();
     public DbSet<GamePlatform> GamePlatforms => Set<GamePlatform>();
     public DbSet<Publisher> Publishers => Set<Publisher>();
-    public DbSet<Order> Orders => Set<Order>();
-    public DbSet<OrderGame> OrderGames => Set<OrderGame>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -86,19 +84,5 @@ public class GameStoreDbContext : DbContext
             .HasForeignKey(g => g.PublisherId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<OrderGame>()
-        .HasKey(og => new { og.OrderId, og.ProductId });
-        
-        modelBuilder.Entity<Order>()
-            .HasMany(o => o.OrderGames)
-            .WithOne(og => og.Order)
-            .HasForeignKey(og => og.OrderId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<OrderGame>()
-            .HasOne(og => og.Game)
-            .WithMany()
-            .HasForeignKey(og => og.ProductId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -116,50 +116,6 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("GameStore.Domain.Entities.OrderGame", b =>
-                {
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Discount")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderGames");
-                });
-
             modelBuilder.Entity("GameStore.Domain.Entities.Platform", b =>
                 {
                     b.Property<Guid>("Id")
@@ -187,8 +143,7 @@ namespace GameStore.Infrastructure.Migrations
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -263,25 +218,6 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("ParentGenre");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.OrderGame", b =>
-                {
-                    b.HasOne("GameStore.Domain.Entities.Order", "Order")
-                        .WithMany("OrderGames")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GameStore.Domain.Entities.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("GameStore.Domain.Entities.Game", b =>
                 {
                     b.Navigation("Genres");
@@ -294,11 +230,6 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("Games");
 
                     b.Navigation("SubGenres");
-                });
-
-            modelBuilder.Entity("GameStore.Domain.Entities.Order", b =>
-                {
-                    b.Navigation("OrderGames");
                 });
 
             modelBuilder.Entity("GameStore.Domain.Entities.Platform", b =>
