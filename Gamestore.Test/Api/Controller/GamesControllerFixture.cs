@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 
 namespace Gamestore.Test.Api.Controller
 {
-    public class GamesControllerFixture : IDisposable
+    public class GamesControllerFixture
     {
         public Mock<IGameService> MockGameService { get; }
         public Mock<IValidator<CreateGameRequestDto>> MockCreateValidator { get; }
         public Mock<IValidator<UpdateGameRequestDto>> MockUpdateValidator { get; }
-        public Mock<ILogger<GamesController>> _mockLogger { get; }
+        public Mock<ILogger<GamesController>> MockLogger { get; }
 
         public GamesController Controller { get; }
 
@@ -41,13 +41,13 @@ namespace Gamestore.Test.Api.Controller
             MockGameService = new Mock<IGameService>();
             MockCreateValidator = new Mock<IValidator<CreateGameRequestDto>>();
             MockUpdateValidator = new Mock<IValidator<UpdateGameRequestDto>>();
-            _mockLogger = new Mock<ILogger<GamesController>>();
+            MockLogger = new Mock<ILogger<GamesController>>();
 
             Controller = new GamesController(
                 MockGameService.Object,
                 MockCreateValidator.Object,
                 MockUpdateValidator.Object,
-                _mockLogger.Object
+                MockLogger.Object
             );
         }
 
@@ -66,7 +66,7 @@ namespace Gamestore.Test.Api.Controller
             {
                 MockGameService
                     .Setup(s => s.GetGamesByPlatformAsync(platformId))
-                    .ReturnsAsync(returnValue ?? Enumerable.Empty<SimpleGameResponseDto>());
+                    .ReturnsAsync(returnValue ?? []);
             }
         }
 
@@ -85,7 +85,7 @@ namespace Gamestore.Test.Api.Controller
             {
                 MockGameService
                     .Setup(s => s.GetGamesByGenreAsync(genreId))
-                    .ReturnsAsync(returnValue ?? Enumerable.Empty<SimpleGameResponseDto>());
+                    .ReturnsAsync(returnValue ?? []);
             }
         }
         public void SetupGameServiceForDelete(
@@ -104,10 +104,6 @@ namespace Gamestore.Test.Api.Controller
                     .Setup(s => s.DeleteGameAsync(key))
                     .Returns(Task.CompletedTask);
             }
-        }
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
         }
     }
 }
