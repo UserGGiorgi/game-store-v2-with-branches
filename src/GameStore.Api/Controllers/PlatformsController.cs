@@ -17,13 +17,13 @@ namespace GameStore.Web.Controller
         private readonly IPlatformService _platformService;
         private readonly IValidator<CreatePlatformRequestDto> _createValidator;
         private readonly IValidator<UpdatePlatformRequestDto> _updateValidator;
-        private readonly ILogger<GamesController> _logger;
+        private readonly ILogger<PlatformsController> _logger;
 
         public PlatformsController(
             IPlatformService platformService,
             IValidator<CreatePlatformRequestDto> createValidator,
             IValidator<UpdatePlatformRequestDto> updateValidator,
-            ILogger<GamesController> logger)
+            ILogger<PlatformsController> logger)
         {
             _platformService = platformService;
             _createValidator = createValidator;

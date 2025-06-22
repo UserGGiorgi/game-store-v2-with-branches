@@ -19,12 +19,12 @@ namespace GameStore.Web.Controller
         private readonly IGenreService _genreService;
         private readonly IValidator<CreateGenreRequestDto> _createValidator;
         private readonly IValidator<UpdateGenreRequestDto> _updateValidator;
-        private readonly ILogger<GamesController> _logger;
+        private readonly ILogger<GenresController> _logger;
         public GenresController(
             IGenreService genreService,
             IValidator<CreateGenreRequestDto> createValidator,
             IValidator<UpdateGenreRequestDto> updateValidator,
-            ILogger<GamesController> logger)
+            ILogger<GenresController> logger)
         {
             _genreService = genreService;
             _createValidator = createValidator;

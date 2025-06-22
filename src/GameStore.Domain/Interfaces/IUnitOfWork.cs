@@ -13,6 +13,7 @@ namespace GameStore.Domain.Interfaces
         IGenreRepository GenreRepository { get; }
         IPlatformRepository PlatformRepository { get; }
         IPublisherRepository PublisherRepository { get; }
+        IOrderRepository OrderRepository { get; }
         Task<int> SaveChangesAsync();
         Task BeginTransactionAsync(CancellationToken cancellationToken = default);
 

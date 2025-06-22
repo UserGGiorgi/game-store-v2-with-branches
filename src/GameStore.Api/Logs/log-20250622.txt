@@ -1,0 +1,40 @@
+2025-06-22 13:35:13.320 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-22 13:35:14.199 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 881ms
+2025-06-22 14:06:15.304 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-22 14:06:16.071 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 770ms
+2025-06-22 14:08:41.755 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-22 14:08:42.522 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 769ms
+2025-06-22 14:09:25.018 +04:00 [INF] Starting request: GET /Games from ::1
+2025-06-22 14:09:27.044 +04:00 [INF] Retrieved 11 games
+2025-06-22 14:09:27.050 +04:00 [INF] Retrieved  games
+2025-06-22 14:09:27.062 +04:00 [INF] Completed request: GET /Games - Status: 200 - Time: 2044ms
+2025-06-22 14:17:07.441 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-22 14:17:08.219 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 780ms
+2025-06-22 14:17:12.855 +04:00 [INF] Starting request: GET /Games from ::1
+2025-06-22 14:17:13.032 +04:00 [INF] Retrieved 11 games
+2025-06-22 14:17:13.038 +04:00 [INF] Retrieved  games
+2025-06-22 14:17:13.045 +04:00 [INF] Completed request: GET /Games - Status: 200 - Time: 189ms
+2025-06-22 14:17:22.581 +04:00 [INF] Starting request: GET /games from ::1
+2025-06-22 14:17:22.598 +04:00 [INF] Retrieved 11 games
+2025-06-22 14:17:22.599 +04:00 [INF] Retrieved  games
+2025-06-22 14:17:22.602 +04:00 [INF] Completed request: GET /games - Status: 200 - Time: 20ms
+2025-06-22 14:17:22.830 +04:00 [INF] Starting request: GET /favicon.ico from ::1
+2025-06-22 14:17:22.831 +04:00 [INF] Completed request: GET /favicon.ico - Status: 404 - Time: 0ms
+2025-06-22 14:55:43.288 +04:00 [INF] Starting request: GET /swagger from ::1
+2025-06-22 14:55:44.031 +04:00 [INF] Completed request: GET /swagger - Status: 301 - Time: 745ms
+2025-06-22 14:55:44.041 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-22 14:55:44.073 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 31ms
+2025-06-22 14:55:44.088 +04:00 [INF] Starting request: GET /swagger/swagger-ui.css from ::1
+2025-06-22 14:55:44.088 +04:00 [INF] Starting request: GET /swagger/index.css from ::1
+2025-06-22 14:55:44.088 +04:00 [INF] Starting request: GET /swagger/swagger-ui-bundle.js from ::1
+2025-06-22 14:55:44.088 +04:00 [INF] Starting request: GET /swagger/index.js from ::1
+2025-06-22 14:55:44.088 +04:00 [INF] Starting request: GET /swagger/swagger-ui-standalone-preset.js from ::1
+2025-06-22 14:55:44.095 +04:00 [INF] Completed request: GET /swagger/index.js - Status: 200 - Time: 6ms
+2025-06-22 14:55:44.108 +04:00 [INF] Completed request: GET /swagger/index.css - Status: 200 - Time: 20ms
+2025-06-22 14:55:44.122 +04:00 [INF] Completed request: GET /swagger/swagger-ui.css - Status: 200 - Time: 34ms
+2025-06-22 14:55:44.122 +04:00 [INF] Completed request: GET /swagger/swagger-ui-standalone-preset.js - Status: 200 - Time: 33ms
+2025-06-22 14:55:44.137 +04:00 [INF] Completed request: GET /swagger/swagger-ui-bundle.js - Status: 200 - Time: 48ms
+2025-06-22 14:55:44.295 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-22 14:55:44.295 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-22 14:55:44.332 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-22 14:55:44.352 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 20ms

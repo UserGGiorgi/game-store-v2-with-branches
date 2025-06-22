@@ -34,7 +34,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddHttpClient<IPaymentService, PaymentService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["PaymentMicroservice:BaseUrl"]);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 builder.Services.Configure<TotalGamesCacheOptions>(
     builder.Configuration.GetSection(TotalGamesCacheOptions.SectionName));
 
@@ -47,11 +51,15 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
 builder.Services.AddScoped<IPublisherService, PublisherService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IPdfService, PdfService>();
 
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -66,12 +74,14 @@ builder.Services.AddScoped(provider => new Lazy<IPlatformRepository>(
 
 builder.Services.AddScoped(provider => new Lazy<IPublisherRepository>(
     () => provider.GetRequiredService<IPublisherRepository>()));
+builder.Services.AddScoped(provider => new Lazy<IOrderRepository>(
+    () => provider.GetRequiredService<IOrderRepository>()));
 //for angularr
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
         builder => builder
-            .WithOrigins("http://localhost:8080") // Your http-server port
+            .WithOrigins("http://localhost:8080") //http-server port
             .AllowAnyHeader()
             .AllowAnyMethod()
             .WithExposedHeaders("x-total-numbers-of-games")
@@ -79,7 +89,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 
 app.UseMiddleware<RequestLoggingMiddleware>();
