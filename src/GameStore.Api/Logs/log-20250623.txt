@@ -1,0 +1,182 @@
+2025-06-23 12:04:09.228 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-23 12:04:10.144 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 918ms
+2025-06-23 12:04:39.022 +04:00 [INF] Starting request: GET /Orders from ::1
+2025-06-23 12:04:39.384 +04:00 [INF] Completed request: GET /Orders - Status: 200 - Time: 362ms
+2025-06-23 12:05:38.456 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-23 12:05:38.710 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 253ms
+2025-06-23 12:06:13.733 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-23 12:06:14.597 +04:00 [INF] Completed request: POST /Orders/payment - Status: 200 - Time: 863ms
+2025-06-23 12:06:35.118 +04:00 [INF] Starting request: GET /Orders from ::1
+2025-06-23 12:06:35.304 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Error mapping types.
+
+Mapping types:
+List`1 -> IEnumerable`1
+System.Collections.Generic.List`1[[GameStore.Domain.Entities.Order, GameStore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[GameStore.Application.Dtos.Order.OrderResponseDto, GameStore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+List`1 -> IEnumerable`1
+System.Collections.Generic.List`1[[GameStore.Domain.Entities.Order, GameStore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[GameStore.Application.Dtos.Order.OrderResponseDto, GameStore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+ ---> AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Order -> OrderResponseDto
+GameStore.Domain.Entities.Order -> GameStore.Application.Dtos.Order.OrderResponseDto
+   at lambda_method271(Closure, Order, OrderResponseDto, ResolutionContext)
+   at lambda_method18(Closure, Object, IEnumerable`1, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method18(Closure, Object, IEnumerable`1, ResolutionContext)
+   at GameStore.Application.Services.OrderService.GetPaidAndCancelledOrdersAsync() in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\OrderService.cs:line 52
+   at GameStore.Api.Controllers.OrdersController.GetOrders() in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 56
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-23 12:06:35.372 +04:00 [INF] Completed request: GET /Orders - Status: 500 - Time: 254ms
+2025-06-23 12:09:21.831 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-23 12:09:22.556 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 727ms
+2025-06-23 12:09:32.126 +04:00 [INF] Starting request: GET /Orders from ::1
+2025-06-23 12:10:14.427 +04:00 [INF] Completed request: GET /Orders - Status: 200 - Time: 42301ms
+2025-06-23 12:12:13.113 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-23 12:12:13.895 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 783ms
+2025-06-23 12:12:26.049 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-23 12:12:26.242 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 192ms
+2025-06-23 12:14:00.368 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-23 12:14:00.392 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 23ms
+2025-06-23 12:14:06.026 +04:00 [INF] Starting request: GET /Orders/payment-methods from ::1
+2025-06-23 12:14:06.062 +04:00 [INF] Completed request: GET /Orders/payment-methods - Status: 200 - Time: 36ms
+2025-06-23 12:14:31.524 +04:00 [INF] Starting request: GET /Orders from ::1
+2025-06-23 12:14:34.615 +04:00 [INF] Completed request: GET /Orders - Status: 200 - Time: 3093ms
+2025-06-23 12:14:35.526 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-23 12:14:35.705 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 179ms
+2025-06-23 12:14:35.885 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-23 12:14:35.941 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 56ms
+2025-06-23 12:14:49.801 +04:00 [INF] Starting request: GET /Orders from ::1
+2025-06-23 12:14:49.814 +04:00 [INF] Completed request: GET /Orders - Status: 200 - Time: 12ms
+2025-06-23 12:14:58.760 +04:00 [INF] Starting request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e from ::1
+2025-06-23 12:14:58.816 +04:00 [INF] Completed request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e - Status: 200 - Time: 55ms
+2025-06-23 12:15:05.555 +04:00 [INF] Starting request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e/details from ::1
+2025-06-23 12:15:05.848 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Error mapping types.
+
+Mapping types:
+List`1 -> IEnumerable`1
+System.Collections.Generic.List`1[[GameStore.Domain.Entities.OrderGame, GameStore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[GameStore.Application.Dtos.Order.OrderDetailDto, GameStore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+List`1 -> IEnumerable`1
+System.Collections.Generic.List`1[[GameStore.Domain.Entities.OrderGame, GameStore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[GameStore.Application.Dtos.Order.OrderDetailDto, GameStore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+ ---> AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+OrderGame -> OrderDetailDto
+GameStore.Domain.Entities.OrderGame -> GameStore.Application.Dtos.Order.OrderDetailDto
+   at lambda_method151(Closure, OrderGame, OrderDetailDto, ResolutionContext)
+   at lambda_method150(Closure, Object, IEnumerable`1, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method150(Closure, Object, IEnumerable`1, ResolutionContext)
+   at GameStore.Application.Services.OrderService.GetOrderDetailsAsync(Guid orderId) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\OrderService.cs:line 67
+   at GameStore.Api.Controllers.OrdersController.GetOrderDetails(Guid id) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 69
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-23 12:15:05.897 +04:00 [INF] Completed request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e/details - Status: 500 - Time: 341ms
+2025-06-23 12:15:44.735 +04:00 [INF] Starting request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e/details from ::1
+2025-06-23 12:15:44.792 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Error mapping types.
+
+Mapping types:
+List`1 -> IEnumerable`1
+System.Collections.Generic.List`1[[GameStore.Domain.Entities.OrderGame, GameStore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[GameStore.Application.Dtos.Order.OrderDetailDto, GameStore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+List`1 -> IEnumerable`1
+System.Collections.Generic.List`1[[GameStore.Domain.Entities.OrderGame, GameStore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[GameStore.Application.Dtos.Order.OrderDetailDto, GameStore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+ ---> AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+OrderGame -> OrderDetailDto
+GameStore.Domain.Entities.OrderGame -> GameStore.Application.Dtos.Order.OrderDetailDto
+   at lambda_method151(Closure, OrderGame, OrderDetailDto, ResolutionContext)
+   at lambda_method150(Closure, Object, IEnumerable`1, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method150(Closure, Object, IEnumerable`1, ResolutionContext)
+   at GameStore.Application.Services.OrderService.GetOrderDetailsAsync(Guid orderId) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\OrderService.cs:line 67
+   at GameStore.Api.Controllers.OrdersController.GetOrderDetails(Guid id) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 69
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-23 12:15:44.793 +04:00 [INF] Completed request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e/details - Status: 500 - Time: 58ms
+2025-06-23 12:16:02.777 +04:00 [INF] Starting request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e/details from ::1
+2025-06-23 12:16:02.831 +04:00 [ERR] Exception Details: Type: AutoMapperMappingException, Message: Error mapping types.
+
+Mapping types:
+List`1 -> IEnumerable`1
+System.Collections.Generic.List`1[[GameStore.Domain.Entities.OrderGame, GameStore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[GameStore.Application.Dtos.Order.OrderDetailDto, GameStore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+List`1 -> IEnumerable`1
+System.Collections.Generic.List`1[[GameStore.Domain.Entities.OrderGame, GameStore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[GameStore.Application.Dtos.Order.OrderDetailDto, GameStore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+ ---> AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+OrderGame -> OrderDetailDto
+GameStore.Domain.Entities.OrderGame -> GameStore.Application.Dtos.Order.OrderDetailDto
+   at lambda_method151(Closure, OrderGame, OrderDetailDto, ResolutionContext)
+   at lambda_method150(Closure, Object, IEnumerable`1, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method150(Closure, Object, IEnumerable`1, ResolutionContext)
+   at GameStore.Application.Services.OrderService.GetOrderDetailsAsync(Guid orderId) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\OrderService.cs:line 67
+   at GameStore.Api.Controllers.OrdersController.GetOrderDetails(Guid id) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 69
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 29
+2025-06-23 12:16:02.832 +04:00 [INF] Completed request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e/details - Status: 500 - Time: 55ms
+2025-06-23 12:17:21.878 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-23 12:17:22.610 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 734ms
+2025-06-23 12:17:29.033 +04:00 [INF] Starting request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e/details from ::1
+2025-06-23 12:17:29.286 +04:00 [INF] Completed request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e/details - Status: 200 - Time: 253ms
+2025-06-23 12:18:12.752 +04:00 [INF] Starting request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e from ::1
+2025-06-23 12:18:12.820 +04:00 [INF] Completed request: GET /Orders/188e5bf9-cdf1-4157-9ed0-186c2b54e79e - Status: 200 - Time: 67ms
+2025-06-23 12:18:33.403 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-23 12:18:33.462 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 58ms

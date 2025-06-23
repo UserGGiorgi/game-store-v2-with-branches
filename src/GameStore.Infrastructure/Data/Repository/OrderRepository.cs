@@ -22,8 +22,9 @@ namespace GameStore.Infrastructure.Data.Repository
         public async Task<Order?> GetOrderWithItemsAsync(Guid id)
         {
             return await _context.Orders
-                .Include(o => o.OrderGames)
-                .FirstOrDefaultAsync(o => o.Id == id);
+        .Include(o => o.OrderGames)
+        .Where(o => o.Status == OrderStatus.Open)
+        .FirstOrDefaultAsync();
         }
         public async Task<IEnumerable<Order>> GetPaidAndCancelledOrdersAsync()
         {
@@ -38,8 +39,7 @@ namespace GameStore.Infrastructure.Data.Repository
                 .Include(o => o.OrderGames)
                 .ThenInclude(og => og.Game)
                 .FirstOrDefaultAsync(o =>
-                    o.Status == OrderStatus.Open &&
-                    o.CustomerId == Guid.Empty
+                    o.Status == OrderStatus.Open
                 );
 
 

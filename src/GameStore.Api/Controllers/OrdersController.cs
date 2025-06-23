@@ -39,33 +39,15 @@ namespace GameStore.Api.Controllers
         [HttpPost("/games/{key}/buy")]
         public async Task<IActionResult> AddToCart(string key)
         {
-            try
-            {
                 await _cartService.AddToCartAsync(key);
                 return Ok();
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (BadRequestException ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         [HttpDelete("cart/{key}")]
         public async Task<IActionResult> RemoveFromCart(string key)
         {
-            try
-            {
                 await _cartService.RemoveFromCartAsync(key);
                 return NoContent();
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
         }
 
         [HttpGet]
@@ -78,28 +60,14 @@ namespace GameStore.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(Guid id)
         {
-            try
-            {
                 var order = await _orderService.GetOrderByIdAsync(id);
                 return Ok(order);
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
         }
         [HttpGet("{id}/details")]
         public async Task<IActionResult> GetOrderDetails(Guid id)
         {
-            try
-            {
                 var details = await _orderService.GetOrderDetailsAsync(id);
                 return Ok(details);
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
         }
         [HttpGet("cart")]
         public async Task<IActionResult> GetCart()
@@ -117,52 +85,50 @@ namespace GameStore.Api.Controllers
         [HttpPost("payment")]
         public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequestDto request)
         {
-            var userId = GetCurrentUserId();
+            var userId = GetStubUserId();
             if (userId == Guid.Empty)
                 return Unauthorized("Invalid user credentials");
 
-            // Get current cart
-            var cartItems = await _orderService.GetCartAsync();
-            if (cartItems == null || !cartItems.Any())
+            // Get the actual open order (cart) instead of just cart items
+            var order = await _orderService.GetOpenOrderAsync();
+            if (order == null || !order.OrderGames.Any())
                 return BadRequest("Cart is empty");
-
-            // Create a temporary order ID for processing
-            var tempOrderId = Guid.NewGuid();
 
             return request.Method.ToLower() switch
             {
-                "bank" => await ProcessBankPayment(userId, tempOrderId, cartItems),
-                "ibox terminal" => await ProcessIBoxPayment(userId, tempOrderId, cartItems),
-                "visa" => await ProcessVisaPayment(request.Model, userId, tempOrderId, cartItems),
+                "bank" => await ProcessBankPayment(userId, order),
+                "ibox terminal" => await ProcessIBoxPayment(userId, order),
+                "visa" => await ProcessVisaPayment(request.Model, userId, order),
                 _ => BadRequest($"Unsupported payment method: {request.Method}")
             };
         }
 
-        private async Task<IActionResult> ProcessBankPayment(Guid userId, Guid tempOrderId, IEnumerable<OrderDetailDto> cartItems)
+        private async Task<IActionResult> ProcessBankPayment(Guid userId, Order order)
         {
-            // Calculate total from cart items
-            var total = (decimal)cartItems.Sum(item => item.Price * item.Quantity);
+            var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
+            var pdfBytes = _pdfService.GenerateBankInvoice(userId, order.Id, total);
 
-            // Create the PDF
-            var pdfBytes = _pdfService.GenerateBankInvoice(userId, tempOrderId, total);
+            // Close the current order
+            await _orderService.CloseOrderAsync(order.Id);
 
-            // Return the file
-            return File(pdfBytes, "application/pdf", $"invoice_{tempOrderId}.pdf");
+            return File(pdfBytes, "application/pdf", $"invoice_{order.Id}.pdf");
         }
 
-        private async Task<IActionResult> ProcessIBoxPayment(Guid userId, Guid tempOrderId, IEnumerable<OrderDetailDto> cartItems)
+        private async Task<IActionResult> ProcessIBoxPayment(Guid userId, Order order)
         {
-            // Calculate total from cart items
-            var total = (decimal)cartItems.Sum(item => item.Price * item.Quantity);
+            var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
 
             var iboxRequest = new IBoxPaymentRequest
             {
                 UserId = userId,
-                OrderId = tempOrderId,
+                OrderId = order.Id,
                 Amount = total
             };
 
             var result = await _paymentService.ProcessIBoxPaymentAsync(iboxRequest);
+
+            // Close the current order
+            await _orderService.CloseOrderAsync(order.Id);
 
             return Ok(new IBoxPaymentResultDto
             {
@@ -173,13 +139,12 @@ namespace GameStore.Api.Controllers
             });
         }
 
-        private async Task<IActionResult> ProcessVisaPayment(VisaPaymentModelDto model, Guid userId, Guid tempOrderId, IEnumerable<OrderDetailDto> cartItems)
+        private async Task<IActionResult> ProcessVisaPayment(VisaPaymentModelDto model, Guid userId, Order order)
         {
             if (model == null)
                 return BadRequest("Missing card details for Visa payment");
 
-            // Calculate total from cart items
-            var total = (decimal)cartItems.Sum(item => item.Price * item.Quantity);
+            var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
 
             var visaRequest = new VisaPaymentRequest
             {
@@ -192,17 +157,15 @@ namespace GameStore.Api.Controllers
             };
 
             await _paymentService.ProcessVisaPaymentAsync(visaRequest);
-            return Ok(); // 200 OK
+
+            await _orderService.CloseOrderAsync(order.Id);
+
+            return Ok();
         }
 
-        private Guid GetCurrentUserId()
+        private Guid GetStubUserId()
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out var userId))
-            {
-                return userId;
-            }
-            return Guid.Empty;
+            return Guid.Parse("a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a");
         }
     }
 }

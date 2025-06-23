@@ -4,6 +4,7 @@ using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Genres;
 using GameStore.Application.Dtos.Genres.GetGenre;
+using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Platforms;
 using GameStore.Application.Dtos.Platforms.GetPlatform;
 using GameStore.Application.Dtos.Publishers.CreatePublisher;
@@ -36,6 +37,9 @@ namespace GameStore.Application.Mapping
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Games, opt => opt.Ignore());
             CreateMap<UpdatePublisherDto, Publisher>();
+
+            CreateMap<Order, OrderResponseDto>();
+            CreateMap<OrderGame, OrderDetailDto>();
 
         }
     }

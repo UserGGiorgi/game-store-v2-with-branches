@@ -101,7 +101,7 @@ namespace GameStore.Application.Services
             {
                 order = new Order
                 {
-                    CustomerId = Guid.Empty,
+                    CustomerId = GetStubUserId(),
                     Status = OrderStatus.Open
                 };
                 await _unitOfWork.OrderRepository.AddAsync(order);
@@ -114,6 +114,10 @@ namespace GameStore.Application.Services
         private async Task<Order?> GetOpenOrderAsync()
         {
             return await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
+        }
+        private Guid GetStubUserId()
+        {
+            return Guid.Parse("a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a");
         }
     }
 }

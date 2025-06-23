@@ -16,23 +16,26 @@ namespace GameStore.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<OrderService> _logger;
+        private readonly IPdfService _pdfService;
 
         public OrderService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            ILogger<OrderService> logger)
+            ILogger<OrderService> logger,
+            IPdfService pdfService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
+            _pdfService = pdfService;
         }
         public async Task<FileContentResult> ProcessBankPayment(Guid orderId)
         {
             var order = await _unitOfWork.OrderRepository.GetOrderWithItemsAsync(orderId)
             ?? throw new NotFoundException("Order not found");
 
-            var total = order.OrderGames.Sum(og => og.Price * og.Quantity);
-            var pdfBytes = GenerateInvoice(order.CustomerId, order.Id, total);
+            var total = (decimal)order.OrderGames.Sum(og => og.Price * og.Quantity);
+            var pdfBytes = _pdfService.GenerateBankInvoice(order.CustomerId, order.Id, total);
 
             order.Status = OrderStatus.Paid;
             await _unitOfWork.SaveChangesAsync();
@@ -41,23 +44,6 @@ namespace GameStore.Application.Services
             {
                 FileDownloadName = $"invoice_{order.Id}.pdf"
             };
-        }
-
-        private byte[] GenerateInvoice(Guid userId, Guid orderId, double total)
-        {
-            using var ms = new MemoryStream();
-            using var doc = new Document();
-            var writer = PdfWriter.GetInstance(doc, ms);
-
-            doc.Open();
-            doc.Add(new Paragraph($"Bank Invoice"));
-            doc.Add(new Paragraph($"Order ID: {orderId}"));
-            doc.Add(new Paragraph($"User ID: {userId}"));
-            doc.Add(new Paragraph($"Date: {DateTime.Now:yyyy-MM-dd}"));
-            doc.Add(new Paragraph($"Total: {total:C}"));
-            doc.Close();
-
-            return ms.ToArray();
         }
         public async Task<IEnumerable<OrderResponseDto>> GetPaidAndCancelledOrdersAsync()
         {
@@ -115,6 +101,31 @@ namespace GameStore.Application.Services
                 Description = "Pay with Visa/Mastercard"
             }
         });
+        }
+        public async Task CloseOrderAsync(Guid orderId)
+        {
+            var order = await _unitOfWork.OrderRepository.GetByIdAsync(orderId);
+            if (order == null) throw new NotFoundException("Order not found");
+
+            order.Status = OrderStatus.Paid;
+            order.Date = DateTime.UtcNow;
+
+            // Update stock quantities
+            foreach (var item in order.OrderGames)
+            {
+                var game = await _unitOfWork.GameRepository.GetByIdAsync(item.ProductId);
+                if (game != null)
+                {
+                    game.UnitInStock -= item.Quantity;
+                }
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<Order> GetOpenOrderAsync()
+        {
+            return await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
         }
     }
 }
