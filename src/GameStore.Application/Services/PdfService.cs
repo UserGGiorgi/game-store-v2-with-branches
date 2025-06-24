@@ -1,8 +1,8 @@
-﻿using iTextSharp.text.pdf;
-using iTextSharp.text;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using GameStore.Application.Interfaces;
-
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 
 namespace GameStore.Application.Services
 {
@@ -18,18 +18,20 @@ namespace GameStore.Application.Services
         public byte[] GenerateBankInvoice(Guid userId, Guid orderId, decimal total)
         {
             using var ms = new MemoryStream();
-            var doc = new Document();
-            var writer = PdfWriter.GetInstance(doc, ms);
 
-            doc.Open();
+            using var writer = new PdfWriter(ms);
+            using var pdf = new PdfDocument(writer);
+            var document = new Document(pdf);
 
-            doc.Add(new Paragraph($"Invoice for Order: {orderId}"));
-            doc.Add(new Paragraph($"User ID: {userId}"));
-            doc.Add(new Paragraph($"Creation Date: {DateTime.Now:yyyy-MM-dd HH:mm}"));
-            doc.Add(new Paragraph($"Valid Until: {DateTime.Now.AddDays(_config.GetValue<int>("BankInvoiceSettings:ValidityDays")):yyyy-MM-dd HH:mm}"));
-            doc.Add(new Paragraph($"Total Amount: {total:C}"));
+            document.Add(new Paragraph($"Invoice for Order: {orderId}"));
+            document.Add(new Paragraph($"User ID: {userId}"));
+            document.Add(new Paragraph($"Creation Date: {DateTime.Now:yyyy-MM-dd HH:mm}"));
 
-            doc.Close();
+            var validityDays = _config.GetValue<int>("BankInvoiceSettings:ValidityDays");
+            document.Add(new Paragraph($"Valid Until: {DateTime.Now.AddDays(validityDays):yyyy-MM-dd HH:mm}"));
+            document.Add(new Paragraph($"Total Amount: {total:C}"));
+
+            document.Close();
             return ms.ToArray();
         }
     }

@@ -18,7 +18,7 @@ namespace GameStore.Application.Interfaces
         Task<IEnumerable<OrderDetailDto>> GetCartAsync();
         Task<IEnumerable<PaymentMethodDto>> GetPaymentMethodsAsync();
         Task CloseOrderAsync(Guid orderId);
-        Task<Order> GetOpenOrderAsync();
+        Task<Order?> GetOpenOrderAsync();
 
     }
 }

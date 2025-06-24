@@ -4,8 +4,6 @@ using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -39,7 +37,7 @@ namespace GameStore.Application.Services
 
             order.Status = OrderStatus.Paid;
             await _unitOfWork.SaveChangesAsync();
-
+            _logger.LogInformation("Bank payment processed for order {OrderId} with total {Total}", order.Id, total);
             return new FileContentResult(pdfBytes, "application/pdf")
             {
                 FileDownloadName = $"invoice_{order.Id}.pdf"
@@ -119,11 +117,11 @@ namespace GameStore.Application.Services
                     game.UnitInStock -= item.Quantity;
                 }
             }
-
+            _logger.LogInformation("Closing order {OrderId} with {ItemCount} items", order.Id, order.OrderGames.Count);
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<Order> GetOpenOrderAsync()
+        public async Task<Order?> GetOpenOrderAsync()
         {
             return await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
         }

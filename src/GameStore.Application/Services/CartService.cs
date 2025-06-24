@@ -17,16 +17,13 @@ namespace GameStore.Application.Services
     public class CartService : ICartService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly ILogger<CartService> _logger;
 
         public CartService(
         IUnitOfWork unitOfWork,
-        IMapper mapper,
         ILogger<CartService> logger)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = logger;
         }
 
@@ -34,13 +31,15 @@ namespace GameStore.Application.Services
         {
             var order = await GetOrCreateOpenOrderAsync();
 
-            var game = await _unitOfWork.GameRepository
-                .GetByKeyAsync(gameKey)
-                ?? throw new NotFoundException("Game not found");
-
+            var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey);
+            if (game == null)
+            {
+                throw new NotFoundException("Game not found");
+            }
             if (game.UnitInStock <= 0)
+            {
                 throw new BadRequestException("Game out of stock");
-
+            }
             var existingItem = order.OrderGames
                 .FirstOrDefault(og => og.ProductId == game.Id);
 
@@ -61,15 +60,17 @@ namespace GameStore.Application.Services
                     Discount = game.Discount
                 });
             }
-
+            _logger.LogInformation("Added game {GameKey} to cart for user {UserId}", gameKey, GetStubUserId());
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task RemoveFromCartAsync(string gameKey)
         {
-            var order = await GetOpenOrderAsync()
-                ?? throw new NotFoundException("Cart is empty");
-
+            var order = await GetOpenOrderAsync();
+            if (order == null)
+            {
+                throw new NotFoundException("Cart is empty");
+            }
             var game = await _unitOfWork.GameRepository
                 .GetByKeyAsync(gameKey)
                 ?? throw new NotFoundException("Game not found");
@@ -89,13 +90,13 @@ namespace GameStore.Application.Services
             {
                 _unitOfWork.OrderRepository.Delete(order);
             }
-
+            _logger.LogInformation("Removed game {GameKey} from cart for user {UserId}", gameKey, GetStubUserId());
             await _unitOfWork.SaveChangesAsync();
         }
 
         private async Task<Order> GetOrCreateOpenOrderAsync()
         {
-            var order =  await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
+            var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
 
             if (order == null)
             {

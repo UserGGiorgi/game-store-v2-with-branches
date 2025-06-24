@@ -34,11 +34,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var baseUrl = builder.Configuration["PaymentMicroservice:BaseUrl"];
+if (string.IsNullOrWhiteSpace(baseUrl))
+    throw new InvalidOperationException("PaymentMicroservice BaseUrl is not configured.");
+
 builder.Services.AddHttpClient<IPaymentService, PaymentService>(client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration["PaymentMicroservice:BaseUrl"]);
+    client.BaseAddress = new Uri(baseUrl);
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
+
 builder.Services.Configure<TotalGamesCacheOptions>(
     builder.Configuration.GetSection(TotalGamesCacheOptions.SectionName));
 

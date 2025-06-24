@@ -39,7 +39,7 @@ namespace GameStore.Application.Services
         {
             var response = await _retryPolicy.ExecuteAsync(async () =>
                 await _httpClient.PostAsJsonAsync("api/payments/ibox", request));
-
+            _logger.LogInformation("Processing IBox payment for user {UserId} and order {OrderId}", request.UserId, request.OrderId);
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content.ReadFromJsonAsync<IBoxPaymentResultDto>();
@@ -52,7 +52,7 @@ namespace GameStore.Application.Services
         {
             var response = await _retryPolicy.ExecuteAsync(async () =>
                 await _httpClient.PostAsJsonAsync("api/payments/visa", request));
-
+            _logger.LogInformation("Processing Visa payment for card {CardNumber}", request.CardNumber);
             response.EnsureSuccessStatusCode();
         }
     }

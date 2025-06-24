@@ -19,22 +19,19 @@ namespace GameStore.Api.Controllers
         private readonly IPaymentService _paymentService;
         private readonly IPdfService _pdfService;
         private readonly ILogger<OrdersController> _logger;
-        private readonly IConfiguration _config;
 
         public OrdersController(
             IOrderService orderService,
             ICartService cartService,
             IPaymentService paymentService,
             IPdfService pdfService,
-            ILogger<OrdersController> logger,
-            IConfiguration config)
+            ILogger<OrdersController> logger)
         {
             _orderService = orderService;
             _cartService = cartService;
             _paymentService = paymentService;
             _pdfService = pdfService;
             _logger = logger;
-            _config = config;
         }
         [HttpPost("/games/{key}/buy")]
         public async Task<IActionResult> AddToCart(string key)
@@ -88,8 +85,7 @@ namespace GameStore.Api.Controllers
             var userId = GetStubUserId();
             if (userId == Guid.Empty)
                 return Unauthorized("Invalid user credentials");
-
-            // Get the actual open order (cart) instead of just cart items
+            _logger.LogInformation("Processing payment for user {UserId} with method {Method}", userId, request.Method);
             var order = await _orderService.GetOpenOrderAsync();
             if (order == null || !order.OrderGames.Any())
                 return BadRequest("Cart is empty");
@@ -108,7 +104,6 @@ namespace GameStore.Api.Controllers
             var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
             var pdfBytes = _pdfService.GenerateBankInvoice(userId, order.Id, total);
 
-            // Close the current order
             await _orderService.CloseOrderAsync(order.Id);
 
             return File(pdfBytes, "application/pdf", $"invoice_{order.Id}.pdf");
