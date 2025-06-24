@@ -11,7 +11,7 @@ namespace GameStore.Application.Dtos.Order
     {
         public string Method { get; set; } = string.Empty;
 
-        public VisaPaymentModelDto Model { get; set; }  = new ();
+        public VisaPaymentModelDto? Model { get; set; }  = new ();
     }
 
 }

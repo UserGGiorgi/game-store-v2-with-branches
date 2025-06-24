@@ -1,21 +1,22 @@
-using GameStore.Web.Middleware;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using GameStore.Application.Dtos.Platforms.CreatePlatform;
-using GameStore.Infrastructure.Data;
-using GameStore.Application.Mapping;
-using GameStore.Application.Interfaces;
-using GameStore.Infrastructure.Services;
-using GameStore.Application.Services;
-using GameStore.Domain.Entities;
-using GameStore.Domain.Interfaces.Repositories;
-using GameStore.Domain.Interfaces;
-using GameStore.Infrastructure.Data.Repository;
-using GameStore.Infrastructure.Data.Repositories;
-using GameStore.Shared.Middleware;
 using GameStore.Api.Configuration;
-using Microsoft.AspNetCore.Http.Features;
+using GameStore.Application.Dtos.Platforms.CreatePlatform;
+using GameStore.Application.Interfaces;
+using GameStore.Application.Mapping;
+using GameStore.Application.Services;
+using GameStore.Application.Services.Payment;
+using GameStore.Domain.Entities;
+using GameStore.Domain.Interfaces;
+using GameStore.Domain.Interfaces.Repositories;
+using GameStore.Infrastructure.Data;
+using GameStore.Infrastructure.Data.Repositories;
+using GameStore.Infrastructure.Data.Repository;
+using GameStore.Infrastructure.Services;
 using GameStore.Shared.Configuration;
+using GameStore.Shared.Middleware;
+using GameStore.Web.Middleware;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,7 +40,13 @@ var baseUrl = builder.Configuration["PaymentMicroservice:BaseUrl"];
 if (string.IsNullOrWhiteSpace(baseUrl))
     throw new InvalidOperationException("PaymentMicroservice BaseUrl is not configured.");
 
-builder.Services.AddHttpClient<IPaymentService, PaymentService>(client =>
+builder.Services.AddHttpClient <IBoxPaymentService > (client =>
+{
+    client.BaseAddress = new Uri(baseUrl);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
+
+builder.Services.AddHttpClient<VisaPaymentService>(client =>
 {
     client.BaseAddress = new Uri(baseUrl);
     client.DefaultRequestHeaders.Add("Accept", "application/json");
@@ -66,6 +73,11 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+//payment
+builder.Services.AddTransient<BankPaymentService>();
+//builder.Services.AddTransient<IBoxPaymentService>();
+//builder.Services.AddTransient<VisaPaymentService>();
+builder.Services.AddSingleton<IPaymentServiceFactory, PaymentServiceFactory>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

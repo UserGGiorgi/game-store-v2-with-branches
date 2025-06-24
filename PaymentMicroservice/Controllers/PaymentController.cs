@@ -34,7 +34,7 @@ namespace PaymentMicroservice.Controllers
         [HttpPost("visa")]
         public IActionResult ProcessVisa([FromBody] VisaPaymentRequest request)
         {
-            if (request.CardNumber.Length != 16 ||
+            if (request.CardNumber.Length != 15 ||
                 request.CVV.Length != 3 ||
                 request.ExpiryYear < DateTime.Now.Year)
             {
@@ -56,7 +56,7 @@ namespace PaymentMicroservice.Controllers
     public record IBoxPaymentResponse(Guid UserId, Guid OrderId, DateTime PaymentDate, decimal Sum);
     public record VisaPaymentRequest(
         string CardNumber,
-        string Holder,
+        string HolderName,
         int ExpiryMonth,
         int ExpiryYear,
         string CVV,

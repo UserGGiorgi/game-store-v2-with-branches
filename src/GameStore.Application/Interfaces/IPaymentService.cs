@@ -1,4 +1,5 @@
 ﻿using GameStore.Application.Dtos.Order;
+using GameStore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace GameStore.Application.Interfaces
 {
     public interface IPaymentService
     {
-        Task<IBoxPaymentResultDto> ProcessIBoxPaymentAsync(IBoxPaymentRequest request);
-        Task ProcessVisaPaymentAsync(VisaPaymentRequest request);
+        Task<PaymentResult> PayAsync(Order order, Guid userId, IPaymentModel model);
     }
+    public interface IPaymentModel { }
+
+    public abstract class PaymentResult { }
 }

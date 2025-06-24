@@ -1,6 +1,9 @@
 ﻿using GameStore.Application.Dtos.Order;
+using GameStore.Application.Dtos.Order.PaymentModels;
+using GameStore.Application.Dtos.Order.PaymentResults;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Services;
+using GameStore.Application.Services.Payment;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -16,35 +19,32 @@ namespace GameStore.Api.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly ICartService _cartService;
-        private readonly IPaymentService _paymentService;
-        private readonly IPdfService _pdfService;
+        private readonly IPaymentServiceFactory _paymentServiceFactory;
         private readonly ILogger<OrdersController> _logger;
 
         public OrdersController(
             IOrderService orderService,
             ICartService cartService,
-            IPaymentService paymentService,
-            IPdfService pdfService,
+            IPaymentServiceFactory paymentServiceFactory,
             ILogger<OrdersController> logger)
         {
             _orderService = orderService;
             _cartService = cartService;
-            _paymentService = paymentService;
-            _pdfService = pdfService;
+            _paymentServiceFactory = paymentServiceFactory;
             _logger = logger;
         }
         [HttpPost("/games/{key}/buy")]
         public async Task<IActionResult> AddToCart(string key)
         {
-                await _cartService.AddToCartAsync(key);
-                return Ok();
+            await _cartService.AddToCartAsync(key);
+            return Ok();
         }
 
         [HttpDelete("cart/{key}")]
         public async Task<IActionResult> RemoveFromCart(string key)
         {
-                await _cartService.RemoveFromCartAsync(key);
-                return NoContent();
+            await _cartService.RemoveFromCartAsync(key);
+            return NoContent();
         }
 
         [HttpGet]
@@ -57,14 +57,14 @@ namespace GameStore.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(Guid id)
         {
-                var order = await _orderService.GetOrderByIdAsync(id);
-                return Ok(order);
+            var order = await _orderService.GetOrderByIdAsync(id);
+            return Ok(order);
         }
         [HttpGet("{id}/details")]
         public async Task<IActionResult> GetOrderDetails(Guid id)
         {
-                var details = await _orderService.GetOrderDetailsAsync(id);
-                return Ok(details);
+            var details = await _orderService.GetOrderDetailsAsync(id);
+            return Ok(details);
         }
         [HttpGet("cart")]
         public async Task<IActionResult> GetCart()
@@ -85,77 +85,54 @@ namespace GameStore.Api.Controllers
             var userId = GetStubUserId();
             if (userId == Guid.Empty)
                 return Unauthorized("Invalid user credentials");
-            _logger.LogInformation("Processing payment for user {UserId} with method {Method}", userId, request.Method);
+
+            _logger.LogInformation("Processing payment for user {UserId} with method {Method}",
+                userId, request.Method);
+
             var order = await _orderService.GetOpenOrderAsync();
             if (order == null || !order.OrderGames.Any())
                 return BadRequest("Cart is empty");
 
-            return request.Method.ToLower() switch
+            // Convert DTO to domain model
+            IPaymentModel model = request.Method.ToLower() switch
             {
-                "bank" => await ProcessBankPayment(userId, order),
-                "ibox terminal" => await ProcessIBoxPayment(userId, order),
-                "visa" => await ProcessVisaPayment(request.Model, userId, order),
-                _ => BadRequest($"Unsupported payment method: {request.Method}")
+                "bank" => new BankPaymentModel(),
+                "ibox terminal" => new IBoxPaymentModel(),
+                "visa" => new VisaPaymentModel
+                {
+                    HolderName = request.Model.Holder,
+                    CardNumber = request.Model.CardNumber,
+                    ExpiryMonth = request.Model.MonthExpire,
+                    ExpiryYear = request.Model.YearExpire,
+                    CVV = request.Model.Cvv2.ToString("000")
+                },
+                _ => throw new ArgumentException("Invalid payment method")
             };
-        }
 
-        private async Task<IActionResult> ProcessBankPayment(Guid userId, Order order)
-        {
-            var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
-            var pdfBytes = _pdfService.GenerateBankInvoice(userId, order.Id, total);
+            // Factory creates appropriate service
+            var paymentService = _paymentServiceFactory.Create(request.Method);
+            var result = await paymentService.PayAsync(order, userId, model);
 
             await _orderService.CloseOrderAsync(order.Id);
 
-            return File(pdfBytes, "application/pdf", $"invoice_{order.Id}.pdf");
-        }
-
-        private async Task<IActionResult> ProcessIBoxPayment(Guid userId, Order order)
-        {
-            var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
-
-            var iboxRequest = new IBoxPaymentRequest
+            // Handle different result types
+            return result switch
             {
-                UserId = userId,
-                OrderId = order.Id,
-                Amount = total
+                BankPaymentResult bankResult =>
+                    File(bankResult.PdfContent, "application/pdf", bankResult.FileName),
+
+                IBoxPaymentResult iboxResult => Ok(new IBoxPaymentResultDto
+                {
+                    UserId = iboxResult.UserId,
+                    OrderId = iboxResult.OrderId,
+                    PaymentDate = iboxResult.PaymentDate,
+                    Sum = iboxResult.Sum
+                }),
+
+                VisaPaymentResult => Ok(),
+
+                _ => BadRequest("Unknown payment result type")
             };
-
-            var result = await _paymentService.ProcessIBoxPaymentAsync(iboxRequest);
-
-            // Close the current order
-            await _orderService.CloseOrderAsync(order.Id);
-
-            return Ok(new IBoxPaymentResultDto
-            {
-                UserId = result.UserId,
-                OrderId = result.OrderId,
-                PaymentDate = result.PaymentDate,
-                Sum = result.Sum
-            });
-        }
-
-        private async Task<IActionResult> ProcessVisaPayment(VisaPaymentModelDto model, Guid userId, Order order)
-        {
-            if (model == null)
-                return BadRequest("Missing card details for Visa payment");
-
-            var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
-
-            var visaRequest = new VisaPaymentRequest
-            {
-                HolderName = model.Holder,
-                CardNumber = model.CardNumber,
-                ExpiryMonth = model.MonthExpire,
-                ExpiryYear = model.YearExpire,
-                CVV = model.Cvv2.ToString("000"),
-                Amount = total
-            };
-
-            await _paymentService.ProcessVisaPaymentAsync(visaRequest);
-
-            await _orderService.CloseOrderAsync(order.Id);
-
-            return Ok();
         }
 
         private Guid GetStubUserId()
