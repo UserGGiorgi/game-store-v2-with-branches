@@ -42,7 +42,7 @@ namespace GameStore.Infrastructure.Migrations
             migrationBuilder.AddPrimaryKey(
                 name: "PK_OrderGames",
                 table: "OrderGames",
-                columns: new[] { "OrderId", "ProductId" });
+                columns: ["OrderId", "ProductId"]);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_Orders",
@@ -106,7 +106,7 @@ namespace GameStore.Infrastructure.Migrations
             migrationBuilder.AddPrimaryKey(
                 name: "PK_OrderGame",
                 table: "OrderGame",
-                columns: new[] { "OrderId", "ProductId" });
+                columns: ["OrderId", "ProductId"]);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_OrderGame_Games_ProductId",

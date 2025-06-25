@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Payment
 {
-    public class IBoxPaymentService : IPaymentService
+    public class BoxPaymentService : IPaymentService
     {
         private readonly HttpClient _httpClient;
         private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
 
-        public IBoxPaymentService(HttpClient httpClient, ILogger<IBoxPaymentService> logger)
+        public BoxPaymentService(HttpClient httpClient, ILogger<BoxPaymentService> logger)
         {
             _httpClient = httpClient;
             _retryPolicy = Policy
@@ -36,16 +36,17 @@ namespace GameStore.Application.Services.Payment
         public async Task<PaymentResult> PayAsync(Order order, Guid userId, IPaymentModel model)
         {
             var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
-            var request = new IBoxPaymentRequest
+            var request = new BoxPaymentRequest
             { Amount = total, UserId = userId, OrderId = order.Id };
 
             var response = await _retryPolicy.ExecuteAsync(async () =>
                 await _httpClient.PostAsJsonAsync("api/payments/ibox", request));
 
             response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadFromJsonAsync<IBoxPaymentResultDto>();
-
-            return new IBoxPaymentResult
+            var result = await response.Content.ReadFromJsonAsync<BoxPaymentResultDto>();
+            return result == null
+                ? throw new InvalidOperationException("Failed to deserialize IBox payment result")
+                : (PaymentResult)new BoxPaymentResult
             {
                 UserId = result.UserId,
                 OrderId = result.OrderId,

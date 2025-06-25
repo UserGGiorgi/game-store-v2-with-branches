@@ -18,14 +18,14 @@ namespace GameStore.Application.Services.Payment
             _pdfService = pdfService;
         }
 
-        public async Task<PaymentResult> PayAsync(Order order, Guid userId, IPaymentModel model)
+        public Task<PaymentResult> PayAsync(Order order, Guid userId, IPaymentModel model)
         {
             var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
-            return new BankPaymentResult
+            return Task.FromResult<PaymentResult>(new BankPaymentResult
             {
                 PdfContent = _pdfService.GenerateBankInvoice(userId, order.Id, total),
                 FileName = $"invoice_{order.Id}.pdf"
-            };
+            });
         }
     }
 }

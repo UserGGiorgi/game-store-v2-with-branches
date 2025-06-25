@@ -161,7 +161,6 @@ public class GameService : IGameService
         game.Key = request.Game.Key;
         game.Description = request.Game.Description;
         game.Discount = request.Game.Discount;
-        var genreIds = request.Genres.ToList();
 
         await UpdateGameGenresAsync(game, request.Genres);
         await UpdateGamePlatformsAsync(game, request.Platforms);

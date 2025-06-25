@@ -778,3 +778,21 @@ GameStore.Domain.Exceptions.BadRequestException: Game key must be unique.
 2025-06-25 14:33:35.052 +04:00 [INF] Completed request: PUT /Games - Status: 200 - Time: 5254ms
 2025-06-25 14:39:02.702 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
 2025-06-25 14:39:03.495 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 795ms
+2025-06-25 14:55:20.059 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-25 14:55:20.973 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 917ms
+2025-06-25 15:11:31.852 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-25 15:11:32.637 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 787ms
+2025-06-25 15:11:37.320 +04:00 [INF] Starting request: GET /Games from ::1
+2025-06-25 15:11:37.496 +04:00 [INF] Retrieved 11 games
+2025-06-25 15:11:37.502 +04:00 [INF] Retrieved  games
+2025-06-25 15:11:37.513 +04:00 [INF] Completed request: GET /Games - Status: 200 - Time: 192ms
+2025-06-25 15:11:45.176 +04:00 [INF] Starting request: GET /Genres from ::1
+2025-06-25 15:11:45.252 +04:00 [INF] Returning 3 genres
+2025-06-25 15:11:45.253 +04:00 [INF] Completed request: GET /Genres - Status: 200 - Time: 76ms
+2025-06-25 15:11:51.523 +04:00 [INF] Starting request: GET /Orders from ::1
+2025-06-25 15:11:51.600 +04:00 [INF] Completed request: GET /Orders - Status: 200 - Time: 76ms
+2025-06-25 15:11:58.922 +04:00 [INF] Starting request: GET /Platforms from ::1
+2025-06-25 15:11:58.937 +04:00 [INF] Fetching all platforms
+2025-06-25 15:11:58.963 +04:00 [INF] Completed request: GET /Platforms - Status: 200 - Time: 40ms
+2025-06-25 15:12:03.292 +04:00 [INF] Starting request: GET /Publishers from ::1
+2025-06-25 15:12:03.336 +04:00 [INF] Completed request: GET /Publishers - Status: 200 - Time: 43ms

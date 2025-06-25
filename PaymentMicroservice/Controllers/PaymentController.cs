@@ -15,7 +15,7 @@ namespace PaymentMicroservice.Controllers
         }
 
         [HttpPost("ibox")]
-        public IActionResult ProcessIBox([FromBody] IBoxPaymentRequest request)
+        public IActionResult ProcessIBox([FromBody] BoxPaymentRequest request)
         {
             if (_random.NextDouble() < 0.1)
             {
@@ -23,7 +23,7 @@ namespace PaymentMicroservice.Controllers
                 return StatusCode(500, "Random payment failure");
             }
 
-            return Ok(new IBoxPaymentResponse(
+            return Ok(new BoxPaymentResponse(
                 UserId: request.UserId,
                 OrderId: request.OrderId,
                 PaymentDate: DateTime.UtcNow,
@@ -52,8 +52,8 @@ namespace PaymentMicroservice.Controllers
         }
     }
 
-    public record IBoxPaymentRequest(Guid UserId, Guid OrderId, decimal Amount);
-    public record IBoxPaymentResponse(Guid UserId, Guid OrderId, DateTime PaymentDate, decimal Sum);
+    public record BoxPaymentRequest(Guid UserId, Guid OrderId, decimal Amount);
+    public record BoxPaymentResponse(Guid UserId, Guid OrderId, DateTime PaymentDate, decimal Sum);
     public record VisaPaymentRequest(
         string CardNumber,
         string HolderName,

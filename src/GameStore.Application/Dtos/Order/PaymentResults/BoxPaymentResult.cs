@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Application.Dtos.Order.PaymentResults
 {
-    public class IBoxPaymentResult : PaymentResult
+    public class BoxPaymentResult : PaymentResult
     {
         public Guid UserId { get; set; }
         public Guid OrderId { get; set; }

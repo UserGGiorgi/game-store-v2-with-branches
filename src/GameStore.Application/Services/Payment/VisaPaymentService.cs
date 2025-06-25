@@ -34,9 +34,7 @@ namespace GameStore.Application.Services.Payment
                 .WaitAndRetryAsync(3, retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                 (result, timespan) =>
-                {
-                    _logger.LogWarning($"Retrying Visa payment. Attempt failed with: {result.Exception?.Message ?? result.Result?.StatusCode.ToString()}");
-                });
+                { });
         }
 
         public async Task<PaymentResult> PayAsync(Order order, Guid userId, IPaymentModel model)
@@ -53,7 +51,8 @@ namespace GameStore.Application.Services.Payment
                 CVV = visaModel.CVV,
                 Amount = total
             };
-
+            _logger.LogInformation("Processing Visa payment for user {UserId} with amount {Amount}",
+                userId, request.Amount);
             var response = await _retryPolicy.ExecuteAsync(async () =>
                 await _httpClient.PostAsJsonAsync("api/payments/visa", request));
 

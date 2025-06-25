@@ -22,7 +22,7 @@ namespace GameStore.Application.Services.Payment
             return paymentMethod.ToLower() switch
             {
                 "bank" => _serviceProvider.GetRequiredService<BankPaymentService>(),
-                "ibox terminal" => _serviceProvider.GetRequiredService<IBoxPaymentService>(),
+                "ibox terminal" => _serviceProvider.GetRequiredService<BoxPaymentService>(),
                 "visa" => _serviceProvider.GetRequiredService<VisaPaymentService>(),
                 _ => throw new ArgumentException($"Unsupported payment method: {paymentMethod}")
             };

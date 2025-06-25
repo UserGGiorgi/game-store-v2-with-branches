@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace GameStore.Application.Dtos.Order.PaymentModels
 {
-    public class IBoxPaymentModel : IPaymentModel { }
+    public class BoxPaymentModel : IPaymentModel { }
 }

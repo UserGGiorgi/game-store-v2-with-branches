@@ -86,7 +86,7 @@ namespace GameStore.Application.Services
                 order.OrderGames.Remove(cartItem);
             }
 
-            if (!order.OrderGames.Any())
+            if (order.OrderGames.Count() == 0)
             {
                 _unitOfWork.OrderRepository.Delete(order);
             }
@@ -115,7 +115,7 @@ namespace GameStore.Application.Services
         {
             return await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
         }
-        private Guid GetStubUserId()
+        private static Guid GetStubUserId()
         {
             return Guid.Parse("a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a");
         }

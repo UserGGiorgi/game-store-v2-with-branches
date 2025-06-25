@@ -90,14 +90,18 @@ namespace GameStore.Api.Controllers
                 userId, request.Method);
 
             var order = await _orderService.GetOpenOrderAsync();
-            if (order == null || !order.OrderGames.Any())
+            if (order == null || order.OrderGames.Count == 0)
                 return BadRequest("Cart is empty");
 
+            if(request.Model == null)
+            {
+                return BadRequest("model is empty");
+            }
             // Convert DTO to domain model
             IPaymentModel model = request.Method.ToLower() switch
             {
                 "bank" => new BankPaymentModel(),
-                "ibox terminal" => new IBoxPaymentModel(),
+                "ibox terminal" => new BoxPaymentModel(),
                 "visa" => new VisaPaymentModel
                 {
                     HolderName = request.Model.Holder,
@@ -121,7 +125,7 @@ namespace GameStore.Api.Controllers
                 BankPaymentResult bankResult =>
                     File(bankResult.PdfContent, "application/pdf", bankResult.FileName),
 
-                IBoxPaymentResult iboxResult => Ok(new IBoxPaymentResultDto
+                BoxPaymentResult iboxResult => Ok(new BoxPaymentResultDto
                 {
                     UserId = iboxResult.UserId,
                     OrderId = iboxResult.OrderId,
@@ -135,7 +139,7 @@ namespace GameStore.Api.Controllers
             };
         }
 
-        private Guid GetStubUserId()
+        private static Guid GetStubUserId()
         {
             return Guid.Parse("a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a");
         }

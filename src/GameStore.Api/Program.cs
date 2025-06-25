@@ -40,7 +40,7 @@ var baseUrl = builder.Configuration["PaymentMicroservice:BaseUrl"];
 if (string.IsNullOrWhiteSpace(baseUrl))
     throw new InvalidOperationException("PaymentMicroservice BaseUrl is not configured.");
 
-builder.Services.AddHttpClient <IBoxPaymentService > (client =>
+builder.Services.AddHttpClient <BoxPaymentService > (client =>
 {
     client.BaseAddress = new Uri(baseUrl);
     client.DefaultRequestHeaders.Add("Accept", "application/json");
@@ -79,28 +79,19 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<BankPaymentService>();
 builder.Services.AddSingleton<IPaymentServiceFactory, PaymentServiceFactory>();
 
+builder.Services.AddScoped(provider => new RepositoryCollection(
+    new Lazy<IGameRepository>(() => provider.GetRequiredService<IGameRepository>()),
+    new Lazy<IGenreRepository>(() => provider.GetRequiredService<IGenreRepository>()),
+    new Lazy<IPlatformRepository>(() => provider.GetRequiredService<IPlatformRepository>()),
+    new Lazy<IPublisherRepository>(() => provider.GetRequiredService<IPublisherRepository>()),
+    new Lazy<IOrderRepository>(() => provider.GetRequiredService<IOrderRepository>()),
+    new Lazy<IGameGenreRepository>(() => provider.GetRequiredService<IGameGenreRepository>()),
+    new Lazy<IGamePlatformRepository>(() => provider.GetRequiredService<IGamePlatformRepository>())
+));
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-builder.Services.AddScoped(provider => new Lazy<IGameRepository>(
-    () => provider.GetRequiredService<IGameRepository>()));
 
-builder.Services.AddScoped(provider => new Lazy<IGenreRepository>(
-    () => provider.GetRequiredService<IGenreRepository>()));
-
-builder.Services.AddScoped(provider => new Lazy<IPlatformRepository>(
-    () => provider.GetRequiredService<IPlatformRepository>()));
-
-builder.Services.AddScoped(provider => new Lazy<IPublisherRepository>(
-    () => provider.GetRequiredService<IPublisherRepository>()));
-
-builder.Services.AddScoped(provider => new Lazy<IGameGenreRepository>(
-    () => provider.GetRequiredService<IGameGenreRepository>()));
-
-builder.Services.AddScoped(provider => new Lazy<IGamePlatformRepository>(
-    () => provider.GetRequiredService<IGamePlatformRepository>()));
-
-builder.Services.AddScoped(provider => new Lazy<IOrderRepository>(
-    () => provider.GetRequiredService<IOrderRepository>()));
 //for angularr
 builder.Services.AddCors(options =>
 {
