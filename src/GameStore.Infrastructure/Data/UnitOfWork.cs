@@ -15,7 +15,9 @@ namespace GameStore.Infrastructure.Data
         Lazy<IGenreRepository> genreRepository,
         Lazy<IPlatformRepository> platformRepository,
         Lazy<IPublisherRepository> publisherRepository,
-        Lazy<IOrderRepository> orderRepository)
+        Lazy<IOrderRepository> orderRepository,
+        Lazy<IGameGenreRepository> gameGenreRepository,
+        Lazy<IGamePlatformRepository> gamePlatformRepository)
         : IUnitOfWork
     {
         private IDbContextTransaction _transaction = null!;
@@ -25,6 +27,8 @@ namespace GameStore.Infrastructure.Data
         public IPublisherRepository PublisherRepository => publisherRepository.Value;
 
         public IPlatformRepository PlatformRepository => platformRepository.Value;
+        public IGameGenreRepository GameGenreRepository => gameGenreRepository.Value;
+        public IGamePlatformRepository GamePlatformRepository => gamePlatformRepository.Value;
         public IOrderRepository OrderRepository => orderRepository.Value;
         public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         => _transaction = await context.Database.BeginTransactionAsync(cancellationToken);

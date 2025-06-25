@@ -72,11 +72,11 @@ builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+builder.Services.AddScoped<IGameGenreRepository, GameGenreRepository>();
+builder.Services.AddScoped<IGamePlatformRepository, GamePlatformRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-//payment
+
 builder.Services.AddTransient<BankPaymentService>();
-//builder.Services.AddTransient<IBoxPaymentService>();
-//builder.Services.AddTransient<VisaPaymentService>();
 builder.Services.AddSingleton<IPaymentServiceFactory, PaymentServiceFactory>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -92,6 +92,13 @@ builder.Services.AddScoped(provider => new Lazy<IPlatformRepository>(
 
 builder.Services.AddScoped(provider => new Lazy<IPublisherRepository>(
     () => provider.GetRequiredService<IPublisherRepository>()));
+
+builder.Services.AddScoped(provider => new Lazy<IGameGenreRepository>(
+    () => provider.GetRequiredService<IGameGenreRepository>()));
+
+builder.Services.AddScoped(provider => new Lazy<IGamePlatformRepository>(
+    () => provider.GetRequiredService<IGamePlatformRepository>()));
+
 builder.Services.AddScoped(provider => new Lazy<IOrderRepository>(
     () => provider.GetRequiredService<IOrderRepository>()));
 //for angularr
@@ -107,7 +114,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-//app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); 
 app.UseCors("AllowFrontend");
 
 app.UseMiddleware<RequestLoggingMiddleware>();

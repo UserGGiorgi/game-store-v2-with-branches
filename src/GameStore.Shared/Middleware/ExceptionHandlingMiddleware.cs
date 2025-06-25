@@ -30,7 +30,11 @@ namespace GameStore.Web.Middleware
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                var exception = ex is AggregateException aggregate && aggregate.InnerExceptions.Count == 1
+                    ? aggregate.InnerExceptions[0]
+                    : ex;
+
+                await HandleExceptionAsync(context, exception);
             }
         }
 
@@ -77,14 +81,23 @@ namespace GameStore.Web.Middleware
             };
         }
 
-        private static int GetStatusCode(Exception exception) =>
-            exception switch
+        private static int GetStatusCode(Exception exception)
+        {
+            if (exception.InnerException != null)
+            {
+                var innerStatusCode = GetStatusCode(exception.InnerException);
+                if (innerStatusCode != (int)HttpStatusCode.InternalServerError)
+                    return innerStatusCode;
+            }
+
+            return exception switch
             {
                 BadRequestException => (int)HttpStatusCode.BadRequest,
                 NotFoundException => (int)HttpStatusCode.NotFound,
                 UnauthorizedAccessException => (int)HttpStatusCode.Unauthorized,
                 _ => (int)HttpStatusCode.InternalServerError
             };
+        }
 
         private static string GetTitle(Exception exception) =>
             exception switch

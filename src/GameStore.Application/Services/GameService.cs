@@ -38,7 +38,7 @@ public class GameService : IGameService
     public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
     {
         await ValidatePublisherAsync(request.Publisher);
-        await ValidateGameKeyUniquenessAsync(request.Game.Key);
+        await ValidateCreateGameKeysAsync(request.Game.Key);
 
         var validGenres = await ValidateAndGetGenresAsync(request.Genres);
         var validPlatforms = await ValidateAndGetPlatformsAsync(request.Platforms);
@@ -77,7 +77,7 @@ public class GameService : IGameService
             throw new BadRequestException("Specified publisher does not exist.");
         }
     }
-    private async Task ValidateGameKeyUniquenessAsync(string gameKey)
+    private async Task ValidateCreateGameKeysAsync(string gameKey)
     {
         var existingGame = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey);
         if (existingGame != null)
@@ -155,7 +155,7 @@ public class GameService : IGameService
         await ValidatePublisherAsync(request.Publisher);
         var game = await ValidateGameAsync(request.Game.Id);
 
-        await ValidateGameKeyUniquenessAsync(request.Game.Key);
+        await ValidateUpdatedGameKeyAsync(request.Game.Key,request.Game.Id);
 
         game.Name = request.Game.Name;
         game.Key = request.Game.Key;
@@ -174,6 +174,16 @@ public class GameService : IGameService
 
         return _mapper.Map<GameResponseDto>(game);
     }
+    private async Task ValidateUpdatedGameKeyAsync(string gameKey, Guid currentGameId)
+    {
+        var existingGame = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey);
+        if (existingGame != null && existingGame.Id != currentGameId)
+        {
+            _logger.LogWarning("Duplicate game key detected: {GameKey} for game {GameId}",
+                gameKey, currentGameId);
+            throw new BadRequestException("Game key must be unique.");
+        }
+    }
     private async Task<Game> ValidateGameAsync(Guid gameId)
     {
         var game = await _unitOfWork.GameRepository.GetByIdAsync(gameId);
@@ -187,25 +197,64 @@ public class GameService : IGameService
     }
     private async Task UpdateGameGenresAsync(Game game, IEnumerable<Guid> genreIds)
     {
-        var validGenres = await ValidateAndGetGenresAsync(genreIds);
+        var currentGameGenres = await _unitOfWork.GameGenreRepository
+            .GetByGameIdAsync(game.Id);
 
-        game.Genres.Clear();
-        foreach (var genre in validGenres)
+        var validGenres = await ValidateAndGetGenresAsync(genreIds);
+        var validGenreIds = validGenres.Select(g => g.Id).ToList();
+
+        var genresToRemove = currentGameGenres
+            .Where(gg => !validGenreIds.Contains(gg.GenreId))
+            .ToList();
+
+        foreach (var gameGenre in genresToRemove)
         {
-            game.Genres.Add(new GameGenre { GenreId = genre.Id });
-            _logger.LogDebug("Added genre {GenreId} to game {GameId}", genre.Id, game.Id);
+            _unitOfWork.GameGenreRepository.Delete(gameGenre);
+        }
+
+        var existingGenreIds = currentGameGenres.Select(gg => gg.GenreId).ToList();
+        foreach (var genreId in validGenreIds)
+        {
+            if (!existingGenreIds.Contains(genreId))
+            {
+                await _unitOfWork.GameGenreRepository.AddAsync(new GameGenre
+                {
+                    GameId = game.Id,
+                    GenreId = genreId
+                });
+            }
         }
     }
 
     private async Task UpdateGamePlatformsAsync(Game game, IEnumerable<Guid> platformIds)
     {
-        var validPlatforms = await ValidateAndGetPlatformsAsync(platformIds);
+        var currentGamePlatforms = await _unitOfWork.GamePlatformRepository
+            .GetByGameIdAsync(game.Id);
 
-        game.Platforms.Clear();
-        foreach (var platform in validPlatforms)
+        var validPlatforms = await ValidateAndGetPlatformsAsync(platformIds);
+        var validPlatformIds = validPlatforms.Select(p => p.Id).ToList();
+
+        // Remove old
+        foreach (var gamePlatform in currentGamePlatforms)
         {
-            game.Platforms.Add(new GamePlatform { PlatformId = platform.Id });
-            _logger.LogDebug("Added platform {PlatformId} to game {GameId}", platform.Id, game.Id);
+            if (!validPlatformIds.Contains(gamePlatform.PlatformId))
+            {
+                _unitOfWork.GamePlatformRepository.Delete(gamePlatform);
+            }
+        }
+
+        // Add new
+        var existingPlatformIds = currentGamePlatforms.Select(gp => gp.PlatformId).ToList();
+        foreach (var platformId in validPlatformIds)
+        {
+            if (!existingPlatformIds.Contains(platformId))
+            {
+               await _unitOfWork.GamePlatformRepository.AddAsync(new GamePlatform
+                {
+                    GameId = game.Id,
+                    PlatformId = platformId
+                });
+            }
         }
     }
     public async Task DeleteGameAsync(string key)

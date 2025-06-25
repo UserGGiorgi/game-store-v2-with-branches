@@ -18,8 +18,18 @@ namespace GameStore.Application.Mapping
     {
         public MappingProfile()
         {
+            CreateMap<GameGenre, Guid>()
+            .ConvertUsing(gg => gg.GenreId);
+
+            CreateMap<GamePlatform, Guid>()
+                .ConvertUsing(gp => gp.PlatformId);
+
             CreateMap<Game, GameDto>();
-            CreateMap<Game, GameResponseDto>();
+            CreateMap<Game, GameResponseDto>()
+            .ForMember(dest => dest.Genres,
+                opt => opt.MapFrom(src => src.Genres))
+            .ForMember(dest => dest.Platforms,
+                opt => opt.MapFrom(src => src.Platforms));
             CreateMap<Game, SimpleGameResponseDto>();
 
             CreateMap<Genre, GenreDetailsDto>();

@@ -108,7 +108,6 @@ namespace GameStore.Application.Services
                 await _unitOfWork.OrderRepository.AddAsync(order);
                 await _unitOfWork.SaveChangesAsync();
             }
-
             return order;
         }
 
