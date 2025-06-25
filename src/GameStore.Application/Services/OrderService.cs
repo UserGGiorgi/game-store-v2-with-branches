@@ -68,7 +68,7 @@ namespace GameStore.Application.Services
         {
             var order = await _unitOfWork.OrderRepository.GetCartWithItemsAsync();
 
-            if (order == null || order.OrderGames.Count() == 0)
+            if (order == null || order.OrderGames.Count == 0)
                 return [];
 
             return order.OrderGames.Select(og => new OrderDetailDto

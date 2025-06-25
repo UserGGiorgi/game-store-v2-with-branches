@@ -86,7 +86,7 @@ namespace GameStore.Application.Services
                 order.OrderGames.Remove(cartItem);
             }
 
-            if (order.OrderGames.Count() == 0)
+            if (order.OrderGames.Count != 0)
             {
                 _unitOfWork.OrderRepository.Delete(order);
             }
