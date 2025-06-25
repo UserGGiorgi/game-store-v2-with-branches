@@ -1,4 +1,5 @@
 using FluentValidation;
+using GameStore.Api;
 using GameStore.Api.Configuration;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
 using GameStore.Application.Interfaces;
@@ -33,63 +34,17 @@ builder.Services.AddValidatorsFromAssembly(typeof(CreatePlatformRequestValidator
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<GameStoreDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-var baseUrl = builder.Configuration["PaymentMicroservice:BaseUrl"];
-if (string.IsNullOrWhiteSpace(baseUrl))
-    throw new InvalidOperationException("PaymentMicroservice BaseUrl is not configured.");
-
-builder.Services.AddHttpClient <BoxPaymentService > (client =>
-{
-    client.BaseAddress = new Uri(baseUrl);
-    client.DefaultRequestHeaders.Add("Accept", "application/json");
-});
-
-builder.Services.AddHttpClient<VisaPaymentService>(client =>
-{
-    client.BaseAddress = new Uri(baseUrl);
-    client.DefaultRequestHeaders.Add("Accept", "application/json");
-});
+builder.Services.AddHttpClients(builder.Configuration);
 
 builder.Services.Configure<TotalGamesCacheOptions>(
     builder.Configuration.GetSection(TotalGamesCacheOptions.SectionName));
-
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<TimeProvider>(TimeProvider.System);
-
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
-builder.Services.AddScoped<IGameService, GameService>();
-builder.Services.AddScoped<IGenreService, GenreService>();
-builder.Services.AddScoped<IPlatformService, PlatformService>();
-builder.Services.AddScoped<IPublisherService, PublisherService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<IPdfService, PdfService>();
-
-builder.Services.AddScoped<IGameRepository, GameRepository>();
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
-builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
-builder.Services.AddScoped<IGameGenreRepository, GameGenreRepository>();
-builder.Services.AddScoped<IGamePlatformRepository, GamePlatformRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
-builder.Services.AddTransient<BankPaymentService>();
-builder.Services.AddSingleton<IPaymentServiceFactory, PaymentServiceFactory>();
-
-builder.Services.AddScoped(provider => new RepositoryCollection(
-    new Lazy<IGameRepository>(() => provider.GetRequiredService<IGameRepository>()),
-    new Lazy<IGenreRepository>(() => provider.GetRequiredService<IGenreRepository>()),
-    new Lazy<IPlatformRepository>(() => provider.GetRequiredService<IPlatformRepository>()),
-    new Lazy<IPublisherRepository>(() => provider.GetRequiredService<IPublisherRepository>()),
-    new Lazy<IOrderRepository>(() => provider.GetRequiredService<IOrderRepository>()),
-    new Lazy<IGameGenreRepository>(() => provider.GetRequiredService<IGameGenreRepository>()),
-    new Lazy<IGamePlatformRepository>(() => provider.GetRequiredService<IGamePlatformRepository>())
-));
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddServices();
+builder.Services.AddRepositories(builder.Configuration);
 
 
 //for angularr

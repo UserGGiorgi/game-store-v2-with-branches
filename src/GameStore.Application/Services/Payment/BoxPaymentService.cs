@@ -29,7 +29,6 @@ namespace GameStore.Application.Services.Payment
                     r.StatusCode >= HttpStatusCode.InternalServerError)
                 .WaitAndRetryAsync(3, retryAttempt =>
                     TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
-            Console.WriteLine("HttpClient BaseAddress: " + _httpClient.BaseAddress);
 
         }
 

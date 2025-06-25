@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using Microsoft.Extensions.Hosting;
+using GameStore.Domain.Exceptions;
 
 namespace GameStore.Web.Middleware
 {
@@ -116,19 +117,4 @@ namespace GameStore.Web.Middleware
             };
     }
 
-    public class BadRequestException : Exception
-    {
-        public object? Errors { get; }
-
-        public BadRequestException(string message, object? errors = null)
-            : base(message)
-        {
-            Errors = errors;
-        }
-    }
-
-    public class NotFoundException : Exception
-    {
-        public NotFoundException(string message) : base(message) { }
-    }
 }
