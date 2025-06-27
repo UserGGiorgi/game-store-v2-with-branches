@@ -1,4 +1,5 @@
 ﻿using GameStore.Application.Dtos.Order;
+using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
@@ -36,7 +37,7 @@ namespace GameStore.Application.Services.Payment
         {
             var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
             var request = new BoxPaymentRequest
-            { Amount = total, UserId = userId, OrderId = order.Id };
+            { transactionAmount = total, accountNumber = userId, invoiceNumber = order.Id };
 
             var response = await _retryPolicy.ExecuteAsync(async () =>
                 await _httpClient.PostAsJsonAsync("api/payments/ibox", request));

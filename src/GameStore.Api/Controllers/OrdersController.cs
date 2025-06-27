@@ -1,5 +1,8 @@
-﻿using GameStore.Application.Dtos.Order;
+﻿using FluentValidation;
+using GameStore.Application.Dtos.Genres.UpdateGenre;
+using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Order.PaymentModels;
+using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Services;
@@ -10,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Polly;
 using System.Security.Claims;
+using System.Threading;
 
 namespace GameStore.Api.Controllers
 {
@@ -31,6 +35,7 @@ namespace GameStore.Api.Controllers
             _orderService = orderService;
             _cartService = cartService;
             _paymentServiceFactory = paymentServiceFactory;
+            _validator = validator;
             _logger = logger;
         }
         [HttpPost("/games/{key}/buy")]

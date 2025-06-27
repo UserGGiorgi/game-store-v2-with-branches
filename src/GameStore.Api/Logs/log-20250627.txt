@@ -1,0 +1,221 @@
+2025-06-27 22:25:30.159 +04:00 [ERR] Hosting failed to start
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use.
+ ---> Microsoft.AspNetCore.Connections.AddressInUseException: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+ ---> System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, Boolean disconnectOnFailure, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportOptions.CreateDefaultBoundListenSocket(EndPoint endpoint)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory.BindAsync(EndPoint endpoint, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.TransportManager.BindAsync(EndPoint endPoint, ConnectionDelegate connectionDelegate, EndpointConfig endpointConfig, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.<>c__DisplayClass28_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(ListenOptions[] listenOptions, AddressBindContext context, Func`2 useHttps, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__15_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+2025-06-27 22:25:53.409 +04:00 [ERR] Hosting failed to start
+System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use.
+ ---> Microsoft.AspNetCore.Connections.AddressInUseException: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+ ---> System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, Boolean disconnectOnFailure, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportOptions.CreateDefaultBoundListenSocket(EndPoint endpoint)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory.BindAsync(EndPoint endpoint, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.TransportManager.BindAsync(EndPoint endPoint, ConnectionDelegate connectionDelegate, EndpointConfig endpointConfig, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.<>c__DisplayClass28_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(ListenOptions[] listenOptions, AddressBindContext context, Func`2 useHttps, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__15_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+2025-06-27 22:26:26.847 +04:00 [INF] Starting request: GET /swagger from ::1
+2025-06-27 22:26:27.668 +04:00 [INF] Completed request: GET /swagger - Status: 301 - Time: 823ms
+2025-06-27 22:26:27.679 +04:00 [INF] Starting request: GET /swagger/index.html from ::1
+2025-06-27 22:26:27.716 +04:00 [INF] Completed request: GET /swagger/index.html - Status: 200 - Time: 37ms
+2025-06-27 22:26:27.747 +04:00 [INF] Starting request: GET /swagger/swagger-ui.css from ::1
+2025-06-27 22:26:27.751 +04:00 [INF] Starting request: GET /swagger/index.css from ::1
+2025-06-27 22:26:27.751 +04:00 [INF] Starting request: GET /swagger/swagger-ui-standalone-preset.js from ::1
+2025-06-27 22:26:27.752 +04:00 [INF] Starting request: GET /swagger/swagger-ui-bundle.js from ::1
+2025-06-27 22:26:27.754 +04:00 [INF] Starting request: GET /swagger/index.js from ::1
+2025-06-27 22:26:27.758 +04:00 [INF] Completed request: GET /swagger/index.js - Status: 200 - Time: 3ms
+2025-06-27 22:26:27.765 +04:00 [INF] Completed request: GET /swagger/index.css - Status: 200 - Time: 13ms
+2025-06-27 22:26:27.785 +04:00 [INF] Completed request: GET /swagger/swagger-ui.css - Status: 200 - Time: 38ms
+2025-06-27 22:26:27.785 +04:00 [INF] Completed request: GET /swagger/swagger-ui-standalone-preset.js - Status: 200 - Time: 34ms
+2025-06-27 22:26:27.801 +04:00 [INF] Completed request: GET /swagger/swagger-ui-bundle.js - Status: 200 - Time: 49ms
+2025-06-27 22:26:27.932 +04:00 [INF] Starting request: GET /swagger/favicon-32x32.png from ::1
+2025-06-27 22:26:27.933 +04:00 [INF] Completed request: GET /swagger/favicon-32x32.png - Status: 200 - Time: 0ms
+2025-06-27 22:26:27.961 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-27 22:26:27.980 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 19ms
+2025-06-27 22:26:43.230 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-27 22:26:43.516 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 285ms
+2025-06-27 22:26:48.385 +04:00 [INF] Starting request: GET /Games from ::1
+2025-06-27 22:26:48.569 +04:00 [INF] Retrieved 11 games
+2025-06-27 22:26:48.575 +04:00 [INF] Retrieved  games
+2025-06-27 22:26:48.578 +04:00 [INF] Completed request: GET /Games - Status: 200 - Time: 192ms
+2025-06-27 22:27:51.553 +04:00 [INF] Starting request: POST /games/tom223/buy from ::1
+2025-06-27 22:27:51.662 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-27 22:27:51.685 +04:00 [INF] Added game tom223 to cart for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a"
+2025-06-27 22:27:51.709 +04:00 [INF] Completed request: POST /games/tom223/buy - Status: 200 - Time: 155ms
+2025-06-27 22:27:56.381 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-27 22:27:56.394 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 13ms
+2025-06-27 22:29:43.537 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-27 22:29:47.790 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method visa
+2025-06-27 22:29:50.656 +04:00 [INF] Processing Visa payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with amount 7
+2025-06-27 22:30:44.701 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-27 22:30:45.449 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 750ms
+2025-06-27 22:30:53.722 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-27 22:30:54.160 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 438ms
+2025-06-27 22:31:00.788 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-27 22:31:02.328 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method visa
+2025-06-27 22:31:02.977 +04:00 [INF] Processing Visa payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with amount 7
+2025-06-27 22:31:50.732 +04:00 [ERR] Exception Details: Type: HttpRequestException, Message: An error occurred while sending the request.
+System.Net.Http.HttpRequestException: An error occurred while sending the request.
+ ---> System.Net.Http.HttpIOException: The response ended prematurely. (ResponseEnded)
+   at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at GameStore.Application.Services.Payment.VisaPaymentService.<>c__DisplayClass4_0.<<PayAsync>b__1>d.MoveNext() in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\Payment\VisaPaymentService.cs:line 57
+--- End of stack trace from previous location ---
+   at Polly.Retry.AsyncRetryEngine.ImplementationAsync[TResult](Func`3 action, Context context, ExceptionPredicates shouldRetryExceptionPredicates, ResultPredicates`1 shouldRetryResultPredicates, Func`5 onRetryAsync, CancellationToken cancellationToken, Int32 permittedRetryCount, IEnumerable`1 sleepDurationsEnumerable, Func`4 sleepDurationProvider, Boolean continueOnCapturedContext)
+   at Polly.AsyncPolicy`1.ExecuteInternalAsync(Func`3 action, Context context, Boolean continueOnCapturedContext, CancellationToken cancellationToken)
+   at GameStore.Application.Services.Payment.VisaPaymentService.PayAsync(Order order, Guid userId, IPaymentModel model) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\Payment\VisaPaymentService.cs:line 56
+   at GameStore.Api.Controllers.OrdersController.ProcessPayment(PaymentRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 118
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-06-27 22:31:50.794 +04:00 [INF] Completed request: POST /Orders/payment - Status: 500 - Time: 50005ms
+2025-06-27 22:33:31.000 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-27 22:33:31.751 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 754ms
+2025-06-27 22:33:36.647 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-27 22:33:37.110 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 463ms
+2025-06-27 22:33:43.914 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-27 22:33:43.983 +04:00 [INF] Completed request: POST /Orders/payment - Status: 400 - Time: 69ms
+2025-06-27 22:34:08.983 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-27 22:34:10.580 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method visa
+2025-06-27 22:34:11.622 +04:00 [INF] Processing Visa payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with amount 7
+2025-06-27 22:34:38.813 +04:00 [ERR] Exception Details: Type: HttpRequestException, Message: Response status code does not indicate success: 400 (Bad Request).
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 400 (Bad Request).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at GameStore.Application.Services.Payment.VisaPaymentService.PayAsync(Order order, Guid userId, IPaymentModel model) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\Payment\VisaPaymentService.cs:line 59
+   at GameStore.Api.Controllers.OrdersController.ProcessPayment(PaymentRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 118
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-06-27 22:34:38.911 +04:00 [INF] Completed request: POST /Orders/payment - Status: 500 - Time: 29929ms
+2025-06-27 22:38:37.990 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-27 22:38:45.400 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method visa
+2025-06-27 22:39:21.920 +04:00 [INF] Processing Visa payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with amount 7
+2025-06-27 22:39:34.090 +04:00 [ERR] Exception Details: Type: HttpRequestException, Message: Response status code does not indicate success: 400 (Bad Request).
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 400 (Bad Request).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at GameStore.Application.Services.Payment.VisaPaymentService.PayAsync(Order order, Guid userId, IPaymentModel model) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\Payment\VisaPaymentService.cs:line 59
+   at GameStore.Api.Controllers.OrdersController.ProcessPayment(PaymentRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 118
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-06-27 22:39:34.115 +04:00 [INF] Completed request: POST /Orders/payment - Status: 500 - Time: 56125ms
+2025-06-27 23:40:50.804 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-27 23:40:51.585 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 784ms
+2025-06-27 23:40:54.736 +04:00 [INF] Starting request: GET /Games from ::1
+2025-06-27 23:40:54.909 +04:00 [INF] Retrieved 11 games
+2025-06-27 23:40:54.916 +04:00 [INF] Retrieved  games
+2025-06-27 23:40:54.924 +04:00 [INF] Completed request: GET /Games - Status: 200 - Time: 187ms
+2025-06-27 23:42:24.221 +04:00 [INF] Starting request: GET /Publishers from ::1
+2025-06-27 23:42:24.268 +04:00 [INF] Completed request: GET /Publishers - Status: 200 - Time: 46ms
+2025-06-27 23:42:53.418 +04:00 [INF] Starting request: GET /Platforms from ::1
+2025-06-27 23:42:53.432 +04:00 [INF] Fetching all platforms
+2025-06-27 23:42:53.464 +04:00 [INF] Completed request: GET /Platforms - Status: 200 - Time: 45ms
+2025-06-27 23:43:10.710 +04:00 [INF] Starting request: GET /Genres from ::1
+2025-06-27 23:43:10.776 +04:00 [INF] Returning 3 genres
+2025-06-27 23:43:10.778 +04:00 [INF] Completed request: GET /Genres - Status: 200 - Time: 68ms
+2025-06-27 23:43:23.128 +04:00 [INF] Starting request: POST /Games from ::1
+2025-06-27 23:43:24.913 +04:00 [WRN] Validation failed for game creation: ["Key must be lowercase alphanumeric with hyphens."]
+2025-06-27 23:43:24.919 +04:00 [INF] Completed request: POST /Games - Status: 400 - Time: 1790ms
+2025-06-27 23:43:34.355 +04:00 [INF] Starting request: POST /Games from ::1
+2025-06-27 23:43:35.798 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-27 23:43:35.901 +04:00 [INF] Game created successfully. Key: far
+2025-06-27 23:43:35.904 +04:00 [INF] Retrieved 12 games
+2025-06-27 23:43:35.914 +04:00 [INF] Completed request: POST /Games - Status: 201 - Time: 1558ms
+2025-06-27 23:44:17.116 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-27 23:44:17.185 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 68ms
+2025-06-27 23:44:26.895 +04:00 [INF] Starting request: DELETE /Orders/cart/tom22 from ::1
+2025-06-27 23:44:28.756 +04:00 [ERR] Exception Details: Type: NotFoundException, Message: Item not in cart
+GameStore.Domain.Exceptions.NotFoundException: Item not in cart
+   at GameStore.Application.Services.CartService.RemoveFromCartAsync(String gameKey) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\CartService.cs:line 78
+   at GameStore.Api.Controllers.OrdersController.RemoveFromCart(String key) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 53
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-06-27 23:44:28.795 +04:00 [INF] Completed request: DELETE /Orders/cart/tom22 - Status: 404 - Time: 1900ms
+2025-06-27 23:44:38.467 +04:00 [INF] Starting request: GET /Games from ::1
+2025-06-27 23:44:38.471 +04:00 [INF] Retrieved 12 games
+2025-06-27 23:44:38.471 +04:00 [INF] Retrieved  games
+2025-06-27 23:44:38.471 +04:00 [INF] Completed request: GET /Games - Status: 200 - Time: 4ms

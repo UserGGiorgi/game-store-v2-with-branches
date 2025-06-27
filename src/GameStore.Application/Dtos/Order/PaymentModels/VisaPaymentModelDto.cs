@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Application.Dtos.Order
+namespace GameStore.Application.Dtos.Order.PaymentModels
 {
     public class VisaPaymentModelDto
     {

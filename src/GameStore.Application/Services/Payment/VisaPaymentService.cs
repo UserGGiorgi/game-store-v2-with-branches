@@ -1,8 +1,13 @@
-﻿using GameStore.Application.Dtos.Order;
+﻿using FluentValidation;
+using GameStore.Application.Dtos.Genres.UpdateGenre;
+using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Order.PaymentModels;
+using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Exceptions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
@@ -12,6 +17,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Payment
@@ -21,11 +27,14 @@ namespace GameStore.Application.Services.Payment
         private readonly HttpClient _httpClient;
         private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
         private readonly ILogger<VisaPaymentService> _logger;
-
-        public VisaPaymentService(HttpClient httpClient, ILogger<VisaPaymentService> logger)
+        private readonly IValidator<VisaPaymentRequest> _validator;
+        public VisaPaymentService(HttpClient httpClient,
+            ILogger<VisaPaymentService> logger,
+            IValidator<VisaPaymentRequest> validator)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _validator = validator;
 
             _retryPolicy = Policy
                 .Handle<HttpRequestException>()
@@ -41,18 +50,24 @@ namespace GameStore.Application.Services.Payment
         {
             var visaModel = (VisaPaymentModel)model;
             var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
-
             var request = new VisaPaymentRequest
             {
-                HolderName = visaModel.HolderName,
+                CardHolderName = visaModel.HolderName,
                 CardNumber = visaModel.CardNumber,
-                ExpiryMonth = visaModel.ExpiryMonth,
-                ExpiryYear = visaModel.ExpiryYear,
-                CVV = visaModel.CVV,
-                Amount = total
+                ExpirationMonth = visaModel.ExpiryMonth,
+                ExpirationYear = visaModel.ExpiryYear,
+                Cvv = int.Parse(visaModel.CVV),
+                TransactionAmount = total
             };
+
+            var validationResult = await _validator.ValidateAsync(request);
+            if (!validationResult.IsValid)
+            {
+                _logger.LogWarning("Validation failed for genre creation: {Errors}", validationResult.Errors);
+                throw new BadRequestException("Validation failed", validationResult.ToDictionary());
+            }
             _logger.LogInformation("Processing Visa payment for user {UserId} with amount {Amount}",
-                userId, request.Amount);
+                userId, request.TransactionAmount);
             var response = await _retryPolicy.ExecuteAsync(async () =>
                 await _httpClient.PostAsJsonAsync("api/payments/visa", request));
 
