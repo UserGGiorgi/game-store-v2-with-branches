@@ -63,7 +63,7 @@ namespace GameStore.Application.Services.Payment
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
-                _logger.LogWarning("Validation failed for genre creation: {Errors}", validationResult.Errors);
+                _logger.LogWarning("Validation failed for payment creation: {Errors}", validationResult.Errors);
                 throw new BadRequestException("Validation failed", validationResult.ToDictionary());
             }
             _logger.LogInformation("Processing Visa payment for user {UserId} with amount {Amount}",

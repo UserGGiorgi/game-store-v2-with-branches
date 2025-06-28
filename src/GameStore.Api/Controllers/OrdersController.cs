@@ -35,7 +35,6 @@ namespace GameStore.Api.Controllers
             _orderService = orderService;
             _cartService = cartService;
             _paymentServiceFactory = paymentServiceFactory;
-            _validator = validator;
             _logger = logger;
         }
         [HttpPost("/games/{key}/buy")]

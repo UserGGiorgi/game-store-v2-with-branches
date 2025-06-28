@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Domain.Constraints;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Application.Dtos.Order.PaymentModels
+namespace GameStore.Application.Dtos.Order.PaymentRequest
 {
     public class VisaPaymentRequestValidator : AbstractValidator<VisaPaymentRequest>
     {
@@ -40,7 +39,7 @@ namespace GameStore.Application.Dtos.Order.PaymentModels
                 .WithMessage(PaymentValidationConstraints.Messages.Cvv2Range);
 
             RuleFor(x => x.TransactionAmount)
-                .GreaterThan(0).WithMessage("Transaction amount must be greater than 0");
+                .GreaterThanOrEqualTo(0).WithMessage("Transaction amount must be greater Or equal than 0");
         }
 
         private bool BeValidExpirationYear(int year)

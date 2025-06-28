@@ -72,7 +72,7 @@ namespace GameStore.Api
         private static IServiceCollection AddPayments(this IServiceCollection services)
         {
             services.AddTransient<BankPaymentService>();
-            services.AddSingleton<IPaymentServiceFactory, PaymentServiceFactory>();
+            services.AddScoped<IPaymentServiceFactory, PaymentServiceFactory>();
             return services;
         }
     }

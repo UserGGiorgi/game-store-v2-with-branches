@@ -1,8 +1,10 @@
-﻿using GameStore.Application.Dtos.Order;
+﻿using FluentValidation;
+using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
@@ -19,11 +21,17 @@ namespace GameStore.Application.Services.Payment
     public class BoxPaymentService : IPaymentService
     {
         private readonly HttpClient _httpClient;
+        private readonly IValidator<BoxPaymentRequest> _validator;
+        private readonly ILogger<BoxPaymentService> _logger;
         private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
 
-        public BoxPaymentService(HttpClient httpClient, ILogger<BoxPaymentService> logger)
+        public BoxPaymentService(HttpClient httpClient,
+            ILogger<BoxPaymentService> logger,
+            IValidator<BoxPaymentRequest> validator)
         {
             _httpClient = httpClient;
+            _validator = validator;
+            _logger = logger;
             _retryPolicy = Policy
                 .Handle<HttpRequestException>()
                 .OrResult<HttpResponseMessage>(r =>
@@ -39,6 +47,12 @@ namespace GameStore.Application.Services.Payment
             var request = new BoxPaymentRequest
             { transactionAmount = total, accountNumber = userId, invoiceNumber = order.Id };
 
+            var validationResult = await _validator.ValidateAsync(request);
+            if (!validationResult.IsValid)
+            {
+                _logger.LogWarning("Validation failed for payment creation: {Errors}", validationResult.Errors);
+                throw new BadRequestException("Validation failed", validationResult.ToDictionary());
+            }
             var response = await _retryPolicy.ExecuteAsync(async () =>
                 await _httpClient.PostAsJsonAsync("api/payments/ibox", request));
 

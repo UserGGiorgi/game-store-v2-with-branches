@@ -1,6 +1,7 @@
 using FluentValidation;
 using GameStore.Api;
 using GameStore.Api.Configuration;
+using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Mapping;
@@ -31,6 +32,8 @@ builder.Services.Configure<FormOptions>(options =>
 });
 builder.Services.AddControllers();
 builder.Services.AddValidatorsFromAssembly(typeof(CreatePlatformRequestValidator).Assembly);
+builder.Services.AddScoped<IValidator<VisaPaymentRequest>, VisaPaymentRequestValidator>();
+builder.Services.AddScoped<IValidator<BoxPaymentRequest>, BoxPaymentRequestValidator>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
