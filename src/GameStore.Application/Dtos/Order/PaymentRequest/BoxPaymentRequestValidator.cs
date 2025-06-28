@@ -12,7 +12,7 @@ namespace GameStore.Application.Dtos.Order.PaymentRequest
         public BoxPaymentRequestValidator()
         {
             RuleFor(x => x.transactionAmount)
-                .GreaterThanOrEqualTo(0) // Allows 0 or positive values
+                .GreaterThanOrEqualTo(0)
                 .WithMessage("Transaction amount must be 0 or positive");
 
             RuleFor(x => x.accountNumber)

@@ -11,5 +11,6 @@ namespace GameStore.Application.Dtos.Order.PaymentResults
     {
         public byte[] PdfContent { get; set; } = Array.Empty<byte>();
         public string FileName { get; set; } = string.Empty;
+        public DateTime ExpiryDate { get; set; }
     }
 }

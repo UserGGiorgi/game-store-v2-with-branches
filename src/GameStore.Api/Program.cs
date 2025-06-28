@@ -31,9 +31,9 @@ builder.Services.Configure<FormOptions>(options =>
     options.MultipartBodyLengthLimit = long.MaxValue;
 });
 builder.Services.AddControllers();
-builder.Services.AddValidatorsFromAssembly(typeof(CreatePlatformRequestValidator).Assembly);
-builder.Services.AddScoped<IValidator<VisaPaymentRequest>, VisaPaymentRequestValidator>();
-builder.Services.AddScoped<IValidator<BoxPaymentRequest>, BoxPaymentRequestValidator>();
+
+builder.Services.AddValidators();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -233,3 +233,157 @@ GameStore.Domain.Exceptions.BadRequestException: Validation failed
 2025-06-28 15:08:36.483 +04:00 [INF] Processing Visa payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with amount 0
 2025-06-28 15:08:36.669 +04:00 [INF] Closing order "f3798aa1-c32b-4d35-ab6c-9c878df54d79" with 1 items
 2025-06-28 15:08:36.793 +04:00 [INF] Completed request: POST /Orders/payment - Status: 200 - Time: 6013ms
+2025-06-28 16:13:44.587 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-28 16:13:45.305 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 721ms
+2025-06-28 16:13:53.494 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-28 16:13:53.812 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 318ms
+2025-06-28 16:13:59.345 +04:00 [INF] Starting request: POST /games/far/buy from ::1
+2025-06-28 16:13:59.643 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-28 16:13:59.711 +04:00 [INF] Added game far to cart for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a"
+2025-06-28 16:13:59.755 +04:00 [INF] Completed request: POST /games/far/buy - Status: 200 - Time: 409ms
+2025-06-28 16:14:08.783 +04:00 [INF] Starting request: GET /Orders/payment-methods from ::1
+2025-06-28 16:14:08.802 +04:00 [INF] Completed request: GET /Orders/payment-methods - Status: 200 - Time: 19ms
+2025-06-28 16:14:15.422 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-28 16:14:17.982 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method Bank
+2025-06-28 16:14:29.594 +04:00 [ERR] Exception Details: Type: PdfException, Message: Unknown PdfException.
+iText.Kernel.Exceptions.PdfException: Unknown PdfException.
+ ---> System.NotSupportedException: Either com.itextpdf:bouncy-castle-adapter or com.itextpdf:bouncy-castle-fips-adapter dependency must be added in order to use BouncyCastleFactoryCreator
+   at iText.Bouncycastleconnector.BouncyCastleDefaultFactory.CreateIDigest(String hashAlgorithm)
+   at iText.Kernel.Pdf.SmartModePdfObjectsSerializer..ctor()
+   --- End of inner exception stack trace ---
+   at iText.Kernel.Pdf.SmartModePdfObjectsSerializer..ctor()
+   at iText.Kernel.Pdf.PdfWriter..ctor(Stream os, WriterProperties properties)
+   at iText.Kernel.Pdf.PdfWriter..ctor(Stream os)
+   at GameStore.Application.Services.PdfService.GenerateBankInvoice(Guid userId, Guid orderId, Decimal total) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PdfService.cs:line 22
+   at GameStore.Application.Services.Payment.BankPaymentService.PayAsync(Order order, Guid userId, IPaymentModel model) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\Payment\BankPaymentService.cs:line 45
+   at GameStore.Api.Controllers.OrdersController.ProcessPayment(PaymentRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 126
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-06-28 16:14:29.631 +04:00 [INF] Completed request: POST /Orders/payment - Status: 500 - Time: 14209ms
+2025-06-28 16:14:57.199 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-28 16:15:15.352 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method Bank
+2025-06-28 16:16:16.748 +04:00 [ERR] Exception Details: Type: PdfException, Message: Unknown PdfException.
+iText.Kernel.Exceptions.PdfException: Unknown PdfException.
+ ---> System.NotSupportedException: Either com.itextpdf:bouncy-castle-adapter or com.itextpdf:bouncy-castle-fips-adapter dependency must be added in order to use BouncyCastleFactoryCreator
+   at iText.Bouncycastleconnector.BouncyCastleDefaultFactory.CreateIDigest(String hashAlgorithm)
+   at iText.Kernel.Pdf.SmartModePdfObjectsSerializer..ctor()
+   --- End of inner exception stack trace ---
+   at iText.Kernel.Pdf.SmartModePdfObjectsSerializer..ctor()
+   at iText.Kernel.Pdf.PdfWriter..ctor(Stream os, WriterProperties properties)
+   at iText.Kernel.Pdf.PdfWriter..ctor(Stream os)
+   at GameStore.Application.Services.PdfService.GenerateBankInvoice(Guid userId, Guid orderId, Decimal total) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PdfService.cs:line 22
+   at GameStore.Application.Services.Payment.BankPaymentService.PayAsync(Order order, Guid userId, IPaymentModel model) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\Payment\BankPaymentService.cs:line 45
+   at GameStore.Api.Controllers.OrdersController.ProcessPayment(PaymentRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 126
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-06-28 16:16:16.774 +04:00 [INF] Completed request: POST /Orders/payment - Status: 500 - Time: 79574ms
+2025-06-28 16:16:19.580 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-28 16:16:22.576 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method Bank
+2025-06-28 16:20:21.815 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-28 16:20:22.564 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 751ms
+2025-06-28 16:20:27.176 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-28 16:20:30.385 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 3209ms
+2025-06-28 16:20:38.730 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-28 16:20:41.081 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method bank
+2025-06-28 16:20:49.427 +04:00 [ERR] Exception Details: Type: PdfException, Message: Unknown PdfException.
+iText.Kernel.Exceptions.PdfException: Unknown PdfException.
+ ---> System.NotSupportedException: Either com.itextpdf:bouncy-castle-adapter or com.itextpdf:bouncy-castle-fips-adapter dependency must be added in order to use BouncyCastleFactoryCreator
+   at iText.Bouncycastleconnector.BouncyCastleDefaultFactory.CreateIDigest(String hashAlgorithm)
+   at iText.Kernel.Pdf.SmartModePdfObjectsSerializer..ctor()
+   --- End of inner exception stack trace ---
+   at iText.Kernel.Pdf.SmartModePdfObjectsSerializer..ctor()
+   at iText.Kernel.Pdf.PdfWriter..ctor(Stream os, WriterProperties properties)
+   at iText.Kernel.Pdf.PdfWriter..ctor(Stream os)
+   at GameStore.Application.Services.PdfService.GenerateBankInvoice(Guid userId, Guid orderId, Decimal total) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PdfService.cs:line 22
+   at GameStore.Application.Services.Payment.BankPaymentService.PayAsync(Order order, Guid userId, IPaymentModel model) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\Payment\BankPaymentService.cs:line 45
+   at GameStore.Api.Controllers.OrdersController.ProcessPayment(PaymentRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 126
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-06-28 16:20:49.455 +04:00 [INF] Completed request: POST /Orders/payment - Status: 500 - Time: 10725ms
+2025-06-28 16:20:53.594 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-28 16:20:56.134 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method bank
+2025-06-28 16:22:57.841 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-28 16:22:58.572 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 733ms
+2025-06-28 16:23:04.810 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-28 16:23:06.536 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method bank
+2025-06-28 16:23:17.889 +04:00 [ERR] Exception Details: Type: PdfException, Message: Unknown PdfException.
+iText.Kernel.Exceptions.PdfException: Unknown PdfException.
+ ---> System.NotSupportedException: Either com.itextpdf:bouncy-castle-adapter or com.itextpdf:bouncy-castle-fips-adapter dependency must be added in order to use BouncyCastleFactoryCreator
+   at iText.Bouncycastleconnector.BouncyCastleDefaultFactory.CreateIDigest(String hashAlgorithm)
+   at iText.Kernel.Pdf.SmartModePdfObjectsSerializer..ctor()
+   --- End of inner exception stack trace ---
+   at iText.Kernel.Pdf.SmartModePdfObjectsSerializer..ctor()
+   at iText.Kernel.Pdf.PdfWriter..ctor(Stream os, WriterProperties properties)
+   at iText.Kernel.Pdf.PdfWriter..ctor(Stream os)
+   at GameStore.Application.Services.PdfService.GenerateBankInvoice(Guid userId, Guid orderId, Decimal total) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PdfService.cs:line 25
+   at GameStore.Application.Services.Payment.BankPaymentService.PayAsync(Order order, Guid userId, IPaymentModel model) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\Payment\BankPaymentService.cs:line 45
+   at GameStore.Api.Controllers.OrdersController.ProcessPayment(PaymentRequestDto request) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\OrdersController.cs:line 126
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\davit\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-06-28 16:23:17.918 +04:00 [INF] Completed request: POST /Orders/payment - Status: 500 - Time: 13107ms
+2025-06-28 16:26:24.955 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-28 16:26:25.694 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 741ms
+2025-06-28 16:26:32.613 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-28 16:26:35.060 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method bank
+2025-06-28 16:26:49.361 +04:00 [INF] Closing order "2932727d-9d16-4844-a796-1073c236ac9e" with 1 items
+2025-06-28 16:26:49.425 +04:00 [INF] Completed request: POST /Orders/payment - Status: 200 - Time: 16812ms
+2025-06-28 16:27:37.664 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-06-28 16:27:38.417 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 755ms
+2025-06-28 16:27:48.562 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-28 16:27:48.729 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 167ms
+2025-06-28 16:27:52.713 +04:00 [INF] Starting request: POST /games/far/buy from ::1
+2025-06-28 16:27:52.846 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-28 16:27:52.879 +04:00 [INF] Added game far to cart for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a"
+2025-06-28 16:27:52.901 +04:00 [INF] Completed request: POST /games/far/buy - Status: 200 - Time: 187ms
+2025-06-28 16:27:54.733 +04:00 [INF] Starting request: GET /Orders/cart from ::1
+2025-06-28 16:27:54.747 +04:00 [INF] Completed request: GET /Orders/cart - Status: 200 - Time: 13ms
+2025-06-28 16:28:01.051 +04:00 [INF] Starting request: GET /Orders/payment-methods from ::1
+2025-06-28 16:28:01.057 +04:00 [INF] Completed request: GET /Orders/payment-methods - Status: 200 - Time: 5ms
+2025-06-28 16:28:08.704 +04:00 [INF] Starting request: POST /Orders/payment from ::1
+2025-06-28 16:28:22.546 +04:00 [INF] Processing payment for user "a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a" with method IBox terminal
+2025-06-28 16:28:45.158 +04:00 [INF] Closing order "adf85eda-8655-4011-9d29-e351da910d34" with 1 items
+2025-06-28 16:28:45.190 +04:00 [INF] Completed request: POST /Orders/payment - Status: 200 - Time: 36486ms

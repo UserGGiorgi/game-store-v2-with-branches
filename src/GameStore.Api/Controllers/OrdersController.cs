@@ -11,6 +11,7 @@ using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Polly;
 using System.Security.Claims;
 using System.Threading;
@@ -21,17 +22,20 @@ namespace GameStore.Api.Controllers
     [Route("[controller]")]
     public class OrdersController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
         private readonly IOrderService _orderService;
         private readonly ICartService _cartService;
         private readonly IPaymentServiceFactory _paymentServiceFactory;
         private readonly ILogger<OrdersController> _logger;
 
         public OrdersController(
+            IConfiguration configuration,
             IOrderService orderService,
             ICartService cartService,
             IPaymentServiceFactory paymentServiceFactory,
             ILogger<OrdersController> logger)
         {
+            _configuration = configuration;
             _orderService = orderService;
             _cartService = cartService;
             _paymentServiceFactory = paymentServiceFactory;
@@ -97,14 +101,14 @@ namespace GameStore.Api.Controllers
             if (order == null || order.OrderGames.Count == 0)
                 return BadRequest("Cart is empty");
 
-            if(request.Model == null)
+            if (request.Model == null)
             {
                 return BadRequest("model is empty");
             }
             // Convert DTO to domain model
             IPaymentModel model = request.Method.ToLower() switch
             {
-                "bank" => new BankPaymentModel(),
+                "bank" => new BankPaymentModel(_configuration.GetValue<int>("PaymentSettings:BankInvoiceValidityDays")),
                 "ibox terminal" => new BoxPaymentModel(),
                 "visa" => new VisaPaymentModel
                 {
@@ -126,8 +130,9 @@ namespace GameStore.Api.Controllers
             // Handle different result types
             return result switch
             {
-                BankPaymentResult bankResult =>
-                    File(bankResult.PdfContent, "application/pdf", bankResult.FileName),
+                BankPaymentResult bankResult => File(bankResult.PdfContent,
+                  "application/pdf",
+                   bankResult.FileName),
 
                 BoxPaymentResult iboxResult => Ok(new BoxPaymentResultDto
                 {

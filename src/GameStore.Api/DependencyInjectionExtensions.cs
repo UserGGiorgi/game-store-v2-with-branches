@@ -1,4 +1,8 @@
-﻿using GameStore.Application.Interfaces;
+﻿using FluentValidation;
+using GameStore.Application.Dtos.Order.PaymentModels;
+using GameStore.Application.Dtos.Order.PaymentRequest;
+using GameStore.Application.Dtos.Platforms.CreatePlatform;
+using GameStore.Application.Interfaces;
 using GameStore.Application.Services;
 using GameStore.Application.Services.Payment;
 using GameStore.Domain.Interfaces;
@@ -23,6 +27,14 @@ namespace GameStore.Api
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IPdfService, PdfService>();
             AddPayments(services);
+            return services;
+        }
+        public static IServiceCollection AddValidators(this IServiceCollection services)
+        {
+            services.AddValidatorsFromAssembly(typeof(CreatePlatformRequestValidator).Assembly);
+            services.AddScoped<IValidator<VisaPaymentRequest>, VisaPaymentRequestValidator>();
+            services.AddScoped<IValidator<BoxPaymentRequest>, BoxPaymentRequestValidator>();
+            services.AddScoped<IValidator<BankPaymentModel>, BankPaymentModelValidator>();
             return services;
         }
         public static IServiceCollection AddRepositories(this IServiceCollection services,IConfiguration configuration)
