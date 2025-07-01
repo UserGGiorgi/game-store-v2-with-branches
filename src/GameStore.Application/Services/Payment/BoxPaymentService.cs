@@ -23,7 +23,6 @@ namespace GameStore.Application.Services.Payment
         private readonly HttpClient _httpClient;
         private readonly IValidator<BoxPaymentRequest> _validator;
         private readonly ILogger<BoxPaymentService> _logger;
-        private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
 
         public BoxPaymentService(HttpClient httpClient,
             ILogger<BoxPaymentService> logger,
@@ -32,41 +31,48 @@ namespace GameStore.Application.Services.Payment
             _httpClient = httpClient;
             _validator = validator;
             _logger = logger;
-            _retryPolicy = Policy
-                .Handle<HttpRequestException>()
-                .OrResult<HttpResponseMessage>(r =>
-                    r.StatusCode >= HttpStatusCode.InternalServerError)
-                .WaitAndRetryAsync(3, retryAttempt =>
-                    TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
         }
 
         public async Task<PaymentResult> PayAsync(Order order, Guid userId, IPaymentModel model)
         {
+            var request = ValidateOrder(order, userId);
+
+            var response = await _httpClient.PostAsJsonAsync("api/payments/ibox", request);
+
+            return await ValidResponse(response);
+        }
+        private async Task<BoxPaymentRequest> ValidateOrder(Order order, Guid userId)
+        {
             var total = (decimal)order.OrderGames.Sum(item => item.Price * item.Quantity);
             var request = new BoxPaymentRequest
-            { transactionAmount = total, accountNumber = userId, invoiceNumber = order.Id };
-
+            {
+                transactionAmount = total,
+                accountNumber = userId,
+                invoiceNumber = order.Id,
+            };
             var validationResult = await _validator.ValidateAsync(request);
             if (!validationResult.IsValid)
             {
                 _logger.LogWarning("Validation failed for payment creation: {Errors}", validationResult.Errors);
                 throw new BadRequestException("Validation failed", validationResult.ToDictionary());
             }
-            var response = await _retryPolicy.ExecuteAsync(async () =>
-                await _httpClient.PostAsJsonAsync("api/payments/ibox", request));
-
+            return request;
+        }
+        private async Task<PaymentResult> ValidResponse(HttpResponseMessage response)
+        {
             response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadFromJsonAsync<BoxPaymentResultDto>();
+            var result = await response.Content.ReadFromJsonAsync<BoxApiResponse>();
             return result == null
                 ? throw new InvalidOperationException("Failed to deserialize IBox payment result")
                 : (PaymentResult)new BoxPaymentResult
-            {
-                UserId = result.UserId,
-                OrderId = result.OrderId,
-                PaymentDate = result.PaymentDate,
-                Sum = result.Sum
-            };
+                {
+                    UserId = Guid.Parse(result.AccountId),
+                    OrderId = Guid.Parse(result.AccountId),
+                    PaymentDate = DateTime.UtcNow,
+                    Sum = result.Amount
+                };
+
         }
     }
 }

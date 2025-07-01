@@ -107,8 +107,6 @@ namespace GameStore.Application.Services
 
             order.Status = OrderStatus.Paid;
             order.Date = DateTime.UtcNow;
-
-            // Update stock quantities
             foreach (var item in order.OrderGames)
             {
                 var game = await _unitOfWork.GameRepository.GetByIdAsync(item.ProductId);
@@ -124,6 +122,36 @@ namespace GameStore.Application.Services
         public async Task<Order?> GetOpenOrderAsync()
         {
             return await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
+        }
+        public async Task CompleteOrderAsync(Guid orderId)
+        {
+            var order = await _unitOfWork.OrderRepository.GetOrderWithItemsAsync(orderId)
+                ?? throw new NotFoundException("Order not found");
+
+            order.Status = OrderStatus.Paid;
+            order.Date = DateTime.UtcNow;
+
+            foreach (var item in order.OrderGames)
+            {
+                var game = await _unitOfWork.GameRepository.GetByIdAsync(item.ProductId);
+                if (game != null)
+                {
+                    game.UnitInStock -= item.Quantity;
+                }
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+            _logger.LogInformation("Completed order {OrderId}", order.Id);
+        }
+
+        public async Task CancelOrderAsync(Guid orderId)
+        {
+            var order = await _unitOfWork.OrderRepository.GetByIdAsync(orderId)
+                ?? throw new NotFoundException("Order not found");
+
+            order.Status = OrderStatus.Cancelled;
+            await _unitOfWork.SaveChangesAsync();
+            _logger.LogInformation("Cancelled order {OrderId}", order.Id);
         }
     }
 }

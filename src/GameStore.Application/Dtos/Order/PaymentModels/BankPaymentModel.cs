@@ -12,9 +12,12 @@ namespace GameStore.Application.Dtos.Order.PaymentModels
         public DateTime IssueDate { get; } = DateTime.UtcNow;
         public DateTime ExpiryDate { get; }
 
-        public BankPaymentModel(int validityDays)
+        public BankPaymentModel(DateTime expiryDate)
         {
-            ExpiryDate = IssueDate.AddDays(validityDays);
+            ExpiryDate = expiryDate;
+        }
+        public BankPaymentModel(int validityDays) : this(DateTime.UtcNow.AddDays(validityDays))
+        {
         }
     }
 }

@@ -5,6 +5,7 @@ using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
 using GameStore.Infrastructure.Data;
 using GameStore.Infrastructure.Services;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -18,18 +19,29 @@ namespace GameStore.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<CartService> _logger;
+        private readonly IMemoryCache _cache;
+        private const string CartCacheKey = "UserCart_{0}";
+        private readonly TimeSpan _cacheDuration = TimeSpan.FromMinutes(20);
 
         public CartService(
         IUnitOfWork unitOfWork,
-        ILogger<CartService> logger)
+        ILogger<CartService> logger,
+        IMemoryCache cache)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _cache = cache;
         }
 
         public async Task AddToCartAsync(string gameKey)
         {
-            var order = await GetOrCreateOpenOrderAsync();
+            var userId = GetStubUserId();
+            var cacheKey = string.Format(CartCacheKey, userId);
+
+            if (!_cache.TryGetValue(cacheKey, out Order? order))
+            {
+                order = await GetOrCreateOpenOrderAsync();
+            }
 
             var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey);
             if (game == null)
@@ -40,6 +52,7 @@ namespace GameStore.Application.Services
             {
                 throw new BadRequestException("Game out of stock");
             }
+            ArgumentNullException.ThrowIfNull(order);
             var existingItem = order.OrderGames
                 .FirstOrDefault(og => og.ProductId == game.Id);
 
@@ -60,21 +73,25 @@ namespace GameStore.Application.Services
                     Discount = game.Discount
                 });
             }
+            _cache.Set(cacheKey, order, _cacheDuration);
             _logger.LogInformation("Added game {GameKey} to cart for user {UserId}", gameKey, GetStubUserId());
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task RemoveFromCartAsync(string gameKey)
         {
-            var order = await GetOpenOrderAsync();
-            if (order == null)
+            var userId = GetStubUserId();
+            var cacheKey = string.Format(CartCacheKey, userId);
+
+            if (!_cache.TryGetValue(cacheKey, out Order? order))
             {
-                throw new NotFoundException("Cart is empty");
+                order = await GetOpenOrderAsync();
+                if (order == null) throw new NotFoundException("Cart is empty");
             }
             var game = await _unitOfWork.GameRepository
                 .GetByKeyAsync(gameKey)
                 ?? throw new NotFoundException("Game not found");
-
+            ArgumentNullException.ThrowIfNull(order);
             var cartItem = order.OrderGames
                 .FirstOrDefault(og => og.ProductId == game.Id)
                 ?? throw new NotFoundException("Item not in cart");
@@ -90,12 +107,28 @@ namespace GameStore.Application.Services
             {
                 _unitOfWork.OrderRepository.Delete(order);
             }
+            if (order.OrderGames.Count == 0)
+            {
+                _cache.Remove(cacheKey);
+            }
+            else
+            {
+                _cache.Set(cacheKey, order, _cacheDuration);
+            }
             _logger.LogInformation("Removed game {GameKey} from cart for user {UserId}", gameKey, GetStubUserId());
             await _unitOfWork.SaveChangesAsync();
         }
 
         private async Task<Order> GetOrCreateOpenOrderAsync()
         {
+            var userId = GetStubUserId();
+            var cacheKey = string.Format(CartCacheKey, userId);
+
+            if (_cache.TryGetValue(cacheKey, out Order? cachedOrder) && cachedOrder != null)
+            {
+                return cachedOrder;
+            }
+
             var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
 
             if (order == null)
@@ -108,12 +141,26 @@ namespace GameStore.Application.Services
                 await _unitOfWork.OrderRepository.AddAsync(order);
                 await _unitOfWork.SaveChangesAsync();
             }
+            _cache.Set(cacheKey, order, _cacheDuration);
             return order;
         }
 
         private async Task<Order?> GetOpenOrderAsync()
         {
-            return await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
+            var userId = GetStubUserId();
+            var cacheKey = string.Format(CartCacheKey, userId);
+
+            if (_cache.TryGetValue(cacheKey, out Order? cachedOrder))
+            {
+                return cachedOrder;
+            }
+
+            var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
+            if (order != null)
+            {
+                _cache.Set(cacheKey, order, _cacheDuration);
+            }
+            return order;
         }
         private static Guid GetStubUserId()
         {

@@ -2,9 +2,11 @@
 using GameStore.Application.Dtos.Order.PaymentModels;
 using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
+using GameStore.Application.Facade;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Services;
 using GameStore.Application.Services.Payment;
+using GameStore.Domain.Constraints;
 using GameStore.Domain.Interfaces;
 using GameStore.Domain.Interfaces.Repositories;
 using GameStore.Infrastructure.Data;
@@ -26,6 +28,8 @@ namespace GameStore.Api
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IPdfService, PdfService>();
+            services.AddScoped<IOrderFacade, OrderFacade>();
+            services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
             AddPayments(services);
             return services;
         }
@@ -35,6 +39,10 @@ namespace GameStore.Api
             services.AddScoped<IValidator<VisaPaymentRequest>, VisaPaymentRequestValidator>();
             services.AddScoped<IValidator<BoxPaymentRequest>, BoxPaymentRequestValidator>();
             services.AddScoped<IValidator<BankPaymentModel>, BankPaymentModelValidator>();
+            services.AddOptions<PaymentSettings>()
+              .BindConfiguration("PaymentSettings")
+              .Validate(settings => settings.BankInvoiceValidityDays > 0,
+              "Validity days must be positive");
             return services;
         }
         public static IServiceCollection AddRepositories(this IServiceCollection services,IConfiguration configuration)
@@ -72,12 +80,14 @@ namespace GameStore.Api
             {
                 client.BaseAddress = new Uri(baseUrl);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.Timeout = TimeSpan.FromSeconds(30);
             });
 
             services.AddHttpClient<VisaPaymentService>(client =>
             {
                 client.BaseAddress = new Uri(baseUrl);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.Timeout = TimeSpan.FromSeconds(30);
             });
             return services;
         }
