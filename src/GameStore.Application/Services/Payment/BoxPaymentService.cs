@@ -36,7 +36,7 @@ namespace GameStore.Application.Services.Payment
 
         public async Task<PaymentResult> PayAsync(Order order, Guid userId, IPaymentModel model)
         {
-            var request = ValidateOrder(order, userId);
+            var request = await ValidateOrder(order, userId);
 
             var response = await _httpClient.PostAsJsonAsync("api/payments/ibox", request);
 
