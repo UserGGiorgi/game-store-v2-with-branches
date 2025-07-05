@@ -1,4 +1,5 @@
 ﻿using GameStore.Application.Dtos.Order;
+using GameStore.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,10 @@ namespace GameStore.Application.Interfaces
         Task<IEnumerable<OrderDetailDto>> GetOrderDetailsAsync(Guid orderId);
         Task<IEnumerable<OrderDetailDto>> GetCartAsync();
         Task<IEnumerable<PaymentMethodDto>> GetPaymentMethodsAsync();
-        Task<IBoxPaymentResultDto> ProcessIBoxPayment(Guid orderId);
-        Task ProcessVisaPayment(Guid orderId, VisaPaymentModelDto model);
+        Task CloseOrderAsync(Guid orderId);
+        Task<Order?> GetOpenOrderAsync();
+        Task CompleteOrderAsync(Guid orderId);
+        Task CancelOrderAsync(Guid orderId);
+
     }
 }

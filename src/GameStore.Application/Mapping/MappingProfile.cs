@@ -1,17 +1,15 @@
 ﻿using AutoMapper;
-using GameStore.Application.Dtos.Comment;
 using GameStore.Application.Dtos.Games;
-using GameStore.Application.Dtos.Genre;
+using GameStore.Application.Dtos.Games.GetGame;
+using GameStore.Application.Dtos.Games.GetGames;
+using GameStore.Application.Dtos.Genres;
+using GameStore.Application.Dtos.Genres.GetGenre;
 using GameStore.Application.Dtos.Order;
-using GameStore.Application.Dtos.Platform;
-using GameStore.Application.Dtos.Publisher;
+using GameStore.Application.Dtos.Platforms.GetPlatform;
+using GameStore.Application.Dtos.Publishers.CreatePublisher;
+using GameStore.Application.Dtos.Publishers.GetPublisher;
+using GameStore.Application.Dtos.Publishers.UpdatePublisher;
 using GameStore.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GameStore.Application.Mapping
 {
@@ -19,32 +17,39 @@ namespace GameStore.Application.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Game, GameResponseDto>();
+            CreateMap<GameGenre, Guid>()
+            .ConvertUsing(gg => gg.GenreId);
+
+            CreateMap<GamePlatform, Guid>()
+                .ConvertUsing(gp => gp.PlatformId);
+
+            CreateMap<Game, GameDto>();
+            CreateMap<Game, GameResponseDto>()
+            .ForMember(dest => dest.Genres,
+                opt => opt.MapFrom(src => src.Genres))
+            .ForMember(dest => dest.Platforms,
+                opt => opt.MapFrom(src => src.Platforms));
+            CreateMap<Game, SimpleGameResponseDto>();
 
             CreateMap<Genre, GenreDetailsDto>();
             CreateMap<Genre, GenreListDto>();
-            CreateMap<Game, GameResponseDto>()
-            .ForMember(dest => dest.Genres,
-                       opt => opt.MapFrom(src => src.Genres.Select(g => g.GenreId)))
-            .ForMember(dest => dest.Platforms,
-                       opt => opt.MapFrom(src => src.Platforms.Select(p => p.PlatformId)));
+            CreateMap<Genre, GenreResponseDto>()
+                .ForMember(dest => dest.ParentGenreName,
+                    opt => opt.MapFrom(src => src.ParentGenre != null ? src.ParentGenre.Name : "None"));
 
-            CreateMap<Platform, PlatformResponseDto>();
+            CreateMap<GameStore.Domain.Entities.Platform, PlatformResponseDto>();
 
-            CreateMap<CreatePublisherDto, Publisher>();
-            CreateMap<Publisher, PublisherDto>();
+            CreateMap<CreatePublisherRequestDto, Publisher>();
+            CreateMap<Publisher, PublisherResponseDto>();
 
+            CreateMap<PublisherDto, Publisher>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Games, opt => opt.Ignore());
             CreateMap<UpdatePublisherDto, Publisher>();
 
             CreateMap<Order, OrderResponseDto>();
             CreateMap<OrderGame, OrderDetailDto>();
 
-            CreateMap<Comment, CommentResponseDto>();
-            CreateMap<CreateCommentDto, Comment>();
-
-            CreateMap<Comment, CommentResponseDto>()
-            .ForMember(dest => dest.ChildComments,
-               opt => opt.MapFrom(src => src.ChildComments));
         }
     }
 }

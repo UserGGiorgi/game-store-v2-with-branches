@@ -1,5 +1,4 @@
-﻿using GameStore.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,4 +12,5 @@ namespace GameStore.Application.Dtos.Order
         public Guid CustomerId { get; set; }
         public DateTime? Date { get; set; }
     }
+
 }

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using GameStore.Domain.Enums;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,24 +9,18 @@ namespace GameStore.Domain.Entities
 {
     public class Comment
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
-
-        [Required]
-        [MaxLength(100)]
-        public string Name { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(1000)]
-        public string Body { get; set; } = string.Empty;
+        public Guid Id { get; set; }
+        public required string Name { get; set; }
+        public required string Body { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public bool HasQuote { get; set; } = false;
+        public CommentStatus Status { get; set; } = CommentStatus.Active;
 
         public Guid? ParentCommentId { get; set; }
-
-        [Required]
-        public Guid GameId { get; set; }
-
-        // Navigation properties
         public Comment? ParentComment { get; set; }
-        public ICollection<Comment> ChildComments { get; set; } = new List<Comment>();
+        public ICollection<Comment> Replies { get; set; } = new List<Comment>();
+
+        public Guid GameId { get; set; }
         public Game Game { get; set; } = null!;
     }
 }

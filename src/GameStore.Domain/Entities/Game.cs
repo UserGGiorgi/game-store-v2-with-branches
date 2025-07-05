@@ -9,11 +9,11 @@ public class Game
     public double Price { get; set; }
     public int UnitInStock { get; set; }
     public int Discount { get; set; }
-
     public Guid PublisherId { get; set; }
     public Publisher Publisher { get; set; } = null!;
 
     public ICollection<GameGenre> Genres { get; set; } = new List<GameGenre>();
     public ICollection<GamePlatform> Platforms { get; set; } = new List<GamePlatform>();
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public ICollection<CommentBan> CommentBans { get; set; } = new List<CommentBan>();
 }

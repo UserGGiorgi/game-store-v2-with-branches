@@ -1,5 +1,4 @@
-﻿using GameStore.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +10,7 @@ namespace GameStore.Application.Interfaces
     {
         Task AddToCartAsync(string gameKey);
         Task RemoveFromCartAsync(string gameKey);
-        Task<Order> GetOrCreateOpenOrderAsync();
-        Task<Order?> GetOpenOrderAsync();
+        void ClearCartCache(Guid userId);
+
     }
 }

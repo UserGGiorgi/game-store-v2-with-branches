@@ -13,4 +13,5 @@ namespace GameStore.Application.Dtos.Order
         public int Quantity { get; set; }
         public int? Discount { get; set; }
     }
+
 }

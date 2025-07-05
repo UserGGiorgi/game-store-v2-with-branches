@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameStore.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,4 +15,5 @@ namespace GameStore.Domain.Entities
         public OrderStatus Status { get; set; } = OrderStatus.Open;
         public ICollection<OrderGame> OrderGames { get; set; } = new List<OrderGame>();
     }
+
 }

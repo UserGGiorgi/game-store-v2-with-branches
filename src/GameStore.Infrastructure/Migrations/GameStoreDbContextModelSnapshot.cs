@@ -30,19 +30,26 @@ namespace GameStore.Infrastructure.Migrations
 
                     b.Property<string>("Body")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("GameId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("HasQuote")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ParentCommentId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -51,6 +58,35 @@ namespace GameStore.Infrastructure.Migrations
                     b.HasIndex("ParentCommentId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.CommentBan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("GameId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("CommentBans");
                 });
 
             modelBuilder.Entity("GameStore.Domain.Entities.Game", b =>
@@ -218,8 +254,7 @@ namespace GameStore.Infrastructure.Migrations
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -244,13 +279,23 @@ namespace GameStore.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("GameStore.Domain.Entities.Comment", "ParentComment")
-                        .WithMany("ChildComments")
+                        .WithMany("Replies")
                         .HasForeignKey("ParentCommentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Game");
 
                     b.Navigation("ParentComment");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.CommentBan", b =>
+                {
+                    b.HasOne("GameStore.Domain.Entities.Game", "Game")
+                        .WithMany("CommentBans")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("GameStore.Domain.Entities.Game", b =>
@@ -333,11 +378,13 @@ namespace GameStore.Infrastructure.Migrations
 
             modelBuilder.Entity("GameStore.Domain.Entities.Comment", b =>
                 {
-                    b.Navigation("ChildComments");
+                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("GameStore.Domain.Entities.Game", b =>
                 {
+                    b.Navigation("CommentBans");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Genres");

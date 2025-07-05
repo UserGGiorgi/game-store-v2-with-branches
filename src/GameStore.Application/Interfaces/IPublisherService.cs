@@ -1,5 +1,7 @@
-﻿using GameStore.Application.Dtos.Games;
-using GameStore.Application.Dtos.Publisher;
+﻿using GameStore.Application.Dtos.Games.GetGames;
+using GameStore.Application.Dtos.Publishers.CreatePublisher;
+using GameStore.Application.Dtos.Publishers.GetPublisher;
+using GameStore.Application.Dtos.Publishers.UpdatePublisher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +12,12 @@ namespace GameStore.Application.Interfaces
 {
     public interface IPublisherService
     {
-        Task<PublisherDto> CreatePublisherAsync(CreatePublisherDto createPublisherDto);
-        Task<PublisherDto> GetPublisherByCompanyNameAsync(string companyName);
-        Task<IEnumerable<PublisherDto>> GetAllPublishersAsync();
-        Task<PublisherDto> GetPublisherByGameKeyAsync(string gameKey);
-        Task<PublisherDto> UpdatePublisherAsync(UpdatePublisherDto updatePublisherDto);
+        Task<PublisherResponseDto> CreatePublisherAsync(CreatePublisherRequestDto createPublisherDto);
+        Task<PublisherResponseDto> GetPublisherByIdAsync(Guid id);
+        Task<PublisherResponseDto> GetPublisherByCompanyNameAsync(string companyName);
+        Task<IEnumerable<PublisherResponseDto>> GetAllPublishersAsync();
+        Task<PublisherResponseDto> GetPublisherByGameKeyAsync(string gameKey);
+        Task<PublisherResponseDto> UpdatePublisherAsync(UpdatePublisherDto updatePublisherDto);
         Task DeletePublisherAsync(Guid id);
         Task<IEnumerable<GameResponseDto>> GetGamesByPublisherNameAsync(string companyName);
     }

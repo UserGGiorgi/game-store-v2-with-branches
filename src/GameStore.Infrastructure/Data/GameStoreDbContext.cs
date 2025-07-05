@@ -19,7 +19,7 @@ public class GameStoreDbContext : DbContext
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderGame> OrderGames => Set<OrderGame>();
     public DbSet<Comment> Comments => Set<Comment>();
-    public DbSet<Ban> Bans => Set<Ban>();
+    public DbSet<CommentBan> CommentBans => Set<CommentBan>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -90,7 +90,7 @@ public class GameStoreDbContext : DbContext
 
         modelBuilder.Entity<OrderGame>()
         .HasKey(og => new { og.OrderId, og.ProductId });
-        
+
         modelBuilder.Entity<Order>()
             .HasMany(o => o.OrderGames)
             .WithOne(og => og.Order)
@@ -103,19 +103,23 @@ public class GameStoreDbContext : DbContext
             .HasForeignKey(og => og.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<Comment>(entity =>
-        {
-            entity.HasKey(c => c.Id);
+        modelBuilder.Entity<Comment>()
+        .HasMany(c => c.Replies)
+        .WithOne(c => c.ParentComment)
+        .HasForeignKey(c => c.ParentCommentId)
+        .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasOne(c => c.ParentComment)
-                .WithMany(c => c.ChildComments)
-                .HasForeignKey(c => c.ParentCommentId)
-                .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.Game)
+            .WithMany(g => g.Comments)
+            .HasForeignKey(c => c.GameId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasOne(c => c.Game)
-                .WithMany(g => g.Comments)
-                .HasForeignKey(c => c.GameId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
+        modelBuilder.Entity<CommentBan>()
+            .HasOne(cb => cb.Game)
+            .WithMany(g => g.CommentBans)
+            .HasForeignKey(cb => cb.GameId)
+            .OnDelete(DeleteBehavior.Cascade);
+
     }
 }
