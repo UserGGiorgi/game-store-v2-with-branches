@@ -38,10 +38,8 @@ namespace GameStore.Application.Services
             var userId = GetStubUserId();
             var cacheKey = string.Format(CartCacheKey, userId);
 
-            if (!_cache.TryGetValue(cacheKey, out Order? order))
-            {
-                order = await GetOrCreateOpenOrderAsync();
-            }
+            var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync()
+                ?? await CreateNewOrderAsync(userId);
 
             var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey);
             if (game == null)
@@ -77,20 +75,29 @@ namespace GameStore.Application.Services
             _logger.LogInformation("Added game {GameKey} to cart for user {UserId}", gameKey, GetStubUserId());
             await _unitOfWork.SaveChangesAsync();
         }
-
+        private async Task<Order> CreateNewOrderAsync(Guid userId)
+        {
+            var order = new Order
+            {
+                CustomerId = userId,
+                Status = OrderStatus.Open
+            };
+            await _unitOfWork.OrderRepository.AddAsync(order);
+            await _unitOfWork.SaveChangesAsync();
+            return order;
+        }
         public async Task RemoveFromCartAsync(string gameKey)
         {
             var userId = GetStubUserId();
             var cacheKey = string.Format(CartCacheKey, userId);
 
-            if (!_cache.TryGetValue(cacheKey, out Order? order))
-            {
-                order = await GetOpenOrderAsync();
-                if (order == null) throw new NotFoundException("Cart is empty");
-            }
+            var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
+            if (order == null) throw new NotFoundException("Cart is empty");
+
             var game = await _unitOfWork.GameRepository
                 .GetByKeyAsync(gameKey)
                 ?? throw new NotFoundException("Game not found");
+
             ArgumentNullException.ThrowIfNull(order);
             var cartItem = order.OrderGames
                 .FirstOrDefault(og => og.ProductId == game.Id)
@@ -102,69 +109,28 @@ namespace GameStore.Application.Services
             {
                 order.OrderGames.Remove(cartItem);
             }
-
-            if (order.OrderGames.Count != 0)
-            {
-                _unitOfWork.OrderRepository.Delete(order);
-            }
+            await _unitOfWork.SaveChangesAsync();
             if (order.OrderGames.Count == 0)
             {
+                _unitOfWork.OrderRepository.Delete(order);
                 _cache.Remove(cacheKey);
             }
             else
             {
                 _cache.Set(cacheKey, order, _cacheDuration);
             }
+
             _logger.LogInformation("Removed game {GameKey} from cart for user {UserId}", gameKey, GetStubUserId());
-            await _unitOfWork.SaveChangesAsync();
         }
-
-        private async Task<Order> GetOrCreateOpenOrderAsync()
+        public void ClearCartCache(Guid userId)
         {
-            var userId = GetStubUserId();
             var cacheKey = string.Format(CartCacheKey, userId);
-
-            if (_cache.TryGetValue(cacheKey, out Order? cachedOrder) && cachedOrder != null)
-            {
-                return cachedOrder;
-            }
-
-            var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
-
-            if (order == null)
-            {
-                order = new Order
-                {
-                    CustomerId = GetStubUserId(),
-                    Status = OrderStatus.Open
-                };
-                await _unitOfWork.OrderRepository.AddAsync(order);
-                await _unitOfWork.SaveChangesAsync();
-            }
-            _cache.Set(cacheKey, order, _cacheDuration);
-            return order;
-        }
-
-        private async Task<Order?> GetOpenOrderAsync()
-        {
-            var userId = GetStubUserId();
-            var cacheKey = string.Format(CartCacheKey, userId);
-
-            if (_cache.TryGetValue(cacheKey, out Order? cachedOrder))
-            {
-                return cachedOrder;
-            }
-
-            var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
-            if (order != null)
-            {
-                _cache.Set(cacheKey, order, _cacheDuration);
-            }
-            return order;
+            _cache.Remove(cacheKey);
         }
         private static Guid GetStubUserId()
         {
             return Guid.Parse("a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a");
         }
     }
+
 }

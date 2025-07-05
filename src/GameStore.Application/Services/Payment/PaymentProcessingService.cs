@@ -24,17 +24,20 @@ namespace GameStore.Application.Services.Payment
         private readonly IOrderFacade _orderFacade;
         private readonly IPaymentServiceFactory _paymentServiceFactory;
         private readonly PaymentSettings _paymentSettings;
+        private readonly ICartService _cartService;
 
         public PaymentProcessingService(
             ILogger<PaymentProcessingService> logger,
             IOrderFacade orderFacade,
             IPaymentServiceFactory paymentServiceFactory,
-            IOptions<PaymentSettings> paymentSettings)
+            IOptions<PaymentSettings> paymentSettings,
+            ICartService cartService)
         {
             _logger = logger;
             _orderFacade = orderFacade;
             _paymentServiceFactory = paymentServiceFactory;
             _paymentSettings = paymentSettings.Value;
+            _cartService = cartService;
         }
 
         public async Task<IActionResult> ProcessPaymentAsync(Guid userId, PaymentRequestDto request)
@@ -59,6 +62,7 @@ namespace GameStore.Application.Services.Payment
                 var result = await paymentService.PayAsync(order, userId, model);
 
                 await _orderFacade.CompleteOrderAsync(order.Id);
+                _cartService.ClearCartCache(userId);
                 _logger.LogInformation("Payment successful for order {OrderId}", order.Id);
 
                 return HandlePaymentResult(result);
