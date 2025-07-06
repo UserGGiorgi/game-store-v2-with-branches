@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Domain.Enums
 {
-    public class PaymentMethod
+    public static class PaymentMethod
     {
         public const string None = "";
         public const string Visa = "visa";

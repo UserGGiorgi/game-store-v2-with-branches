@@ -38,7 +38,7 @@ namespace GameStore.Application.Services.Payment
             return await ConvertToResult(order, userId, bankModel);
         }
 
-        private BankPaymentModel EnsureValidModelType(IPaymentModel model)
+        private static BankPaymentModel EnsureValidModelType(IPaymentModel model)
         {
             if (model is not BankPaymentModel bankModel)
             {

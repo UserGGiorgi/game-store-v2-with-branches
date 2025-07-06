@@ -34,7 +34,7 @@ namespace GameStore.Application.Services
             var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey)
                 ?? throw new NotFoundException("Game not found");
 
-            if (await IsUserBanned(dto.Comment.Name, game.Id))
+            if (await IsUserBanned(dto.Comment.Name))
                 throw new UnauthorizedException("User is banned from commenting");
 
             var comment = new Comment
@@ -57,6 +57,7 @@ namespace GameStore.Application.Services
 
             await _unitOfWork.CommentRepository.AddAsync(comment);
             await _unitOfWork.SaveChangesAsync();
+            _logger.LogInformation("Comment added by {Username} for game {GameKey}", dto.Comment.Name, gameKey);
             return comment;
         }
 
@@ -108,7 +109,7 @@ namespace GameStore.Application.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        private DateTime CalculateBanExpiration(BanDuration duration)
+        private static DateTime CalculateBanExpiration(BanDuration duration)
         {
             return duration switch
             {
@@ -121,7 +122,7 @@ namespace GameStore.Application.Services
             };
         }
 
-        private async Task<bool> IsUserBanned(string username, Guid gameId)
+        private async Task<bool> IsUserBanned(string username)
         {
             var currentTime = DateTime.UtcNow;
             return await _unitOfWork.CommentBanRepository.AnyAsync(b =>
@@ -139,7 +140,7 @@ namespace GameStore.Application.Services
             )).ToList();
         }
 
-        private string FormatCommentBody(Comment comment)
+        private static string FormatCommentBody(Comment comment)
         {
             if (comment.Status == CommentStatus.Deleted)
                 return "A comment/quote was deleted";
