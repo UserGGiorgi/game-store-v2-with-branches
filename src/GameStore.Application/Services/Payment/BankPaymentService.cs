@@ -42,10 +42,10 @@ namespace GameStore.Application.Services.Payment
 
         private async Task<BankPaymentModel> ValidateModel(IPaymentModel model)
         {
-            var bankModel = new BankPaymentModel(
-            expiryDate: DateTime.UtcNow.AddDays(_validityDays));
-            ArgumentNullException.ThrowIfNull(bankModel);
-
+            if (model is not BankPaymentModel bankModel)
+            {
+                throw new ArgumentException("Invalid payment model type", nameof(model));
+            }
             var validationResult = await _validator.ValidateAsync(bankModel);
             if (!validationResult.IsValid)
             {

@@ -4,6 +4,8 @@ using iText.Layout;
 using iText.Layout.Element;
 using Microsoft.Extensions.Configuration;
 
+namespace GameStore.Infrastructure.Services
+{
 public class PdfService : IPdfService
 {
     private readonly IConfiguration _config;
@@ -21,6 +23,11 @@ public class PdfService : IPdfService
 
         using var pdf = new PdfDocument(writer);
         using var document = new Document(pdf);
+        AddInvoiceContent(document, userId, orderId, total);
+
+        return ms.ToArray();
+    }
+        private void AddInvoiceContent(Document document, Guid userId, Guid orderId, decimal total)
         {
             document.Add(new Paragraph($"Invoice for Order: {orderId}"));
             document.Add(new Paragraph($"User ID: {userId}"));
@@ -30,7 +37,5 @@ public class PdfService : IPdfService
             document.Add(new Paragraph($"Valid Until: {DateTime.Now.AddDays(validityDays):yyyy-MM-dd}"));
             document.Add(new Paragraph($"Total: {total:C}"));
         }
-        return ms.ToArray();
-
     }
 }

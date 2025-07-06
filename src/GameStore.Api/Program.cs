@@ -31,7 +31,6 @@ builder.Services.Configure<FormOptions>(options =>
     options.MultipartBodyLengthLimit = long.MaxValue;
 });
 builder.Services.AddControllers();
-builder.Services.AddMemoryCache();
 builder.Services.AddValidators();
 
 builder.Services.AddEndpointsApiExplorer();

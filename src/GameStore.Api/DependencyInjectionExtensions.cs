@@ -91,11 +91,10 @@ namespace GameStore.Api
             });
             return services;
         }
-        private static IServiceCollection AddPayments(this IServiceCollection services)
+        private static void AddPayments(this IServiceCollection services)
         {
             services.AddTransient<BankPaymentService>();
             services.AddScoped<IPaymentServiceFactory, PaymentServiceFactory>();
-            return services;
         }
     }
 }

@@ -10,11 +10,6 @@ using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Payment
 {
@@ -132,14 +127,14 @@ namespace GameStore.Application.Services.Payment
                 _ => BadRequest("Unknown payment result type")
             };
         }
-        private IActionResult BadRequest(string message) =>
+        private BadRequestObjectResult BadRequest(string message) =>
             new BadRequestObjectResult(message);
 
-        private IActionResult Ok() => new OkResult();
+        private OkResult Ok() => new OkResult();
 
-        private IActionResult Ok<T>(T value) => new OkObjectResult(value);
+        private OkObjectResult Ok<T>(T value) => new OkObjectResult(value);
 
-        private IActionResult StatusCode(int code, string message) =>
+        private ObjectResult StatusCode(int code, string message) =>
             new ObjectResult(message) { StatusCode = code };
     }
 }
