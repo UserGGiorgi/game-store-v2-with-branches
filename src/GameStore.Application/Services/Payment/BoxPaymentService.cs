@@ -59,7 +59,7 @@ namespace GameStore.Application.Services.Payment
             }
             return request;
         }
-        private async Task<PaymentResult> ValidResponse(HttpResponseMessage response)
+        private static async Task<PaymentResult> ValidResponse(HttpResponseMessage response)
         {
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromJsonAsync<BoxApiResponse>();
