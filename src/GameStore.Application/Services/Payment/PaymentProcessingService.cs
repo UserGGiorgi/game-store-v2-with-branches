@@ -133,14 +133,14 @@ namespace GameStore.Application.Services.Payment
                 _ => BadRequest("Unknown payment result type")
             };
         }
-        private IActionResult BadRequest(string message) =>
+        private static BadRequestObjectResult BadRequest(string message) =>
             new BadRequestObjectResult(message);
 
-        private IActionResult Ok() => new OkResult();
+        private static OkResult Ok() => new OkResult();
 
-        private IActionResult Ok<T>(T value) => new OkObjectResult(value);
+        private static OkObjectResult Ok<T>(T value) => new OkObjectResult(value);
 
-        private IActionResult StatusCode(int code, string message) =>
+        private static ObjectResult StatusCode(int code, string message) =>
             new ObjectResult(message) { StatusCode = code };
     }
 }

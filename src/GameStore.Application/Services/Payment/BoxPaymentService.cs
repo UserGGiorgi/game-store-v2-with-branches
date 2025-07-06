@@ -59,7 +59,7 @@ namespace GameStore.Application.Services.Payment
             }
             return request;
         }
-        private async Task<PaymentResult> ValidResponse(HttpResponseMessage response)
+        private static async Task<PaymentResult> ValidResponse(HttpResponseMessage response)
         {
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromJsonAsync<BoxApiResponse>();
@@ -68,11 +68,12 @@ namespace GameStore.Application.Services.Payment
                 : (PaymentResult)new BoxPaymentResult
                 {
                     UserId = Guid.Parse(result.AccountId),
-                    OrderId = Guid.Parse(result.InvoiceNumber),
+                    OrderId = Guid.Parse(result.AccountId),
                     PaymentDate = DateTime.UtcNow,
                     Sum = result.Amount
                 };
 
         }
+
     }
 }

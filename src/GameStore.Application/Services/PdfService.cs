@@ -21,16 +21,18 @@ public class PdfService : IPdfService
 
         using var pdf = new PdfDocument(writer);
         using var document = new Document(pdf);
-        {
-            document.Add(new Paragraph($"Invoice for Order: {orderId}"));
-            document.Add(new Paragraph($"User ID: {userId}"));
-            document.Add(new Paragraph($"Date: {DateTime.Now:yyyy-MM-dd HH:mm}"));
+        AddInvoiceContent(document, userId, orderId, total);
 
-            var validityDays = _config.GetValue<int>("BankInvoiceSettings:ValidityDays", 30);
-            document.Add(new Paragraph($"Valid Until: {DateTime.Now.AddDays(validityDays):yyyy-MM-dd}"));
-            document.Add(new Paragraph($"Total: {total:C}"));
-        }
         return ms.ToArray();
+    }
+    private void AddInvoiceContent(Document document, Guid userId, Guid orderId, decimal total)
+    {
+        document.Add(new Paragraph($"Invoice for Order: {orderId}"));
+        document.Add(new Paragraph($"User ID: {userId}"));
+        document.Add(new Paragraph($"Date: {DateTime.Now:yyyy-MM-dd HH:mm}"));
 
+        var validityDays = _config.GetValue<int>("BankInvoiceSettings:ValidityDays", 30);
+        document.Add(new Paragraph($"Valid Until: {DateTime.Now.AddDays(validityDays):yyyy-MM-dd}"));
+        document.Add(new Paragraph($"Total: {total:C}"));
     }
 }

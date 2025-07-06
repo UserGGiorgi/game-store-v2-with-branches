@@ -44,6 +44,7 @@ namespace GameStore.Api.Controllers
         public async Task<IActionResult> RemoveFromCart(string key)
         {
             await _orderFacade.RemoveFromCartAsync(key);
+            _logger.LogInformation("Removed item with key {Key} from cart", key);
             return NoContent();
         }
 
