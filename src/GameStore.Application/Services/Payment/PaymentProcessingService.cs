@@ -111,7 +111,7 @@ namespace GameStore.Application.Services.Payment
             };
         }
 
-        private IActionResult HandlePaymentResult(PaymentResult result)
+        private static IActionResult HandlePaymentResult(PaymentResult result)
         {
             return result switch
             {

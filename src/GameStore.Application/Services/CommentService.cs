@@ -130,7 +130,7 @@ namespace GameStore.Application.Services
                 b.Expires > currentTime);
         }
 
-        private List<CommentResponseDto> BuildCommentTree(IEnumerable<Comment> comments)
+        private static List<CommentResponseDto> BuildCommentTree(IEnumerable<Comment> comments)
         {
             return comments.Select(c => new CommentResponseDto(
                 c.Id,
