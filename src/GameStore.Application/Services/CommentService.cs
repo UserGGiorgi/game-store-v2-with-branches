@@ -79,49 +79,6 @@ namespace GameStore.Application.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<string>> GetBanDurationsAsync()
-        {
-            var durations = new[] { "1 hour", "1 day", "1 week", "1 month", "permanent" };
-            return Task.FromResult(durations.AsEnumerable());
-        }
-
-        public async Task BanUserAsync(BanUserDto banDto)
-        {
-            var duration = banDto.Duration switch
-            {
-                "1 hour" => BanDuration.OneHour,
-                "1 day" => BanDuration.OneDay,
-                "1 week" => BanDuration.OneWeek,
-                "1 month" => BanDuration.OneMonth,
-                "permanent" => BanDuration.Permanent,
-                _ => throw new ArgumentException("Invalid duration")
-            };
-
-            var ban = new CommentBan
-            {
-                Username = banDto.User,
-                Duration = duration,
-                Expires = CalculateBanExpiration(duration),
-                GameId = null
-            };
-
-            await _unitOfWork.CommentBanRepository.AddAsync(ban);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        private static DateTime CalculateBanExpiration(BanDuration duration)
-        {
-            return duration switch
-            {
-                BanDuration.OneHour => DateTime.UtcNow.AddHours(1),
-                BanDuration.OneDay => DateTime.UtcNow.AddDays(1),
-                BanDuration.OneWeek => DateTime.UtcNow.AddDays(7),
-                BanDuration.OneMonth => DateTime.UtcNow.AddMonths(1),
-                BanDuration.Permanent => DateTime.MaxValue,
-                _ => throw new ArgumentException("Invalid duration")
-            };
-        }
-
         private async Task<bool> IsUserBanned(string username)
         {
             var currentTime = DateTime.UtcNow;

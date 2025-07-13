@@ -14,7 +14,5 @@ namespace GameStore.Application.Interfaces
         Task<Comment> AddCommentAsync(string gameKey, AddCommentRequestDto dto);
         Task<IEnumerable<CommentResponseDto>> GetGameCommentsAsync(string gameKey);
         Task DeleteCommentAsync(Guid commentId);
-        Task<IEnumerable<string>> GetBanDurationsAsync();
-        Task BanUserAsync(BanUserDto banDto);
     }
 }

@@ -30,6 +30,7 @@ namespace GameStore.Api
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IPdfService, PdfService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IBanService, BanService>();
             services.AddScoped<IOrderFacade, OrderFacade>();
             services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
             AddPayments(services);

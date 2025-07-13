@@ -55,19 +55,5 @@ namespace GameStore.Api.Controllers
                 await _commentService.DeleteCommentAsync(id);
                 return NoContent();
         }
-
-        [HttpGet("ban/durations")]
-        public async Task<IActionResult> GetBanDurations()
-        {
-                var durations = await _commentService.GetBanDurationsAsync();
-                return Ok(durations);
-        }
-
-        [HttpPost("ban")]
-        public async Task<IActionResult> BanUser([FromBody] BanUserDto banDto)
-        {
-                await _commentService.BanUserAsync(banDto);
-                return Ok();
-        }
     }
 }
