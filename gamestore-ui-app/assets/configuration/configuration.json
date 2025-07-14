@@ -1,5 +1,5 @@
 {
-  "baseApiUrl": "https://localhost:7091/",
+  "baseApiUrl": "https://localhost:5001/",
 
   "getGameFileApiUrl": "games/{key}/file",
   "getPublishedDateOptionsApiUrl": "games/publish-date-options",

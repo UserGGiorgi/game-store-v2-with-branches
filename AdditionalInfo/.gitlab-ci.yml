@@ -1,0 +1,33 @@
+variables:
+  PROJECT_NAME: '.'
+
+stages:
+  - build
+  - test
+
+build:
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  stage: build
+  script:
+    - 'cd $PROJECT_NAME'
+    - 'dotnet restore'
+    - 'dotnet build --configuration Release'
+  artifacts:
+    paths:
+      - '$PROJECT_NAME/bin/Release'
+      - '$PROJECT_NAME/obj'
+
+test:
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  stage: test
+  script:
+    - 'cd $PROJECT_NAME'
+    - 'dotnet test --collect:"XPlat Code Coverage" --results-directory artifacts/test_results/ /p:CollectCoverage=true /p:Threshold=50 /p:ThresholdStat=total /p:ExcludeByFile="**/Migrations/*"'
+  coverage: '/Total\s*\|\s*(\d+(?:\.\d+)?)/'
+  artifacts:
+    paths:
+      - '$PROJECT_NAME/artifacts/test_results/*/coverage.cobertura.xml'
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: '$PROJECT_NAME/artifacts/test_results/*/coverage.cobertura.xml'
