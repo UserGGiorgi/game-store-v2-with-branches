@@ -35,11 +35,11 @@ namespace GameStore.Api.Controllers
             var validationResult = await _createValidator.ValidateAsync(dto);
             if (!validationResult.IsValid)
             {
-                _logger.LogWarning("Validation failed for Comment creation: {Errors}", validationResult.Errors);
                 return BadRequest(validationResult.ToDictionary());
             }
             var comment = await _commentService.AddCommentAsync(key, dto);
-                return CreatedAtAction(nameof(GetComments), new { key }, comment);
+            _logger.LogInformation("Comment added for game {GameKey}", key);
+            return CreatedAtAction(nameof(GetComments), new { key }, comment);
         }
 
         [HttpGet("/games/{key}/comments")]

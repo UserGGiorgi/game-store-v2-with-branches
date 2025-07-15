@@ -11,6 +11,8 @@ public class Game
     public int Discount { get; set; }
     public Guid PublisherId { get; set; }
     public Publisher Publisher { get; set; } = null!;
+    public int ViewCount { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<GameGenre> Genres { get; set; } = new List<GameGenre>();
     public ICollection<GamePlatform> Platforms { get; set; } = new List<GamePlatform>();

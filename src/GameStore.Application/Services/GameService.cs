@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.Filter;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Enums;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -109,12 +111,17 @@ public class GameService : IGameService
     }
     public async Task<GameDto?> GetGameByKeyAsync(string key)
     {
-        _logger.LogInformation("Getting game by key: {key}", key);
         var game = await _unitOfWork.GameRepository.GetByKeyAsync(key);
         if (game == null)
         {
             _logger.LogWarning("Game not found - Key: {key}", key);
+            return null;
         }
+        game.ViewCount++;
+        await _unitOfWork.SaveChangesAsync();
+
+        _logger.LogDebug("Game viewed - Key: {key}, New ViewCount: {viewCount}",
+            key, game.ViewCount);
         return _mapper.Map<GameDto>(game);
     }
 
@@ -228,7 +235,6 @@ public class GameService : IGameService
         var validPlatforms = await ValidateAndGetPlatformsAsync(platformIds);
         var validPlatformIds = validPlatforms.Select(p => p.Id).ToList();
 
-        // Remove old
         foreach (var gamePlatform in currentGamePlatforms)
         {
             if (!validPlatformIds.Contains(gamePlatform.PlatformId))
@@ -237,7 +243,6 @@ public class GameService : IGameService
             }
         }
 
-        // Add new
         var existingPlatformIds = currentGamePlatforms.Select(gp => gp.PlatformId).ToList();
         foreach (var platformId in validPlatformIds)
         {
@@ -296,12 +301,132 @@ public class GameService : IGameService
         };
     }
 
-    public async Task<IEnumerable<SimpleGameResponseDto>> GetAllGamesAsync()
+    public async Task<(IEnumerable<PaginationGame> Games, int TotalCount)> GetAllGamesAsync(
+    int pageNumber,
+    int pageSize,
+    CancellationToken cancellationToken = default)
     {
-        var games = await _unitOfWork.GameRepository.GetAllAsync();
-        var gameList = games.ToList();
+        var query = _unitOfWork.GameRepository.GetAllAsQuerable();
 
-        _logger.LogInformation("Retrieved {GameCount} games", gameList.Count);
-        return _mapper.Map<IEnumerable<SimpleGameResponseDto>>(gameList);
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        var games = await query
+            .OrderBy(g => g.Name)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .Select(g => new PaginationGame
+            {
+                Id = g.Id,
+                Name = g.Name,
+                Key = g.Key,
+                Description = g.Description,
+                Price = g.Price,
+                Discount = g.Discount,
+                UnitInStock = g.UnitInStock
+            })
+            .ToListAsync(cancellationToken);
+
+        return (games, totalCount);
+    }
+
+    public async Task<PaginatedGamesResponseDto> GetFilteredGamesAsync(
+        GameFilterDto filter,
+        SortOption sortBy,
+        int pageNumber,
+        int pageSize,
+        CancellationToken cancellationToken)
+    {
+        var query = _unitOfWork.GameRepository.GetAllAsQuerable()
+            .Include(g => g.Genres)
+            .Include(g => g.Platforms)
+            .Include(g => g.Publisher)
+            .Include(g => g.Comments)
+            .AsQueryable();
+
+        query = ApplyFilters(query, filter);
+
+        query = ApplySorting(query, sortBy);
+
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        var games = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
+
+        var paginatedGames = _mapper.Map<IEnumerable<PaginationGame>>(games);
+
+        return new PaginatedGamesResponseDto
+        {
+            Games = paginatedGames,
+            TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize),
+            CurrentPage = pageNumber
+        };
+    }
+
+    private IQueryable<Game> ApplyFilters(IQueryable<Game> query, GameFilterDto filter)
+    {
+        if (filter.GenreIds != null && filter.GenreIds.Any())
+        {
+            query = query.Where(g => g.Genres.Any(gg => filter.GenreIds.Contains(gg.GenreId)));
+        }
+
+        if (filter.PlatformIds != null && filter.PlatformIds.Any())
+        {
+            query = query.Where(g => g.Platforms.Any(gp => filter.PlatformIds.Contains(gp.PlatformId)));
+        }
+
+        if (filter.PublisherIds != null && filter.PublisherIds.Any())
+        {
+            query = query.Where(g => filter.PublisherIds.Contains(g.PublisherId));
+        }
+
+        if (filter.MinPrice.HasValue)
+        {
+            query = query.Where(g => g.Price >= filter.MinPrice.Value);
+        }
+        if (filter.MaxPrice.HasValue)
+        {
+            query = query.Where(g => g.Price <= filter.MaxPrice.Value);
+        }
+
+        if (filter.PublishDate.HasValue)
+        {
+            var dateFilter = DateTime.UtcNow.AddTicks(-1 * GetDateRangeTicks(filter.PublishDate.Value));
+            query = query.Where(g => g.CreatedAt >= dateFilter);
+        }
+
+        if (!string.IsNullOrWhiteSpace(filter.Name) && filter.Name.Length >= 3)
+        {
+            query = query.Where(g => g.Name.Contains(filter.Name));
+        }
+
+        return query;
+    }
+
+    private long GetDateRangeTicks(PublishDateOption option)
+    {
+        return option switch
+        {
+            PublishDateOption.LastWeek => TimeSpan.FromDays(7).Ticks,
+            PublishDateOption.LastMonth => TimeSpan.FromDays(30).Ticks,
+            PublishDateOption.LastYear => TimeSpan.FromDays(365).Ticks,
+            PublishDateOption.TwoYears => TimeSpan.FromDays(365 * 2).Ticks,
+            PublishDateOption.ThreeYears => TimeSpan.FromDays(365 * 3).Ticks,
+            _ => throw new ArgumentOutOfRangeException(nameof(option), option, null)
+        };
+    }
+
+    private IQueryable<Game> ApplySorting(IQueryable<Game> query, SortOption sortBy)
+    {
+        return sortBy switch
+        {
+            SortOption.MostPopular => query.OrderByDescending(g => g.ViewCount),
+            SortOption.MostCommented => query.OrderByDescending(g => g.Comments.Count),
+            SortOption.PriceAsc => query.OrderBy(g => g.Price),
+            SortOption.PriceDesc => query.OrderByDescending(g => g.Price),
+            SortOption.New => query.OrderByDescending(g => g.CreatedAt),
+            _ => query.OrderBy(g => g.Name)
+        };
     }
 }

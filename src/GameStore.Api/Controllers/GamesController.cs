@@ -1,15 +1,14 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.Filter;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
-using GameStore.Application.Dtos.Platforms.CreatePlatform;
-using GameStore.Application.Dtos.Platforms.UpdatePlatform;
 using GameStore.Application.Interfaces;
-using GameStore.Domain.Exceptions;
-using GameStore.Infrastructure.Services;
+using GameStore.Domain.Enums;
+using GameStore.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Extensions;
 
 namespace GameStore.Web.Controller;
 
@@ -35,12 +34,22 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<SimpleGameResponseDto>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(PaginatedGamesResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetAll(
+    [FromQuery] int pageNumber = 1,
+    [FromQuery] string pageSize = "10",
+    CancellationToken cancellationToken = default)
     {
-        var games = await _gameService.GetAllGamesAsync();
-        _logger.LogInformation($"Retrieved  games");
-        return Ok(games);
+        if (!IsValidPageSize(pageSize, out string errorMessage))
+        {
+            return BadRequest(errorMessage);
+        }
+
+        int pageSizeValue = GetPageSizeValue(pageSize);
+        var result = await _gameService.GetAllGamesAsync(pageNumber, pageSizeValue, cancellationToken);
+
+        return Ok(CreatePaginatedResponse(result.Games, result.TotalCount, pageNumber, pageSizeValue));
     }
 
     [HttpPost]
@@ -58,9 +67,8 @@ public class GamesController : ControllerBase
         }
         var createdGame = await _gameService.CreateGameAsync(request);
         _logger.LogInformation("Game created successfully. Key: {GameKey}", createdGame.Key);
-        var games = await _gameService.GetAllGamesAsync();
+        var games = await _gameService.GetAllGamesAsync(1,10,cancellationToken);
         return CreatedAtAction(nameof(GetAll), games);
-
     }
 
     [HttpGet("{key}")]
@@ -159,5 +167,127 @@ public class GamesController : ControllerBase
         var result = await _gameService.SimulateDownloadAsync(key);
         _logger.LogInformation("Download completed for game: {GameKey}", key);
         return result;
+    }
+
+
+    [HttpGet("pagination-options")]
+    [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status200OK)]
+    public IActionResult GetPaginationOptions()
+    {
+        var options = Enum.GetValues(typeof(PaginationOption))
+       .Cast<PaginationOption>()
+       .Select(x => x == PaginationOption.All ? "all" : ((int)x).ToString());
+
+        return Ok(options);
+    }
+
+    [HttpGet("sorting-options")]
+    [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status200OK)]
+    public IActionResult GetSortingOptions()
+    {
+        var options = Enum.GetValues(typeof(SortOption))
+        .Cast<SortOption>()
+        .Select(x => x.GetDescription());
+
+        return Ok(options);
+    }
+
+    [HttpGet("publish-date-options")]
+    [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status200OK)]
+    public IActionResult GetPublishDateOptions()
+    {
+        var options = Enum.GetValues(typeof(PublishDateOption))
+        .Cast<PublishDateOption>()
+        .Select(x => x.GetDescription());
+
+        return Ok(options);
+    }
+
+    [HttpGet("filter")]
+    [ProducesResponseType(typeof(PaginatedGamesResponseDto), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetFilteredGames(
+    [FromQuery] GameFilterDto filter,
+    [FromQuery] SortOption sortBy = SortOption.MostPopular,
+    [FromQuery] int pageNumber = 1,
+    [FromQuery] int pageSize = 10,
+    CancellationToken cancellationToken = default)
+    {
+        if (!string.IsNullOrEmpty(filter.Name) && filter.Name.Length < 3)
+        {
+            return BadRequest("Name filter requires at least 3 characters");
+        }
+
+        var result = await _gameService.GetFilteredGamesAsync(
+            filter,
+            sortBy,
+            pageNumber,
+            pageSize,
+            cancellationToken);
+
+        return Ok(result);
+    }
+
+
+    private bool IsValidPageSize(string pageSize, out string errorMessage)
+    {
+        errorMessage = "null";
+
+        if (string.IsNullOrWhiteSpace(pageSize))
+        {
+            errorMessage = "Page size cannot be empty.";
+            return false;
+        }
+
+        bool isValidNumeric = int.TryParse(pageSize, out int numericSize) &&
+                             Enum.IsDefined(typeof(PaginationOption), numericSize);
+        bool isValidText = Enum.GetNames(typeof(PaginationOption))
+                              .Any(name => name.Equals(pageSize, StringComparison.OrdinalIgnoreCase));
+        bool isAll = pageSize.Equals("all", StringComparison.OrdinalIgnoreCase);
+
+        if (isValidNumeric || isValidText || isAll)
+        {
+            return true;
+        }
+
+        var validOptions = Enum.GetValues(typeof(PaginationOption))
+                               .Cast<PaginationOption>()
+                               .Select(x => x == PaginationOption.All ? "all" : ((int)x).ToString());
+
+        errorMessage = $"Invalid page size. Valid options are: {string.Join(", ", validOptions)}";
+        return false;
+    }
+
+    private int GetPageSizeValue(string pageSize)
+    {
+        if (pageSize.Equals("all", StringComparison.OrdinalIgnoreCase))
+        {
+            return int.MaxValue;
+        }
+
+        if (Enum.TryParse(pageSize, true, out PaginationOption option))
+        {
+            return option == PaginationOption.All ? int.MaxValue : (int)option;
+        }
+
+        return int.Parse(pageSize);
+    }
+
+    private PaginatedGamesResponseDto CreatePaginatedResponse(
+        IEnumerable<PaginationGame> games,
+        int totalCount,
+        int currentPage,
+        int pageSizeValue)
+    {
+        var response = new PaginatedGamesResponseDto
+        {
+            Games = games,
+            TotalPages = (int)Math.Ceiling(totalCount / (double)pageSizeValue),
+            CurrentPage = currentPage
+        };
+
+        _logger.LogInformation("Retrieved {Count} games (page {Page} of {TotalPages})",
+            response.Games.Count(), currentPage, response.TotalPages);
+
+        return response;
     }
 }
