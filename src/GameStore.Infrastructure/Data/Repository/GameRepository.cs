@@ -46,30 +46,6 @@ namespace GameStore.Infrastructure.Data.Repository
                 .Where(g => g.Platforms.Any(gp => gp.PlatformId == platformId))
                 .ToListAsync();
         }
-        //public async Task<IEnumerable<Game>> GetFilteredAsync(
-        //Expression<Func<Game, bool>>? predicate = null,
-        //Func<IQueryable<Game>, IOrderedQueryable<Game>>? orderBy = null,
-        //int? skip = null,
-        //int? take = null)
-        //{
-        //    IQueryable<Game> query = _context.Games
-        //        .Include(g => g.Genres)
-        //        .Include(g => g.Platforms);
-
-        //    if (predicate != null)
-        //        query = query.Where(predicate);
-
-        //    if (orderBy != null)
-        //        query = orderBy(query);
-
-        //    if (skip.HasValue)
-        //        query = query.Skip(skip.Value);
-
-        //    if (take.HasValue)
-        //        query = query.Take(take.Value);
-
-        //    return await query.ToListAsync();
-        //}
 
         public IQueryable<Game> GetAllAsQuerable()
         {

@@ -228,7 +228,7 @@ public class GamesController : ControllerBase
     }
 
 
-    private bool IsValidPageSize(string pageSize, out string errorMessage)
+    private static bool IsValidPageSize(string pageSize, out string errorMessage)
     {
         errorMessage = "null";
 
@@ -257,7 +257,7 @@ public class GamesController : ControllerBase
         return false;
     }
 
-    private int GetPageSizeValue(string pageSize)
+    private static int GetPageSizeValue(string pageSize)
     {
         if (pageSize.Equals("all", StringComparison.OrdinalIgnoreCase))
         {

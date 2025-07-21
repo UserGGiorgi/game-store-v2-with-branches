@@ -326,7 +326,7 @@ public class GameService : IGameService
 
     public async Task<(IEnumerable<PaginationGame> Games, int TotalCount)> GetAllGamesAsync(
     int pageNumber,
-    int pageSize,
+    int pageSizeOption,
     CancellationToken cancellationToken = default)
     {
         var query = _unitOfWork.GameRepository.GetAllAsQuerable();
@@ -335,8 +335,8 @@ public class GameService : IGameService
 
         var games = await query
             .OrderBy(g => g.Name)
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
+            .Skip((pageNumber - 1) * pageSizeOption)
+            .Take(pageSizeOption)
             .Select(g => new PaginationGame
             {
                 Id = g.Id,

@@ -15,10 +15,9 @@ using GameStore.Domain.Interfaces.Repositories;
 using GameStore.Infrastructure.Data;
 using GameStore.Infrastructure.Data.Repositories;
 using GameStore.Infrastructure.Data.Repository;
-using GameStore.Infrastructure.Migrations;
+using GameStore.Infrastructure.Data.RepositoryCollection;
 using GameStore.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace GameStore.Api
 {
@@ -68,16 +67,18 @@ namespace GameStore.Api
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICommentBanRepository, CommentBanRepository>();
 
-            services.AddScoped(provider => new RepositoryCollection(
+            services.AddScoped(provider => new GameRepositoryCollection(
                 new Lazy<IGameRepository>(() => provider.GetRequiredService<IGameRepository>()),
                 new Lazy<IGenreRepository>(() => provider.GetRequiredService<IGenreRepository>()),
                 new Lazy<IPlatformRepository>(() => provider.GetRequiredService<IPlatformRepository>()),
                 new Lazy<IPublisherRepository>(() => provider.GetRequiredService<IPublisherRepository>()),
                 new Lazy<IOrderRepository>(() => provider.GetRequiredService<IOrderRepository>()),
                 new Lazy<IGameGenreRepository>(() => provider.GetRequiredService<IGameGenreRepository>()),
-                new Lazy<IGamePlatformRepository>(() => provider.GetRequiredService<IGamePlatformRepository>()),
+                new Lazy<IGamePlatformRepository>(() => provider.GetRequiredService<IGamePlatformRepository>())
+            ));
+            services.AddScoped(provider => new CommentRepositoryCollection(
                 new Lazy<ICommentRepository>(() => provider.GetRequiredService<ICommentRepository>()),
-                new Lazy<ICommentBanRepository>(() => provider.GetRequiredService<ICommentBanRepository>())
+new Lazy<ICommentBanRepository>(() => provider.GetRequiredService<ICommentBanRepository>())
             ));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

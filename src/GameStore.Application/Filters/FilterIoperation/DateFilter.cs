@@ -21,7 +21,7 @@ namespace GameStore.Application.Filters.FilterIoeration
             return query;
         }
 
-        private long GetDateRangeTicks(PublishDateOption option)
+        private static long GetDateRangeTicks(PublishDateOption option)
         {
             return option switch
             {
