@@ -3,15 +3,19 @@ using GameStore.Application.Dtos.Order.PaymentModels;
 using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
 using GameStore.Application.Facade;
+using GameStore.Application.Filters.FilterIoeration;
+using GameStore.Application.Filters.SortOperation;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Services;
 using GameStore.Application.Services.Payment;
 using GameStore.Domain.Constraints;
+using GameStore.Domain.Entities;
 using GameStore.Domain.Interfaces;
 using GameStore.Domain.Interfaces.Repositories;
 using GameStore.Infrastructure.Data;
 using GameStore.Infrastructure.Data.Repositories;
 using GameStore.Infrastructure.Data.Repository;
+using GameStore.Infrastructure.Migrations;
 using GameStore.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +38,8 @@ namespace GameStore.Api
             services.AddScoped<IOrderFacade, OrderFacade>();
             services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
             AddPayments(services);
+            AddFiltering(services);
+            AddSorting(services);
             return services;
         }
         public static IServiceCollection AddValidators(this IServiceCollection services)
@@ -97,6 +103,24 @@ namespace GameStore.Api
                 client.Timeout = TimeSpan.FromSeconds(30);
             });
             return services;
+        }
+        private static void AddSorting(this IServiceCollection services)
+        {
+            services.AddTransient<ISortOperation<Game>, MostPopularSort>();
+            services.AddTransient<ISortOperation<Game>, MostCommentedSort>();
+            services.AddTransient<ISortOperation<Game>, PriceAscSort>();
+            services.AddTransient<ISortOperation<Game>, PriceDescSort>();
+            services.AddTransient<ISortOperation<Game>, NewSort>();
+            services.AddTransient<ISortOperation<Game>, NameSort>();
+        }
+        private static void AddFiltering(this IServiceCollection services)
+        {
+            services.AddTransient<IFilterOperation<Game>, GenreFilter>();
+            services.AddTransient<IFilterOperation<Game>, PlatformFilter>();
+            services.AddTransient<IFilterOperation<Game>, PublisherFilter>();
+            services.AddTransient<IFilterOperation<Game>, PriceFilter>();
+            services.AddTransient<IFilterOperation<Game>, DateFilter>();
+            services.AddTransient<IFilterOperation<Game>, NameFilter>();
         }
         private static void AddPayments(this IServiceCollection services)
         {

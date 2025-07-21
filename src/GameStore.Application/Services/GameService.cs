@@ -4,6 +4,8 @@ using GameStore.Application.Dtos.Games.Filter;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
+using GameStore.Application.Filters.FilterIoeration;
+using GameStore.Application.Filters.SortOperation;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Enums;
@@ -21,6 +23,8 @@ public class GameService : IGameService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<GameService> _logger;
+    private readonly List<IFilterOperation<Game>> _filterPipeline;
+    private readonly Dictionary<SortOption, ISortOperation<Game>> _sortOperations;
 
     public GameService(
         IUnitOfWork unitOfWork,
@@ -30,6 +34,25 @@ public class GameService : IGameService
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _logger = logger;
+
+        _filterPipeline = new List<IFilterOperation<Game>>
+        {
+            new GenreFilter(),
+            new PlatformFilter(),
+            new PublisherFilter(),
+            new PriceFilter(),
+            new DateFilter(),
+            new NameFilter()
+        };
+
+        _sortOperations = new Dictionary<SortOption, ISortOperation<Game>>
+        {
+            { SortOption.MostPopular, new MostPopularSort() },
+            { SortOption.MostCommented, new MostCommentedSort() },
+            { SortOption.PriceAsc, new PriceAscSort() },
+            { SortOption.PriceDesc, new PriceDescSort() },
+            { SortOption.New, new NewSort() }
+        };
     }
 
     public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
@@ -343,9 +366,14 @@ public class GameService : IGameService
             .Include(g => g.Comments)
             .AsQueryable();
 
-        query = ApplyFilters(query, filter);
+        foreach (var filterOp in _filterPipeline)
+        {
+            query = filterOp.Apply(query, filter);
+        }
 
-        query = ApplySorting(query, sortBy);
+        query = _sortOperations.TryGetValue(sortBy, out var sortOperation)
+            ? sortOperation.Apply(query)
+            : new NameSort().Apply(query);
 
         var totalCount = await query.CountAsync(cancellationToken);
 
@@ -361,72 +389,6 @@ public class GameService : IGameService
             Games = paginatedGames,
             TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize),
             CurrentPage = pageNumber
-        };
-    }
-
-    private IQueryable<Game> ApplyFilters(IQueryable<Game> query, GameFilterDto filter)
-    {
-        if (filter.GenreIds != null && filter.GenreIds.Any())
-        {
-            query = query.Where(g => g.Genres.Any(gg => filter.GenreIds.Contains(gg.GenreId)));
-        }
-
-        if (filter.PlatformIds != null && filter.PlatformIds.Any())
-        {
-            query = query.Where(g => g.Platforms.Any(gp => filter.PlatformIds.Contains(gp.PlatformId)));
-        }
-
-        if (filter.PublisherIds != null && filter.PublisherIds.Any())
-        {
-            query = query.Where(g => filter.PublisherIds.Contains(g.PublisherId));
-        }
-
-        if (filter.MinPrice.HasValue)
-        {
-            query = query.Where(g => g.Price >= filter.MinPrice.Value);
-        }
-        if (filter.MaxPrice.HasValue)
-        {
-            query = query.Where(g => g.Price <= filter.MaxPrice.Value);
-        }
-
-        if (filter.PublishDate.HasValue)
-        {
-            var dateFilter = DateTime.UtcNow.AddTicks(-1 * GetDateRangeTicks(filter.PublishDate.Value));
-            query = query.Where(g => g.CreatedAt >= dateFilter);
-        }
-
-        if (!string.IsNullOrWhiteSpace(filter.Name) && filter.Name.Length >= 3)
-        {
-            query = query.Where(g => g.Name.Contains(filter.Name));
-        }
-
-        return query;
-    }
-
-    private long GetDateRangeTicks(PublishDateOption option)
-    {
-        return option switch
-        {
-            PublishDateOption.LastWeek => TimeSpan.FromDays(7).Ticks,
-            PublishDateOption.LastMonth => TimeSpan.FromDays(30).Ticks,
-            PublishDateOption.LastYear => TimeSpan.FromDays(365).Ticks,
-            PublishDateOption.TwoYears => TimeSpan.FromDays(365 * 2).Ticks,
-            PublishDateOption.ThreeYears => TimeSpan.FromDays(365 * 3).Ticks,
-            _ => throw new ArgumentOutOfRangeException(nameof(option), option, null)
-        };
-    }
-
-    private IQueryable<Game> ApplySorting(IQueryable<Game> query, SortOption sortBy)
-    {
-        return sortBy switch
-        {
-            SortOption.MostPopular => query.OrderByDescending(g => g.ViewCount),
-            SortOption.MostCommented => query.OrderByDescending(g => g.Comments.Count),
-            SortOption.PriceAsc => query.OrderBy(g => g.Price),
-            SortOption.PriceDesc => query.OrderByDescending(g => g.Price),
-            SortOption.New => query.OrderByDescending(g => g.CreatedAt),
-            _ => query.OrderBy(g => g.Name)
         };
     }
 }
