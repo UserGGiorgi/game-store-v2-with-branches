@@ -1,5 +1,5 @@
 {
-  "baseApiUrl": "https://localhost:7091/",
+  "baseApiUrl": "https://localhost:5001/",
 
   "gamesAllApiUrl": "games/all",
   "getGameFileApiUrl": "games/{key}/file",
@@ -60,7 +60,7 @@
   "deletePublisherApiUrl": "publishers/{id}",
   "updatePublisherApiUrl": "publishers",
 
-  "historyApiUrl": "orders/history",  
+  "historyApiUrl": "orders/history",
   "orderApiUrl": "orders/{id}",
   "ordersApiUrl": "orders",
   "orderDetailsApiUrl": "orders/{id}/details",
