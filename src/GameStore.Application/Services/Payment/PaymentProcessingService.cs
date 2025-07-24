@@ -4,6 +4,7 @@ using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
 using GameStore.Application.Facade;
 using GameStore.Application.Interfaces;
+using GameStore.Application.Interfaces.Payment;
 using GameStore.Domain.Constraints;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Enums;

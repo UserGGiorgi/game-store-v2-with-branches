@@ -1,4 +1,4 @@
-﻿using GameStore.Application.Interfaces;
+﻿using GameStore.Application.Interfaces.Payment;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Application.Interfaces
+namespace GameStore.Application.Interfaces.Payment
 {
     public interface IPaymentServiceFactory
     {

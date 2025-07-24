@@ -151,6 +151,7 @@ namespace GameStore.Application.Services
                 ?? throw new NotFoundException("Order not found");
 
             order.Status = OrderStatus.Cancelled;
+            order.Date = DateTime.UtcNow;
             await _unitOfWork.SaveChangesAsync();
             _logger.LogInformation("Cancelled order {OrderId}", order.Id);
         }

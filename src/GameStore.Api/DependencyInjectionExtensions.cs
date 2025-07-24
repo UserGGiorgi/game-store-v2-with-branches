@@ -6,7 +6,10 @@ using GameStore.Application.Facade;
 using GameStore.Application.Filters.FilterIoeration;
 using GameStore.Application.Filters.SortOperation;
 using GameStore.Application.Interfaces;
+using GameStore.Application.Interfaces.Auth;
+using GameStore.Application.Interfaces.Payment;
 using GameStore.Application.Services;
+using GameStore.Application.Services.Auth;
 using GameStore.Application.Services.Payment;
 using GameStore.Domain.Constraints;
 using GameStore.Domain.Entities;
@@ -17,7 +20,13 @@ using GameStore.Infrastructure.Data.Repositories;
 using GameStore.Infrastructure.Data.Repository;
 using GameStore.Infrastructure.Data.RepositoryCollection;
 using GameStore.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Security.Claims;
+using System.Text;
 
 namespace GameStore.Api
 {
@@ -41,6 +50,67 @@ namespace GameStore.Api
             AddSorting(services);
             return services;
         }
+        public static IServiceCollection AddFrontEnd(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend",
+                    builder => builder
+                        .WithOrigins("http://localhost:8080")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithExposedHeaders("x-total-numbers-of-games")
+                );
+            });
+            return services;
+        }
+        public static IServiceCollection AddAuthorizationExtension(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy =>
+                        policy.RequireClaim("role", "Admin"));
+
+                options.AddPolicy("ManagerOnly", policy =>
+                    policy.RequireClaim("Permission", "ManageGames"));
+            });
+            return services;
+        }
+        public static IServiceCollection AddSwaggerGenExtension(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "GameStore API", Version = "v1" });
+
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\""
+                };
+
+                c.AddSecurityDefinition("Bearer", securityScheme);
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                  {
+                     {
+                      new OpenApiSecurityScheme
+                     {
+                      Reference = new OpenApiReference
+                     {
+                      Type = ReferenceType.SecurityScheme,
+                      Id = "Bearer"
+                      }
+                      },
+                       new string[] {}
+                    }
+                 });
+            });
+            return services;
+        }
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
             services.AddValidatorsFromAssembly(typeof(CreatePlatformRequestValidator).Assembly);
@@ -53,7 +123,7 @@ namespace GameStore.Api
               "Validity days must be positive");
             return services;
         }
-        public static IServiceCollection AddRepositories(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<GameStoreDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
@@ -76,15 +146,66 @@ namespace GameStore.Api
                 new Lazy<IGameGenreRepository>(() => provider.GetRequiredService<IGameGenreRepository>()),
                 new Lazy<IGamePlatformRepository>(() => provider.GetRequiredService<IGamePlatformRepository>())
             ));
+
             services.AddScoped(provider => new CommentRepositoryCollection(
                 new Lazy<ICommentRepository>(() => provider.GetRequiredService<ICommentRepository>()),
-new Lazy<ICommentBanRepository>(() => provider.GetRequiredService<ICommentBanRepository>())
+                new Lazy<ICommentBanRepository>(() => provider.GetRequiredService<ICommentBanRepository>())
             ));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }
-        public static IServiceCollection AddHttpClients(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddAllHttpClients(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddPaymentHttpClients(configuration);
+            services.AddAuthHttpClients(configuration);
+            return services;
+        }
+        public static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            var baseUrl = configuration["AuthorizationMicroservice:BaseUrl"];
+            if (string.IsNullOrWhiteSpace(baseUrl))
+                throw new InvalidOperationException("PaymentMicroservice BaseUrl is not configured.");
+
+            var Key = configuration["Jwt:Key"];
+            if (string.IsNullOrWhiteSpace(Key))
+                throw new InvalidOperationException("JWT Key is not configured");
+
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IPermissionService, PermissionService>();
+            services.AddScoped<IAccessService, AccessService>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddHttpClient("ExternalAuth", client =>
+            {
+                client.BaseAddress = new Uri(baseUrl);
+            });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration["Jwt:Issuer"],
+                        ValidAudience = configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(Key)),
+                        RoleClaimType = ClaimTypes.Role,
+                        NameClaimType = ClaimTypes.Email
+                    };
+
+                });
+            return services;
+        }
+
+
+
+        private static void AddPaymentHttpClients(this IServiceCollection services, IConfiguration configuration)
         {
             var baseUrl = configuration["PaymentMicroservice:BaseUrl"];
             if (string.IsNullOrWhiteSpace(baseUrl))
@@ -103,7 +224,26 @@ new Lazy<ICommentBanRepository>(() => provider.GetRequiredService<ICommentBanRep
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                 client.Timeout = TimeSpan.FromSeconds(30);
             });
-            return services;
+        }
+        private static void AddAuthHttpClients(this IServiceCollection services, IConfiguration configuration)
+        {
+            var authBaseUrl = configuration["AuthorizationMicroservice:BaseUrl"];
+            if (string.IsNullOrWhiteSpace(authBaseUrl))
+                throw new InvalidOperationException("AuthorizationMicroservice BaseUrl is not configured.");
+
+            services.AddHttpClient<IUserService, UserService>(client =>
+            {
+                client.BaseAddress = new Uri(authBaseUrl);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.Timeout = TimeSpan.FromSeconds(30);
+            });
+
+            services.AddHttpClient("ExternalAuth", client =>
+            {
+                client.BaseAddress = new Uri(authBaseUrl);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.Timeout = TimeSpan.FromSeconds(30);
+            });
         }
         private static void AddSorting(this IServiceCollection services)
         {

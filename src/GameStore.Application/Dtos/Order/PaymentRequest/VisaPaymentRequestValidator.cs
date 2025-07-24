@@ -39,7 +39,7 @@ namespace GameStore.Application.Dtos.Order.PaymentRequest
                 .WithMessage(PaymentValidationConstraints.Messages.Cvv2Range);
 
             RuleFor(x => x.TransactionAmount)
-                .GreaterThanOrEqualTo(0).WithMessage("Transaction amount must be greater Or equal than 0");
+                .GreaterThanOrEqualTo(0).WithMessage(PaymentValidationConstraints.Messages.TransactionGreaterThanEqualZero);
         }
 
         private bool BeValidExpirationYear(int year)

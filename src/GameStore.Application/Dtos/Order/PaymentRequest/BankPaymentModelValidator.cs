@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Order.PaymentModels;
+using GameStore.Domain.Constraints;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace GameStore.Application.Dtos.Order.PaymentRequest
         {
             RuleFor(x => x.ExpiryDate)
                 .GreaterThan(DateTime.UtcNow)
-                .WithMessage("Invoice must have a future expiry date");
+                .WithMessage(BankPaymentConstraints.Messages.ExpiryDateRequired);
         }
     }
 }

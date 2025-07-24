@@ -1,4 +1,4 @@
-﻿using GameStore.Application.Interfaces;
+﻿using GameStore.Application.Interfaces.Payment;
 using GameStore.Domain.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using System;

@@ -2,7 +2,7 @@
 using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
-using GameStore.Application.Interfaces;
+using GameStore.Application.Interfaces.Payment;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
 using Microsoft.Extensions.Logging;

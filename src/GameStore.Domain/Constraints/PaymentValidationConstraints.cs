@@ -27,6 +27,7 @@ namespace GameStore.Domain.Constraints
         {
             public const string MethodRequired = "Payment method is required.";
             public const string ModelRequired = "Payment model is required for this method.";
+            public const string TransactionGreaterThanEqualZero = "Transaction amount must be greater Or equal than 0";
 
             public const string HolderNameRequired = "Card holder name is required.";
             public const string HolderNameFormat = "Card holder name can only contain letters and spaces.";

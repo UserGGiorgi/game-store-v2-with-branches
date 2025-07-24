@@ -71,7 +71,8 @@ public class GameService : IGameService
             Price = request.Game.Price,
             UnitInStock = request.Game.UnitInStock,
             Discount = request.Game.Discount,
-            PublisherId = request.Publisher
+            PublisherId = request.Publisher,
+            CreatedAt = DateTime.UtcNow
         };
 
         foreach (var genre in validGenres)
