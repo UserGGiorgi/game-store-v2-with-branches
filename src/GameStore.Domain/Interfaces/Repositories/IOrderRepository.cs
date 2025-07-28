@@ -10,9 +10,9 @@ namespace GameStore.Domain.Interfaces.Repositories
     public interface IOrderRepository : IGenericRepository<Order>
     {
         Task<Order?> GetOpenOrderWithItemsAsync();
-        Task<Order?> GetOrderWithItemsAsync(Guid id);
+        Task<Order?> GetOpenOrderWithDetailsAsync(Guid id);
         Task<IEnumerable<Order>> GetPaidAndCancelledOrdersAsync();
         Task<Order?> GetCartWithItemsAsync();
-        Task<Order?> GetOrderWithDetailsAsync(Guid id);
+        Task<Order?> GetOrderWithItemsAsync(Guid orderId);
     }
 }

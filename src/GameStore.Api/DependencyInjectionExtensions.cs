@@ -73,6 +73,9 @@ namespace GameStore.Api
 
                 options.AddPolicy("ManagerOnly", policy =>
                     policy.RequireClaim("Permission", "ManageGames"));
+
+                options.AddPolicy("ViewRoles", policy =>
+                        policy.RequireClaim("Permission", "ManageRoles"));
             });
             return services;
         }
@@ -136,6 +139,7 @@ namespace GameStore.Api
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICommentBanRepository, CommentBanRepository>();
+            services.AddScoped<IOrderGameRepository,OrderGameRepository>();
 
             services.AddScoped(provider => new GameRepositoryCollection(
                 new Lazy<IGameRepository>(() => provider.GetRequiredService<IGameRepository>()),
@@ -144,7 +148,8 @@ namespace GameStore.Api
                 new Lazy<IPublisherRepository>(() => provider.GetRequiredService<IPublisherRepository>()),
                 new Lazy<IOrderRepository>(() => provider.GetRequiredService<IOrderRepository>()),
                 new Lazy<IGameGenreRepository>(() => provider.GetRequiredService<IGameGenreRepository>()),
-                new Lazy<IGamePlatformRepository>(() => provider.GetRequiredService<IGamePlatformRepository>())
+                new Lazy<IGamePlatformRepository>(() => provider.GetRequiredService<IGamePlatformRepository>()),
+                new Lazy<IOrderGameRepository>(() => provider.GetRequiredService<IOrderGameRepository>())
             ));
 
             services.AddScoped(provider => new CommentRepositoryCollection(
@@ -176,6 +181,7 @@ namespace GameStore.Api
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IAccessService, AccessService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
 
             services.AddHttpClient("ExternalAuth", client =>
             {

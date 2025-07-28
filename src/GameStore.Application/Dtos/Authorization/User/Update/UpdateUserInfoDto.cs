@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Application.Dtos.Authorization.Role
+namespace GameStore.Application.Dtos.Authorization.User.Update
 {
-    public class RoleDto
+    public class UpdateUserInfoDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public List<string> Permissions { get; set; } = new List<string>();
     }
 }

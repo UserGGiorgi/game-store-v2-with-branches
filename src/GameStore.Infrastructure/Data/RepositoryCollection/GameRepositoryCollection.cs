@@ -16,6 +16,7 @@ namespace GameStore.Infrastructure.Data.RepositoryCollection
         public Lazy<IOrderRepository> Orders { get; }
         public Lazy<IGameGenreRepository> GameGenres { get; }
         public Lazy<IGamePlatformRepository> GamePlatforms { get; }
+        public Lazy<IOrderGameRepository> OrderGame { get; }
 
 
         public GameRepositoryCollection(
@@ -25,7 +26,8 @@ namespace GameStore.Infrastructure.Data.RepositoryCollection
             Lazy<IPublisherRepository> publishers,
             Lazy<IOrderRepository> orders,
             Lazy<IGameGenreRepository> gameGenres,
-            Lazy<IGamePlatformRepository> gamePlatforms)
+            Lazy<IGamePlatformRepository> gamePlatforms,
+            Lazy<IOrderGameRepository> orderGame)
         {
             Games = games;
             Genres = genres;
@@ -34,6 +36,7 @@ namespace GameStore.Infrastructure.Data.RepositoryCollection
             Orders = orders;
             GameGenres = gameGenres;
             GamePlatforms = gamePlatforms;
+            OrderGame = orderGame;
         }
     }
 }

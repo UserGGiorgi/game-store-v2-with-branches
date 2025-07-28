@@ -32,7 +32,13 @@ public class GamesController : ControllerBase
         _updateValidator = updateValidator;
         _logger = logger;
     }
-
+    [HttpGet("all")]
+    [ProducesResponseType(typeof(IEnumerable<PaginationGame>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllWithoutPagination(CancellationToken cancellationToken)
+    {
+        var games = await _gameService.GetAllGamesWithoutPaginationAsync(cancellationToken);
+        return Ok(games);
+    }
     [HttpGet]
     [ProducesResponseType(typeof(PaginatedGamesResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

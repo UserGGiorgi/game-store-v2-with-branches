@@ -8,9 +8,9 @@ namespace GameStore.Domain.Entities.User
 {
     public class UserRole
     {
-        public string UserEmail { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
         public Guid RoleId { get; set; }
-        public Role Role { get; set; } = new Role();
-        public ApplicationUser User { get; set; } = new ApplicationUser();
+        public Role? Role { get; set; }
+        public ApplicationUser? User { get; set; }
     }
 }

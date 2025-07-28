@@ -25,6 +25,7 @@ public class GameStoreDbContext : DbContext
     public DbSet<Permission> Permissions => Set<Permission>();
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
     public DbSet<UserRole> UserRoles => Set<UserRole>();
+    public DbSet<ApplicationUser> ApplicationUser => Set<ApplicationUser>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -138,35 +139,47 @@ public class GameStoreDbContext : DbContext
                   .WithMany(p => p.RolePermissions)
                   .HasForeignKey(rp => rp.PermissionId);
         });
-        modelBuilder.Entity<ApplicationUser>()
-        .HasKey(u => u.Email);
 
-        modelBuilder.Entity<UserRole>()
-            .HasKey(ur => new { ur.UserEmail, ur.RoleId });
+        modelBuilder.Entity<ApplicationUser>(entity =>
+        {
+            entity.HasKey(u => u.Id);
+            entity.Property(u => u.Email)
+                .IsRequired()
+                .HasMaxLength(255);
 
-        modelBuilder.Entity<UserRole>()
-            .HasOne(ur => ur.User)
-            .WithMany(u => u.UserRoles)
-            .HasForeignKey(ur => ur.UserEmail)
-            .OnDelete(DeleteBehavior.Cascade);
+            entity.HasIndex(u => u.Email)
+                .IsUnique();
+        });
 
-        modelBuilder.Entity<UserRole>()
-            .HasOne(ur => ur.Role)
-            .WithMany(r => r.UserRoles)
-            .HasForeignKey(ur => ur.RoleId)
-            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<UserRole>(entity =>
+        {
+            entity.HasKey(ur => new { ur.UserId, ur.RoleId });
+
+            entity.HasOne(ur => ur.User)
+                .WithMany(u => u.UserRoles)
+                .HasForeignKey(ur => ur.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
 
         SeedDefaultRolesAndPermissions(modelBuilder);
 
     }
     private void SeedDefaultRolesAndPermissions(ModelBuilder modelBuilder)
     {
+        var adminUserId = Guid.Parse("00000000-0000-0000-0000-111111111111");
+
         modelBuilder.Entity<ApplicationUser>().HasData(
-        new ApplicationUser
-        {
-            Email = "admin@game-store.com",
-            DisplayName = "Administrator"
-        });
+            new ApplicationUser
+            {
+                Id = adminUserId, // Use GUID ID
+                Email = "admin@game-store.com",
+                DisplayName = "Administrator"
+            });
 
         var permissionMap = new Dictionary<string, Guid>
     {
@@ -244,9 +257,14 @@ public class GameStoreDbContext : DbContext
         rolePermissions.Select(rp => new { rp.RoleId, rp.PermissionId })
         );
 
-        var defaultAdminEmail = "admin@game-store.com";
+        var adminRoleId = roles[0].Id;
+
         modelBuilder.Entity<UserRole>().HasData(
-            new { UserEmail = defaultAdminEmail, RoleId = roles[0].Id }
+            new UserRole
+            {
+                UserId = adminUserId,
+                RoleId = adminRoleId
+            }
         );
     }
 

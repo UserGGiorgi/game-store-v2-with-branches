@@ -1,6 +1,7 @@
 ﻿using GameStore.Application.Interfaces.Auth;
 using GameStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,16 +21,26 @@ namespace GameStore.Application.Services.Auth
 
         public async Task<IEnumerable<string>> GetUserRolesAsync(string email)
         {
+            var userId = await _context.ApplicationUser
+                .Where(u => u.Email == email)
+                .Select(u => u.Id)
+                .FirstOrDefaultAsync();
+
             return await _context.UserRoles
-                .Where(ur => ur.UserEmail == email)
+                .Where(ur => ur.UserId == userId)
                 .Select(ur => ur.Role.Name)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<string>> GetUserPermissionsAsync(string email)
         {
+            var userId = await _context.ApplicationUser
+                .Where(u => u.Email == email)
+                .Select(u => u.Id)
+                .FirstOrDefaultAsync();
+
             var roles = await _context.UserRoles
-                .Where(ur => ur.UserEmail == email)
+                .Where(ur => ur.UserId == userId)
                 .Include(ur => ur.Role)
                 .ThenInclude(r => r.RolePermissions)
                 .ThenInclude(rp => rp.Permission)

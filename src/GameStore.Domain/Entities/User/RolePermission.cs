@@ -9,8 +9,8 @@ namespace GameStore.Domain.Entities.User
     public class RolePermission
     {
         public Guid RoleId { get; set; }
-        public Role Role { get; set; } = new Role();
+        public Role? Role { get; set; }
         public Guid PermissionId { get; set; }
-        public Permission Permission { get; set; } = new Permission();
+        public Permission? Permission { get; set; }
     }
 }

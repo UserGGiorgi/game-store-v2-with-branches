@@ -60,7 +60,7 @@ namespace GameStore.Application.Services
         }
         public async Task<IEnumerable<OrderDetailDto>> GetOrderDetailsAsync(Guid orderId)
         {
-            var order = await _unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId)
+            var order = await _unitOfWork.OrderRepository.GetOpenOrderWithDetailsAsync(orderId)
             ?? throw new NotFoundException("Order not found");
 
             return _mapper.Map<IEnumerable<OrderDetailDto>>(order.OrderGames);
@@ -154,6 +154,98 @@ namespace GameStore.Application.Services
             order.Date = DateTime.UtcNow;
             await _unitOfWork.SaveChangesAsync();
             _logger.LogInformation("Cancelled order {OrderId}", order.Id);
+        }
+        public async Task UpdateOrderDetailQuantityAsync(Guid orderId, Guid productId, int quantity)
+        {
+            if (quantity <= 0)
+                throw new ArgumentException("Quantity must be positive", nameof(quantity));
+
+            var order = await _unitOfWork.OrderRepository.GetOrderWithItemsAsync(orderId)
+                ?? throw new NotFoundException("Order not found");
+
+            if (order.Status != OrderStatus.Open)
+                throw new InvalidOperationException("Cannot modify closed orders");
+
+            var orderItem = order.OrderGames.FirstOrDefault(og =>
+                og.ProductId == productId && og.OrderId == orderId)
+                ?? throw new NotFoundException("Order item not found");
+
+            orderItem.Quantity = quantity;
+            await _unitOfWork.SaveChangesAsync();
+
+            _logger.LogInformation(
+                "Updated quantity for product {ProductId} in order {OrderId} to {Quantity}",
+                productId, orderId, quantity);
+        }
+
+        public async Task DeleteOrderDetailAsync(Guid orderId, Guid productId)
+        {
+            var order = await _unitOfWork.OrderRepository.GetOrderWithItemsAsync(orderId)
+                ?? throw new NotFoundException("Order not found");
+
+            if (order.Status != OrderStatus.Open)
+                throw new InvalidOperationException("Cannot modify closed orders");
+
+            var orderItem = order.OrderGames.FirstOrDefault(og =>
+                og.ProductId == productId && og.OrderId == orderId)
+                ?? throw new NotFoundException("Order item not found");
+
+            _unitOfWork.OrderGameRepository.Delete(orderItem);
+            await _unitOfWork.SaveChangesAsync();
+
+            _logger.LogInformation(
+                "Deleted order item: Order {OrderId}, Product {ProductId}",
+                orderId, productId);
+        }
+        public async Task ShipOrderAsync(Guid orderId)
+        {
+            var order = await _unitOfWork.OrderRepository.GetByIdAsync(orderId)
+                ?? throw new NotFoundException("Order not found");
+
+            if (order.Status != OrderStatus.Paid)
+                throw new InvalidOperationException("Only paid orders can be shipped");
+
+            order.Status = OrderStatus.Shipped;
+
+            await _unitOfWork.SaveChangesAsync();
+
+            _logger.LogInformation("Shipped order {OrderId}", orderId);
+        }
+        public async Task AddGameToOrderAsync(Guid orderId, string gameKey)
+        {
+            var order = await _unitOfWork.OrderRepository.GetOrderWithItemsAsync(orderId)
+                ?? throw new NotFoundException("Order not found");
+
+            if (order.Status != OrderStatus.Open)
+                throw new InvalidOperationException("Cannot add items to closed orders");
+
+            var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey)
+                ?? throw new NotFoundException("Game not found");
+
+            var existingItem = order.OrderGames.FirstOrDefault(og =>
+                og.ProductId == game.Id && og.OrderId == orderId);
+
+            if (existingItem != null)
+            {
+                existingItem.Quantity++;
+            }
+            else
+            {
+                order.OrderGames.Add(new OrderGame
+                {
+                    OrderId = orderId,
+                    ProductId = game.Id,
+                    Price = game.Price,
+                    Quantity = 1,
+                    Discount = game.Discount
+                });
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+
+            _logger.LogInformation(
+                "Added game {GameKey} to order {OrderId}",
+                gameKey, orderId);
         }
     }
 }

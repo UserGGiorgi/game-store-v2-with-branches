@@ -1,5 +1,7 @@
-﻿using GameStore.Application.Dtos.Authorization;
+﻿using GameStore.Application.Dtos.Authorization.Permission;
 using GameStore.Application.Dtos.Authorization.User;
+using GameStore.Application.Dtos.Authorization.User.Create;
+using GameStore.Application.Dtos.Authorization.User.Update;
 using GameStore.Application.Dtos.User.AuthDTOs;
 using GameStore.Application.Interfaces.Auth;
 using GameStore.Application.Services.Auth;
@@ -70,6 +72,68 @@ namespace GameStore.Api.Controllers
                 return NotFound();
 
             return Ok(user);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            try
+            {
+                var currentUserEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+                if (string.Equals(currentUserEmail, id, StringComparison.OrdinalIgnoreCase))
+                {
+                    return BadRequest("Cannot delete your own account");
+                }
+
+                var success = await _userService.DeleteUserByIdAsync(id);
+                return success ? NoContent() : NotFound();
+            }
+            catch (HttpRequestException ex)
+            {
+                return StatusCode(StatusCodes.Status502BadGateway, ex.Message);
+            }
+        }
+        //[Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto request)
+        {
+            var result = await _userService.CreateUserAsync(request);
+
+            if (result.Success)
+            {
+                return CreatedAtAction(
+                    nameof(GetUserById),
+                    new { id = result.Email },
+                    new { email = result.Email }
+                );
+            }
+
+            return BadRequest(result.Error);
+        }
+        //[Authorize(Roles = "Admin")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequestDto request)
+        {
+            var result = await _userService.UpdateUserAsync(request);
+
+            if (result.Success)
+            {
+                return NoContent();
+            }
+
+            return BadRequest(result.Error);
+        }
+        [HttpGet("{id:guid}/roles")]
+        public async Task<IActionResult> GetUserRoles(Guid id)
+        {
+            var roles = await _userService.GetUserRolesAsync(id);
+
+            if (roles == null)
+            {
+                return NotFound($"User not found: {id}");
+            }
+
+            return Ok(roles);
         }
     }
 }

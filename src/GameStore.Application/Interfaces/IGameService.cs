@@ -27,4 +27,6 @@ public interface IGameService
     int pageNumber,
     int pageSize,
     CancellationToken cancellationToken);
+    Task<IEnumerable<PaginationGame>> GetAllGamesWithoutPaginationAsync(
+    CancellationToken cancellationToken = default);
 }

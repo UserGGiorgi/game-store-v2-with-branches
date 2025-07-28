@@ -4,6 +4,7 @@ using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Order.PaymentModels;
 using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
+using GameStore.Application.Dtos.Order.Update;
 using GameStore.Application.Facade;
 using GameStore.Application.Interfaces;
 using GameStore.Application.Services;
@@ -79,6 +80,36 @@ namespace GameStore.Api.Controllers
         {
             var methods = await _orderFacade.GetPaymentMethodsAsync();
             return Ok(new { paymentMethods = methods });
+        }
+        // I changed it because of some reasons ,task was:/orders/details/{id}/quantity
+        [HttpPatch("details/{orderId}/{productId}/quantity")]
+        public async Task<IActionResult> UpdateOrderDetailQuantity(
+            Guid orderId,
+            Guid productId,
+            [FromBody] UpdateQuantityDto dto)
+        {
+            await _orderFacade.UpdateOrderDetailQuantityAsync(orderId, productId, dto.Count);
+            return NoContent();
+        }
+        [HttpDelete("details/{orderId}/{productId}")]
+        public async Task<IActionResult> DeleteOrderDetail(Guid orderId, Guid productId)
+        {
+            await _orderFacade.DeleteOrderDetailAsync(orderId, productId);
+            return NoContent();
+        }
+        [HttpPost("{id}/ship")]
+        public async Task<IActionResult> ShipOrder(Guid id)
+        {
+            await _orderFacade.ShipOrderAsync(id);
+            return NoContent();
+        }
+        [HttpPost("{orderId}/details/{gameKey}")]
+        public async Task<IActionResult> AddGameToOrder(
+            Guid orderId,
+            string gameKey)
+        {
+            await _orderFacade.AddGameToOrderAsync(orderId, gameKey);
+            return NoContent();
         }
     }
 }

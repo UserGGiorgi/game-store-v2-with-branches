@@ -31,6 +31,7 @@ namespace GameStore.Infrastructure.Data
         public IOrderRepository OrderRepository => _gameRepositories.Orders.Value;
         public ICommentRepository CommentRepository => _commentRepositories.Comment.Value;
         public ICommentBanRepository CommentBanRepository => _commentRepositories.CommentBan.Value;
+        public IOrderGameRepository OrderGameRepository => _gameRepositories.OrderGame.Value;
         public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         => _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
 

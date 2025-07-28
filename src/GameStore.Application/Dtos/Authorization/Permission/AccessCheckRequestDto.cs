@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Application.Dtos.Authorization
+namespace GameStore.Application.Dtos.Authorization.Permission
 {
     public class AccessCheckRequestDto
     {

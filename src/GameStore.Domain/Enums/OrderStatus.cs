@@ -11,7 +11,8 @@ namespace GameStore.Domain.Enums
         Open,
         Checkout,
         Paid,
-        Cancelled
+        Cancelled,
+        Shipped
     }
 
 }

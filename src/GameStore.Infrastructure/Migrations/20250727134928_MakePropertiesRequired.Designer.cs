@@ -4,6 +4,7 @@ using GameStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStore.Infrastructure.Migrations
 {
     [DbContext(typeof(GameStoreDbContext))]
-    partial class GameStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250727134928_MakePropertiesRequired")]
+    partial class MakePropertiesRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,8 +31,8 @@ namespace GameStore.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ApplicationUserEmail")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Body")
                         .IsRequired()
@@ -56,7 +59,7 @@ namespace GameStore.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ApplicationUserEmail");
 
                     b.HasIndex("GameId");
 
@@ -200,8 +203,8 @@ namespace GameStore.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ApplicationUserEmail")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -214,7 +217,7 @@ namespace GameStore.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ApplicationUserEmail");
 
                     b.ToTable("Orders");
                 });
@@ -288,32 +291,22 @@ namespace GameStore.Infrastructure.Migrations
 
             modelBuilder.Entity("GameStore.Domain.Entities.User.ApplicationUser", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
+                    b.HasKey("Email");
 
                     b.ToTable("ApplicationUser");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("00000000-0000-0000-0000-111111111111"),
-                            DisplayName = "Administrator",
-                            Email = "admin@game-store.com"
+                            Email = "admin@game-store.com",
+                            DisplayName = "Administrator"
                         });
                 });
 
@@ -711,13 +704,13 @@ namespace GameStore.Infrastructure.Migrations
 
             modelBuilder.Entity("GameStore.Domain.Entities.User.UserRole", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("UserId", "RoleId");
+                    b.HasKey("UserEmail", "RoleId");
 
                     b.HasIndex("RoleId");
 
@@ -726,7 +719,7 @@ namespace GameStore.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("00000000-0000-0000-0000-111111111111"),
+                            UserEmail = "admin@game-store.com",
                             RoleId = new Guid("00000000-0000-0000-0000-000000000001")
                         });
                 });
@@ -735,7 +728,7 @@ namespace GameStore.Infrastructure.Migrations
                 {
                     b.HasOne("GameStore.Domain.Entities.User.ApplicationUser", null)
                         .WithMany("Comments")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserEmail");
 
                     b.HasOne("GameStore.Domain.Entities.Game", "Game")
                         .WithMany("Comments")
@@ -826,7 +819,7 @@ namespace GameStore.Infrastructure.Migrations
                 {
                     b.HasOne("GameStore.Domain.Entities.User.ApplicationUser", null)
                         .WithMany("Orders")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserEmail");
                 });
 
             modelBuilder.Entity("GameStore.Domain.Entities.OrderGame", b =>
@@ -877,7 +870,7 @@ namespace GameStore.Infrastructure.Migrations
 
                     b.HasOne("GameStore.Domain.Entities.User.ApplicationUser", "User")
                         .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -392,4 +392,21 @@ public class GameService : IGameService
             CurrentPage = pageNumber
         };
     }
+    public async Task<IEnumerable<PaginationGame>> GetAllGamesWithoutPaginationAsync(
+    CancellationToken cancellationToken = default)
+    {
+        return await _unitOfWork.GameRepository.GetAllAsQuerable()
+            .OrderBy(g => g.Name)
+            .Select(g => new PaginationGame
+            {
+                Id = g.Id,
+                Name = g.Name,
+                Key = g.Key,
+                Description = g.Description,
+                Price = g.Price,
+                Discount = g.Discount,
+                UnitInStock = g.UnitInStock
+            })
+            .ToListAsync(cancellationToken);
+    }
 }

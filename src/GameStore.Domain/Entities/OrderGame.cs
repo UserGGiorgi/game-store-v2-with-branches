@@ -16,5 +16,4 @@ namespace GameStore.Domain.Entities
         public Order Order { get; set; } = null!;
         public Game Game { get; set; } = null!;
     }
-
 }

@@ -16,6 +16,7 @@ namespace GameStore.Domain.Interfaces
         IOrderRepository OrderRepository { get; }
         IGameGenreRepository GameGenreRepository { get; }
         IGamePlatformRepository GamePlatformRepository { get; }
+        IOrderGameRepository OrderGameRepository { get; }
         ICommentRepository CommentRepository { get; }
         ICommentBanRepository CommentBanRepository { get; }
         Task<int> SaveChangesAsync();
