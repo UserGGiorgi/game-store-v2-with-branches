@@ -36,7 +36,7 @@ namespace GameStore.Api.Controllers
             var response = await _authService.LoginAsync(request);
             return Ok(response);
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost("access")]
         public async Task<IActionResult> CheckAccess([FromBody] AccessCheckRequestDto request)
         {
@@ -49,14 +49,14 @@ namespace GameStore.Api.Controllers
             return hasAccess ? Ok() : Forbid();
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
             return Ok(users);
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUserById(string id)
         {
@@ -73,7 +73,7 @@ namespace GameStore.Api.Controllers
 
             return Ok(user);
         }
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {

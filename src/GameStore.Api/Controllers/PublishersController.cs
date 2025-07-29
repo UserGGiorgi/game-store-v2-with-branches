@@ -15,6 +15,7 @@ namespace GameStore.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize]
     public class PublishersController : ControllerBase
     {
         private readonly IPublisherService _publisherService;
@@ -36,6 +37,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Policy = "ManagePublishers")]
         [ProducesResponseType(typeof(PublisherResponseDto), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreatePublisher([FromBody] CreatePublisherRequestDto request,
@@ -61,6 +63,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("/games/{key}/publisher")]
+        //[AllowAnonymous]
         [ProducesResponseType(typeof(PublisherResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPublisherByGameKey(string key)
@@ -74,6 +77,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet]
+        //[AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<PublisherResponseDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllPublishers()
         {
@@ -82,6 +86,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpPut]
+        //[Authorize(Policy = "ManagePublishers")]
         [ProducesResponseType(typeof(PublisherResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdatePublisher(
@@ -104,6 +109,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        //[Authorize(Policy = "ManagePublishers")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -117,6 +123,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("{companyName}")]
+        //[AllowAnonymous]
         [ProducesResponseType(typeof(PublisherResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -132,6 +139,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("{companyName}/games")]
+        //[AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<GameResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetGamesByPublisherName(string companyName)

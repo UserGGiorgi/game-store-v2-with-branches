@@ -3,10 +3,12 @@ using GameStore.Application.Dtos.Authorization.Role.Get;
 using GameStore.Application.Dtos.Authorization.Role.Update;
 using GameStore.Application.Interfaces.Auth;
 using GameStore.Domain.Entities.User;
+using GameStore.Domain.Interfaces;
 using GameStore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,60 +17,57 @@ namespace GameStore.Application.Services.Auth
 {
     public class RoleService : IRoleService
     {
-        private readonly GameStoreDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RoleService(GameStoreDbContext context)
+        public RoleService(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<RoleDto>> GetAllRolesAsync()
         {
-            return await _context.Roles
-                .Select(r => new RoleDto(r.Id, r.Name))
-                .ToListAsync();
+            return (await _unitOfWork.RoleRepository.GetAllAsync())
+                .Select(r => new RoleDto(r.Id, r.Name));
         }
 
         public async Task<RoleDto?> GetById(Guid id)
         {
-            return await _context.Roles
-                .Where(r => r.Id == id)
-                .Select(r => new RoleDto(r.Id, r.Name))
-                .FirstOrDefaultAsync();
+            var role = await _unitOfWork.RoleRepository.GetByIdAsync(id);
+            return role != null ? new RoleDto(role.Id, role.Name) : null;
         }
         public async Task<bool> DeleteRoleAsync(Guid id)
         {
-            var role = await _context.Roles.FindAsync(id);
-            if (role == null)
-                return false;
-            _context.Roles.Remove(role);
-            await _context.SaveChangesAsync();
+            var role = await _unitOfWork.RoleRepository.GetByIdAsync(id);
+            if (role == null) return false;
+
+            _unitOfWork.RoleRepository.Delete(role);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
         public async Task<List<string>> GetAllPermissionsAsync()
         {
-            return await _context.Permissions
+            return (await _unitOfWork.PermissionRepository.GetAllAsync())
                 .OrderBy(p => p.Name)
                 .Select(p => p.Name)
-                .ToListAsync();
+                .ToList();
         }
         public async Task<List<string>?> GetRolePermissionsAsync(Guid roleId)
         {
-            // Check if role exists
-            if (!await _context.Roles.AnyAsync(r => r.Id == roleId))
-            {
+            if (!await _unitOfWork.RoleRepository.ExistsAsync(roleId))
                 return null;
-            }
 
-            return await _context.RolePermissions
-                .Where(rp => rp.RoleId == roleId)
-                .Select(rp => rp.Permission.Name)
+            var rolePermissions = await _unitOfWork.RolePermissionRepository
+                .GetForRoleWithPermissionsAsync(roleId);
+
+            return rolePermissions
+                .Where(rp => rp.Permission != null)
+                .Select(rp => rp.Permission!.Name)
+                .Where(name => !string.IsNullOrWhiteSpace(name))
                 .OrderBy(name => name)
-                .ToListAsync();
+                .ToList();
         }
         public async Task<AddRoleResult> AddRoleAsync(AddRoleRequestDto request)
         {
-            // Validate role name
             if (string.IsNullOrWhiteSpace(request.Role.Name))
             {
                 return new AddRoleResult
@@ -78,23 +77,12 @@ namespace GameStore.Application.Services.Auth
                 };
             }
 
-            // Check for duplicate role name
-            if (await _context.Roles.AnyAsync(r => r.Name == request.Role.Name))
-            {
-                return new AddRoleResult
-                {
-                    Success = false,
-                    Error = $"Role name already exists: {request.Role.Name}"
-                };
-            }
+            if (await _unitOfWork.RoleRepository.ExistsByNameAsync(request.Role.Name))
+                return new AddRoleResult { Success = false, Error = $"Role name exists: {request.Role.Name}" };
 
-            // Get existing permissions
-            var existingPermissions = await _context.Permissions
-                .Where(p => request.Permissions.Contains(p.Name))
-                .ToListAsync();
+            var permissions = await _unitOfWork.PermissionRepository.GetByNamesAsync(request.Permissions);
 
-            // Check for missing permissions
-            var existingPermissionNames = existingPermissions.Select(p => p.Name).ToList();
+            var existingPermissionNames = permissions.Select(p => p.Name).ToList();
             var missingPermissions = request.Permissions.Except(existingPermissionNames).ToList();
 
             if (missingPermissions.Any())
@@ -106,41 +94,39 @@ namespace GameStore.Application.Services.Auth
                 };
             }
 
-            using var transaction = await _context.Database.BeginTransactionAsync();
+            await _unitOfWork.BeginTransactionAsync();
 
             try
             {
-                // Create new role
-                var newRole = new Role
+                var role = new Role
                 {
                     Id = Guid.NewGuid(),
                     Name = request.Role.Name
                 };
 
-                _context.Roles.Add(newRole);
+                await _unitOfWork.RoleRepository.AddAsync(role);
 
-                // Add role permissions
-                foreach (var permission in existingPermissions)
+                foreach (var permission in permissions)
                 {
-                    _context.RolePermissions.Add(new RolePermission
+                    await _unitOfWork.RolePermissionRepository.AddAsync(new RolePermission
                     {
-                        RoleId = newRole.Id,
+                        RoleId = role.Id,
                         PermissionId = permission.Id
                     });
                 }
 
-                await _context.SaveChangesAsync();
-                await transaction.CommitAsync();
+                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.CommitTransactionAsync();
 
                 return new AddRoleResult
                 {
                     Success = true,
-                    RoleId = newRole.Id
+                    RoleId = role.Id
                 };
             }
             catch (Exception ex)
             {
-                await transaction.RollbackAsync();
+                await _unitOfWork.RollbackTransactionAsync();
                 return new AddRoleResult
                 {
                     Success = false,
@@ -150,124 +136,93 @@ namespace GameStore.Application.Services.Auth
         }
         public async Task<UpdateRoleResult> UpdateRoleAsync(UpdateRoleRequestDto request)
         {
-            // Validate request
             if (request.Role.Id == Guid.Empty)
             {
-                return new UpdateRoleResult
-                {
-                    Success = false,
-                    Error = "Role ID is required"
-                };
+                return new UpdateRoleResult { Success = false, Error = "Role ID is required" };
             }
 
             if (string.IsNullOrWhiteSpace(request.Role.Name))
             {
-                return new UpdateRoleResult
-                {
-                    Success = false,
-                    Error = "Role name is required"
-                };
+                return new UpdateRoleResult { Success = false, Error = "Role name is required" };
             }
 
-            // Get existing role with permissions
-            var existingRole = await _context.Roles
-                .Include(r => r.RolePermissions)
-                .FirstOrDefaultAsync(r => r.Id == request.Role.Id);
-
-            if (existingRole == null)
+            var role = await _unitOfWork.RoleRepository.GetByIdWithPermissionsAsync(request.Role.Id);
+            if (role == null)
             {
-                return new UpdateRoleResult
-                {
-                    Success = false,
-                    Error = $"Role not found: {request.Role.Id}"
-                };
+                return new UpdateRoleResult { Success = false, Error = $"Role not found: {request.Role.Id}" };
             }
 
-            // Check for duplicate role name (if name changed)
-            if (existingRole.Name != request.Role.Name &&
-                await _context.Roles.AnyAsync(r => r.Name == request.Role.Name))
+            // Fixed duplicate name check: Only check if name is being changed
+            if (role.Name != request.Role.Name)
             {
-                return new UpdateRoleResult
+                // Check if another role (with different ID) already has the new name
+                bool nameExists = await _unitOfWork.RoleRepository.ExistsByNameAsync(request.Role.Name, request.Role.Id);
+                if (nameExists)
                 {
-                    Success = false,
-                    Error = $"Role name already exists: {request.Role.Name}"
-                };
+                    return new UpdateRoleResult { Success = false, Error = $"Role name already exists: {request.Role.Name}" };
+                }
             }
 
-            // Get existing permissions
-            var existingPermissions = await _context.Permissions
-                .Where(p => request.Permissions.Contains(p.Name))
-                .ToListAsync();
-
-            // Check for missing permissions
-            var existingPermissionNames = existingPermissions.Select(p => p.Name).ToList();
+            var permissions = await _unitOfWork.PermissionRepository.GetByNamesAsync(request.Permissions);
+            var existingPermissionNames = permissions.Select(p => p.Name).ToList();
             var missingPermissions = request.Permissions.Except(existingPermissionNames).ToList();
 
             if (missingPermissions.Any())
             {
-                return new UpdateRoleResult
-                {
-                    Success = false,
-                    Error = $"Permissions not found: {string.Join(", ", missingPermissions)}"
-                };
+                return new UpdateRoleResult { Success = false, Error = $"Permissions not found: {string.Join(", ", missingPermissions)}" };
             }
 
-            using var transaction = await _context.Database.BeginTransactionAsync();
+            await _unitOfWork.BeginTransactionAsync();
 
             try
             {
-                // Update role name
-                existingRole.Name = request.Role.Name;
-                _context.Roles.Update(existingRole);
+                role.Name = request.Role.Name;
+                _unitOfWork.RoleRepository.Update(role);
 
-                // Get current permission IDs
-                var currentPermissionIds = existingRole.RolePermissions
+                var currentPermissionIds = role.RolePermissions
                     .Select(rp => rp.PermissionId)
                     .ToList();
 
-                // Get new permission IDs
-                var newPermissionIds = existingPermissions
+                var newPermissionIds = permissions
                     .Select(p => p.Id)
                     .ToList();
 
-                // Determine changes
                 var permissionsToAdd = newPermissionIds.Except(currentPermissionIds).ToList();
                 var permissionsToRemove = currentPermissionIds.Except(newPermissionIds).ToList();
 
-                // Remove permissions
+                // Fixed: Should remove role-permission mappings, not delete the role
                 if (permissionsToRemove.Any())
                 {
-                    var toRemove = existingRole.RolePermissions
+                    var toRemove = role.RolePermissions
                         .Where(rp => permissionsToRemove.Contains(rp.PermissionId))
                         .ToList();
 
-                    _context.RolePermissions.RemoveRange(toRemove);
+                    foreach (var rp in toRemove)
+                    {
+                        // Corrected: Delete the RolePermission mapping, not the Role
+                        _unitOfWork.RolePermissionRepository.Delete(rp);
+                    }
                 }
 
-                // Add new permissions
                 foreach (var permissionId in permissionsToAdd)
                 {
-                    _context.RolePermissions.Add(new RolePermission
+                    await _unitOfWork.RolePermissionRepository.AddAsync(new RolePermission
                     {
-                        RoleId = existingRole.Id,
+                        RoleId = role.Id,
                         PermissionId = permissionId
                     });
                 }
 
-                await _context.SaveChangesAsync();
-                await transaction.CommitAsync();
-
+                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.CommitTransactionAsync();
                 return new UpdateRoleResult { Success = true };
             }
             catch (Exception ex)
             {
-                await transaction.RollbackAsync();
-                return new UpdateRoleResult
-                {
-                    Success = false,
-                    Error = $"Role update failed: {ex.Message}"
-                };
+                await _unitOfWork.RollbackTransactionAsync();
+                return new UpdateRoleResult { Success = false, Error = $"Role update failed: {ex.Message}" };
             }
         }
+
     }
 }

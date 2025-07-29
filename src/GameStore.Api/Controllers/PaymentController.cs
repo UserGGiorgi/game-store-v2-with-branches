@@ -14,6 +14,7 @@ namespace GameStore.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize]
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentProcessingService _paymentProcessingService;
@@ -24,6 +25,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpPost("/orders/payment")]
+        //[Authorize(Policy = "BuyGames")]
         public async Task<IActionResult> ProcessPayment(
             [FromBody] PaymentRequestDto request)
         {

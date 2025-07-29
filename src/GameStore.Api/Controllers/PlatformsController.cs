@@ -6,12 +6,14 @@ using GameStore.Application.Dtos.Platforms.UpdatePlatform;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Web.Controller
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize]
     public class PlatformsController : ControllerBase
     {
         private readonly IPlatformService _platformService;
@@ -32,6 +34,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpPost]
+        //[Authorize(Policy = "ManagePlatforms")]
         [ProducesResponseType(typeof(PlatformResponseDto), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreatePlatform([FromBody] CreatePlatformRequestDto request,
@@ -50,6 +53,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpGet("{id}")]
+        //[AllowAnonymous]
         [ProducesResponseType(typeof(PlatformDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPlatformById(Guid id,
@@ -62,6 +66,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpGet("/games/{key}/platforms")]
+        //[AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<PlatformResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPlatformsByGameKey(
@@ -76,6 +81,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpGet]
+        //[AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<GenreListDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllPlatforms(CancellationToken cancellationToken)
         {
@@ -85,6 +91,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpPut]
+        //[Authorize(Policy = "ManagePlatforms")]
         [ProducesResponseType(typeof(PlatformDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -105,6 +112,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpDelete("{id}")]
+        //[Authorize(Policy = "ManagePlatforms")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

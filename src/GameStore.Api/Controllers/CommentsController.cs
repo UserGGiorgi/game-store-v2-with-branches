@@ -4,6 +4,7 @@ using GameStore.Application.Dtos.Comments.CreateComment;
 using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.ServiceBus;
 using System.Threading;
@@ -12,6 +13,7 @@ namespace GameStore.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize]
     public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
@@ -30,6 +32,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpPost("/games/{key}/comments")]
+        //[Authorize(Policy = "PostComments")]
         public async Task<IActionResult> AddComment(string key, [FromBody] AddCommentRequestDto dto)
         {
             var validationResult = await _createValidator.ValidateAsync(dto);
@@ -43,6 +46,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("/games/{key}/comments")]
+        //[Authorize(Policy = "ViewGames")]
         public async Task<IActionResult> GetComments(string key)
         {
                 var comments = await _commentService.GetGameCommentsAsync(key);
@@ -50,6 +54,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpDelete("/games/{key}/comments/{id}")]
+        //[Authorize(Policy = "ManageComments")]
         public async Task<IActionResult> DeleteComment(string key, Guid id)
         {
                 await _commentService.DeleteCommentAsync(id);

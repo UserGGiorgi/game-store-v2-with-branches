@@ -23,6 +23,7 @@ using GameStore.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
@@ -56,7 +57,7 @@ namespace GameStore.Api
             {
                 options.AddPolicy("AllowFrontend",
                     builder => builder
-                        .WithOrigins("http://localhost:8080")
+                        .WithOrigins("http://localhost:8080", "http://127.0.0.1:8080", "http://192.168.100.2:8080")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .WithExposedHeaders("x-total-numbers-of-games")
@@ -68,15 +69,25 @@ namespace GameStore.Api
         {
             services.AddAuthorization(options =>
             {
+                using var scope = services.BuildServiceProvider().CreateScope();
+                var dbContext = scope.ServiceProvider.GetRequiredService<GameStoreDbContext>();
+
+                var permissions = dbContext.Permissions
+                    .AsNoTracking()
+                    .Select(p => p.Name)
+                    .ToList();
+
+                foreach (var permission in permissions)
+                {
+                    options.AddPolicy(permission, policy =>
+                        policy.RequireClaim("Permission", permission));
+                }
+
                 options.AddPolicy("Admin", policy =>
-                        policy.RequireClaim("role", "Admin"));
-
-                options.AddPolicy("ManagerOnly", policy =>
-                    policy.RequireClaim("Permission", "ManageGames"));
-
-                options.AddPolicy("ViewRoles", policy =>
-                        policy.RequireClaim("Permission", "ManageRoles"));
+                    policy.RequireRole("Admin")
+                          .RequireClaim("Permission", "ManageUsers"));
             });
+
             return services;
         }
         public static IServiceCollection AddSwaggerGenExtension(this IServiceCollection services)
@@ -140,12 +151,16 @@ namespace GameStore.Api
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICommentBanRepository, CommentBanRepository>();
             services.AddScoped<IOrderGameRepository,OrderGameRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IPermissionRepository, PermissionRepository>();
+            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
 
             services.AddScoped(provider => new GameRepositoryCollection(
                 new Lazy<IGameRepository>(() => provider.GetRequiredService<IGameRepository>()),
                 new Lazy<IGenreRepository>(() => provider.GetRequiredService<IGenreRepository>()),
                 new Lazy<IPlatformRepository>(() => provider.GetRequiredService<IPlatformRepository>()),
-                new Lazy<IPublisherRepository>(() => provider.GetRequiredService<IPublisherRepository>()),
                 new Lazy<IOrderRepository>(() => provider.GetRequiredService<IOrderRepository>()),
                 new Lazy<IGameGenreRepository>(() => provider.GetRequiredService<IGameGenreRepository>()),
                 new Lazy<IGamePlatformRepository>(() => provider.GetRequiredService<IGamePlatformRepository>()),
@@ -154,7 +169,16 @@ namespace GameStore.Api
 
             services.AddScoped(provider => new CommentRepositoryCollection(
                 new Lazy<ICommentRepository>(() => provider.GetRequiredService<ICommentRepository>()),
-                new Lazy<ICommentBanRepository>(() => provider.GetRequiredService<ICommentBanRepository>())
+                new Lazy<ICommentBanRepository>(() => provider.GetRequiredService<ICommentBanRepository>()),
+                new Lazy<IPublisherRepository>(() => provider.GetRequiredService<IPublisherRepository>())
+
+            ));
+            services.AddScoped(provider => new AuthRepositoryCollection(
+                new Lazy<IRoleRepository>(() => provider.GetRequiredService<IRoleRepository>()),
+                new Lazy<IPermissionRepository>(() => provider.GetRequiredService<IPermissionRepository>()),
+                new Lazy<IRolePermissionRepository>(() => provider.GetRequiredService<IRolePermissionRepository>()),
+                new Lazy<IApplicationUserRepository>(() => provider.GetRequiredService<IApplicationUserRepository>()),
+                new Lazy<IUserRoleRepository>(() => provider.GetRequiredService<IUserRoleRepository>())
             ));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

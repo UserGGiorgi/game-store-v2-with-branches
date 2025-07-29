@@ -1,11 +1,13 @@
 ﻿using GameStore.Application.Dtos.Comments;
 using GameStore.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class BanController : ControllerBase
     {
         private readonly ILogger<BanController> _logger;
@@ -18,6 +20,7 @@ namespace GameStore.Api.Controllers
             _logger = logger;
         }
         [HttpGet("durations")]
+        [Authorize(Policy = "BanCommenters")]
         public async Task<IActionResult> GetBanDurations()
         {
             var durations = await _banService.GetBanDurationsAsync();
@@ -26,6 +29,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "BanCommenters")]
         public async Task<IActionResult> BanUser([FromBody] BanUserDto banDto)
         {
             await _banService.BanUserAsync(banDto);

@@ -10,6 +10,7 @@ namespace GameStore.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize]
     public class RolesController : ControllerBase
     {
         private readonly IRoleService _roleService;
@@ -19,7 +20,7 @@ namespace GameStore.Api.Controllers
             _roleService = roleService;
         }
 
-        //[Authorize(Policy = "ViewRoles")]
+        //[Authorize(Policy = "ManageRoles")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoleDto>>> GetAllRoles()
         {
@@ -27,7 +28,7 @@ namespace GameStore.Api.Controllers
             return Ok(roles);
         }
 
-        //[Authorize(Policy = "ViewRoles")]
+        //[Authorize(Policy = "ManageRoles")]
         [HttpGet("{id}")]
         public async Task<ActionResult<RoleDto>> GetById(Guid id)
         {
@@ -35,7 +36,7 @@ namespace GameStore.Api.Controllers
             return Ok(role);
         }
 
-        //[Authorize(Policy = "DeleteRole")]
+        //[Authorize(Policy = "ManageRoles")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRole(Guid id)
         {
@@ -46,12 +47,14 @@ namespace GameStore.Api.Controllers
             return NoContent();
         }
         [HttpGet("permissions")]
+        //[Authorize(Policy = "ManageRoles")]
         public async Task<IActionResult> GetAllPermissions()
         {
             var permissions = await _roleService.GetAllPermissionsAsync();
             return Ok(permissions);
         }
         [HttpGet("{id:guid}/permissions")]
+        //[Authorize(Policy = "ManageRoles")]
         public async Task<IActionResult> GetRolePermissions(Guid id)
         {
             var permissions = await _roleService.GetRolePermissionsAsync(id);
@@ -64,6 +67,7 @@ namespace GameStore.Api.Controllers
             return Ok(permissions);
         }
         [HttpPost]
+        //[Authorize(Policy = "ManageRoles")]
         public async Task<IActionResult> AddRole([FromBody] AddRoleRequestDto request)
         {
             var result = await _roleService.AddRoleAsync(request);
@@ -79,6 +83,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpPut]
+        //[Authorize(Policy = "ManageRoles")]
         public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleRequestDto request)
         {
             var result = await _roleService.UpdateRoleAsync(request);

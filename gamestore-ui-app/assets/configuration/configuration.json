@@ -1,5 +1,5 @@
 {
-  "baseApiUrl": "https://localhost:5001/",
+  "baseApiUrl": "https://localhost:5002/",
 
   "gamesAllApiUrl": "games/all",
   "getGameFileApiUrl": "games/{key}/file",

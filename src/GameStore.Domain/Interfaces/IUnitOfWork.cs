@@ -19,6 +19,12 @@ namespace GameStore.Domain.Interfaces
         IOrderGameRepository OrderGameRepository { get; }
         ICommentRepository CommentRepository { get; }
         ICommentBanRepository CommentBanRepository { get; }
+        IRoleRepository RoleRepository { get; }
+        IPermissionRepository PermissionRepository { get; }
+        IRolePermissionRepository RolePermissionRepository { get; }
+        IUserRoleRepository UserRoleRepository { get; }
+        IApplicationUserRepository ApplicationUserRepository { get; }
+
         Task<int> SaveChangesAsync();
         Task BeginTransactionAsync(CancellationToken cancellationToken = default);
 

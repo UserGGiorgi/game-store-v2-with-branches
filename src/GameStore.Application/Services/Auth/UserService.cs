@@ -5,18 +5,13 @@ using GameStore.Application.Dtos.Authorization.User.Update;
 using GameStore.Application.Interfaces.Auth;
 using GameStore.Domain.Entities.User;
 using GameStore.Domain.Exceptions;
-using GameStore.Infrastructure.Data;
+using GameStore.Domain.Interfaces;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Auth
 {
@@ -24,33 +19,36 @@ namespace GameStore.Application.Services.Auth
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
-        private readonly GameStoreDbContext _dbContext;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(IHttpClientFactory httpClientFactory, IConfiguration configuration, GameStoreDbContext dbContext)
+        public UserService(
+            IHttpClientFactory httpClientFactory,
+            IConfiguration configuration,
+            IUnitOfWork unitOfWork)
         {
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
-            _dbContext = dbContext;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
         {
-            var externalUsers = await FetchExternalUsersAsync();
+            var externalUsers = await _unitOfWork.ApplicationUserRepository.GetAllAsync();
             return externalUsers.Select(u => new UserDto
             {
-                Id = u.Email,
-                Name = $"{u.FirstName} {u.LastName}"
+                Id = u.Id.ToString(),
+                Name = u.DisplayName
             });
         }
-        public async Task<UserDto?> GetUserByIdAsync(string email)
+        public async Task<UserDto?> GetUserByIdAsync(string id)
         {
             var allUsers = await GetAllUsersAsync();
 
-            var user = allUsers.FirstOrDefault(u => u.Id.Equals(email, StringComparison.OrdinalIgnoreCase));
+            var user = allUsers.FirstOrDefault(u => u.Id == id);
 
             return user;
         }
-        public async Task<bool> DeleteUserByIdAsync(string email)
+        public async Task<bool> DeleteUserByIdAsync(string id)
         {
             var client = _httpClientFactory.CreateClient("ExternalAuth");
             var url = _configuration["AuthorizationMicroservice:Users"];
@@ -60,7 +58,7 @@ namespace GameStore.Application.Services.Auth
                 Method = HttpMethod.Delete,
                 RequestUri = new Uri(url),
                 Content = new StringContent(
-                    JsonSerializer.Serialize(email),
+                    JsonSerializer.Serialize(id),
                     Encoding.UTF8,
                     "application/json")
             };
@@ -74,20 +72,20 @@ namespace GameStore.Application.Services.Auth
                     $"Failed to delete user: {response.StatusCode}. Error: {await response.Content.ReadAsStringAsync()}"
                 );
             }
-            var user = await _dbContext.ApplicationUser.FirstOrDefaultAsync(u => u.Email == email);
+            var user = await _unitOfWork.ApplicationUserRepository
+                      .FirstOrDefaultAsync(u => u.Id == Guid.Parse(id));
             if (user == null)
             {
-                throw new BadRequestException($"User not found: {email}");  
+                throw new BadRequestException($"User not found: {id}");  
             }
-            _dbContext.ApplicationUser.Remove(user);
-            _dbContext.SaveChanges();
+            _unitOfWork.ApplicationUserRepository.Delete(user);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
 
         public async Task<CreateUserResult> CreateUserAsync(CreateUserRequestDto request)
         {
-            if (await _dbContext.ApplicationUser.AsNoTracking()
-                .AnyAsync(u => u.Email == request.User.Email))
+            if (await _unitOfWork.ApplicationUserRepository.ExistsByEmailAsync(request.User.Email))
             {
                 return new CreateUserResult
                 {
@@ -100,7 +98,7 @@ namespace GameStore.Application.Services.Auth
             var firstName = nameParts[0];
             var lastName = nameParts.Length > 1 ? nameParts[1] : string.Empty;
 
-            using var transaction = await _dbContext.Database.BeginTransactionAsync();
+            await _unitOfWork.BeginTransactionAsync();
 
             try
             {
@@ -113,19 +111,19 @@ namespace GameStore.Application.Services.Auth
                     Email = request.User.Email,
                     DisplayName = request.User.Name
                 };
-                _dbContext.ApplicationUser.Add(appUser);
+                await _unitOfWork.ApplicationUserRepository.AddAsync(appUser); ;
 
                 var roleResult = await AddUserRolesAsync(userId, request.Roles);
                 if (!roleResult.Success) return roleResult;
 
-                await _dbContext.SaveChangesAsync();
-                await transaction.CommitAsync();
+                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.CommitTransactionAsync();
 
                 return new CreateUserResult { Success = true, Email = request.User.Email };
             }
             catch (Exception ex)
             {
-                await transaction.RollbackAsync();
+                await _unitOfWork.RollbackTransactionAsync();
                 return new CreateUserResult
                 {
                     Success = false,
@@ -135,10 +133,7 @@ namespace GameStore.Application.Services.Auth
         }
         public async Task<UpdateUserResult> UpdateUserAsync(UpdateUserRequestDto request)
         {
-            var existingUser = await _dbContext.ApplicationUser
-                .Include(u => u.UserRoles)
-                .ThenInclude(ur => ur.Role)  // Include roles for proper tracking
-                .FirstOrDefaultAsync(u => u.Id == request.User.Id);
+            var existingUser = await _unitOfWork.ApplicationUserRepository.GetByIdWithRolesAsync(request.User.Id);
 
             if (existingUser == null)
             {
@@ -149,7 +144,7 @@ namespace GameStore.Application.Services.Auth
                 };
             }
 
-            using var transaction = await _dbContext.Database.BeginTransactionAsync();
+            await _unitOfWork.BeginTransactionAsync();
 
             try
             {
@@ -168,14 +163,14 @@ namespace GameStore.Application.Services.Auth
                 var roleResult = await UpdateUserRolesAsync(existingUser, request.Roles);
                 if (!roleResult.Success) return roleResult;
 
-                await _dbContext.SaveChangesAsync();
-                await transaction.CommitAsync();
+                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.CommitTransactionAsync();
 
                 return new UpdateUserResult { Success = true };
             }
             catch (Exception ex)
             {
-                await transaction.RollbackAsync();
+                await _unitOfWork.RollbackTransactionAsync();
                 return new UpdateUserResult
                 {
                     Success = false,
@@ -196,7 +191,8 @@ namespace GameStore.Application.Services.Auth
             var client = _httpClientFactory.CreateClient("ExternalAuth");
             var baseUrl = _configuration["AuthorizationMicroservice:Users"];
 
-            var queryParams = new Dictionary<string, string> { { "originalEmail", email } };
+            var queryParams = new Dictionary<string, string?> { { "originalEmail", email } };
+            ArgumentNullException.ThrowIfNull(baseUrl);
             var url = QueryHelpers.AddQueryString(baseUrl, queryParams);
 
             var updateRequest = new
@@ -227,9 +223,8 @@ namespace GameStore.Application.Services.Auth
             ApplicationUser user,
             List<Guid> newRoleIds)
         {
-            var existingRoles = await _dbContext.Roles
-                .Where(r => newRoleIds.Contains(r.Id))
-                .ToListAsync();
+            var existingRoles = await _unitOfWork.RoleRepository
+                                .GetByConditionAsync(r => newRoleIds.Contains(r.Id));
 
             var existingRoleIds = existingRoles.Select(r => r.Id).ToList();
             var missingRoleIds = newRoleIds.Except(existingRoleIds).ToList();
@@ -262,7 +257,7 @@ namespace GameStore.Application.Services.Auth
 
             foreach (var role in rolesToRemove)
             {
-                _dbContext.UserRoles.Remove(role);
+                _unitOfWork.UserRoleRepository.Delete(role);
             }
 
             if (rolesToAdd.Any())
@@ -277,16 +272,23 @@ namespace GameStore.Application.Services.Auth
         }
         public async Task<List<RoleDto>?> GetUserRolesAsync(Guid userId)
         {
-            if (!await _dbContext.ApplicationUser.AnyAsync(u => u.Id == userId))
+            if (!await _unitOfWork.ApplicationUserRepository
+                .AnyAsync(u => u.Id == userId))
             {
                 return null;
             }
 
-            return await _dbContext.UserRoles
-                .Where(ur => ur.UserId == userId)
-                .Select(ur => ur.Role)
+            var userRoles = await _unitOfWork.UserRoleRepository
+                .GetByConditionAsync(ur => ur.UserId == userId);
+
+            var roleIds = userRoles.Select(ur => ur.RoleId).ToList();
+
+            var roles = await _unitOfWork.RoleRepository
+                .GetByConditionAsync(r => roleIds.Contains(r.Id));
+
+            return roles
                 .Select(r => new RoleDto(r.Id, r.Name))
-                .ToListAsync();
+                .ToList();
         }
         private async Task<CreateUserResult> CreateExternalUserAsync(string firstName, string lastName, CreateUserRequestDto request)
         {
@@ -314,11 +316,10 @@ namespace GameStore.Application.Services.Auth
 
         private async Task<CreateUserResult> AddUserRolesAsync(Guid userId, List<Guid> roleIds)
         {
-            var existingRoleIds = await _dbContext.Roles
-                .AsNoTracking()
-                .Where(r => roleIds.Contains(r.Id))
-                .Select(r => r.Id)
-                .ToListAsync();
+            var existingRoles = await _unitOfWork.RoleRepository
+                .GetByConditionAsync(r => roleIds.Contains(r.Id));
+
+            var existingRoleIds = existingRoles.Select(r => r.Id).ToList();
 
             var missingRoleIds = roleIds.Except(existingRoleIds).ToList();
             if (missingRoleIds.Any())
@@ -332,7 +333,7 @@ namespace GameStore.Application.Services.Auth
 
             foreach (var roleId in roleIds)
             {
-                _dbContext.UserRoles.Add(new UserRole
+                await _unitOfWork.UserRoleRepository.AddAsync(new UserRole
                 {
                     UserId = userId,
                     RoleId = roleId
@@ -342,9 +343,6 @@ namespace GameStore.Application.Services.Auth
             return new CreateUserResult { Success = true };
         }
         
-
-
-
         private async Task<IEnumerable<ExternalUserDto>> FetchExternalUsersAsync()
         {
             var client = _httpClientFactory.CreateClient("ExternalAuth");

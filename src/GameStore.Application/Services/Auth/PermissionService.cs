@@ -21,6 +21,7 @@ namespace GameStore.Application.Services.Auth
 
         public async Task<IEnumerable<string>> GetUserRolesAsync(string email)
         {
+
             var userId = await _context.ApplicationUser
                 .Where(u => u.Email == email)
                 .Select(u => u.Id)
@@ -28,7 +29,9 @@ namespace GameStore.Application.Services.Auth
 
             return await _context.UserRoles
                 .Where(ur => ur.UserId == userId)
-                .Select(ur => ur.Role.Name)
+                .Include(ur => ur.Role)
+                .Select(ur => ur.Role!.Name)
+                .Where(name => name != null)
                 .ToListAsync();
         }
 
@@ -42,20 +45,30 @@ namespace GameStore.Application.Services.Auth
             var roles = await _context.UserRoles
                 .Where(ur => ur.UserId == userId)
                 .Include(ur => ur.Role)
-                .ThenInclude(r => r.RolePermissions)
+                .ThenInclude(r => r!.RolePermissions)
                 .ThenInclude(rp => rp.Permission)
+                .Where(ur => ur.Role != null)
                 .ToListAsync();
 
             var permissions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-            foreach (var role in roles.Select(ur => ur.Role))
+            foreach (var userRole in roles)
             {
-                foreach (var permission in role.RolePermissions.Select(rp => rp.Permission.Name))
+                if (userRole.Role?.RolePermissions == null)
+                    continue;
+
+                foreach (var rolePermission in userRole.Role.RolePermissions)
                 {
-                    permissions.Add(permission);
+                    if (rolePermission?.Permission?.Name != null)
+                    {
+                        permissions.Add(rolePermission.Permission.Name);
+                    }
                 }
 
-                AddInheritedPermissions(role.Name, permissions);
+                if (userRole.Role.Name != null)
+                {
+                    AddInheritedPermissions(userRole.Role.Name, permissions);
+                }
             }
 
             return permissions;
@@ -77,7 +90,9 @@ namespace GameStore.Application.Services.Auth
                     var childPermissions = _context.Roles
                         .Where(r => r.Name == childRole)
                         .SelectMany(r => r.RolePermissions)
-                        .Select(rp => rp.Permission.Name)
+                        .Where(rp => rp.Permission != null)
+                        .Select(rp => rp.Permission!.Name)
+                        .Where(name => name != null)
                         .ToList();
 
                     foreach (var permission in childPermissions)

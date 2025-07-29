@@ -11,6 +11,7 @@ using GameStore.Application.Services;
 using GameStore.Application.Services.Payment;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,7 @@ namespace GameStore.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize]
     public class OrdersController : ControllerBase
     {
         private readonly IOrderFacade _orderFacade;
@@ -35,6 +37,7 @@ namespace GameStore.Api.Controllers
             _logger = logger;
         }
         [HttpPost("/games/{key}/buy")]
+        //[Authorize(Policy = "BuyGames")] 
         public async Task<IActionResult> AddToCart(string key)
         {
             await _orderFacade.AddToCartAsync(key);
@@ -42,6 +45,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpDelete("cart/{key}")]
+        //[Authorize(Policy = "BuyGames")] 
         public async Task<IActionResult> RemoveFromCart(string key)
         {
             await _orderFacade.RemoveFromCartAsync(key);
@@ -50,6 +54,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Policy = "ViewOrderHistory")]
         public async Task<IActionResult> GetOrders()
         {
             var orders = await _orderFacade.GetPaidAndCancelledOrdersAsync();
@@ -57,18 +62,21 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        //[Authorize(Policy = "ViewOrderHistory")]
         public async Task<IActionResult> GetOrderById(Guid id)
         {
             var order = await _orderFacade.GetOrderByIdAsync(id);
             return Ok(order);
         }
         [HttpGet("{id}/details")]
+        //[Authorize(Policy = "ViewOrderHistory")]
         public async Task<IActionResult> GetOrderDetails(Guid id)
         {
             var details = await _orderFacade.GetOrderDetailsAsync(id);
             return Ok(details);
         }
         [HttpGet("cart")]
+        //[Authorize(Policy = "BuyGames")]
         public async Task<IActionResult> GetCart()
         {
             var cartItems = await _orderFacade.GetCartAsync();
@@ -76,6 +84,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("payment-methods")]
+        //[Authorize(Policy = "BuyGames")]
         public async Task<IActionResult> GetPaymentMethods()
         {
             var methods = await _orderFacade.GetPaymentMethodsAsync();
@@ -83,6 +92,7 @@ namespace GameStore.Api.Controllers
         }
         // I changed it because of some reasons ,task was:/orders/details/{id}/quantity
         [HttpPatch("details/{orderId}/{productId}/quantity")]
+        //[Authorize(Policy = "EditOrderDetails")]
         public async Task<IActionResult> UpdateOrderDetailQuantity(
             Guid orderId,
             Guid productId,
@@ -92,18 +102,21 @@ namespace GameStore.Api.Controllers
             return NoContent();
         }
         [HttpDelete("details/{orderId}/{productId}")]
+        //[Authorize(Policy = "EditOrderDetails")]
         public async Task<IActionResult> DeleteOrderDetail(Guid orderId, Guid productId)
         {
             await _orderFacade.DeleteOrderDetailAsync(orderId, productId);
             return NoContent();
         }
         [HttpPost("{id}/ship")]
+        //[Authorize(Policy = "UpdateOrderStatus")]
         public async Task<IActionResult> ShipOrder(Guid id)
         {
             await _orderFacade.ShipOrderAsync(id);
             return NoContent();
         }
         [HttpPost("{orderId}/details/{gameKey}")]
+        //[Authorize(Policy = "EditOrderDetails")]
         public async Task<IActionResult> AddGameToOrder(
             Guid orderId,
             string gameKey)
