@@ -11,5 +11,6 @@ namespace GameStore.Domain.Interfaces.Repositories
     {
         Task<ApplicationUser?> GetByIdWithRolesAsync(Guid id);
         Task<bool> ExistsByEmailAsync(string email);
+        Task<ApplicationUser?> GetByEmailAsync(string email);
     }
 }

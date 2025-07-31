@@ -247,5 +247,10 @@ namespace GameStore.Application.Services
                 "Added game {GameKey} to order {OrderId}",
                 gameKey, orderId);
         }
+        public async Task<IEnumerable<OrderResponseDto>> GetOrdersHistoryAsync()
+        {
+            var orders = await _unitOfWork.OrderRepository.GetPaidAndCancelledOrdersAsync();
+            return _mapper.Map<IEnumerable<OrderResponseDto>>(orders);
+        }
     }
 }

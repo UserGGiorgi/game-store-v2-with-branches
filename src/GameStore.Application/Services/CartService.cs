@@ -6,11 +6,13 @@ using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
 using GameStore.Infrastructure.Data;
 using GameStore.Infrastructure.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,14 +23,17 @@ namespace GameStore.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<CartService> _logger;
         private readonly IMemoryCache _cache;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private const string CartCacheKey = "UserCart_{0}";
         private readonly TimeSpan _cacheDuration = TimeSpan.FromMinutes(20);
 
         public CartService(
         IUnitOfWork unitOfWork,
         ILogger<CartService> logger,
+        IHttpContextAccessor httpContextAccessor,
         IMemoryCache cache)
         {
+            _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _logger = logger;
             _cache = cache;
@@ -36,7 +41,7 @@ namespace GameStore.Application.Services
 
         public async Task AddToCartAsync(string gameKey)
         {
-            var userId = GetStubUserId();
+            var userId = GetCurrentUserId();
             var cacheKey = string.Format(CartCacheKey, userId);
 
             var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync()
@@ -73,7 +78,7 @@ namespace GameStore.Application.Services
                 });
             }
             _cache.Set(cacheKey, order, _cacheDuration);
-            _logger.LogInformation("Added game {GameKey} to cart for user {UserId}", gameKey, GetStubUserId());
+            _logger.LogInformation("Added game {GameKey} to cart", gameKey);
             await _unitOfWork.SaveChangesAsync();
         }
         private async Task<Order> CreateNewOrderAsync(Guid userId)
@@ -89,7 +94,7 @@ namespace GameStore.Application.Services
         }
         public async Task RemoveFromCartAsync(string gameKey)
         {
-            var userId = GetStubUserId();
+            var userId = GetCurrentUserId();
             var cacheKey = string.Format(CartCacheKey, userId);
 
             var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
@@ -121,16 +126,41 @@ namespace GameStore.Application.Services
                 _cache.Set(cacheKey, order, _cacheDuration);
             }
 
-            _logger.LogInformation("Removed game {GameKey} from cart for user {UserId}", gameKey, GetStubUserId());
+            _logger.LogInformation("Removed game {GameKey} ", gameKey);
         }
         public void ClearCartCache(Guid userId)
         {
             var cacheKey = string.Format(CartCacheKey, userId);
             _cache.Remove(cacheKey);
         }
-        private static Guid GetStubUserId()
+        private Guid GetCurrentUserId()
         {
-            return Guid.Parse("a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a");
+            var userIdClaim =
+                _httpContextAccessor.HttpContext?.User?.FindFirst("userid") ??
+                _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier) ??
+                _httpContextAccessor.HttpContext?.User?.FindFirst("sub");
+
+            if (userIdClaim == null)
+            {
+                var claims = _httpContextAccessor.HttpContext?.User?.Claims
+                    .Select(c => $"{c.Type}: {c.Value}");
+                _logger.LogError("Missing user ID claim. Available claims: {@Claims}", claims);
+                throw new UnauthorizedAccessException("User not authenticated");
+            }
+
+            var userIdString = userIdClaim.Value;
+            if (userIdString.Length == 35 && userIdString.EndsWith("00000"))
+            {
+                userIdString = userIdString.Substring(0, 35) + "0";
+            }
+
+            if (!Guid.TryParse(userIdString, out var userId))
+            {
+                _logger.LogError("Invalid user ID format: {UserIdString}", userIdString);
+                throw new UnauthorizedAccessException("Invalid user identity format");
+            }
+
+            return userId;
         }
     }
 }

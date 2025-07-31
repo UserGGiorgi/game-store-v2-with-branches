@@ -27,10 +27,13 @@ namespace GameStore.Application.Services.Auth
         {
             var claims = new List<Claim>
             {
-                new(ClaimTypes.Email, user.Email),
-                new(ClaimTypes.Name, user.DisplayName),
-                new("userId", user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.DisplayName),
+                new Claim("userid", user.Id.ToString()), 
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim("sub", user.Id.ToString())
             };
+
 
             foreach (var role in roles)
                 claims.Add(new Claim(ClaimTypes.Role, role));

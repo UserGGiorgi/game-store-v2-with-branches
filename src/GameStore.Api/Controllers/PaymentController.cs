@@ -6,38 +6,68 @@ using GameStore.Application.Facade;
 using GameStore.Application.Interfaces.Payment;
 using GameStore.Domain.Constraints;
 using GameStore.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
 
 namespace GameStore.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentProcessingService _paymentProcessingService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger<PaymentController> _logger;
 
-        public PaymentController(IPaymentProcessingService paymentProcessingService)
+        public PaymentController(IPaymentProcessingService paymentProcessingService,
+            IHttpContextAccessor httpContextAccessor,
+            ILogger<PaymentController> logger)
         {
             _paymentProcessingService = paymentProcessingService;
+            _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         [HttpPost("/orders/payment")]
-        //[Authorize(Policy = "BuyGames")]
+        [Authorize(Policy = "BuyGames")]
         public async Task<IActionResult> ProcessPayment(
             [FromBody] PaymentRequestDto request)
         {
-            var userId = GetStubUserId();
-            if (userId == Guid.Empty)
-                return Unauthorized("Invalid user credentials");
-
+            var userId = GetCurrentUserId();
             return await _paymentProcessingService.ProcessPaymentAsync(userId, request);
         }
-        private static Guid GetStubUserId()
+        private Guid GetCurrentUserId()
         {
-            return Guid.Parse("a5e6c2d4-1b3f-4a7e-8c9d-0f1e2d3c4b5a");
+            var userIdClaim =
+                _httpContextAccessor.HttpContext?.User?.FindFirst("userid") ??
+                _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier) ??
+                _httpContextAccessor.HttpContext?.User?.FindFirst("sub");
+
+            if (userIdClaim == null)
+            {
+                var claims = _httpContextAccessor.HttpContext?.User?.Claims
+                    .Select(c => $"{c.Type}: {c.Value}");
+                _logger.LogError("Missing user ID claim. Available claims: {@Claims}", claims);
+                throw new UnauthorizedAccessException("User not authenticated");
+            }
+
+            var userIdString = userIdClaim.Value;
+            if (userIdString.Length == 35 && userIdString.EndsWith("00000"))
+            {
+                userIdString = userIdString.Substring(0, 35) + "0";
+            }
+
+            if (!Guid.TryParse(userIdString, out var userId))
+            {
+                _logger.LogError("Invalid user ID format: {UserIdString}", userIdString);
+                throw new UnauthorizedAccessException("Invalid user identity format");
+            }
+
+            return userId;
         }
     }
 }

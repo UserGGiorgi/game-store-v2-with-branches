@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace GameStore.Application.Services.Auth
 {
@@ -37,6 +38,7 @@ namespace GameStore.Application.Services.Auth
             return externalUsers.Select(u => new UserDto
             {
                 Id = u.Id.ToString(),
+                //Name = u.DisplayName?.Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? string.Empty
                 Name = u.DisplayName
             });
         }
@@ -52,13 +54,15 @@ namespace GameStore.Application.Services.Auth
         {
             var client = _httpClientFactory.CreateClient("ExternalAuth");
             var url = _configuration["AuthorizationMicroservice:Users"];
+            var user1 = await _unitOfWork.ApplicationUserRepository.FirstOrDefaultAsync(u => u.Id == Guid.Parse(id));
+            ArgumentNullException.ThrowIfNull(user1);
             ArgumentNullException.ThrowIfNull(url);
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Delete,
                 RequestUri = new Uri(url),
                 Content = new StringContent(
-                    JsonSerializer.Serialize(id),
+                    JsonSerializer.Serialize(user1.Email),
                     Encoding.UTF8,
                     "application/json")
             };
@@ -98,6 +102,10 @@ namespace GameStore.Application.Services.Auth
             var firstName = nameParts[0];
             var lastName = nameParts.Length > 1 ? nameParts[1] : string.Empty;
 
+            request.User.Email = await GenerateUniqueEmailAsync(
+                request.User.Email,
+                firstName,
+                lastName);
             await _unitOfWork.BeginTransactionAsync();
 
             try
@@ -342,7 +350,27 @@ namespace GameStore.Application.Services.Auth
 
             return new CreateUserResult { Success = true };
         }
-        
+        private async Task<string> GenerateUniqueEmailAsync(string? providedEmail, string firstName, string lastName)
+        {
+            if (!string.IsNullOrWhiteSpace(providedEmail))
+            {
+                return providedEmail.Trim().ToLower();
+            }
+
+            var baseEmail = $"{firstName.ToLower()}.{lastName.ToLower()}@gamestore.com";
+            baseEmail = Regex.Replace(baseEmail, @"[^a-zA-Z0-9.@]", "");
+
+            var finalEmail = baseEmail;
+            int suffix = 1;
+
+            while (await _unitOfWork.ApplicationUserRepository.ExistsByEmailAsync(finalEmail))
+            {
+                finalEmail = $"{firstName.ToLower()}.{lastName.ToLower()}{suffix}@gamestore.com";
+                suffix++;
+            }
+
+            return finalEmail;
+        }
         private async Task<IEnumerable<ExternalUserDto>> FetchExternalUsersAsync()
         {
             var client = _httpClientFactory.CreateClient("ExternalAuth");

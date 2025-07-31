@@ -176,7 +176,7 @@ public class GameStoreDbContext : DbContext
         modelBuilder.Entity<ApplicationUser>().HasData(
             new ApplicationUser
             {
-                Id = adminUserId, // Use GUID ID
+                Id = adminUserId,
                 Email = "admin@game-store.com",
                 DisplayName = "Administrator"
             });

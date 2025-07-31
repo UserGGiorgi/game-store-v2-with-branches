@@ -19,15 +19,18 @@ namespace GameStore.Api.Controllers
         private readonly IAuthService _authService;
         private readonly IAccessService _accessService;
         private readonly IUserService _userService;
+        private readonly ILogger<AuthController> _logger;
 
         public AuthController(
             IAuthService authService,
             IAccessService accessService,
-            IUserService userService)
+            IUserService userService,
+            ILogger<AuthController> logger)
         {
             _authService = authService;
             _accessService = accessService;
             _userService = userService;
+            _logger = logger;
         }
 
         [HttpPost("login")]
@@ -36,35 +39,36 @@ namespace GameStore.Api.Controllers
             var response = await _authService.LoginAsync(request);
             return Ok(response);
         }
-        //[Authorize]
+        [Authorize]
         [HttpPost("access")]
         public async Task<IActionResult> CheckAccess([FromBody] AccessCheckRequestDto request)
         {
-            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            var userEmail = User.FindFirst("email")?.Value
+                   ?? User.FindFirst(ClaimTypes.Email)?.Value;
+
             if (string.IsNullOrEmpty(userEmail))
+            {
+                var claims = User.Claims.Select(c => $"{c.Type}: {c.Value}");
+                _logger.LogError("Missing email claim. Available claims: {@Claims}", claims);
                 return Unauthorized();
+            }
 
             var hasAccess = await _accessService.CheckAccessAsync(userEmail, request.TargetPage, request.TargetId);
 
             return hasAccess ? Ok() : Forbid();
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
             return Ok(users);
         }
-        //[Authorize]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUserById(string id)
         {
-            var currentUserEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-            var isAdmin = User.IsInRole("Admin");
-
-            if (!isAdmin && !string.Equals(currentUserEmail, id, StringComparison.OrdinalIgnoreCase))
-                return Forbid();
 
             var user = await _userService.GetUserByIdAsync(id);
 
@@ -73,7 +77,7 @@ namespace GameStore.Api.Controllers
 
             return Ok(user);
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
@@ -93,7 +97,7 @@ namespace GameStore.Api.Controllers
                 return StatusCode(StatusCodes.Status502BadGateway, ex.Message);
             }
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto request)
         {
@@ -110,7 +114,7 @@ namespace GameStore.Api.Controllers
 
             return BadRequest(result.Error);
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequestDto request)
         {

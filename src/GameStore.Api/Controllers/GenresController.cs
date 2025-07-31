@@ -7,6 +7,7 @@ using GameStore.Application.Dtos.Platforms.UpdatePlatform;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -33,7 +34,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpPost]
-        //[Authorize(Policy = "ManageGenres")]
+        [Authorize(Policy = "ManageGenres")]
         [ProducesResponseType(typeof(GenreResponseDto), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateGenre([FromBody] CreateGenreRequestDto request,
@@ -93,7 +94,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpPut]
-        //[Authorize(Policy = "ManageGenres")]
+        [Authorize(Policy = "ManageGenres")]
         [ProducesResponseType(typeof(GenreDetailsDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -114,7 +115,7 @@ namespace GameStore.Web.Controller
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Policy = "ManageGenres")]
+        [Authorize(Policy = "ManageGenres")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

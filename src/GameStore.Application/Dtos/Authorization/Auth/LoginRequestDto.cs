@@ -9,10 +9,13 @@ namespace GameStore.Application.Dtos.User.AuthDTOs
 {
     public class LoginRequestDto
     {
-        public string Login { get; set; } = string.Empty;
+        public LoginModel Model { get; set; } = new LoginModel();
 
-        public string Password { get; set; } = string.Empty;
-
-        public bool InternalAuth { get; set; } = true;
+        public class LoginModel
+        {
+            public string Login { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
+            public bool InternalAuth { get; set; } = true;
+        }
     }
 }

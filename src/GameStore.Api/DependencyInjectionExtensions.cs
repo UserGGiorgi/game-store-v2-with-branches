@@ -226,9 +226,9 @@ namespace GameStore.Api
                         IssuerSigningKey = new SymmetricSecurityKey(
                             Encoding.UTF8.GetBytes(Key)),
                         RoleClaimType = ClaimTypes.Role,
-                        NameClaimType = ClaimTypes.Email
+                        NameClaimType = ClaimTypes.NameIdentifier
                     };
-
+                    options.MapInboundClaims = false;
                 });
             return services;
         }

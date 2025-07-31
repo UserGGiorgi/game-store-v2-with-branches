@@ -35,7 +35,7 @@ builder.Services.AddControllers()
     });
 builder.Services.AddMemoryCache();
 builder.Services.AddValidators();
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenExtension();
 

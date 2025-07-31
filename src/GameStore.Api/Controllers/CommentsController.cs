@@ -13,7 +13,7 @@ namespace GameStore.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
@@ -32,7 +32,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpPost("/games/{key}/comments")]
-        //[Authorize(Policy = "PostComments")]
+        [Authorize(Policy = "PostComments")]
         public async Task<IActionResult> AddComment(string key, [FromBody] AddCommentRequestDto dto)
         {
             var validationResult = await _createValidator.ValidateAsync(dto);
@@ -46,19 +46,19 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("/games/{key}/comments")]
-        //[Authorize(Policy = "ViewGames")]
+        [Authorize(Policy = "ViewGames")]
         public async Task<IActionResult> GetComments(string key)
         {
-                var comments = await _commentService.GetGameCommentsAsync(key);
-                return Ok(comments);
+            var comments = await _commentService.GetGameCommentsAsync(key);
+            return Ok(comments);
         }
 
         [HttpDelete("/games/{key}/comments/{id}")]
-        //[Authorize(Policy = "ManageComments")]
+        [Authorize(Policy = "ManageComments")]
         public async Task<IActionResult> DeleteComment(string key, Guid id)
         {
-                await _commentService.DeleteCommentAsync(id);
-                return NoContent();
+            await _commentService.DeleteCommentAsync(id);
+            return NoContent();
         }
     }
 }

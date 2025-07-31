@@ -64,7 +64,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpPost]
-    //[Authorize(Policy = "ManageGames")]
+    [Authorize(Policy = "ManageGames")]
     [ProducesResponseType(typeof(GameDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateGame(
@@ -84,7 +84,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet("{key}")]
-    //[Authorize(Policy = "ViewGames")]
+    [Authorize(Policy = "ViewGames")]
     [ResponseCache(Duration = 30)]
     [ProducesResponseType(typeof(GameDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -103,7 +103,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet("find/{id}")]
-    //[Authorize(Policy = "ViewGames")]
+    [Authorize(Policy = "ViewGames")]
     [ProducesResponseType(typeof(GameDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(
@@ -121,7 +121,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet("/platforms/{id}/games")]
-    //[Authorize(Policy = "ViewGames")]
+    [Authorize(Policy = "ViewGames")]
     [ProducesResponseType(typeof(IEnumerable<SimpleGameResponseDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByPlatform(
         Guid id,
@@ -132,7 +132,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet("/genres/{id}/games")]
-    //[Authorize(Policy = "ViewGames")]
+    [Authorize(Policy = "ViewGames")]
     [ProducesResponseType(typeof(IEnumerable<SimpleGameResponseDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByGenre(
         Guid id,
@@ -144,7 +144,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpPut]
-    //[Authorize(Policy = "ManageGames")]
+    [Authorize(Policy = "ManageGames")]
     [ProducesResponseType(typeof(GameResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -164,7 +164,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpDelete("{key}")]
-    //[Authorize(Policy = "ManageGames")]
+    [Authorize(Policy = "ManageGames")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(
@@ -176,7 +176,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet("{key}/file")]
-    //[Authorize(Policy = "ManageGames")]
+    [Authorize(Policy = "ManageGames")]
     [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Download(
@@ -223,7 +223,7 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet("filter")]
-    //[Authorize(Policy = "ViewGames")]
+    [Authorize(Policy = "ViewGames")]
     [ProducesResponseType(typeof(PaginatedGamesResponseDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetFilteredGames(
     [FromQuery] GameFilterDto filter,

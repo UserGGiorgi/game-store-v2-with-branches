@@ -26,5 +26,11 @@ namespace GameStore.Infrastructure.Data.Repository
             return await _context.Set<ApplicationUser>()
                 .AnyAsync(u => u.Email == email);
         }
+
+        public async Task<ApplicationUser?> GetByEmailAsync(string email)
+        {
+            return await _context.Set<ApplicationUser>()
+            .FirstOrDefaultAsync(u => u.Email == email);
+        }
     }
 }
