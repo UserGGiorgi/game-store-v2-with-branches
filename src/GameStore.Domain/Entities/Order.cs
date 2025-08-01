@@ -11,6 +11,7 @@ namespace GameStore.Domain.Entities
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime? Date { get; set; }
+        public DateTime? ShipDate { get; set; }
         public Guid CustomerId { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Open;
         public ICollection<OrderGame> OrderGames { get; set; } = new List<OrderGame>();

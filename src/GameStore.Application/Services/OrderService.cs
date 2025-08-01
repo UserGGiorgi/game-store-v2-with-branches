@@ -206,6 +206,7 @@ namespace GameStore.Application.Services
                 throw new InvalidOperationException("Only paid orders can be shipped");
 
             order.Status = OrderStatus.Shipped;
+            order.ShipDate = DateTime.UtcNow;
 
             await _unitOfWork.SaveChangesAsync();
 
