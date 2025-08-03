@@ -1,4 +1,4 @@
-﻿using GameStore.Domain.Interfaces.Repositories;
+﻿using GameStore.Domain.Interfaces.Repositories.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;

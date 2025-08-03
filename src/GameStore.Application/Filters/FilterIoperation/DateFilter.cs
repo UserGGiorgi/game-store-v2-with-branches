@@ -1,5 +1,5 @@
 ﻿using GameStore.Application.Dtos.Games.Filter;
-using GameStore.Domain.Entities;
+using GameStore.Domain.Entities.Games;
 using GameStore.Domain.Enums;
 using System;
 using System.Collections.Generic;

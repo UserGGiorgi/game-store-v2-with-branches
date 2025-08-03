@@ -1,4 +1,4 @@
-﻿using GameStore.Domain.Interfaces.Repositories;
+﻿using GameStore.Domain.Interfaces.Repositories.Games;
 using GameStore.Shared.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;

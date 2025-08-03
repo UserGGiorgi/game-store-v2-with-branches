@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameStore.Domain.Entities.Comments;
+using GameStore.Domain.Entities.Orders;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

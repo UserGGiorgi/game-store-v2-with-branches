@@ -1,0 +1,17 @@
+﻿using GameStore.Domain.Entities.Comments;
+using GameStore.Domain.Interfaces.Repositories.Comments;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GameStore.Infrastructure.Data.Repository.Comments
+{
+    public class CommentBanRepository : GenericRepository<CommentBan>, ICommentBanRepository
+    {
+        public CommentBanRepository(GameStoreDbContext context) : base(context)
+        {
+        }
+    }
+}

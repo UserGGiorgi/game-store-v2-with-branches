@@ -1,12 +1,10 @@
 using FluentValidation;
 using GameStore.Api;
-using GameStore.Api.Configuration;
 using GameStore.Application.Mapping;
 using GameStore.Domain.Entities;
 using GameStore.Domain.Interfaces;
 using GameStore.Domain.Interfaces.Repositories;
 using GameStore.Infrastructure.Data;
-using GameStore.Infrastructure.Data.Repositories;
 using GameStore.Infrastructure.Data.Repository;
 using GameStore.Shared.Configuration;
 using GameStore.Shared.Middleware;
@@ -20,7 +18,7 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-SerilogConfig.ConfigureSerilog(builder);
+builder.SerilogConfiguretion();
 builder.Services.Configure<FormOptions>(options =>
 {
     options.MemoryBufferThreshold = int.MaxValue;
@@ -52,7 +50,6 @@ builder.Services.AddRepositories(builder.Configuration);
 builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.AddAuthorizationExtension();
 builder.Services.AddFrontEnd();
-
 
 var app = builder.Build();
 app.UseHttpsRedirection(); 

@@ -2,11 +2,11 @@
 using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
-using GameStore.Application.Services;
+using GameStore.Application.Services.Games;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Entities.Games;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
-using GameStore.Web.Controller;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -58,9 +58,9 @@ namespace Gamestore.Test.Application.Services
                 });
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
-                .ReturnsAsync(new List<GameStore.Domain.Entities.Platform>
+                .ReturnsAsync(new List<GameStore.Domain.Entities.Games.Platform>
                 {
-            new GameStore.Domain.Entities.Platform { Id = request.Platforms.First(), Type = "Console" }
+            new GameStore.Domain.Entities.Games.Platform { Id = request.Platforms.First(), Type = "Console" }
                 });
 
             _mockUnitOfWork.Setup(u => u.GameRepository.GetByKeyAsync(request.Game.Key))
@@ -98,8 +98,8 @@ namespace Gamestore.Test.Application.Services
                 .ReturnsAsync((Game?)null);
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
-                .ReturnsAsync(new List<GameStore.Domain.Entities.Platform> {
-            new GameStore.Domain.Entities.Platform {
+                .ReturnsAsync(new List<GameStore.Domain.Entities.Games.Platform> {
+            new GameStore.Domain.Entities.Games.Platform {
                 Id = request.Platforms.First(),
                 Type = "Console"
             }
@@ -144,7 +144,7 @@ namespace Gamestore.Test.Application.Services
                 });
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
-                .ReturnsAsync(new List<GameStore.Domain.Entities.Platform>());
+                .ReturnsAsync(new List<GameStore.Domain.Entities.Games.Platform>());
 
             // Act & Assert
             await Assert.ThrowsAsync<BadRequestException>(() =>
@@ -178,7 +178,7 @@ namespace Gamestore.Test.Application.Services
                 Name = "Test Genre"
             }).ToList();
 
-            var validPlatforms = request.Platforms.Select(id => new GameStore.Domain.Entities.Platform
+            var validPlatforms = request.Platforms.Select(id => new GameStore.Domain.Entities.Games.Platform
             {
                 Id = id,
                 Type = "Test Platform"
@@ -284,7 +284,7 @@ namespace Gamestore.Test.Application.Services
                 Name = "Test Genre"
             };
 
-            var validPlatform = new GameStore.Domain.Entities.Platform
+            var validPlatform = new GameStore.Domain.Entities.Games.Platform
             {
                 Id = request.Platforms.First(),
                 Type = "TestPlatformType"
@@ -322,7 +322,7 @@ namespace Gamestore.Test.Application.Services
                 .ReturnsAsync(new List<Genre> { validGenre });
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
-                .ReturnsAsync(new List<GameStore.Domain.Entities.Platform> { validPlatform });
+                .ReturnsAsync(new List<GameStore.Domain.Entities.Games.Platform> { validPlatform });
 
             _mockUnitOfWork.Setup(u => u.GameRepository.AddAsync(It.IsAny<Game>()))
                 .Callback<Game>(g => createdGame = g);

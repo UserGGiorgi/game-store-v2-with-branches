@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using GameStore.Api.Controllers.Games;
 using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
-using GameStore.Application.Interfaces;
+using GameStore.Application.Interfaces.Games;
 using GameStore.Domain.Exceptions;
-using GameStore.Web.Controller;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

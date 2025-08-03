@@ -6,6 +6,7 @@ using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
 using GameStore.Application.Interfaces.Payment;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Entities.Orders;
 using GameStore.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
 using Polly;

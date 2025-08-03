@@ -5,29 +5,41 @@ using GameStore.Application.Dtos.Platforms.CreatePlatform;
 using GameStore.Application.Facade;
 using GameStore.Application.Filters.FilterIoeration;
 using GameStore.Application.Filters.SortOperation;
-using GameStore.Application.Interfaces;
 using GameStore.Application.Interfaces.Auth;
+using GameStore.Application.Interfaces.Comments;
+using GameStore.Application.Interfaces.Games;
+using GameStore.Application.Interfaces.Orders;
 using GameStore.Application.Interfaces.Payment;
-using GameStore.Application.Services;
+using GameStore.Application.Interfaces.Pdf;
 using GameStore.Application.Services.Auth;
+using GameStore.Application.Services.Games;
+using GameStore.Application.Services.Orders;
 using GameStore.Application.Services.Payment;
+using GameStore.Application.Services.Pdf;
 using GameStore.Domain.Constraints;
-using GameStore.Domain.Entities;
+using GameStore.Domain.Entities.Games;
 using GameStore.Domain.Interfaces;
-using GameStore.Domain.Interfaces.Repositories;
+using GameStore.Domain.Interfaces.Repositories.Auth;
+using GameStore.Domain.Interfaces.Repositories.Comments;
+using GameStore.Domain.Interfaces.Repositories.Games;
+using GameStore.Domain.Interfaces.Repositories.Orders;
 using GameStore.Infrastructure.Data;
-using GameStore.Infrastructure.Data.Repositories;
-using GameStore.Infrastructure.Data.Repository;
+using GameStore.Infrastructure.Data.Repository.Auth;
+using GameStore.Infrastructure.Data.Repository.Comments;
+using GameStore.Infrastructure.Data.Repository.Games;
+using GameStore.Infrastructure.Data.Repository.Orders;
 using GameStore.Infrastructure.Data.RepositoryCollection;
-using GameStore.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog.Events;
+using Serilog;
 using System.Security.Claims;
 using System.Text;
+using GameStore.Application.Services.Comments;
 
 namespace GameStore.Api
 {
@@ -65,6 +77,34 @@ namespace GameStore.Api
             });
             return services;
         }
+        public static void SerilogConfiguretion(this WebApplicationBuilder builder)
+        {
+            var logPath = Path.Combine(builder.Environment.ContentRootPath, "Logs");
+            Directory.CreateDirectory(logPath);
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                .Enrich.FromLogContext()
+
+                .WriteTo.File(
+                    Path.Combine(logPath, "log-.txt"),
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 7,
+                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+
+                .WriteTo.File(
+                    Path.Combine(logPath, "errors-.txt"),
+                    restrictedToMinimumLevel: LogEventLevel.Error,
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 7,
+                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+                .CreateLogger();
+
+            builder.Host.UseSerilog();
+        }
+
         public static IServiceCollection AddAuthorizationExtension(this IServiceCollection services)
         {
             services.AddAuthorization(options =>

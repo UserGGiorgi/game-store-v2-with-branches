@@ -1,4 +1,5 @@
-﻿using GameStore.Domain.Interfaces.Repositories;
+﻿using GameStore.Domain.Interfaces.Repositories.Games;
+using GameStore.Domain.Interfaces.Repositories.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;

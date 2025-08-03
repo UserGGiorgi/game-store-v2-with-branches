@@ -1,5 +1,8 @@
 ﻿using GameStore.Domain.Interfaces;
-using GameStore.Domain.Interfaces.Repositories;
+using GameStore.Domain.Interfaces.Repositories.Auth;
+using GameStore.Domain.Interfaces.Repositories.Comments;
+using GameStore.Domain.Interfaces.Repositories.Games;
+using GameStore.Domain.Interfaces.Repositories.Orders;
 using GameStore.Infrastructure.Data.RepositoryCollection;
 using Microsoft.EntityFrameworkCore.Storage;
 

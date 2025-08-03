@@ -1,6 +1,6 @@
 ﻿using GameStore.Application.Dtos.Order;
-using GameStore.Application.Interfaces;
-using GameStore.Domain.Entities;
+using GameStore.Application.Interfaces.Orders;
+using GameStore.Domain.Entities.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
