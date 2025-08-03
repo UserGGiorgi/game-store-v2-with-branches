@@ -88,6 +88,8 @@ StyleCopReport.xml
 *.svclog
 *.scc
 **/Logs/
+**/publish/**/*.dll
+microservice/publish/*.dll
 
 # Chutzpah Test files
 _Chutzpah*
