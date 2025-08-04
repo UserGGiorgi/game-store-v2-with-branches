@@ -1,0 +1,155 @@
+2025-07-03 00:42:42.695 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-07-03 00:42:43.954 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 1262ms
+2025-07-03 00:42:43.956 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-07-03 00:42:43.994 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 38ms
+2025-07-03 00:43:27.293 +04:00 [INF] Starting request: POST /Publishers from ::1
+2025-07-03 00:43:27.440 +04:00 [WRN] Validation failed for publisher creation: ["Home page must be a valid URL (http:// or https://)."]
+2025-07-03 00:43:27.448 +04:00 [INF] Completed request: POST /Publishers - Status: 400 - Time: 154ms
+2025-07-03 00:43:36.754 +04:00 [INF] Starting request: POST /Publishers from ::1
+2025-07-03 00:43:36.924 +04:00 [ERR] Exception Details: Type: InvalidOperationException, Message: The LINQ expression 'DbSet<Publisher>()
+    .Any(p => string.Equals(
+        a: p.CompanyName, 
+        b: __companyName_0, 
+        comparisonType: OrdinalIgnoreCase))' could not be translated. Additional information: Translation of the 'string.Equals' overload with a 'StringComparison' parameter is not supported. See https://go.microsoft.com/fwlink/?linkid=2129535 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+System.InvalidOperationException: The LINQ expression 'DbSet<Publisher>()
+    .Any(p => string.Equals(
+        a: p.CompanyName, 
+        b: __companyName_0, 
+        comparisonType: OrdinalIgnoreCase))' could not be translated. Additional information: Translation of the 'string.Equals' overload with a 'StringComparison' parameter is not supported. See https://go.microsoft.com/fwlink/?linkid=2129535 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass12_0`1.<ExecuteAsync>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ExecuteAsync[TSource,TResult](MethodInfo operatorMethodInfo, IQueryable`1 source, Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ExecuteAsync[TSource,TResult](MethodInfo operatorMethodInfo, IQueryable`1 source, LambdaExpression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.AnyAsync[TSource](IQueryable`1 source, Expression`1 predicate, CancellationToken cancellationToken)
+   at GameStore.Infrastructure.Data.Repository.PublisherRepository.ExistsByCompanyNameAsync(String companyName) in C:\Users\Giorgi\Source\Repos\game-store-v2-with-branches\src\GameStore.Infrastructure\Data\Repository\PublisherRepository.cs:line 19
+   at GameStore.Application.Services.PublisherService.CreatePublisherAsync(CreatePublisherRequestDto createPublisherDto) in C:\Users\Giorgi\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 40
+   at GameStore.Api.Controllers.PublishersController.CreatePublisher(CreatePublisherRequestDto request, CancellationToken cancellationToken) in C:\Users\Giorgi\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 51
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\Giorgi\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-07-03 00:43:36.990 +04:00 [INF] Completed request: POST /Publishers - Status: 500 - Time: 235ms
+2025-07-03 00:44:05.325 +04:00 [INF] Starting request: GET /Publishers from ::1
+2025-07-03 00:44:05.392 +04:00 [INF] Completed request: GET /Publishers - Status: 200 - Time: 67ms
+2025-07-03 00:45:35.462 +04:00 [INF] Starting request: POST /Publishers from ::1
+2025-07-03 00:46:00.256 +04:00 [ERR] Exception Details: Type: InvalidOperationException, Message: The LINQ expression 'DbSet<Publisher>()
+    .Any(p => string.Equals(
+        a: p.CompanyName, 
+        b: __companyName_0, 
+        comparisonType: OrdinalIgnoreCase))' could not be translated. Additional information: Translation of the 'string.Equals' overload with a 'StringComparison' parameter is not supported. See https://go.microsoft.com/fwlink/?linkid=2129535 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+System.InvalidOperationException: The LINQ expression 'DbSet<Publisher>()
+    .Any(p => string.Equals(
+        a: p.CompanyName, 
+        b: __companyName_0, 
+        comparisonType: OrdinalIgnoreCase))' could not be translated. Additional information: Translation of the 'string.Equals' overload with a 'StringComparison' parameter is not supported. See https://go.microsoft.com/fwlink/?linkid=2129535 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass12_0`1.<ExecuteAsync>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ExecuteAsync[TSource,TResult](MethodInfo operatorMethodInfo, IQueryable`1 source, Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ExecuteAsync[TSource,TResult](MethodInfo operatorMethodInfo, IQueryable`1 source, LambdaExpression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.AnyAsync[TSource](IQueryable`1 source, Expression`1 predicate, CancellationToken cancellationToken)
+   at GameStore.Infrastructure.Data.Repository.PublisherRepository.ExistsByCompanyNameAsync(String companyName) in C:\Users\Giorgi\Source\Repos\game-store-v2-with-branches\src\GameStore.Infrastructure\Data\Repository\PublisherRepository.cs:line 19
+   at GameStore.Application.Services.PublisherService.CreatePublisherAsync(CreatePublisherRequestDto createPublisherDto) in C:\Users\Giorgi\Source\Repos\game-store-v2-with-branches\src\GameStore.Application\Services\PublisherService.cs:line 40
+   at GameStore.Api.Controllers.PublishersController.CreatePublisher(CreatePublisherRequestDto request, CancellationToken cancellationToken) in C:\Users\Giorgi\Source\Repos\game-store-v2-with-branches\src\GameStore.Api\Controllers\PublishersController.cs:line 51
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at GameStore.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\Giorgi\Source\Repos\game-store-v2-with-branches\src\GameStore.Shared\Middleware\ExceptionHandlingMiddleware.cs:line 30
+2025-07-03 00:46:00.262 +04:00 [INF] Completed request: POST /Publishers - Status: 500 - Time: 24800ms
+2025-07-03 00:49:37.611 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-07-03 00:49:38.711 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 1103ms
+2025-07-03 00:49:38.712 +04:00 [INF] Starting request: GET /swagger/v1/swagger.json from ::1
+2025-07-03 00:49:38.753 +04:00 [INF] Completed request: GET /swagger/v1/swagger.json - Status: 200 - Time: 40ms
+2025-07-03 00:49:47.498 +04:00 [INF] Starting request: GET /Publishers from ::1
+2025-07-03 00:49:47.690 +04:00 [INF] Completed request: GET /Publishers - Status: 200 - Time: 192ms
+2025-07-03 00:50:08.695 +04:00 [INF] Starting request: POST /Publishers from ::1
+2025-07-03 00:50:15.204 +04:00 [INF] Publisher created: EpicGames (ID: "f17343e3-6728-4973-badb-08ddb9aa0bdb")
+2025-07-03 00:50:15.219 +04:00 [INF] Completed request: POST /Publishers - Status: 201 - Time: 6524ms
+2025-07-03 00:50:18.898 +04:00 [INF] Starting request: GET /Publishers from ::1
+2025-07-03 00:50:18.910 +04:00 [INF] Completed request: GET /Publishers - Status: 200 - Time: 12ms
+2025-07-03 00:50:35.787 +04:00 [INF] Starting request: POST /Publishers from ::1
+2025-07-03 00:50:35.799 +04:00 [INF] Publisher created: steram (ID: "de2dfc2a-812b-411c-badc-08ddb9aa0bdb")
+2025-07-03 00:50:35.800 +04:00 [INF] Completed request: POST /Publishers - Status: 201 - Time: 12ms
+2025-07-03 00:50:38.357 +04:00 [INF] Starting request: GET /Publishers from ::1
+2025-07-03 00:50:38.361 +04:00 [INF] Completed request: GET /Publishers - Status: 200 - Time: 4ms
+2025-07-03 00:50:57.218 +04:00 [INF] Starting request: GET /Publishers/EpicGames from ::1
+2025-07-03 00:50:57.237 +04:00 [INF] Retrieved publisher: EpicGames (ID: "f17343e3-6728-4973-badb-08ddb9aa0bdb")
+2025-07-03 00:50:57.237 +04:00 [INF] Completed request: GET /Publishers/EpicGames - Status: 200 - Time: 19ms
+2025-07-03 00:51:14.795 +04:00 [INF] Starting request: POST /Platforms from ::1
+2025-07-03 00:51:14.831 +04:00 [INF] platform created successfully. Key: Pc
+2025-07-03 00:51:14.839 +04:00 [INF] Completed request: POST /Platforms - Status: 201 - Time: 44ms
+2025-07-03 00:51:23.430 +04:00 [INF] Starting request: POST /Platforms from ::1
+2025-07-03 00:51:23.437 +04:00 [INF] platform created successfully. Key: XBox
+2025-07-03 00:51:23.439 +04:00 [INF] Completed request: POST /Platforms - Status: 201 - Time: 8ms
+2025-07-03 00:51:47.621 +04:00 [INF] Starting request: POST /Genres from ::1
+2025-07-03 00:51:47.640 +04:00 [WRN] Validation failed for genre creation: ["ParentGenreId must be a valid GUID or empty"]
+2025-07-03 00:51:47.644 +04:00 [INF] Completed request: POST /Genres - Status: 400 - Time: 23ms
+2025-07-03 00:51:57.448 +04:00 [INF] Starting request: POST /Genres from ::1
+2025-07-03 00:51:57.486 +04:00 [INF] Created genre ID: "46e61d01-4a37-487b-7544-08ddb9aa48df"
+2025-07-03 00:51:57.487 +04:00 [INF] genre created successfully. Key: Shooter
+2025-07-03 00:51:57.494 +04:00 [INF] Returning 1 genres
+2025-07-03 00:51:57.495 +04:00 [INF] Completed request: POST /Genres - Status: 201 - Time: 46ms
+2025-07-03 00:52:04.654 +04:00 [INF] Starting request: POST /Genres from ::1
+2025-07-03 00:52:04.667 +04:00 [INF] Created genre ID: "26e08caa-1511-4f25-7545-08ddb9aa48df"
+2025-07-03 00:52:04.667 +04:00 [INF] genre created successfully. Key: Racing
+2025-07-03 00:52:04.668 +04:00 [INF] Returning 2 genres
+2025-07-03 00:52:04.669 +04:00 [INF] Completed request: POST /Genres - Status: 201 - Time: 14ms
+2025-07-03 00:52:09.737 +04:00 [INF] Starting request: POST /Genres from ::1
+2025-07-03 00:52:09.743 +04:00 [INF] Created genre ID: "8ff1c072-71e2-4bb2-7546-08ddb9aa48df"
+2025-07-03 00:52:09.743 +04:00 [INF] genre created successfully. Key: Survival
+2025-07-03 00:52:09.744 +04:00 [INF] Returning 3 genres
+2025-07-03 00:52:09.745 +04:00 [INF] Completed request: POST /Genres - Status: 201 - Time: 8ms
+2025-07-03 00:52:18.221 +04:00 [INF] Starting request: GET /Genres from ::1
+2025-07-03 00:52:18.227 +04:00 [INF] Returning 3 genres
+2025-07-03 00:52:18.228 +04:00 [INF] Completed request: GET /Genres - Status: 200 - Time: 7ms
+2025-07-03 00:56:41.376 +04:00 [INF] Starting request: GET /Publishers from ::1
+2025-07-03 00:56:41.392 +04:00 [INF] Completed request: GET /Publishers - Status: 200 - Time: 16ms
+2025-07-03 00:57:04.596 +04:00 [INF] Starting request: GET /Platforms from ::1
+2025-07-03 00:57:04.606 +04:00 [INF] Fetching all platforms
+2025-07-03 00:57:04.610 +04:00 [INF] Completed request: GET /Platforms - Status: 200 - Time: 13ms
+2025-07-03 00:58:19.767 +04:00 [INF] Starting request: POST /Games from ::1
+2025-07-03 00:58:19.883 +04:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-07-03 00:58:19.968 +04:00 [INF] Game created successfully. Key: key123
+2025-07-03 00:58:19.976 +04:00 [INF] Retrieved 1 games
+2025-07-03 00:58:19.979 +04:00 [INF] Completed request: POST /Games - Status: 201 - Time: 212ms
+2025-07-03 00:58:26.420 +04:00 [INF] Starting request: GET /Games from ::1
+2025-07-03 00:58:26.429 +04:00 [INF] Retrieved 1 games
+2025-07-03 00:58:26.429 +04:00 [INF] Retrieved  games
+2025-07-03 00:58:26.430 +04:00 [INF] Completed request: GET /Games - Status: 200 - Time: 9ms
+2025-07-03 00:59:20.203 +04:00 [INF] Starting request: POST /Games from ::1
+2025-07-03 00:59:20.227 +04:00 [INF] Game created successfully. Key: far
+2025-07-03 00:59:20.229 +04:00 [INF] Retrieved 2 games
+2025-07-03 00:59:20.229 +04:00 [INF] Completed request: POST /Games - Status: 201 - Time: 26ms
