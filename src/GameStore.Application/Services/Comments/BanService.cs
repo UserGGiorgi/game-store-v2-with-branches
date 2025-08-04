@@ -15,32 +15,36 @@ namespace GameStore.Application.Services.Comments
 {
     public class BanService : IBanService
     {
+        private static readonly IReadOnlyDictionary<string, BanDuration> BanDurationMap =
+            new Dictionary<string, BanDuration>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["1 hour"] = BanDuration.OneHour,
+                ["1 day"] = BanDuration.OneDay,
+                ["1 week"] = BanDuration.OneWeek,
+                ["1 month"] = BanDuration.OneMonth,
+                ["permanent"] = BanDuration.Permanent
+            };
+
         private readonly ILogger<BanService> _logger;
         private readonly IUnitOfWork _unitOfWork;
-        public BanService(
-            IUnitOfWork unitOfWork,
-            ILogger<BanService> logger)
+
+        public BanService(IUnitOfWork unitOfWork, ILogger<BanService> logger)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
         }
+
         public Task<IEnumerable<string>> GetBanDurationsAsync()
         {
-            var durations = new[] { "1 hour", "1 day", "1 week", "1 month", "permanent" };
-            return Task.FromResult(durations.AsEnumerable());
+            return Task.FromResult(BanDurationMap.Keys.AsEnumerable());
         }
 
         public async Task BanUserAsync(BanUserDto banDto)
         {
-            var duration = banDto.Duration switch
+            if (!BanDurationMap.TryGetValue(banDto.Duration, out var duration))
             {
-                "1 hour" => BanDuration.OneHour,
-                "1 day" => BanDuration.OneDay,
-                "1 week" => BanDuration.OneWeek,
-                "1 month" => BanDuration.OneMonth,
-                "permanent" => BanDuration.Permanent,
-                _ => throw new ArgumentException("Invalid duration")
-            };
+                throw new ArgumentException($"Invalid duration: {banDto.Duration}");
+            }
 
             var ban = new CommentBan
             {
@@ -54,6 +58,7 @@ namespace GameStore.Application.Services.Comments
             await _unitOfWork.SaveChangesAsync();
             _logger.LogInformation("User {Username} banned for {Duration}", banDto.User, banDto.Duration);
         }
+
         private static DateTime CalculateBanExpiration(BanDuration duration)
         {
             return duration switch
