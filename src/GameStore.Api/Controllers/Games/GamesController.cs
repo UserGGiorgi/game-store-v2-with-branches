@@ -48,19 +48,45 @@ public class GamesController : ControllerBase
     [ProducesResponseType(typeof(PaginatedGamesResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAll(
-    [FromQuery] int pageNumber = 1,
-    [FromQuery] string pageSize = "10",
+    [FromQuery] GameFilterDto filter,
+    [FromQuery(Name = "sort")] string? sort,
+    [FromQuery(Name = "page")] int page = 1,
+    [FromQuery(Name = "pageCount")] string pageSize = "10",
     CancellationToken cancellationToken = default)
     {
+        if (string.IsNullOrWhiteSpace(pageSize))
+        {
+            pageSize = "10";
+        }
+
         if (!IsValidPageSize(pageSize, out string errorMessage))
         {
             return BadRequest(errorMessage);
         }
 
-        int pageSizeValue = GetPageSizeValue(pageSize);
-        var result = await _gameService.GetAllGamesAsync(pageNumber, pageSizeValue, cancellationToken);
+        if (!string.IsNullOrEmpty(filter.Name) && filter.Name.Length < 3)
+        {
+            return BadRequest("Name filter requires at least 3 characters");
+        }
 
-        return Ok(CreatePaginatedResponse(result.Games, result.TotalCount, pageNumber, pageSizeValue));
+        SortOption sortBy = SortOption.MostPopular;
+        if (!string.IsNullOrEmpty(sort) &&
+            Enum.TryParse<SortOption>(sort, true, out var parsedSort))
+        {
+            sortBy = parsedSort;
+        }
+
+        int pageSizeValue = GetPageSizeValue(pageSize);
+
+        var result = await _gameService.GetFilteredGamesAsync(
+            filter,
+            sortBy,
+            page,
+            pageSizeValue,
+            cancellationToken
+        );
+
+        return Ok(result);
     }
 
     [HttpPost]
@@ -222,30 +248,30 @@ public class GamesController : ControllerBase
         return Ok(options);
     }
 
-    [HttpGet("filter")]
-    [Authorize(Policy = "ViewGames")]
-    [ProducesResponseType(typeof(PaginatedGamesResponseDto), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetFilteredGames(
-    [FromQuery] GameFilterDto filter,
-    [FromQuery] SortOption sortBy = SortOption.MostPopular,
-    [FromQuery] int pageNumber = 1,
-    [FromQuery] int pageSize = 10,
-    CancellationToken cancellationToken = default)
-    {
-        if (!string.IsNullOrEmpty(filter.Name) && filter.Name.Length < 3)
-        {
-            return BadRequest("Name filter requires at least 3 characters");
-        }
+    //[HttpGet("filter")]
+    //[Authorize(Policy = "ViewGames")]
+    //[ProducesResponseType(typeof(PaginatedGamesResponseDto), StatusCodes.Status200OK)]
+    //public async Task<IActionResult> GetFilteredGames(
+    //[FromQuery] GameFilterDto filter,
+    //[FromQuery] SortOption sortBy = SortOption.MostPopular,
+    //[FromQuery] int pageNumber = 1,
+    //[FromQuery] int pageSize = 10,
+    //CancellationToken cancellationToken = default)
+    //{
+    //    if (!string.IsNullOrEmpty(filter.Name) && filter.Name.Length < 3)
+    //    {
+    //        return BadRequest("Name filter requires at least 3 characters");
+    //    }
 
-        var result = await _gameService.GetFilteredGamesAsync(
-            filter,
-            sortBy,
-            pageNumber,
-            pageSize,
-            cancellationToken);
+    //    var result = await _gameService.GetFilteredGamesAsync(
+    //        filter,
+    //        sortBy,
+    //        pageNumber,
+    //        pageSize,
+    //        cancellationToken);
 
-        return Ok(result);
-    }
+    //    return Ok(result);
+    //}
 
 
     private static bool IsValidPageSize(string pageSize, out string errorMessage)

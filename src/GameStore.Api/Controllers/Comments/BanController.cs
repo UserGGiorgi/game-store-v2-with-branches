@@ -19,7 +19,7 @@ namespace GameStore.Api.Controllers.Comments
             _banService = banService;
             _logger = logger;
         }
-        [HttpGet("durations")]
+        [HttpGet("/comments/ban/durations")]
         [Authorize(Policy = "BanCommenters")]
         public async Task<IActionResult> GetBanDurations()
         {
@@ -28,7 +28,7 @@ namespace GameStore.Api.Controllers.Comments
             return Ok(durations);
         }
 
-        [HttpPost]
+        [HttpPost("/comments/ban")]
         [Authorize(Policy = "BanCommenters")]
         public async Task<IActionResult> BanUser([FromBody] BanUserDto banDto)
         {

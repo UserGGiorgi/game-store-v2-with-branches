@@ -12,9 +12,9 @@ namespace GameStore.Application.Filters.FilterIoeration
     {
         public IQueryable<Game> Apply(IQueryable<Game> query, GameFilterDto filter)
         {
-            if (filter.PublisherIds != null && filter.PublisherIds.Count != 0)
+            if (filter.Publishers != null && filter.Publishers.Count != 0)
             {
-                return query.Where(g => filter.PublisherIds.Contains(g.PublisherId));
+                return query.Where(g => filter.Publishers.Contains(g.PublisherId));
             }
             return query;
         }

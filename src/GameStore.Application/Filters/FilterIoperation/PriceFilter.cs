@@ -14,11 +14,11 @@ namespace GameStore.Application.Filters.FilterIoeration
         {
             if (filter.MinPrice.HasValue)
             {
-                query = query.Where(g => g.Price >= filter.MinPrice.Value);
+                query = query.Where(g => g.Price >= (double)filter.MinPrice.Value);
             }
             if (filter.MaxPrice.HasValue)
             {
-                query = query.Where(g => g.Price <= filter.MaxPrice.Value);
+                query = query.Where(g => g.Price <= (double)filter.MaxPrice.Value);
             }
             return query;
         }

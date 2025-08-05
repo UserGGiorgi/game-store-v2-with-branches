@@ -9,12 +9,12 @@ namespace GameStore.Application.Dtos.Games.Filter
 {
     public class GameFilterDto
     {
-        public List<Guid>? GenreIds { get; set; }
-        public List<Guid>? PlatformIds { get; set; }
-        public List<Guid>? PublisherIds { get; set; }
-        public double? MinPrice { get; set; }
-        public double? MaxPrice { get; set; }
-        public PublishDateOption? PublishDate { get; set; }
+        public List<Guid>? Genres { get; set; }
+        public List<Guid>? Platforms { get; set; }
+        public List<Guid>? Publishers { get; set; }
         public string? Name { get; set; }
+        public decimal? MinPrice { get; set; }
+        public decimal? MaxPrice { get; set; }
+        public string? DatePublishing { get; set; }
     }
 }
