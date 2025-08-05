@@ -7,14 +7,7 @@ using GameStore.Application.Interfaces.Games;
 using GameStore.Domain.Entities.Games;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
-using GameStore.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Games
 {

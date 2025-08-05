@@ -2,14 +2,9 @@
 using GameStore.Application.Dtos.Genres.CreateGenre;
 using GameStore.Application.Dtos.Genres.GetGenre;
 using GameStore.Application.Dtos.Genres.UpdateGenre;
-using GameStore.Application.Dtos.Platforms.CreatePlatform;
-using GameStore.Application.Dtos.Platforms.UpdatePlatform;
 using GameStore.Application.Interfaces.Games;
-using GameStore.Domain.Entities;
-using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GameStore.Api.Controllers.Games
 {

@@ -1,13 +1,8 @@
 ﻿using FluentValidation;
-using GameStore.Application.Dtos.Comments;
 using GameStore.Application.Dtos.Comments.CreateComment;
-using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Interfaces.Comments;
-using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.ServiceBus;
-using System.Threading;
 
 namespace GameStore.Api.Controllers.Comments
 {

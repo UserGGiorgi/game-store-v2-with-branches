@@ -2,7 +2,6 @@
 using GameStore.Application.Dtos.Order;
 using GameStore.Application.Interfaces.Orders;
 using GameStore.Application.Interfaces.Pdf;
-using GameStore.Domain.Entities;
 using GameStore.Domain.Entities.Orders;
 using GameStore.Domain.Enums;
 using GameStore.Domain.Exceptions;

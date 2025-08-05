@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using GameStore.Application.Dtos.Genres.UpdateGenre;
 using GameStore.Domain.Constraints;
 
 namespace GameStore.Application.Dtos.Genres.UpdateGenre

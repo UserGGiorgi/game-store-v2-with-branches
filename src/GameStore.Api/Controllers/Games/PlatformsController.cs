@@ -4,8 +4,6 @@ using GameStore.Application.Dtos.Platforms.CreatePlatform;
 using GameStore.Application.Dtos.Platforms.GetPlatform;
 using GameStore.Application.Dtos.Platforms.UpdatePlatform;
 using GameStore.Application.Interfaces.Games;
-using GameStore.Domain.Entities;
-using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +11,7 @@ namespace GameStore.Api.Controllers.Games
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class PlatformsController : ControllerBase
     {
         private readonly IPlatformService _platformService;

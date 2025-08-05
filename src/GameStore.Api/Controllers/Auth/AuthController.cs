@@ -4,7 +4,6 @@ using GameStore.Application.Dtos.Authorization.User.Create;
 using GameStore.Application.Dtos.Authorization.User.Update;
 using GameStore.Application.Dtos.User.AuthDTOs;
 using GameStore.Application.Interfaces.Auth;
-using GameStore.Application.Services.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

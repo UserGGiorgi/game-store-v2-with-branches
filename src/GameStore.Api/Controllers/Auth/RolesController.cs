@@ -2,7 +2,6 @@
 using GameStore.Application.Dtos.Authorization.Role.Get;
 using GameStore.Application.Dtos.Authorization.Role.Update;
 using GameStore.Application.Interfaces.Auth;
-using GameStore.Application.Services.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

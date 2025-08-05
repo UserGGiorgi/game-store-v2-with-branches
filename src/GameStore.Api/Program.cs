@@ -1,18 +1,9 @@
-using FluentValidation;
 using GameStore.Api;
 using GameStore.Application.Mapping;
-using GameStore.Domain.Entities;
-using GameStore.Domain.Interfaces;
-using GameStore.Domain.Interfaces.Repositories;
-using GameStore.Infrastructure.Data;
-using GameStore.Infrastructure.Data.Repository;
 using GameStore.Shared.Configuration;
 using GameStore.Shared.Middleware;
 using GameStore.Web.Middleware;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 

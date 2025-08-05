@@ -1,4 +1,5 @@
 ﻿using GameStore.Domain.Entities.Orders;
+
 namespace GameStore.Application.Interfaces.Payment
 {
     public interface IPaymentService

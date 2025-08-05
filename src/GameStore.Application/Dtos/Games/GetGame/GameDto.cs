@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GameStore.Application.Dtos.Games.GetGames;
+﻿namespace GameStore.Application.Dtos.Games.GetGames;
 
 public class GameDto
 {

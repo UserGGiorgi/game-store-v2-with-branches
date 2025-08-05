@@ -1,20 +1,12 @@
-﻿using AutoMapper;
-using GameStore.Application.Interfaces.Orders;
-using GameStore.Domain.Entities;
+﻿using GameStore.Application.Interfaces.Orders;
 using GameStore.Domain.Entities.Orders;
 using GameStore.Domain.Enums;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
-using GameStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Orders
 {

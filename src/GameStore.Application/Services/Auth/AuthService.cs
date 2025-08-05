@@ -4,12 +4,7 @@ using GameStore.Application.Interfaces.Auth;
 using GameStore.Domain.Entities.User;
 using GameStore.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Auth
 {

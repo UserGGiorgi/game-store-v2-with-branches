@@ -1,15 +1,9 @@
 ﻿using GameStore.Application.Dtos.Comments;
 using GameStore.Application.Interfaces.Comments;
-using GameStore.Domain.Entities;
 using GameStore.Domain.Entities.Comments;
 using GameStore.Domain.Enums;
 using GameStore.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Comments
 {

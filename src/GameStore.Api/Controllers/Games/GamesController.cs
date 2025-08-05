@@ -9,7 +9,6 @@ using GameStore.Domain.Enums;
 using GameStore.Domain.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Extensions;
 
 namespace GameStore.Api.Controllers.Games;
 

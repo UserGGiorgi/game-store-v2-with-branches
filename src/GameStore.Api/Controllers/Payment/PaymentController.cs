@@ -1,15 +1,7 @@
-﻿using GameStore.Application.Dtos.Order;
-using GameStore.Application.Dtos.Order.PaymentModels;
-using GameStore.Application.Dtos.Order.PaymentRequest;
-using GameStore.Application.Dtos.Order.PaymentResults;
-using GameStore.Application.Facade;
+﻿using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Interfaces.Payment;
-using GameStore.Domain.Constraints;
-using GameStore.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
 namespace GameStore.Api.Controllers.Payment

@@ -1,14 +1,6 @@
 ﻿using GameStore.Domain.Entities.Games;
 using GameStore.Domain.Interfaces.Repositories.Games;
-using GameStore.Infrastructure.Data.Repository;
-using GameStore.Shared.Helpers;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Data.Repository.Games;
 

@@ -6,18 +6,12 @@ using GameStore.Application.Facade;
 using GameStore.Application.Interfaces.Orders;
 using GameStore.Application.Interfaces.Payment;
 using GameStore.Domain.Constraints;
-using GameStore.Domain.Entities;
 using GameStore.Domain.Entities.Orders;
 using GameStore.Domain.Enums;
 using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Payment
 {

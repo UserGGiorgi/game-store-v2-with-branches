@@ -38,7 +38,6 @@ namespace GameStore.Application.Services.Auth
             return externalUsers.Select(u => new UserDto
             {
                 Id = u.Id.ToString(),
-                //Name = u.DisplayName?.Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? string.Empty
                 Name = u.DisplayName
             });
         }
@@ -370,20 +369,6 @@ namespace GameStore.Application.Services.Auth
             }
 
             return finalEmail;
-        }
-        private async Task<IEnumerable<ExternalUserDto>> FetchExternalUsersAsync()
-        {
-            var client = _httpClientFactory.CreateClient("ExternalAuth");
-            var url = _configuration["AuthorizationMicroservice:Users"];
-            var response = await client.GetAsync(url);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new HttpRequestException($"Failed to fetch users: {response.StatusCode}");
-            }
-
-            return await response.Content.ReadFromJsonAsync<IEnumerable<ExternalUserDto>>()
-                   ?? Enumerable.Empty<ExternalUserDto>();
         }
     }
 }

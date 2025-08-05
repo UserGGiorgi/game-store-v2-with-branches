@@ -4,14 +4,7 @@ using GameStore.Application.Dtos.Authorization.Role.Update;
 using GameStore.Application.Interfaces.Auth;
 using GameStore.Domain.Entities.User;
 using GameStore.Domain.Interfaces;
-using GameStore.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Auth
 {
@@ -152,10 +145,8 @@ namespace GameStore.Application.Services.Auth
                 return new UpdateRoleResult { Success = false, Error = $"Role not found: {request.Role.Id}" };
             }
 
-            // Fixed duplicate name check: Only check if name is being changed
             if (role.Name != request.Role.Name)
             {
-                // Check if another role (with different ID) already has the new name
                 bool nameExists = await _unitOfWork.RoleRepository.ExistsByNameAsync(request.Role.Name, request.Role.Id);
                 if (nameExists)
                 {
@@ -190,7 +181,6 @@ namespace GameStore.Application.Services.Auth
                 var permissionsToAdd = newPermissionIds.Except(currentPermissionIds).ToList();
                 var permissionsToRemove = currentPermissionIds.Except(newPermissionIds).ToList();
 
-                // Fixed: Should remove role-permission mappings, not delete the role
                 if (permissionsToRemove.Any())
                 {
                     var toRemove = role.RolePermissions
@@ -199,7 +189,6 @@ namespace GameStore.Application.Services.Auth
 
                     foreach (var rp in toRemove)
                     {
-                        // Corrected: Delete the RolePermission mapping, not the Role
                         _unitOfWork.RolePermissionRepository.Delete(rp);
                     }
                 }

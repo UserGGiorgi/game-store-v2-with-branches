@@ -1,16 +1,11 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Games.GetGames;
-using GameStore.Application.Dtos.Platforms.CreatePlatform;
-using GameStore.Application.Dtos.Platforms.GetPlatform;
-using GameStore.Application.Dtos.Platforms.UpdatePlatform;
 using GameStore.Application.Dtos.Publishers.CreatePublisher;
 using GameStore.Application.Dtos.Publishers.GetPublisher;
 using GameStore.Application.Dtos.Publishers.UpdatePublisher;
 using GameStore.Application.Interfaces.Games;
-using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
 
 namespace GameStore.Api.Controllers.Games
 {

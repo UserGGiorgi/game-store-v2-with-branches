@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using GameStore.Domain.Entities.User;
 using GameStore.Domain.Entities.Comments;
 using GameStore.Domain.Entities.Orders;

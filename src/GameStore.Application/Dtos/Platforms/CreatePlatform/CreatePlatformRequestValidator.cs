@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Platforms.GetPlatform;
 using GameStore.Domain.Constraints;
-using System.Text.RegularExpressions;
 
 namespace GameStore.Application.Dtos.Platforms.CreatePlatform
 {

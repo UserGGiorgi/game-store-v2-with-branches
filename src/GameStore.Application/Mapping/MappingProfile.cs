@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using GameStore.Application.Dtos.Games;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
-using GameStore.Application.Dtos.Genres;
 using GameStore.Application.Dtos.Genres.GetGenre;
 using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Platforms.GetPlatform;

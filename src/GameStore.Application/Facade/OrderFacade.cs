@@ -1,11 +1,6 @@
 ﻿using GameStore.Application.Dtos.Order;
 using GameStore.Application.Interfaces.Orders;
 using GameStore.Domain.Entities.Orders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Facade
 {

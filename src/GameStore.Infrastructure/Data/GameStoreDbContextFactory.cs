@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System.IO;
-
 namespace GameStore.Infrastructure.Data;
 
 public class GameStoreDbContextFactory : IDesignTimeDbContextFactory<GameStoreDbContext>

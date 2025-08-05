@@ -1,23 +1,7 @@
-﻿using FluentValidation;
-using GameStore.Application.Dtos.Genres.UpdateGenre;
-using GameStore.Application.Dtos.Order;
-using GameStore.Application.Dtos.Order.PaymentModels;
-using GameStore.Application.Dtos.Order.PaymentRequest;
-using GameStore.Application.Dtos.Order.PaymentResults;
-using GameStore.Application.Dtos.Order.Update;
+﻿using GameStore.Application.Dtos.Order.Update;
 using GameStore.Application.Facade;
-using GameStore.Application.Interfaces;
-using GameStore.Application.Services;
-using GameStore.Application.Services.Payment;
-using GameStore.Domain.Entities;
-using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Polly;
-using System.Security.Claims;
-using System.Threading;
 
 namespace GameStore.Api.Controllers.Orders
 {

@@ -1,10 +1,5 @@
 ﻿using GameStore.Domain.Interfaces.Repositories.Comments;
 using GameStore.Domain.Interfaces.Repositories.Games;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Data.RepositoryCollection
 {

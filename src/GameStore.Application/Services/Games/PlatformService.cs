@@ -1,22 +1,11 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using GameStore.Application.Dtos.Genres.GetGenre;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
 using GameStore.Application.Dtos.Platforms.GetPlatform;
 using GameStore.Application.Dtos.Platforms.UpdatePlatform;
 using GameStore.Application.Interfaces.Games;
-using GameStore.Domain.Entities;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
-using GameStore.Domain.Interfaces.Repositories;
-using GameStore.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Games
 {

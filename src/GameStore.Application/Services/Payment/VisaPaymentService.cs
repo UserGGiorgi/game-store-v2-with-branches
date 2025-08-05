@@ -1,17 +1,11 @@
 ﻿using FluentValidation;
-using GameStore.Application.Dtos.Genres.UpdateGenre;
-using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Order.PaymentModels;
 using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
 using GameStore.Application.Interfaces.Payment;
-using GameStore.Domain.Entities;
 using GameStore.Domain.Entities.Orders;
 using GameStore.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
-using Polly;
-using Polly.Retry;
-using System.Net;
 using System.Net.Http.Json;
 
 namespace GameStore.Application.Services.Payment
