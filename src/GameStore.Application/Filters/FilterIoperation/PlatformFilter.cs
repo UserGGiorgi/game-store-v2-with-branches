@@ -12,9 +12,9 @@ namespace GameStore.Application.Filters.FilterIoeration
     {
         public IQueryable<Game> Apply(IQueryable<Game> query, GameFilterDto filter)
         {
-            if (filter.PlatformIds != null && filter.PlatformIds.Any())
+            if (filter.Platforms != null && filter.Platforms.Any())
             {
-                return query.Where(g => g.Platforms.Any(gp => filter.PlatformIds.Contains(gp.PlatformId)));
+                return query.Where(g => g.Platforms.Any(gp => filter.Platforms.Contains(gp.PlatformId)));
             }
             return query;
         }

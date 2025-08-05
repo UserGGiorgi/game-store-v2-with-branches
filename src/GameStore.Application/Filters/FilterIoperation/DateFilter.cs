@@ -13,11 +13,13 @@ namespace GameStore.Application.Filters.FilterIoeration
     {
         public IQueryable<Game> Apply(IQueryable<Game> query, GameFilterDto filter)
         {
-            if (filter.PublishDate.HasValue)
+            if (!string.IsNullOrWhiteSpace(filter.DatePublishing) &&
+                Enum.TryParse<PublishDateOption>(filter.DatePublishing, out var option))
             {
-                var dateFilter = DateTime.UtcNow.AddTicks(-1 * GetDateRangeTicks(filter.PublishDate.Value));
+                var dateFilter = DateTime.UtcNow.AddTicks(-1 * GetDateRangeTicks(option));
                 query = query.Where(g => g.CreatedAt >= dateFilter);
             }
+
             return query;
         }
 

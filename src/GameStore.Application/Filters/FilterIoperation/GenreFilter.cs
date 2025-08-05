@@ -12,9 +12,9 @@ namespace GameStore.Application.Filters.FilterIoeration
     {
         public IQueryable<Game> Apply(IQueryable<Game> query, GameFilterDto filter)
         {
-            if (filter.GenreIds != null && filter.GenreIds.Count != 0)
+            if (filter.Genres != null && filter.Genres.Count != 0)
             {
-                return query.Where(g => g.Genres.Any(gg => filter.GenreIds.Contains(gg.GenreId)));
+                return query.Where(g => g.Genres.Any(gg => filter.Genres.Contains(gg.GenreId)));
             }
             return query;
         }
