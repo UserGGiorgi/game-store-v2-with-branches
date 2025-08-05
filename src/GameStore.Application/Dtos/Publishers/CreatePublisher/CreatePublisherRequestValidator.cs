@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Publishers.GetPublisher;
-using GameStore.Domain.Constraints;
+using GameStore.Domain.Constraints.Games;
 
 namespace GameStore.Application.Dtos.Publishers.CreatePublisher
 {

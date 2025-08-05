@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Genres.GetGenre;
-using GameStore.Domain.Constraints;
+using GameStore.Domain.Constraints.Games;
 
 namespace GameStore.Application.Dtos.Genres.CreateGenre
 {

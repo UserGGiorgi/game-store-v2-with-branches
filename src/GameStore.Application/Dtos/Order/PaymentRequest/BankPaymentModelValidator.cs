@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using GameStore.Application.Dtos.Order.PaymentModels;
-using GameStore.Domain.Constraints;
+using GameStore.Domain.Constraints.Payment;
 
 namespace GameStore.Application.Dtos.Order.PaymentRequest
 {

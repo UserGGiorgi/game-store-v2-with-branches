@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Domain.Constraints
+namespace GameStore.Domain.Constraints.Payment
 {
     public static class PaymentValidationConstraints
     {

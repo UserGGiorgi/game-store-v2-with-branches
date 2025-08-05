@@ -16,7 +16,6 @@ using GameStore.Application.Services.Games;
 using GameStore.Application.Services.Orders;
 using GameStore.Application.Services.Payment;
 using GameStore.Application.Services.Pdf;
-using GameStore.Domain.Constraints;
 using GameStore.Domain.Entities.Games;
 using GameStore.Domain.Interfaces;
 using GameStore.Domain.Interfaces.Repositories.Auth;
@@ -38,6 +37,7 @@ using Serilog;
 using System.Security.Claims;
 using System.Text;
 using GameStore.Application.Services.Comments;
+using GameStore.Domain.Constraints.Payment;
 
 namespace GameStore.Api
 {

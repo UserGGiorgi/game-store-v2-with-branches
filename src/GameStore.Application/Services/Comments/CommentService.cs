@@ -7,6 +7,8 @@ using Microsoft.Azure.ServiceBus;
 using GameStore.Application.Dtos.Comments.CreateComment;
 using GameStore.Application.Interfaces.Comments;
 using GameStore.Domain.Entities.Comments;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace GameStore.Application.Services.Comments
 {
@@ -14,13 +16,16 @@ namespace GameStore.Application.Services.Comments
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<CommentService> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public CommentService(
             IUnitOfWork unitOfWork,
-            ILogger<CommentService> logger)
+            ILogger<CommentService> logger,
+            IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Comment> AddCommentAsync(string gameKey, AddCommentRequestDto dto)
@@ -28,12 +33,14 @@ namespace GameStore.Application.Services.Comments
             var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey)
                 ?? throw new NotFoundException("Game not found");
 
-            if (await IsUserBanned(dto.Comment.Name))
+            var displayName = GetUserDisplayName();
+
+            if (await IsUserBanned(displayName))
                 throw new UnauthorizedException("User is banned from commenting");
 
             var comment = new Comment
             {
-                Name = dto.Comment.Name,
+                Name = displayName,
                 Body = dto.Comment.Body,
                 GameId = game.Id
             };
@@ -86,7 +93,7 @@ namespace GameStore.Application.Services.Comments
             return comments.Select(c => new CommentResponseDto(
                 c.Id,
                 c.Name,
-                c.Status == CommentStatus.Deleted ? "A comment/quote was deleted" : FormatCommentBody(c),
+                FormatCommentBody(c),
                 BuildCommentTree(c.Replies)
             )).ToList();
         }
@@ -98,22 +105,37 @@ namespace GameStore.Application.Services.Comments
 
             if (comment.ParentComment != null)
             {
+                string parentContent;
+
                 if (comment.ParentComment.Status == CommentStatus.Deleted)
                 {
-                    return $"[A comment was deleted], {comment.Body}";
-                }
-
-                if (comment.HasQuote)
-                {
-                    return $"[{comment.ParentComment.Body}], {comment.Body}";
+                    parentContent = "A comment/quote was deleted";
                 }
                 else
                 {
-                    return $"[{comment.ParentComment.Name}], {comment.Body}";
+                    parentContent = comment.HasQuote
+                        ? comment.ParentComment.Body
+                        : comment.ParentComment.Name;
                 }
+
+                return $"[{parentContent}], {comment.Body}";
             }
 
             return comment.Body;
+        }
+        private string GetUserDisplayName()
+        {
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext?.User?.Identity?.IsAuthenticated != true)
+            {
+                throw new UnauthorizedException("User is not authenticated");
+            }
+
+            var displayName = httpContext.User.FindFirst("display_name")?.Value
+                ?? httpContext.User.FindFirst(ClaimTypes.Name)?.Value
+                ?? throw new UnauthorizedException("Display name not found in claims");
+
+            return displayName;
         }
     }
 }
