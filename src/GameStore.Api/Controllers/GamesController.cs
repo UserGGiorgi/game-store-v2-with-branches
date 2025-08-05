@@ -70,7 +70,7 @@ public class GamesController : ControllerBase
 
         int pageSizeValue = GetPageSizeValue(pageSize);
 
-        var result = await _gameService.GetFilteredGamesAsync(
+        var (games, totalCount) = await _gameService.GetFilteredGamesAsync(
             filter,
             sortBy,
             page,
@@ -78,7 +78,9 @@ public class GamesController : ControllerBase
             cancellationToken
         );
 
-        return Ok(result);
+        var response = CreatePaginatedResponse(games, totalCount, page, pageSizeValue);
+
+        return Ok(response);
     }
 
 

@@ -21,7 +21,7 @@ public interface IGameService
     int pageNumber,
     int pageSizeOption,
     CancellationToken cancellationToken = default);
-    Task<PaginatedGamesResponseDto> GetFilteredGamesAsync(
+    Task<(IEnumerable<PaginationGame> Games, int TotalCount)> GetFilteredGamesAsync(
     GameFilterDto filter,
     SortOption sortBy,
     int pageNumber,
