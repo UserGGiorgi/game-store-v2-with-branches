@@ -353,7 +353,7 @@ public class GameService : IGameService
         return (games, totalCount);
     }
 
-    public async Task<PaginatedGamesResponseDto> GetFilteredGamesAsync(
+    public async Task<(IEnumerable<PaginationGame> Games, int TotalCount)> GetFilteredGamesAsync(
         GameFilterDto filter,
         SortOption sortBy,
         int pageNumber,
@@ -382,15 +382,8 @@ public class GameService : IGameService
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken);
-
         var paginatedGames = _mapper.Map<IEnumerable<PaginationGame>>(games);
-
-        return new PaginatedGamesResponseDto
-        {
-            Games = paginatedGames,
-            TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize),
-            CurrentPage = pageNumber
-        };
+        return (paginatedGames, totalCount);
     }
     public async Task<IEnumerable<PaginationGame>> GetAllGamesWithoutPaginationAsync(
     CancellationToken cancellationToken = default)
