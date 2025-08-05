@@ -1,13 +1,16 @@
 {
-  "baseApiUrl": "https://localhost:7091/",
+  "baseApiUrl": "https://localhost:5001/",
 
+  "getGameFileApiUrl": "games/{key}/file",
+  "getPublishedDateOptionsApiUrl": "games/publish-date-options",
+  "getSortingOptionsApiUrl": "games/sorting-options",
+  "getPaggingOptionsApiUrl": "games/pagination-options",
   "gameApiUrl": "games/{key}",
   "gameByIdApiUrl": "games/find/{id}",
   "gamesApiUrl": "games",
   "gamesByGenreApiUrl": "genres/{id}/games",
   "gamesByPublisherApiUrl": "publishers/{companyname}/games",
   "gamesByPlatformApiUrl": "platforms/{id}/games",
-  "getGameFile": "games/{key}/file",
   "updateGameApiUrl": "games",
   "addGameApiUrl": "games",
   "deleteGameApiUrl": "games/{key}",
@@ -49,36 +52,3 @@
   "getBanDurationsApiUrl": "comments/ban/durations",
   "banUserApiUrl": "comments/ban"
 }
-// epic 4
- //"gameApiUrl": "games/{key}",
- // "gameByIdApiUrl": "games/find/{id}",
- // "gamesApiUrl": "games",
- // "gamesByGenreApiUrl": "genres/{id}/games",
- // "gamesByPublisherApiUrl": "publishers/Name/{companyName}/games",
- // "gamesByPlatformApiUrl": "platforms/{id}/games",
- // "getGameFile": "games/{key}/file",
- // "updateGameApiUrl": "games",
- // "addGameApiUrl": "games",
- // "deleteGameApiUrl": "games/{key}",
-
- // "genreApiUrl": "genres/{id}",
- // "genresApiUrl": "genres",
- // "genresByGameApiUrl": "games/{key}/genres",
- // "genresByParentApiUrl": "genres/{id}/genres",
- // "updateGenreApiUrl": "genres",
- // "addGenreApiUrl": "genres",
- // "deleteGenreApiUrl": "genres/{id}",
-
- // "platformApiUrl": "platforms/{id}",
- // "platformsApiUrl": "platforms",
- // "platformsByGameApiUrl": "games/{key}/platforms",
- // "updatePlatformApiUrl": "platforms",
- // "addPlatformApiUrl": "platforms",
- // "deletePlatformApiUrl": "platforms/{id}",
-
- // "publisherApiUrl": "publishers/{companyName}",
- // "publishersApiUrl": "publishers",
- // "publisherByGameApiUrl": "games/{key}/publisher",
- // "addPublisherApiUrl": "publishers",
- // "deletePublisherApiUrl": "publishers/{id}",
- // "updatePublisherApiUrl": "publishers"

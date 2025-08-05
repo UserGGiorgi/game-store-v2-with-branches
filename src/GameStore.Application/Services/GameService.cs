@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using GameStore.Application.Dtos.Games.CreateGames;
+using GameStore.Application.Dtos.Games.Filter;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
+using GameStore.Application.Filters.FilterIoeration;
+using GameStore.Application.Filters.SortOperation;
 using GameStore.Application.Interfaces;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Enums;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +23,8 @@ public class GameService : IGameService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<GameService> _logger;
+    private readonly List<IFilterOperation<Game>> _filterPipeline;
+    private readonly Dictionary<SortOption, ISortOperation<Game>> _sortOperations;
 
     public GameService(
         IUnitOfWork unitOfWork,
@@ -28,6 +34,25 @@ public class GameService : IGameService
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _logger = logger;
+
+        _filterPipeline = new List<IFilterOperation<Game>>
+        {
+            new GenreFilter(),
+            new PlatformFilter(),
+            new PublisherFilter(),
+            new PriceFilter(),
+            new DateFilter(),
+            new NameFilter()
+        };
+
+        _sortOperations = new Dictionary<SortOption, ISortOperation<Game>>
+        {
+            { SortOption.MostPopular, new MostPopularSort() },
+            { SortOption.MostCommented, new MostCommentedSort() },
+            { SortOption.PriceAsc, new PriceAscSort() },
+            { SortOption.PriceDesc, new PriceDescSort() },
+            { SortOption.New, new NewSort() }
+        };
     }
 
     public async Task<GameDto> CreateGameAsync(CreateGameRequestDto request)
@@ -109,12 +134,17 @@ public class GameService : IGameService
     }
     public async Task<GameDto?> GetGameByKeyAsync(string key)
     {
-        _logger.LogInformation("Getting game by key: {key}", key);
         var game = await _unitOfWork.GameRepository.GetByKeyAsync(key);
         if (game == null)
         {
             _logger.LogWarning("Game not found - Key: {key}", key);
+            return null;
         }
+        game.ViewCount++;
+        await _unitOfWork.SaveChangesAsync();
+
+        _logger.LogDebug("Game viewed - Key: {key}, New ViewCount: {viewCount}",
+            key, game.ViewCount);
         return _mapper.Map<GameDto>(game);
     }
 
@@ -228,7 +258,6 @@ public class GameService : IGameService
         var validPlatforms = await ValidateAndGetPlatformsAsync(platformIds);
         var validPlatformIds = validPlatforms.Select(p => p.Id).ToList();
 
-        // Remove old
         foreach (var gamePlatform in currentGamePlatforms)
         {
             if (!validPlatformIds.Contains(gamePlatform.PlatformId))
@@ -237,7 +266,6 @@ public class GameService : IGameService
             }
         }
 
-        // Add new
         var existingPlatformIds = currentGamePlatforms.Select(gp => gp.PlatformId).ToList();
         foreach (var platformId in validPlatformIds)
         {
@@ -296,12 +324,64 @@ public class GameService : IGameService
         };
     }
 
-    public async Task<IEnumerable<SimpleGameResponseDto>> GetAllGamesAsync()
+    public async Task<(IEnumerable<PaginationGame> Games, int TotalCount)> GetAllGamesAsync(
+    int pageNumber,
+    int pageSizeOption,
+    CancellationToken cancellationToken = default)
     {
-        var games = await _unitOfWork.GameRepository.GetAllAsync();
-        var gameList = games.ToList();
+        var query = _unitOfWork.GameRepository.GetAllAsQuerable();
 
-        _logger.LogInformation("Retrieved {GameCount} games", gameList.Count);
-        return _mapper.Map<IEnumerable<SimpleGameResponseDto>>(gameList);
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        var games = await query
+            .OrderBy(g => g.Name)
+            .Skip((pageNumber - 1) * pageSizeOption)
+            .Take(pageSizeOption)
+            .Select(g => new PaginationGame
+            {
+                Id = g.Id,
+                Name = g.Name,
+                Key = g.Key,
+                Description = g.Description,
+                Price = g.Price,
+                Discount = g.Discount,
+                UnitInStock = g.UnitInStock
+            })
+            .ToListAsync(cancellationToken);
+
+        return (games, totalCount);
+    }
+
+    public async Task<(IEnumerable<PaginationGame> Games, int TotalCount)> GetFilteredGamesAsync(
+    GameFilterDto filter,
+    SortOption sortBy,
+    int pageNumber,
+    int pageSize,
+    CancellationToken cancellationToken)
+    {
+        var query = _unitOfWork.GameRepository.GetAllAsQuerable()
+            .Include(g => g.Genres)
+            .Include(g => g.Platforms)
+            .Include(g => g.Publisher)
+            .Include(g => g.Comments)
+            .AsQueryable();
+
+        foreach (var filterOp in _filterPipeline)
+        {
+            query = filterOp.Apply(query, filter);
+        }
+
+        query = _sortOperations.TryGetValue(sortBy, out var sortOperation)
+            ? sortOperation.Apply(query)
+            : new NameSort().Apply(query);
+
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        var games = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
+        var paginatedGames = _mapper.Map<IEnumerable<PaginationGame>>(games);
+        return (paginatedGames, totalCount);
     }
 }

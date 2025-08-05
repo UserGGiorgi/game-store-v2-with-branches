@@ -40,10 +40,8 @@ namespace GameStore.Web.Controller
             var validationResult = await _createValidator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
-                _logger.LogWarning("Validation failed for genre creation: {Errors}", validationResult.Errors);
                 return BadRequest(validationResult.ToDictionary());
             }
-
             var createdPlatform = await _platformService.CreatePlatformAsync(request);
             _logger.LogInformation("platform created successfully. Key: {platform}", createdPlatform.Type);
             var platforms = await _platformService.GetAllPlatformsAsync();
@@ -96,7 +94,6 @@ namespace GameStore.Web.Controller
             var validationResult = await _updateValidator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
-                _logger.LogWarning("Validation failed for platform update: {Errors}", validationResult.Errors);
                 return BadRequest(validationResult.ToDictionary());
             }
 

@@ -31,6 +31,9 @@ namespace GameStore.Application.Mapping
                 opt => opt.MapFrom(src => src.Platforms));
             CreateMap<Game, SimpleGameResponseDto>();
 
+            CreateMap<Game, PaginationGame>()
+            .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => (decimal)src.Discount));
+
             CreateMap<Genre, GenreDetailsDto>();
             CreateMap<Genre, GenreListDto>();
             CreateMap<Genre, GenreResponseDto>()

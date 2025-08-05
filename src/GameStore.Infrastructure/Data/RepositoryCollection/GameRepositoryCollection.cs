@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameStore.Infrastructure.Data
+namespace GameStore.Infrastructure.Data.RepositoryCollection
 {
-    public class RepositoryCollection
+    public class GameRepositoryCollection
     {
         public Lazy<IGameRepository> Games { get; }
         public Lazy<IGenreRepository> Genres { get; }
@@ -16,20 +16,16 @@ namespace GameStore.Infrastructure.Data
         public Lazy<IOrderRepository> Orders { get; }
         public Lazy<IGameGenreRepository> GameGenres { get; }
         public Lazy<IGamePlatformRepository> GamePlatforms { get; }
-        public Lazy<ICommentBanRepository> CommentBan { get; }
-        public Lazy<ICommentRepository> Comment { get; }
 
 
-        public RepositoryCollection(
+        public GameRepositoryCollection(
             Lazy<IGameRepository> games,
             Lazy<IGenreRepository> genres,
             Lazy<IPlatformRepository> platforms,
             Lazy<IPublisherRepository> publishers,
             Lazy<IOrderRepository> orders,
             Lazy<IGameGenreRepository> gameGenres,
-            Lazy<IGamePlatformRepository> gamePlatforms,
-            Lazy<ICommentRepository> comment,
-            Lazy<ICommentBanRepository> commentBan)
+            Lazy<IGamePlatformRepository> gamePlatforms)
         {
             Games = games;
             Genres = genres;
@@ -38,8 +34,6 @@ namespace GameStore.Infrastructure.Data
             Orders = orders;
             GameGenres = gameGenres;
             GamePlatforms = gamePlatforms;
-            Comment = comment;
-            CommentBan = commentBan;
         }
     }
 }

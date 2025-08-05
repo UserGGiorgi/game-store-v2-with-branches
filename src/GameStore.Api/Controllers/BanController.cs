@@ -17,7 +17,7 @@ namespace GameStore.Api.Controllers
             _banService = banService;
             _logger = logger;
         }
-        [HttpGet("ban/durations")]
+        [HttpGet("durations")]
         public async Task<IActionResult> GetBanDurations()
         {
             var durations = await _banService.GetBanDurationsAsync();
@@ -25,7 +25,7 @@ namespace GameStore.Api.Controllers
             return Ok(durations);
         }
 
-        [HttpPost("ban")]
+        [HttpPost]
         public async Task<IActionResult> BanUser([FromBody] BanUserDto banDto)
         {
             await _banService.BanUserAsync(banDto);

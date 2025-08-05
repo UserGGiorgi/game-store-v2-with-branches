@@ -125,10 +125,6 @@ namespace Gamestore.Test.Api.Controller
                 .Setup(s => s.CreateGameAsync(request))
                 .ReturnsAsync(expectedCreatedGame);
 
-            _fixture.MockGameService
-                .Setup(s => s.GetAllGamesAsync())
-                .ReturnsAsync(expectedGames);
-
             // Act
             var result = await _fixture.Controller.CreateGame(request, CancellationToken.None);
 

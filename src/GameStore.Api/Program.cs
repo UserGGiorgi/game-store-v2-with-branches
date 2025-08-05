@@ -51,7 +51,6 @@ builder.Services.AddServices();
 builder.Services.AddRepositories(builder.Configuration);
 
 
-//for angularr
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",

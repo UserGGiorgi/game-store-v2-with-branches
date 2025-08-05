@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,6 +45,11 @@ namespace GameStore.Infrastructure.Data.Repository
                     .ThenInclude(gg => gg.Genre)
                 .Where(g => g.Platforms.Any(gp => gp.PlatformId == platformId))
                 .ToListAsync();
+        }
+
+        public IQueryable<Game> GetAllAsQuerable()
+        {
+            return _context.Games.AsQueryable();
         }
     }
 }
