@@ -1,5 +1,6 @@
 ﻿using GameStore.Application.Dtos.Order;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Entities.Orders;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
