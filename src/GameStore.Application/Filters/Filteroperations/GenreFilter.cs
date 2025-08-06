@@ -1,7 +1,7 @@
 ﻿using GameStore.Application.Dtos.Games.Filter;
 using GameStore.Domain.Entities.Games;
 
-namespace GameStore.Application.Filters.FilterIoeration
+namespace GameStore.Application.Filters.FilterOperations
 {
     public class GenreFilter : IFilterOperation<Game>
     {

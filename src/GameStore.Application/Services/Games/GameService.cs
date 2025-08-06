@@ -4,7 +4,7 @@ using GameStore.Application.Dtos.Games.Filter;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
-using GameStore.Application.Filters.FilterIoeration;
+using GameStore.Application.Filters.FilterOperations;
 using GameStore.Application.Filters.SortOperation;
 using GameStore.Application.Interfaces.Games;
 using GameStore.Domain.Entities.Games;

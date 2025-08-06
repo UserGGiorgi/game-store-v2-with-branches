@@ -2,7 +2,7 @@
 using GameStore.Domain.Entities.Games;
 using GameStore.Domain.Enums;
 
-namespace GameStore.Application.Filters.FilterIoeration
+namespace GameStore.Application.Filters.FilterOperations
 {
     public class DateFilter : IFilterOperation<Game>
     {
