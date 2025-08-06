@@ -106,8 +106,11 @@ public class GamesController : ControllerBase
         }
         var createdGame = await _gameService.CreateGameAsync(request);
         _logger.LogInformation("Game created successfully. Key: {GameKey}", createdGame.Key);
-        var games = await _gameService.GetAllGamesAsync(1,10,cancellationToken);
-        return CreatedAtAction(nameof(GetAll), games);
+
+        return CreatedAtAction(
+        nameof(GetByKey),
+        new { key = createdGame.Key },
+        createdGame);
     }
 
     [HttpGet("{key}")]
