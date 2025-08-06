@@ -129,10 +129,28 @@ StyleCopReport.xml
 *.svclog
 *.scc
 **/Logs/
-
+**/Logs/
+**/publish/**/*.dll
+microservice/publish/*.dll
 # Chutzpah Test files
 _Chutzpah*
+# Visual Studio and IDE files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+*.sinxsqlite
 
+# Project directories to ignore
+ws/
+GameStore/v17/
+
+# SQLite database files
+*.sqlite
+
+# Local development files
+*.local
 # Visual C++ cache files
 ipch/
 *.aps
