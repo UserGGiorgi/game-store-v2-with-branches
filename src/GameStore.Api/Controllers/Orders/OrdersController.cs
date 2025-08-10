@@ -42,6 +42,7 @@ namespace GameStore.Api.Controllers.Orders
         public async Task<IActionResult> GetOrders()
         {
             var orders = await _orderFacade.GetPaidAndCancelledOrdersAsync();
+            _logger.LogInformation("Retrieved orders");
             return Ok(orders);
         }
 
@@ -112,7 +113,7 @@ namespace GameStore.Api.Controllers.Orders
         [Authorize(Policy = "ViewOrderHistory")]
         public async Task<IActionResult> GetOrdersHistory()
         {
-            var orders = await _orderFacade.GetOrdersHistoryAsync();
+            var orders = await _orderFacade.GetPaidAndCancelledOrdersAsync();
             return Ok(orders);
         }
     }

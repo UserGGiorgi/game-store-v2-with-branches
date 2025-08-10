@@ -36,7 +36,5 @@ namespace GameStore.Application.Facade
         public Task AddGameToOrderAsync(Guid orderId, string gameKey)
         => _orderService.AddGameToOrderAsync(orderId, gameKey);
 
-        public Task<IEnumerable<OrderResponseDto>> GetOrdersHistoryAsync()
-        => _orderService.GetOrdersHistoryAsync();
     }
 }

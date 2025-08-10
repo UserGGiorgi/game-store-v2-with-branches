@@ -152,7 +152,7 @@ namespace GameStore.Api
                       Id = "Bearer"
                       }
                       },
-                       new string[] {}
+                       Array.Empty<string>()
                     }
                  });
             });

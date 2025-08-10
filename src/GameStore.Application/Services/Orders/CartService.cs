@@ -143,7 +143,7 @@ namespace GameStore.Application.Services.Orders
             var userIdString = userIdClaim.Value;
             if (userIdString.Length == 35 && userIdString.EndsWith("00000"))
             {
-                userIdString = userIdString.Substring(0, 35) + "0";
+                userIdString = string.Concat(userIdString.AsSpan(0, 35), "0");
             }
 
             if (!Guid.TryParse(userIdString, out var userId))

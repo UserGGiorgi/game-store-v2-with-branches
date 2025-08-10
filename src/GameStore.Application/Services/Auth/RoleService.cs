@@ -78,7 +78,7 @@ namespace GameStore.Application.Services.Auth
             var existingPermissionNames = permissions.Select(p => p.Name).ToList();
             var missingPermissions = request.Permissions.Except(existingPermissionNames).ToList();
 
-            if (missingPermissions.Any())
+            if (missingPermissions.Count != 0)
             {
                 return new AddRoleResult
                 {
@@ -158,7 +158,7 @@ namespace GameStore.Application.Services.Auth
             var existingPermissionNames = permissions.Select(p => p.Name).ToList();
             var missingPermissions = request.Permissions.Except(existingPermissionNames).ToList();
 
-            if (missingPermissions.Any())
+            if (missingPermissions.Count != 0)
             {
                 return new UpdateRoleResult { Success = false, Error = $"Permissions not found: {string.Join(", ", missingPermissions)}" };
             }

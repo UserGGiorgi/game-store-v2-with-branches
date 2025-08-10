@@ -41,9 +41,9 @@ namespace GameStore.Infrastructure.Migrations
 
             migrationBuilder.DeleteData(
                 table: "UserRoles",
-                keyColumns: new[] { "RoleId", "UserEmail" },
-                keyColumnTypes: new[] { "uniqueidentifier", "nvarchar(450)" },
-                keyValues: new object[] { new Guid("00000000-0000-0000-0000-000000000001"), "admin@game-store.com" });
+                keyColumns: ["RoleId", "UserEmail"],
+                keyColumnTypes: ["uniqueidentifier", "nvarchar(450)"],
+                keyValues: [new Guid("00000000-0000-0000-0000-000000000001"), "admin@game-store.com"]);
 
             migrationBuilder.DeleteData(
                 table: "ApplicationUser",
@@ -67,7 +67,7 @@ namespace GameStore.Infrastructure.Migrations
                 table: "UserRoles",
                 type: "uniqueidentifier",
                 nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+                defaultValue: Guid.NewGuid());
 
             migrationBuilder.AddColumn<Guid>(
                 name: "ApplicationUserId",
@@ -95,12 +95,12 @@ namespace GameStore.Infrastructure.Migrations
                 table: "ApplicationUser",
                 type: "uniqueidentifier",
                 nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+                defaultValue: Guid.NewGuid());
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_UserRoles",
                 table: "UserRoles",
-                columns: new[] { "UserId", "RoleId" });
+                columns: ["UserId", "RoleId"]);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_ApplicationUser",
@@ -109,13 +109,13 @@ namespace GameStore.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "ApplicationUser",
-                columns: new[] { "Id", "DisplayName", "Email" },
-                values: new object[] { new Guid("00000000-0000-0000-0000-111111111111"), "Administrator", "admin@game-store.com" });
+                columns: ["Id", "DisplayName", "Email"],
+                values: [new Guid("00000000-0000-0000-0000-111111111111"), "Administrator", "admin@game-store.com"]);
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { new Guid("00000000-0000-0000-0000-000000000001"), new Guid("00000000-0000-0000-0000-111111111111") });
+                columns: ["RoleId", "UserId"],
+                values: [new Guid("00000000-0000-0000-0000-000000000001"), new Guid("00000000-0000-0000-0000-111111111111")]);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ApplicationUserId",
@@ -193,9 +193,9 @@ namespace GameStore.Infrastructure.Migrations
 
             migrationBuilder.DeleteData(
                 table: "UserRoles",
-                keyColumns: new[] { "RoleId", "UserId" },
-                keyColumnTypes: new[] { "uniqueidentifier", "uniqueidentifier" },
-                keyValues: new object[] { new Guid("00000000-0000-0000-0000-000000000001"), new Guid("00000000-0000-0000-0000-111111111111") });
+                keyColumns: ["RoleId", "UserId"],
+                keyColumnTypes: ["uniqueidentifier", "uniqueidentifier"],
+                keyValues: [new Guid("00000000-0000-0000-0000-000000000001"), new Guid("00000000-0000-0000-0000-111111111111")]);
 
             migrationBuilder.DeleteData(
                 table: "ApplicationUser",
@@ -250,7 +250,7 @@ namespace GameStore.Infrastructure.Migrations
             migrationBuilder.AddPrimaryKey(
                 name: "PK_UserRoles",
                 table: "UserRoles",
-                columns: new[] { "UserEmail", "RoleId" });
+                columns: ["UserEmail", "RoleId"]);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_ApplicationUser",
@@ -259,13 +259,13 @@ namespace GameStore.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "ApplicationUser",
-                columns: new[] { "Email", "DisplayName" },
-                values: new object[] { "admin@game-store.com", "Administrator" });
+                columns: ["Email", "DisplayName"],
+                values: ["admin@game-store.com", "Administrator"]);
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
-                columns: new[] { "RoleId", "UserEmail" },
-                values: new object[] { new Guid("00000000-0000-0000-0000-000000000001"), "admin@game-store.com" });
+                columns: ["RoleId", "UserEmail"],
+                values: [new Guid("00000000-0000-0000-0000-000000000001"), "admin@game-store.com"]);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ApplicationUserEmail",

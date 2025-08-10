@@ -169,7 +169,7 @@ public class GameStoreDbContext : DbContext
         SeedDefaultRolesAndPermissions(modelBuilder);
 
     }
-    private void SeedDefaultRolesAndPermissions(ModelBuilder modelBuilder)
+    private static void SeedDefaultRolesAndPermissions(ModelBuilder modelBuilder)
     {
         var adminUserId = Guid.Parse("00000000-0000-0000-0000-111111111111");
 

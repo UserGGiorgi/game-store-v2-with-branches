@@ -118,8 +118,7 @@ namespace GameStore.Application.Services.Auth
                     Email = request.User.Email,
                     DisplayName = request.User.Name
                 };
-                await _unitOfWork.ApplicationUserRepository.AddAsync(appUser); ;
-
+                await _unitOfWork.ApplicationUserRepository.AddAsync(appUser);
                 var roleResult = await AddUserRolesAsync(userId, request.Roles);
                 if (!roleResult.Success) return roleResult;
 
@@ -186,20 +185,17 @@ namespace GameStore.Application.Services.Auth
             }
         }
 
-        private async Task<UpdateUserResult> UpdateExternalUserPasswordAsync(
-            string email,
-            string newPassword,
-            string displayName)
+        private (string FirstName, string LastName, string Url, object UpdateRequest)
+            PrepareExternalUserUpdate(string email, string newPassword, string displayName)
         {
             var nameParts = displayName.Split(' ', 2);
             var firstName = nameParts[0];
             var lastName = nameParts.Length > 1 ? nameParts[1] : string.Empty;
 
-            var client = _httpClientFactory.CreateClient("ExternalAuth");
             var baseUrl = _configuration["AuthorizationMicroservice:Users"];
+            ArgumentNullException.ThrowIfNull(baseUrl);
 
             var queryParams = new Dictionary<string, string?> { { "originalEmail", email } };
-            ArgumentNullException.ThrowIfNull(baseUrl);
             var url = QueryHelpers.AddQueryString(baseUrl, queryParams);
 
             var updateRequest = new
@@ -211,6 +207,18 @@ namespace GameStore.Application.Services.Auth
                 confirmPassword = newPassword
             };
 
+            return (firstName, lastName, url, updateRequest);
+        }
+
+        private async Task<UpdateUserResult> UpdateExternalUserPasswordAsync(
+            string email,
+            string newPassword,
+            string displayName)
+        {
+            var (firstName, lastName, url, updateRequest) =
+                PrepareExternalUserUpdate(email, newPassword, displayName);
+
+            var client = _httpClientFactory.CreateClient("ExternalAuth");
             var response = await client.PutAsJsonAsync(url, updateRequest);
 
             if (!response.IsSuccessStatusCode)
@@ -226,6 +234,7 @@ namespace GameStore.Application.Services.Auth
             return new UpdateUserResult { Success = true };
         }
 
+
         private async Task<UpdateUserResult> UpdateUserRolesAsync(
             ApplicationUser user,
             List<Guid> newRoleIds)
@@ -236,7 +245,7 @@ namespace GameStore.Application.Services.Auth
             var existingRoleIds = existingRoles.Select(r => r.Id).ToList();
             var missingRoleIds = newRoleIds.Except(existingRoleIds).ToList();
 
-            if (missingRoleIds.Any())
+            if (missingRoleIds.Count != 0)
             {
                 return new UpdateUserResult
                 {
@@ -267,7 +276,7 @@ namespace GameStore.Application.Services.Auth
                 _unitOfWork.UserRoleRepository.Delete(role);
             }
 
-            if (rolesToAdd.Any())
+            if (rolesToAdd.Count != 0)
             {
                 foreach (var role in rolesToAdd)
                 {
@@ -329,7 +338,7 @@ namespace GameStore.Application.Services.Auth
             var existingRoleIds = existingRoles.Select(r => r.Id).ToList();
 
             var missingRoleIds = roleIds.Except(existingRoleIds).ToList();
-            if (missingRoleIds.Any())
+            if (missingRoleIds.Count != 0)
             {
                 return new CreateUserResult
                 {
