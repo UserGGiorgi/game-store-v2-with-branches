@@ -70,7 +70,7 @@ namespace GameStore.Api
             });
             return services;
         }
-        public static void SerilogConfiguretion(this WebApplicationBuilder builder)
+        public static void SerilogConfiguration(this WebApplicationBuilder builder)
         {
             var logPath = Path.Combine(builder.Environment.ContentRootPath, "Logs");
             Directory.CreateDirectory(logPath);
@@ -301,12 +301,12 @@ namespace GameStore.Api
                 client.Timeout = TimeSpan.FromSeconds(30);
             });
 
-            services.AddHttpClient("ExternalAuth", client =>
-            {
-                client.BaseAddress = new Uri(authBaseUrl);
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
-                client.Timeout = TimeSpan.FromSeconds(30);
-            });
+            //services.AddHttpClient("ExternalAuth", client =>
+            //{
+            //    client.BaseAddress = new Uri(authBaseUrl);
+            //    client.DefaultRequestHeaders.Add("Accept", "application/json");
+            //    client.Timeout = TimeSpan.FromSeconds(30);
+            //});
         }
         private static void AddPayments(this IServiceCollection services)
         {

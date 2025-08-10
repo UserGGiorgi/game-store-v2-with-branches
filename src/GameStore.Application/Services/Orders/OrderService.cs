@@ -179,25 +179,16 @@ namespace GameStore.Application.Services.Orders
                 productId, orderId, quantity);
         }
 
-
-        public async Task DeleteOrderDetailAsync(Guid orderId, Guid productId)
+        public async Task DeleteOrderDetailAsync(Guid id)
         {
-            var order = await _unitOfWork.OrderRepository.GetOrderWithItemsAsync(orderId)
+            var order = await _unitOfWork.OrderRepository.GetByIdAsync(id)
                 ?? throw new NotFoundException("Order not found");
 
             if (order.Status != OrderStatus.Open)
                 throw new InvalidOperationException("Cannot modify closed orders");
 
-            var orderItem = order.OrderGames.FirstOrDefault(og =>
-                og.ProductId == productId && og.OrderId == orderId)
-                ?? throw new NotFoundException("Order item not found");
-
-            _unitOfWork.OrderGameRepository.Delete(orderItem);
+            _unitOfWork.OrderRepository.Delete(order);
             await _unitOfWork.SaveChangesAsync();
-
-            _logger.LogInformation(
-                "Deleted order item: Order {OrderId}, Product {ProductId}",
-                orderId, productId);
         }
         public async Task ShipOrderAsync(Guid orderId)
         {
@@ -254,6 +245,13 @@ namespace GameStore.Application.Services.Orders
         {
             if (quantity <= 0)
                 throw new ArgumentException("Quantity must be positive", nameof(quantity));
+        }
+
+        public async Task<IEnumerable<OrderResponseDto>> GetOrderHistory()
+        {
+            var orders = await _unitOfWork.OrderRepository.GetOrderHistory();
+
+            return _mapper.Map<IEnumerable<OrderResponseDto>>(orders);
         }
     }
 }

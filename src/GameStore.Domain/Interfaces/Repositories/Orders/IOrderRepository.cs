@@ -14,5 +14,6 @@ namespace GameStore.Domain.Interfaces.Repositories.Orders
         Task<IEnumerable<Order>> GetPaidAndCancelledOrdersAsync();
         Task<Order?> GetCartWithItemsAsync();
         Task<Order?> GetOrderWithItemsAsync(Guid orderId);
+        Task<IEnumerable<Order>> GetOrderHistory();
     }
 }

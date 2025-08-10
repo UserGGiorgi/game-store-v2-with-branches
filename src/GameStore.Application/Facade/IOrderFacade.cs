@@ -17,8 +17,9 @@ namespace GameStore.Application.Facade
         Task CompleteOrderAsync(Guid orderId);
         Task CancelOrderAsync(Guid orderId);
         Task UpdateOrderDetailQuantityAsync(Guid orderId, Guid productId, int quantity);
-        Task DeleteOrderDetailAsync(Guid orderId, Guid productId);
+        Task DeleteOrderDetailAsync(Guid id);
         Task ShipOrderAsync(Guid orderId);
         Task AddGameToOrderAsync(Guid orderId, string gameKey);
+        Task<IEnumerable<OrderResponseDto>> GetOrderHistory();
     }
 }

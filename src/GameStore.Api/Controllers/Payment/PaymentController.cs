@@ -34,10 +34,11 @@ namespace GameStore.Api.Controllers.Payment
         }
         private Guid GetCurrentUserId()
         {
+            var user = _httpContextAccessor.HttpContext?.User;
+            ArgumentNullException.ThrowIfNull(user);
             var userIdClaim =
-                _httpContextAccessor.HttpContext?.User?.FindFirst("userid") ??
-                _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier) ??
-                _httpContextAccessor.HttpContext?.User?.FindFirst("sub");
+                user.FindFirst("userid") ??
+                user.FindFirst(ClaimTypes.NameIdentifier);
 
             if (userIdClaim == null)
             {

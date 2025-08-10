@@ -76,32 +76,27 @@ namespace GameStore.Application.Services.Auth
 
         private void AddInheritedPermissions(string roleName, HashSet<string> permissions)
         {
-            var hierarchy = new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase)
-            {
-                ["Administrator"] = new[] { "Manager", "Moderator", "User" },
-                ["Manager"] = new[] { "Moderator", "User" },
-                ["Moderator"] = new[] { "User" }
-            };
+            var currentPermissions = _context.Roles
+                .Where(r => r.Name == roleName)
+                .SelectMany(r => r.RolePermissions)
+                .Where(rp => rp.Permission != null)
+                .Select(rp => rp.Permission!.Name)
+                .Where(name => name != null)
+                .ToList();
 
-            if (hierarchy.TryGetValue(roleName, out var childRoles))
-            {
-                foreach (var childRole in childRoles)
-                {
-                    var childPermissions = _context.Roles
-                        .Where(r => r.Name == childRole)
-                        .SelectMany(r => r.RolePermissions)
-                        .Where(rp => rp.Permission != null)
-                        .Select(rp => rp.Permission!.Name)
-                        .Where(name => name != null)
-                        .ToList();
+            foreach (var permission in currentPermissions)
+                permissions.Add(permission);
 
-                    foreach (var permission in childPermissions)
-                    {
-                        permissions.Add(permission);
-                    }
-                    AddInheritedPermissions(childRole, permissions);
-                }
+            if (_parentRoles.TryGetValue(roleName, out var parentRole))
+            {
+                AddInheritedPermissions(parentRole, permissions);
             }
         }
+        private readonly Dictionary<string, string> _parentRoles = new(StringComparer.OrdinalIgnoreCase)
+            {
+                { "Manager", "Administrator" },
+                { "Moderator", "Manager" },
+                { "User", "Moderator" }
+            };
     }
 }

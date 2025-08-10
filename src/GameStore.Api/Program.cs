@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.SerilogConfiguretion();
+builder.SerilogConfiguration();
 builder.Services.Configure<FormOptions>(options =>
 {
     options.MemoryBufferThreshold = int.MaxValue;

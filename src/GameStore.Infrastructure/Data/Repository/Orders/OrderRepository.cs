@@ -22,10 +22,16 @@ namespace GameStore.Infrastructure.Data.Repository.Orders
            .Include(o => o.OrderGames)
            .FirstOrDefaultAsync();
         }
+        public async Task<IEnumerable<Order>> GetOrderHistory()
+        {
+            return await _context.Orders
+                .Where(o => o.Status == OrderStatus.Shipped)
+                .ToListAsync();
+        }
         public async Task<IEnumerable<Order>> GetPaidAndCancelledOrdersAsync()
         {
             return await _context.Orders
-                .Where(o => o.Status != OrderStatus.Open || o.Status != OrderStatus.Checkout )
+                .Where(o => o.Status == OrderStatus.Paid || o.Status == OrderStatus.Cancelled)
                 .ToListAsync();
         }
 

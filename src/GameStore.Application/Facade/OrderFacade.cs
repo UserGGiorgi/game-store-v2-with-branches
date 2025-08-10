@@ -29,12 +29,14 @@ namespace GameStore.Application.Facade
         public Task CancelOrderAsync(Guid orderId) =>_orderService.CancelOrderAsync(orderId);
         public Task UpdateOrderDetailQuantityAsync(Guid orderId, Guid productId, int quantity)
         => _orderService.UpdateOrderDetailQuantityAsync(orderId, productId, quantity);
-        public Task DeleteOrderDetailAsync(Guid orderId, Guid productId)
-        => _orderService.DeleteOrderDetailAsync(orderId, productId);
+        public Task DeleteOrderDetailAsync(Guid id)
+        => _orderService.DeleteOrderDetailAsync(id);
         public Task ShipOrderAsync(Guid orderId)
         => _orderService.ShipOrderAsync(orderId);
         public Task AddGameToOrderAsync(Guid orderId, string gameKey)
         => _orderService.AddGameToOrderAsync(orderId, gameKey);
+        public Task<IEnumerable<OrderResponseDto>> GetOrderHistory() 
+        => _orderService.GetOrderHistory();
 
     }
 }

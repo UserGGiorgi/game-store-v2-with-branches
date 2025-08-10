@@ -42,7 +42,6 @@ namespace GameStore.Api.Controllers.Orders
         public async Task<IActionResult> GetOrders()
         {
             var orders = await _orderFacade.GetPaidAndCancelledOrdersAsync();
-            _logger.LogInformation("Retrieved orders");
             return Ok(orders);
         }
 
@@ -86,11 +85,11 @@ namespace GameStore.Api.Controllers.Orders
             await _orderFacade.UpdateOrderDetailQuantityAsync(orderId, productId, dto.Count);
             return NoContent();
         }
-        [HttpDelete("details/{orderId}/{productId}")]
+        [HttpDelete("details/{id}")]
         [Authorize(Policy = "EditOrderDetails")]
-        public async Task<IActionResult> DeleteOrderDetail(Guid orderId, Guid productId)
+        public async Task<IActionResult> DeleteOrderDetail(Guid id)
         {
-            await _orderFacade.DeleteOrderDetailAsync(orderId, productId);
+            await _orderFacade.DeleteOrderDetailAsync(id);
             return NoContent();
         }
         [HttpPost("{id}/ship")]
@@ -113,7 +112,7 @@ namespace GameStore.Api.Controllers.Orders
         [Authorize(Policy = "ViewOrderHistory")]
         public async Task<IActionResult> GetOrdersHistory()
         {
-            var orders = await _orderFacade.GetPaidAndCancelledOrdersAsync();
+            var orders = await _orderFacade.GetOrderHistory();
             return Ok(orders);
         }
     }
