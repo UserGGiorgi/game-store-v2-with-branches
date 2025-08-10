@@ -181,7 +181,7 @@ namespace GameStore.Application.Services.Auth
                 var permissionsToAdd = newPermissionIds.Except(currentPermissionIds).ToList();
                 var permissionsToRemove = currentPermissionIds.Except(newPermissionIds).ToList();
 
-                if (permissionsToRemove.Any())
+                if (permissionsToRemove.Count != 0)
                 {
                     var toRemove = role.RolePermissions
                         .Where(rp => permissionsToRemove.Contains(rp.PermissionId))

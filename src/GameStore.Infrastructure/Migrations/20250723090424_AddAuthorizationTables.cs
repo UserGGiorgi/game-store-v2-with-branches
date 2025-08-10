@@ -113,12 +113,12 @@ namespace GameStore.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "ApplicationUser",
-                columns: new[] { "Email", "DisplayName" },
-                values: new object[] { "admin@game-store.com", "Administrator" });
+                columns: ["Email", "DisplayName"],
+                values: ["admin@game-store.com", "Administrator"]);
 
             migrationBuilder.InsertData(
                 table: "Permissions",
-                columns: new[] { "Id", "Description", "Name" },
+                columns: ["Id", "Description", "Name"],
                 values: new object[,]
                 {
                     { new Guid("00000000-0000-0000-0000-000000000101"), "Auto-generated description for ManageUsers", "ManageUsers" },
@@ -144,7 +144,7 @@ namespace GameStore.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Roles",
-                columns: new[] { "Id", "IsDefault", "Name" },
+                columns: ["Id", "IsDefault", "Name"],
                 values: new object[,]
                 {
                     { new Guid("00000000-0000-0000-0000-000000000001"), true, "Admin" },
@@ -156,7 +156,7 @@ namespace GameStore.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "RolePermissions",
-                columns: new[] { "PermissionId", "RoleId" },
+                columns: ["PermissionId", "RoleId"],
                 values: new object[,]
                 {
                     { new Guid("00000000-0000-0000-0000-000000000101"), new Guid("00000000-0000-0000-0000-000000000001") },
@@ -201,8 +201,8 @@ namespace GameStore.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
-                columns: new[] { "RoleId", "UserEmail" },
-                values: new object[] { new Guid("00000000-0000-0000-0000-000000000001"), "admin@game-store.com" });
+                columns: ["RoleId", "UserEmail"],
+                values: [new Guid("00000000-0000-0000-0000-000000000001"), "admin@game-store.com"]);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ApplicationUserEmail",

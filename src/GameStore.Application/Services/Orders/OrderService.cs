@@ -156,10 +156,10 @@ namespace GameStore.Application.Services.Orders
             await _unitOfWork.SaveChangesAsync();
             _logger.LogInformation("Cancelled order {OrderId}", order.Id);
         }
+
         public async Task UpdateOrderDetailQuantityAsync(Guid orderId, Guid productId, int quantity)
         {
-            if (quantity <= 0)
-                throw new ArgumentException("Quantity must be positive", nameof(quantity));
+            ValidateQuantity(quantity);
 
             var order = await _unitOfWork.OrderRepository.GetOrderWithItemsAsync(orderId)
                 ?? throw new NotFoundException("Order not found");
@@ -178,6 +178,7 @@ namespace GameStore.Application.Services.Orders
                 "Updated quantity for product {ProductId} in order {OrderId} to {Quantity}",
                 productId, orderId, quantity);
         }
+
 
         public async Task DeleteOrderDetailAsync(Guid orderId, Guid productId)
         {
@@ -248,6 +249,11 @@ namespace GameStore.Application.Services.Orders
             _logger.LogInformation(
                 "Added game {GameKey} to order {OrderId}",
                 gameKey, orderId);
+        }
+        private void ValidateQuantity(int quantity)
+        {
+            if (quantity <= 0)
+                throw new ArgumentException("Quantity must be positive", nameof(quantity));
         }
     }
 }

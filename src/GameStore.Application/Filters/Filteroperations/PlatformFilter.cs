@@ -7,7 +7,7 @@ namespace GameStore.Application.Filters.FilterOperations
     {
         public IQueryable<Game> Apply(IQueryable<Game> query, GameFilterDto filter)
         {
-            if (filter.Platforms != null && filter.Platforms.Any())
+            if (filter.Platforms != null && filter.Platforms.Count != 0)
             {
                 return query.Where(g => g.Platforms.Any(gp => filter.Platforms.Contains(gp.PlatformId)));
             }

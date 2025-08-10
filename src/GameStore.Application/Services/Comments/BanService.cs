@@ -46,7 +46,7 @@ namespace GameStore.Application.Services.Comments
                 banDto.Duration
             );
         }
-        private CommentBan PrepareBanEntity(BanUserDto banDto)
+        private static CommentBan PrepareBanEntity(BanUserDto banDto)
         {
             if (!BanDurationMap.TryGetValue(banDto.Duration, out var duration))
             {
