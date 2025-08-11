@@ -95,7 +95,10 @@ public class GameStoreDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<OrderGame>()
-        .HasKey(og => new { og.OrderId, og.ProductId });
+            .HasKey(og => og.Id);
+
+        modelBuilder.Entity<OrderGame>()
+            .HasAlternateKey(og => new { og.OrderId, og.ProductId });
 
         modelBuilder.Entity<Order>()
             .HasMany(o => o.OrderGames)

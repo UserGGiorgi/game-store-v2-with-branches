@@ -9,6 +9,7 @@ namespace GameStore.Domain.Entities.Orders
 {
     public class OrderGame
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
         public Guid OrderId { get; set; }
         public Guid ProductId { get; set; }
         public double Price { get; set; }

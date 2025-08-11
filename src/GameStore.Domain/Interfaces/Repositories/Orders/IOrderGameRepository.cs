@@ -9,5 +9,6 @@ namespace GameStore.Domain.Interfaces.Repositories.Orders
 {
     public interface IOrderGameRepository : IGenericRepository<OrderGame>
     {
+        Task<OrderGame?> GetByIdWithOrderAsync(Guid id);
     }
 }

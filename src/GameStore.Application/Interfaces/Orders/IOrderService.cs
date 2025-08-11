@@ -22,7 +22,7 @@ namespace GameStore.Application.Interfaces.Orders
         Task<Order?> GetOpenOrderAsync();
         Task CompleteOrderAsync(Guid orderId);
         Task CancelOrderAsync(Guid orderId);
-        Task UpdateOrderDetailQuantityAsync(Guid orderId, Guid productId, int quantity);
+        Task UpdateOrderDetailQuantityAsync(Guid id, int quantity);
 
         Task DeleteOrderDetailAsync(Guid id);
         Task ShipOrderAsync(Guid orderId);

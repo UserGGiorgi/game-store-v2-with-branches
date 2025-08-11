@@ -27,8 +27,8 @@ namespace GameStore.Application.Facade
         public Task CompleteOrderAsync(Guid orderId) =>_orderService.CompleteOrderAsync(orderId);
 
         public Task CancelOrderAsync(Guid orderId) =>_orderService.CancelOrderAsync(orderId);
-        public Task UpdateOrderDetailQuantityAsync(Guid orderId, Guid productId, int quantity)
-        => _orderService.UpdateOrderDetailQuantityAsync(orderId, productId, quantity);
+        public Task UpdateOrderDetailQuantityAsync(Guid id, int quantity)
+        => _orderService.UpdateOrderDetailQuantityAsync(id, quantity);
         public Task DeleteOrderDetailAsync(Guid id)
         => _orderService.DeleteOrderDetailAsync(id);
         public Task ShipOrderAsync(Guid orderId)

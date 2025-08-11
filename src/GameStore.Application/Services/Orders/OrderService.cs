@@ -157,26 +157,22 @@ namespace GameStore.Application.Services.Orders
             _logger.LogInformation("Cancelled order {OrderId}", order.Id);
         }
 
-        public async Task UpdateOrderDetailQuantityAsync(Guid orderId, Guid productId, int quantity)
+        public async Task UpdateOrderDetailQuantityAsync(Guid id, int quantity)
         {
             ValidateQuantity(quantity);
 
-            var order = await _unitOfWork.OrderRepository.GetOrderWithItemsAsync(orderId)
-                ?? throw new NotFoundException("Order not found");
-
-            if (order.Status != OrderStatus.Open)
-                throw new InvalidOperationException("Cannot modify closed orders");
-
-            var orderItem = order.OrderGames.FirstOrDefault(og =>
-                og.ProductId == productId)
+            var orderItem = await _unitOfWork.OrderGameRepository.GetByIdWithOrderAsync(id)
                 ?? throw new NotFoundException("Order item not found");
+
+            if (orderItem.Order.Status != OrderStatus.Open)
+                throw new InvalidOperationException("Cannot modify closed orders");
 
             orderItem.Quantity = quantity;
             await _unitOfWork.SaveChangesAsync();
 
             _logger.LogInformation(
-                "Updated quantity for product {ProductId} in order {OrderId} to {Quantity}",
-                productId, orderId, quantity);
+                "Updated quantity for order item {OrderGameId} to {Quantity}",
+                id, quantity);
         }
 
         public async Task DeleteOrderDetailAsync(Guid id)

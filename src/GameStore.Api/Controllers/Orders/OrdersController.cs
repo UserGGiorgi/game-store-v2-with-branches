@@ -74,17 +74,17 @@ namespace GameStore.Api.Controllers.Orders
             var methods = await _orderFacade.GetPaymentMethodsAsync();
             return Ok(new { paymentMethods = methods });
         }
-         //I changed it because of some reasons ,task was:/orders/details/{id}/quantity
-        [HttpPatch("details/{orderId}/{productId}/quantity")]
+
+        [HttpPatch("details/{id}/quantity")]
         [Authorize(Policy = "EditOrderDetails")]
         public async Task<IActionResult> UpdateOrderDetailQuantity(
-            Guid orderId,
-            Guid productId,
+            Guid id,
             [FromBody] UpdateQuantityDto dto)
         {
-            await _orderFacade.UpdateOrderDetailQuantityAsync(orderId, productId, dto.Count);
+            await _orderFacade.UpdateOrderDetailQuantityAsync(id, dto.Count);
             return NoContent();
         }
+
         [HttpDelete("details/{id}")]
         [Authorize(Policy = "EditOrderDetails")]
         public async Task<IActionResult> DeleteOrderDetail(Guid id)
@@ -92,6 +92,7 @@ namespace GameStore.Api.Controllers.Orders
             await _orderFacade.DeleteOrderDetailAsync(id);
             return NoContent();
         }
+
         [HttpPost("{id}/ship")]
         [Authorize(Policy = "UpdateOrderStatus")]
         public async Task<IActionResult> ShipOrder(Guid id)
@@ -99,6 +100,7 @@ namespace GameStore.Api.Controllers.Orders
             await _orderFacade.ShipOrderAsync(id);
             return NoContent();
         }
+
         [HttpPost("{orderId}/details/{gameKey}")]
         [Authorize(Policy = "EditOrderDetails")]
         public async Task<IActionResult> AddGameToOrder(
@@ -108,6 +110,7 @@ namespace GameStore.Api.Controllers.Orders
             await _orderFacade.AddGameToOrderAsync(orderId, gameKey);
             return NoContent();
         }
+
         [HttpGet("history")]
         [Authorize(Policy = "ViewOrderHistory")]
         public async Task<IActionResult> GetOrdersHistory()

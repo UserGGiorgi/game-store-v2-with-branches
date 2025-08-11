@@ -180,22 +180,22 @@ public class GameService : IGameService
     {
         await ValidatePublisherAsync(request.Publisher);
         var game = await ValidateGameAsync(request.Game.Id);
-
         await ValidateUpdatedGameKeyAsync(request.Game.Key,request.Game.Id);
-
         game.Name = request.Game.Name;
         game.Key = request.Game.Key;
         game.Description = request.Game.Description;
         game.Discount = request.Game.Discount;
+        game.Price = request.Game.Price;
+        game.UnitInStock = request.Game.UnitInStock;
 
+        await UpdateGamePublisherAsync(game, request.Publisher);
         await UpdateGameGenresAsync(game, request.Genres);
         await UpdateGamePlatformsAsync(game, request.Platforms);
-
+        
         _unitOfWork.GameRepository.Update(game);
 
         await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation("Game updated: {GameId}", game.Id);
-
 
         return _mapper.Map<GameResponseDto>(game);
     }
@@ -249,6 +249,13 @@ public class GameService : IGameService
                 });
             }
         }
+    }
+    private async Task UpdateGamePublisherAsync(Game game, Guid PublisherId)
+    {
+        var newGamePublisher = await _unitOfWork.PublisherRepository
+            .GetByIdAsync(PublisherId);
+        ArgumentNullException.ThrowIfNull(newGamePublisher);
+        game.Publisher = newGamePublisher;
     }
 
     private async Task UpdateGamePlatformsAsync(Game game, IEnumerable<Guid> platformIds)
