@@ -300,13 +300,6 @@ namespace GameStore.Api
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                 client.Timeout = TimeSpan.FromSeconds(30);
             });
-
-            //services.AddHttpClient("ExternalAuth", client =>
-            //{
-            //    client.BaseAddress = new Uri(authBaseUrl);
-            //    client.DefaultRequestHeaders.Add("Accept", "application/json");
-            //    client.Timeout = TimeSpan.FromSeconds(30);
-            //});
         }
         private static void AddPayments(this IServiceCollection services)
         {

@@ -3,6 +3,7 @@ using GameStore.Application.Dtos.Authorization.Role.Get;
 using GameStore.Application.Dtos.Authorization.Role.Update;
 using GameStore.Application.Interfaces.Auth;
 using GameStore.Domain.Entities.User;
+using GameStore.Domain.Enums;
 using GameStore.Domain.Interfaces;
 using System.Data;
 
@@ -131,18 +132,33 @@ namespace GameStore.Application.Services.Auth
         {
             if (request.Role.Id == Guid.Empty)
             {
-                return new UpdateRoleResult { Success = false, Error = "Role ID is required" };
+                return new UpdateRoleResult
+                {
+                    Success = false,
+                    Error = "Role ID is required",
+                    ErrorCode = UpdateRoleError.ValidationError
+                };
             }
 
             if (string.IsNullOrWhiteSpace(request.Role.Name))
             {
-                return new UpdateRoleResult { Success = false, Error = "Role name is required" };
+                return new UpdateRoleResult
+                {
+                    Success = false,
+                    Error = "Role name is required",
+                    ErrorCode = UpdateRoleError.ValidationError
+                };
             }
 
             var role = await _unitOfWork.RoleRepository.GetByIdWithPermissionsAsync(request.Role.Id);
             if (role == null)
             {
-                return new UpdateRoleResult { Success = false, Error = $"Role not found: {request.Role.Id}" };
+                return new UpdateRoleResult
+                {
+                    Success = false,
+                    Error = $"Role not found: {request.Role.Id}",
+                    ErrorCode = UpdateRoleError.NotFound
+                };
             }
 
             if (role.Name != request.Role.Name)
@@ -150,7 +166,12 @@ namespace GameStore.Application.Services.Auth
                 bool nameExists = await _unitOfWork.RoleRepository.ExistsByNameAsync(request.Role.Name, request.Role.Id);
                 if (nameExists)
                 {
-                    return new UpdateRoleResult { Success = false, Error = $"Role name already exists: {request.Role.Name}" };
+                    return new UpdateRoleResult
+                    {
+                        Success = false,
+                        Error = $"Role name already exists: {request.Role.Name}",
+                        ErrorCode = UpdateRoleError.DuplicateName
+                    };
                 }
             }
 
@@ -160,7 +181,12 @@ namespace GameStore.Application.Services.Auth
 
             if (missingPermissions.Count != 0)
             {
-                return new UpdateRoleResult { Success = false, Error = $"Permissions not found: {string.Join(", ", missingPermissions)}" };
+                return new UpdateRoleResult
+                {
+                    Success = false,
+                    Error = $"Permissions not found: {string.Join(", ", missingPermissions)}",
+                    ErrorCode = UpdateRoleError.MissingPermissions
+                };
             }
 
             await _unitOfWork.BeginTransactionAsync();
@@ -209,7 +235,12 @@ namespace GameStore.Application.Services.Auth
             catch (Exception ex)
             {
                 await _unitOfWork.RollbackTransactionAsync();
-                return new UpdateRoleResult { Success = false, Error = $"Role update failed: {ex.Message}" };
+                return new UpdateRoleResult
+                {
+                    Success = false,
+                    Error = $"Role update failed: {ex.Message}",
+                    ErrorCode = UpdateRoleError.UnexpectedError
+                };
             }
         }
 

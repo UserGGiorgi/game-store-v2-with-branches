@@ -168,7 +168,7 @@ namespace GameStore.Application.Services.Orders
                 throw new InvalidOperationException("Cannot modify closed orders");
 
             var orderItem = order.OrderGames.FirstOrDefault(og =>
-                og.ProductId == productId && og.OrderId == orderId)
+                og.ProductId == productId)
                 ?? throw new NotFoundException("Order item not found");
 
             orderItem.Quantity = quantity;

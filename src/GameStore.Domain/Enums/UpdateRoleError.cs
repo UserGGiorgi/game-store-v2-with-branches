@@ -10,9 +10,9 @@ namespace GameStore.Domain.Enums
     {
         None,
         NotFound,
-        NameAlreadyExists,
+        ValidationError,
+        DuplicateName,
         MissingPermissions,
-        InvalidInput,
-        UpdateFailed
+        UnexpectedError
     }
 }

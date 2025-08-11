@@ -2,6 +2,7 @@
 using GameStore.Application.Dtos.Authorization.Role.Get;
 using GameStore.Application.Dtos.Authorization.Role.Update;
 using GameStore.Application.Interfaces.Auth;
+using GameStore.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,6 +46,7 @@ namespace GameStore.Api.Controllers.Auth
 
             return NoContent();
         }
+
         [HttpGet("permissions")]
         [Authorize(Policy = "ManageRoles")]
         public async Task<IActionResult> GetAllPermissions()
@@ -52,6 +54,7 @@ namespace GameStore.Api.Controllers.Auth
             var permissions = await _roleService.GetAllPermissionsAsync();
             return Ok(permissions);
         }
+
         [HttpGet("{id:guid}/permissions")]
         [Authorize(Policy = "ManageRoles")]
         public async Task<IActionResult> GetRolePermissions(Guid id)
@@ -65,6 +68,7 @@ namespace GameStore.Api.Controllers.Auth
 
             return Ok(permissions);
         }
+
         [HttpPost]
         [Authorize(Policy = "ManageRoles")]
         public async Task<IActionResult> AddRole([FromBody] AddRoleRequestDto request)
@@ -92,7 +96,14 @@ namespace GameStore.Api.Controllers.Auth
                 return NoContent();
             }
 
-            return BadRequest(result.Error);
+            return result.ErrorCode switch
+            {
+                UpdateRoleError.NotFound => NotFound(result.Error),
+                UpdateRoleError.ValidationError => BadRequest(result.Error),
+                UpdateRoleError.DuplicateName => Conflict(result.Error),
+                UpdateRoleError.MissingPermissions => BadRequest(result.Error),
+                _ => StatusCode(StatusCodes.Status500InternalServerError, result.Error)
+            };
         }
     }
 }

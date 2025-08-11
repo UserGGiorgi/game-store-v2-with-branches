@@ -89,8 +89,8 @@ namespace GameStore.Application.Services.Orders
             var userId = GetCurrentUserId();
             var cacheKey = string.Format(CartCacheKey, userId);
 
-            var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
-            if (order == null) throw new NotFoundException("Cart is empty");
+            var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync() 
+                ?? throw new NotFoundException("Cart is empty");
 
             var game = await _unitOfWork.GameRepository
                 .GetByKeyAsync(gameKey)
@@ -127,14 +127,15 @@ namespace GameStore.Application.Services.Orders
         }
         private Guid GetCurrentUserId()
         {
+            var user = _httpContextAccessor.HttpContext?.User;
             var userIdClaim =
-                _httpContextAccessor.HttpContext?.User?.FindFirst("userid") ??
-                _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier) ??
-                _httpContextAccessor.HttpContext?.User?.FindFirst("sub");
+                user?.FindFirst("userid") ??
+                user?.FindFirst(ClaimTypes.NameIdentifier) ??
+                user?.FindFirst("sub");
 
             if (userIdClaim == null)
             {
-                var claims = _httpContextAccessor.HttpContext?.User?.Claims
+                var claims = user?.Claims
                     .Select(c => $"{c.Type}: {c.Value}");
                 _logger.LogError("Missing user ID claim. Available claims: {@Claims}", claims);
                 throw new UnauthorizedAccessException("User not authenticated");
