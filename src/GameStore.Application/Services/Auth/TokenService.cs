@@ -36,14 +36,23 @@ namespace GameStore.Application.Services.Auth
 
 
             foreach (var role in roles)
+            {
                 claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var permissions = await _permissionService.GetUserPermissionsAsync(user.Email);
+
             foreach (var permission in permissions)
+            {
                 claims.Add(new Claim("Permission", permission));
+            }
+
             var Jwtkey = _config["Jwt:Key"];
+
             if (string.IsNullOrWhiteSpace(Jwtkey))
+            {
                 throw new InvalidOperationException("jwt key is not configured.");
+            }
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Jwtkey));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
