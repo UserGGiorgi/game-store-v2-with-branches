@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameStore.Application.Dtos.Games.CreateGame;
 using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
@@ -38,7 +39,7 @@ namespace Gamestore.Test.Application.Services
             // Arrange
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto
+                Game = new CreateGameDto
                 {
                     Key = "existing-key",
                     Name = "Existing Game"
@@ -81,7 +82,7 @@ namespace Gamestore.Test.Application.Services
             // Arrange
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto
+                Game = new CreateGameDto
                 {
                     Key = "new-key",
                     Name = "Test Game"
@@ -119,7 +120,7 @@ namespace Gamestore.Test.Application.Services
             // Arrange
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto
+                Game = new CreateGameDto
                 {
                     Key = "new-key",
                     Name = "Test Game"
@@ -159,7 +160,7 @@ namespace Gamestore.Test.Application.Services
             // Arrange
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto
+                Game = new CreateGameDto
                 {
                     Key = "valid-key",
                     Name = "Test Game"
@@ -256,7 +257,7 @@ namespace Gamestore.Test.Application.Services
             // Arrange
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto
+                Game = new CreateGameDto
                 {
                     Key = "valid-key",
                     Name = "Valid Game",

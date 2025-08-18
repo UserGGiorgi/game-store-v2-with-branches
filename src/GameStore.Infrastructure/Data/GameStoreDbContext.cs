@@ -97,9 +97,6 @@ public class GameStoreDbContext : DbContext
         modelBuilder.Entity<OrderGame>()
             .HasKey(og => og.Id);
 
-        modelBuilder.Entity<OrderGame>()
-            .HasAlternateKey(og => new { og.OrderId, og.ProductId });
-
         modelBuilder.Entity<Order>()
             .HasMany(o => o.OrderGames)
             .WithOne(og => og.Order)
@@ -181,7 +178,7 @@ public class GameStoreDbContext : DbContext
             {
                 Id = adminUserId,
                 Email = "admin@game-store.com",
-                DisplayName = "Administrator"
+                DisplayName = "Administrator Administrator"
             });
 
         var permissionMap = new Dictionary<string, Guid>

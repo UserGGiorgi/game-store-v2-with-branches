@@ -4,7 +4,9 @@ using GameStore.Domain.Interfaces.Repositories.Comments;
 using GameStore.Domain.Interfaces.Repositories.Games;
 using GameStore.Domain.Interfaces.Repositories.Orders;
 using GameStore.Infrastructure.Data.RepositoryCollection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Data;
 
 namespace GameStore.Infrastructure.Data
 {
@@ -54,6 +56,12 @@ namespace GameStore.Infrastructure.Data
             => await _transaction.RollbackAsync(cancellationToken);
 
         public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
-
+        public async Task<IDbContextTransaction> BeginTransactionWithIsolationAsync(
+            IsolationLevel isolationLevel = IsolationLevel.ReadCommitted,
+            CancellationToken cancellationToken = default)
+        {
+            _transaction = await _context.Database.BeginTransactionAsync(isolationLevel, cancellationToken);
+            return _transaction;
+        }
     }
 }

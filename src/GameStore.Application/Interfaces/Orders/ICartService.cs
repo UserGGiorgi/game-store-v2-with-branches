@@ -4,7 +4,6 @@
     {
         Task AddToCartAsync(string gameKey);
         Task RemoveFromCartAsync(string gameKey);
-        void ClearCartCache(Guid userId);
 
     }
 }

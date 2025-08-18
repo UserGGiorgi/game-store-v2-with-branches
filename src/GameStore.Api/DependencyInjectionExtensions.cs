@@ -53,6 +53,7 @@ namespace GameStore.Api
             services.AddScoped<IBanService, BanService>();
             services.AddScoped<IOrderFacade, OrderFacade>();
             services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
+            services.AddScoped<IUserContextService, UserContextService>();
             AddPayments(services);
             return services;
         }

@@ -101,13 +101,13 @@ namespace GameStore.Api.Controllers.Orders
             return NoContent();
         }
 
-        [HttpPost("{orderId}/details/{gameKey}")]
+        [HttpPost("{id}/details/{key}")]
         [Authorize(Policy = "EditOrderDetails")]
         public async Task<IActionResult> AddGameToOrder(
-            Guid orderId,
-            string gameKey)
+            Guid id,
+            string key)
         {
-            await _orderFacade.AddGameToOrderAsync(orderId, gameKey);
+            await _orderFacade.AddGameToOrderAsync(id, key);
             return NoContent();
         }
 

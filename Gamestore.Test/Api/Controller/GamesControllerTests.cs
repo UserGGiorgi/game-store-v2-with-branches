@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using GameStore.Api.Controllers.Games;
+using GameStore.Application.Dtos.Games.CreateGame;
 using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
@@ -37,7 +38,7 @@ namespace Gamestore.Test.Api.Controller
         {
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto(),
+                Game = new CreateGameDto(),
                 Genres = new List<Guid>(),
                 Platforms = new List<Guid>()
             };
@@ -170,7 +171,7 @@ namespace Gamestore.Test.Api.Controller
             // Arrange
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto { Name = "Test", Key = "valid-key" },
+                Game = new CreateGameDto { Name = "Test", Key = "valid-key" },
                 Genres = new List<Guid> { Guid.Empty },
                 Platforms = new List<Guid>()
             };

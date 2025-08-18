@@ -8,19 +8,19 @@ namespace GameStore.Infrastructure.Data.Repository.Orders
     public class OrderRepository : GenericRepository<Order>, IOrderRepository
     {
         public OrderRepository(GameStoreDbContext context) : base(context) { }
-    
-        public async Task<Order?> GetOpenOrderWithItemsAsync()
+
+
+        public async Task<Order?> GetOpenOrderWithItemsAsync(Guid userId)
         {
             return await _context.Orders
                 .Include(o => o.OrderGames)
-                .ThenInclude(og => og.Game)
-                .FirstOrDefaultAsync(o => o.Status == OrderStatus.Open);
+                .FirstOrDefaultAsync(o => o.CustomerId == userId && o.Status == OrderStatus.Open);
         }
         public async Task<Order?> GetOpenOrderWithDetailsAsync(Guid id)
         {
             return await _context.Orders
            .Include(o => o.OrderGames)
-           .FirstOrDefaultAsync();
+           .FirstOrDefaultAsync(o => o.Id == id);
         }
         public async Task<IEnumerable<Order>> GetOrderHistory()
         {
@@ -35,20 +35,30 @@ namespace GameStore.Infrastructure.Data.Repository.Orders
                 .ToListAsync();
         }
 
-        public async Task<Order?> GetCartWithItemsAsync()
+        public async Task<Order?> GetCartWithItemsAsync(Guid userId)
         {
-            return await _context.Orders
+                return await _context.Orders
                 .Include(o => o.OrderGames)
                 .ThenInclude(og => og.Game)
                 .FirstOrDefaultAsync(o =>
-                    o.Status == OrderStatus.Open
-                );
+                o.CustomerId == userId &&
+                o.Status == OrderStatus.Open
+        );
         }
         public async Task<Order?> GetOrderWithItemsAsync(Guid orderId)
         {
             return await _context.Orders
                 .Include(o => o.OrderGames)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
+        }
+        public async Task<Order?> GetOpenOrderWithItemsWithLockAsync(Guid userId)
+        {
+            return await _context.Orders
+                .FromSqlInterpolated(
+                    $"SELECT * FROM Orders WITH (UPDLOCK, ROWLOCK) WHERE CustomerId = {userId} AND Status = {(int)OrderStatus.Open}")
+                .Include(o => o.OrderGames)
+                .AsTracking()
+                .FirstOrDefaultAsync();
         }
     }
 }

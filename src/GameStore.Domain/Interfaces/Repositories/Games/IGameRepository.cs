@@ -10,6 +10,7 @@ namespace GameStore.Domain.Interfaces.Repositories.Games
 {
     public interface IGameRepository : IGenericRepository<Game>
     {
+        Task<Game?> GetByKeyWithLockAsync(string key);
         Task<int> CountAsync();
         Task<Game?> GetByKeyAsync(string key);
         Task<IEnumerable<Game>> GetGamesByPlatformAsync(Guid platformId);

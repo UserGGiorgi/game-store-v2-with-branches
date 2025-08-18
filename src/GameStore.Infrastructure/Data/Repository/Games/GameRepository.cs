@@ -11,6 +11,13 @@ namespace GameStore.Infrastructure.Data.Repository.Games
         {
             return await _context.Games.CountAsync();
         }
+        public async Task<Game?> GetByKeyWithLockAsync(string key)
+        {
+            return await _context.Games
+                .FromSqlInterpolated($"SELECT * FROM Games WITH (UPDLOCK) WHERE [Key] = {key}")
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+        }
         public async Task<Game?> GetByKeyAsync(string key)
         {
             return await _context.Games

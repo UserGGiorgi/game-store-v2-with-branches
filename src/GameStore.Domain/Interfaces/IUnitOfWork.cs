@@ -2,8 +2,10 @@
 using GameStore.Domain.Interfaces.Repositories.Comments;
 using GameStore.Domain.Interfaces.Repositories.Games;
 using GameStore.Domain.Interfaces.Repositories.Orders;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,5 +36,8 @@ namespace GameStore.Domain.Interfaces
         Task CommitTransactionAsync(CancellationToken cancellationToken = default);
 
         Task RollbackTransactionAsync(CancellationToken cancellationToken = default);
+        Task<IDbContextTransaction> BeginTransactionWithIsolationAsync(
+        IsolationLevel isolationLevel = IsolationLevel.ReadCommitted,
+        CancellationToken cancellationToken = default);
     }
 }

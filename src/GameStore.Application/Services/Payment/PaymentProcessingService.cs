@@ -59,7 +59,6 @@ namespace GameStore.Application.Services.Payment
                 var result = await paymentService.PayAsync(order, userId, model);
 
                 await _orderFacade.CompleteOrderAsync(order.Id);
-                _cartService.ClearCartCache(userId);
                 _logger.LogInformation("Payment successful for order {OrderId}", order.Id);
 
                 return HandlePaymentResult(result);

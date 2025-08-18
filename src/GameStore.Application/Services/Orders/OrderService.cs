@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GameStore.Application.Dtos.Order;
+using GameStore.Application.Interfaces.Auth;
 using GameStore.Application.Interfaces.Orders;
 using GameStore.Application.Interfaces.Pdf;
 using GameStore.Domain.Entities.Orders;
@@ -17,17 +18,20 @@ namespace GameStore.Application.Services.Orders
         private readonly IMapper _mapper;
         private readonly ILogger<OrderService> _logger;
         private readonly IPdfService _pdfService;
+        private readonly IUserContextService _userContext;
 
         public OrderService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ILogger<OrderService> logger,
-            IPdfService pdfService)
+            IPdfService pdfService,
+            IUserContextService userContextService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
             _pdfService = pdfService;
+            _userContext = userContextService;
         }
         public async Task<FileContentResult> ProcessBankPayment(Guid orderId)
         {
@@ -68,14 +72,15 @@ namespace GameStore.Application.Services.Orders
         }
         public async Task<IEnumerable<OrderDetailDto>> GetCartAsync()
         {
-            var order = await _unitOfWork.OrderRepository.GetCartWithItemsAsync();
+            var userId = _userContext.GetCurrentUserId();
+            var order = await _unitOfWork.OrderRepository.GetCartWithItemsAsync(userId);
 
             if (order == null || order.OrderGames.Count == 0)
                 return [];
 
             return order.OrderGames.Select(og => new OrderDetailDto
             {
-                ProductId = og.Game.Id,
+                ProductId = og.Game!.Id,
                 Price = og.Price,
                 Quantity = og.Quantity,
                 Discount = og.Discount
@@ -123,7 +128,8 @@ namespace GameStore.Application.Services.Orders
 
         public async Task<Order?> GetOpenOrderAsync()
         {
-            return await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync();
+            var userId = _userContext.GetCurrentUserId();
+            return await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync(userId);
         }
         public async Task CompleteOrderAsync(Guid orderId)
         {
@@ -177,13 +183,13 @@ namespace GameStore.Application.Services.Orders
 
         public async Task DeleteOrderDetailAsync(Guid id)
         {
-            var order = await _unitOfWork.OrderRepository.GetByIdAsync(id)
+            var orderGame = await _unitOfWork.OrderGameRepository.GetByIdWithOrderAsync(id)
                 ?? throw new NotFoundException("Order not found");
 
-            if (order.Status != OrderStatus.Open)
+            if (orderGame.Order.Status != OrderStatus.Open)
                 throw new InvalidOperationException("Cannot modify closed orders");
 
-            _unitOfWork.OrderRepository.Delete(order);
+            _unitOfWork.OrderGameRepository.Delete(orderGame);
             await _unitOfWork.SaveChangesAsync();
         }
         public async Task ShipOrderAsync(Guid orderId)
