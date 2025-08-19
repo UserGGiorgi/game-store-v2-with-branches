@@ -8,26 +8,26 @@ namespace GameStore.Application.Filters.FilterOperations
     {
         public IQueryable<Game> Apply(IQueryable<Game> query, GameFilterDto filter)
         {
-            if (!string.IsNullOrWhiteSpace(filter.DatePublishing) &&
-                Enum.TryParse<PublishDateOption>(filter.DatePublishing, out var option))
-            {
-                var dateFilter = DateTime.UtcNow.AddTicks(-1 * GetDateRangeTicks(option));
-                query = query.Where(g => g.CreatedAt >= dateFilter);
-            }
-            return query;
-        }
+            if (string.IsNullOrWhiteSpace(filter.DatePublishing))
+                return query;
 
-        private static long GetDateRangeTicks(PublishDateOption option)
-        {
-            return option switch
+            var timeSpan = filter.DatePublishing.Trim().ToLower() switch
             {
-                PublishDateOption.LastWeek => TimeSpan.FromDays(7).Ticks,
-                PublishDateOption.LastMonth => TimeSpan.FromDays(30).Ticks,
-                PublishDateOption.LastYear => TimeSpan.FromDays(365).Ticks,
-                PublishDateOption.TwoYears => TimeSpan.FromDays(365 * 2).Ticks,
-                PublishDateOption.ThreeYears => TimeSpan.FromDays(365 * 3).Ticks,
-                _ => throw new ArgumentOutOfRangeException(nameof(option), option, null)
+                "last week" => TimeSpan.FromDays(7),
+                "last month" => TimeSpan.FromDays(30),
+                "last year" => TimeSpan.FromDays(365),
+                "2 years" => TimeSpan.FromDays(365 * 2),
+                "3 years" => TimeSpan.FromDays(365 * 3),
+                _ => (TimeSpan?)null
             };
+
+            if (timeSpan.HasValue)
+            {
+                var cutoffDate = DateTime.UtcNow - timeSpan.Value;
+                query = query.Where(g => g.CreatedAt >= cutoffDate);
+            }
+
+            return query;
         }
     }
 }
