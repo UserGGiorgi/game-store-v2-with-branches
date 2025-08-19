@@ -6,6 +6,7 @@ using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
 using GameStore.Application.Interfaces.Games;
 using GameStore.Domain.Enums;
+using GameStore.Domain.Exceptions;
 using GameStore.Domain.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -104,13 +105,21 @@ public class GamesController : ControllerBase
             _logger.LogWarning("Validation failed for game creation: {Errors}", validationResult.Errors);
             return BadRequest(validationResult.ToDictionary());
         }
-        var createdGame = await _gameService.CreateGameAsync(request);
+        try
+        {
+
+            var createdGame = await _gameService.CreateGameAsync(request);
         _logger.LogInformation("Game created successfully. Key: {GameKey}", createdGame.Key);
 
         return CreatedAtAction(
         nameof(GetByKey),
         new { key = createdGame.Key },
         createdGame);
+        }
+        catch (BadRequestException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet("{key}")]
@@ -201,8 +210,15 @@ public class GamesController : ControllerBase
     string key,
     CancellationToken cancellationToken)
     {
-        await _gameService.DeleteGameAsync(key);
-        return NoContent();
+        try
+        {
+            await _gameService.DeleteGameAsync(key);
+            return NoContent();
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpGet("{key}/file")]

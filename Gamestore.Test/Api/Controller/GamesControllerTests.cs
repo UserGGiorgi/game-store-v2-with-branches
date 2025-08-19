@@ -109,14 +109,14 @@ namespace Gamestore.Test.Api.Controller
             };
 
             var expectedGames = new List<SimpleGameResponseDto>
-    {
-        new SimpleGameResponseDto
-        {
-            Key = "test-key",
-            Name = "Test Game",
-            Description = "Test description"
-        }
-    };
+            {
+            new SimpleGameResponseDto
+                {
+                Key = "test-key",
+                Name = "Test Game",
+                Description = "Test description"
+                }
+            };
 
             _fixture.MockCreateValidator
                 .Setup(v => v.ValidateAsync(request, It.IsAny<CancellationToken>()))
@@ -131,9 +131,9 @@ namespace Gamestore.Test.Api.Controller
 
             // Assert
             var createdAt = Assert.IsType<CreatedAtActionResult>(result);
-            Assert.Equal(nameof(GamesController.GetAll), createdAt.ActionName);
-            Assert.Equal(expectedGames, createdAt.Value);
-            Assert.Null(createdAt.RouteValues);
+            Assert.Equal(nameof(GamesController.GetByKey), createdAt.ActionName);
+            Assert.Equal(expectedCreatedGame, createdAt.Value);
+            Assert.NotNull(createdAt.RouteValues);
         }
 
         [Fact]

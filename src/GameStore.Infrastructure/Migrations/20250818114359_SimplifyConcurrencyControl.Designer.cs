@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStore.Infrastructure.Migrations
 {
     [DbContext(typeof(GameStoreDbContext))]
-    [Migration("20250818114359_SimplifyConcurrencyControl2")]
-    partial class SimplifyConcurrencyControl2
+    [Migration("20250818114359_SimplifyConcurrencyControl")]
+    partial class SimplifyConcurrencyControl
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -80,6 +80,7 @@ namespace GameStore.Application.Services.Orders
 
             return order.OrderGames.Select(og => new OrderDetailDto
             {
+                Id = og.Id,
                 ProductId = og.Game!.Id,
                 Price = og.Price,
                 Quantity = og.Quantity,
@@ -165,13 +166,13 @@ namespace GameStore.Application.Services.Orders
 
         public async Task UpdateOrderDetailQuantityAsync(Guid id, int quantity)
         {
-            ValidateQuantity(quantity);
-
             var orderItem = await _unitOfWork.OrderGameRepository.GetByIdWithOrderAsync(id)
                 ?? throw new NotFoundException("Order item not found");
 
             if (orderItem.Order.Status != OrderStatus.Open)
                 throw new InvalidOperationException("Cannot modify closed orders");
+
+            await ValidateQuantity(orderItem, quantity);
 
             orderItem.Quantity = quantity;
             await _unitOfWork.SaveChangesAsync();
@@ -213,7 +214,7 @@ namespace GameStore.Application.Services.Orders
                 ?? throw new NotFoundException("Order not found");
 
             if (order.Status != OrderStatus.Open)
-                throw new InvalidOperationException("Cannot add items to closed orders");
+                throw new BadRequestException("Cannot add items to closed orders");
 
             var game = await _unitOfWork.GameRepository.GetByKeyAsync(gameKey)
                 ?? throw new NotFoundException("Game not found");
@@ -243,10 +244,16 @@ namespace GameStore.Application.Services.Orders
                 "Added game {GameKey} to order {OrderId}",
                 gameKey, orderId);
         }
-        private void ValidateQuantity(int quantity)
+        private async Task ValidateQuantity(OrderGame orderItem, int quantity)
         {
             if (quantity <= 0)
-                throw new ArgumentException("Quantity must be positive", nameof(quantity));
+                throw new BadRequestException("Quantity must be positive", nameof(quantity));
+
+            var game = await _unitOfWork.GameRepository.GetByIdAsync(orderItem.ProductId)
+                ?? throw new NotFoundException("Game not found");
+
+            if (game.UnitInStock < quantity)
+                throw new BadRequestException("Not enough stock for this game");
         }
 
         public async Task<IEnumerable<OrderResponseDto>> GetOrderHistory()

@@ -38,8 +38,7 @@ namespace GameStore.Application.Services.Orders
 
             try
             {
-                // Get existing order or create a NEW one
-                var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsWithLockAsync(userId);
+                var order = await _unitOfWork.OrderRepository.GetOpenOrderWithItemsAsync(userId);
                 if (order == null)
                 {
                     order = CreateNewOrder(userId);
@@ -129,18 +128,5 @@ namespace GameStore.Application.Services.Orders
             await _unitOfWork.SaveChangesAsync();
             _logger.LogInformation("Removed game {GameKey} from cart", gameKey);
         }
-
-        //private async Task<Order> CreateNewOrderAsync(Guid userId)
-        //{
-        //    var order = new Order
-        //    {
-        //        CustomerId = userId,
-        //        Status = OrderStatus.Open,
-        //        OrderGames = new List<OrderGame>()
-        //    };
-        //    await _unitOfWork.OrderRepository.AddAsync(order);
-        //    await _unitOfWork.SaveChangesAsync();
-        //    return order;
-        //}
     }
 }

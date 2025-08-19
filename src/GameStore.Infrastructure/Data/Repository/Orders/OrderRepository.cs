@@ -51,14 +51,5 @@ namespace GameStore.Infrastructure.Data.Repository.Orders
                 .Include(o => o.OrderGames)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
         }
-        public async Task<Order?> GetOpenOrderWithItemsWithLockAsync(Guid userId)
-        {
-            return await _context.Orders
-                .FromSqlInterpolated(
-                    $"SELECT * FROM Orders WITH (UPDLOCK, ROWLOCK) WHERE CustomerId = {userId} AND Status = {(int)OrderStatus.Open}")
-                .Include(o => o.OrderGames)
-                .AsTracking()
-                .FirstOrDefaultAsync();
-        }
     }
 }
