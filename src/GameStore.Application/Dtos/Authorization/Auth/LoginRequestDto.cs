@@ -1,0 +1,14 @@
+﻿namespace GameStore.Application.Dtos.User.AuthDTOs
+{
+    public class LoginRequestDto
+    {
+        public LoginModel Model { get; set; } = new LoginModel();
+
+        public class LoginModel
+        {
+            public string Login { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
+            public bool InternalAuth { get; set; } = true;
+        }
+    }
+}

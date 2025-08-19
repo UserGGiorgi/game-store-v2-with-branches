@@ -1,11 +1,6 @@
 ﻿using GameStore.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Infrastructure.Data.Repository
 {
@@ -25,6 +20,15 @@ namespace GameStore.Infrastructure.Data.Repository
         public async Task<IEnumerable<TEntity>> GetAllAsync() => await _context.Set<TEntity>().ToListAsync();
         public async Task<bool> ExistsAsync(Guid id) => await _context.Set<TEntity>().AnyAsync(e => EF.Property<Guid>(e, "Id") == id);
         public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate) => await _context.Set<TEntity>().AnyAsync(predicate);
-        
+        public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
+        }
+
+        public async Task<List<TEntity>> GetByConditionAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _context.Set<TEntity>().Where(predicate).ToListAsync();
+        }
+
     }
 }

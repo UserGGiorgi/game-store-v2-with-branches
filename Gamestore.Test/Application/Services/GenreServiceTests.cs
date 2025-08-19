@@ -1,18 +1,12 @@
 ﻿using AutoMapper;
 using GameStore.Application.Dtos.Genres.CreateGenre;
 using GameStore.Application.Dtos.Genres.GetGenre;
-using GameStore.Domain.Entities;
+using GameStore.Application.Services.Games;
+using GameStore.Domain.Entities.Games;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
-using GameStore.Infrastructure.Services;
-using GameStore.Web.Controller;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gamestore.Test.Application.Services
 {

@@ -1,9 +1,5 @@
-﻿using GameStore.Domain.Interfaces.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameStore.Domain.Interfaces.Repositories.Games;
+using GameStore.Domain.Interfaces.Repositories.Orders;
 
 namespace GameStore.Infrastructure.Data.RepositoryCollection
 {
@@ -12,28 +8,28 @@ namespace GameStore.Infrastructure.Data.RepositoryCollection
         public Lazy<IGameRepository> Games { get; }
         public Lazy<IGenreRepository> Genres { get; }
         public Lazy<IPlatformRepository> Platforms { get; }
-        public Lazy<IPublisherRepository> Publishers { get; }
         public Lazy<IOrderRepository> Orders { get; }
         public Lazy<IGameGenreRepository> GameGenres { get; }
         public Lazy<IGamePlatformRepository> GamePlatforms { get; }
+        public Lazy<IOrderGameRepository> OrderGame { get; }
 
 
         public GameRepositoryCollection(
             Lazy<IGameRepository> games,
             Lazy<IGenreRepository> genres,
             Lazy<IPlatformRepository> platforms,
-            Lazy<IPublisherRepository> publishers,
             Lazy<IOrderRepository> orders,
             Lazy<IGameGenreRepository> gameGenres,
-            Lazy<IGamePlatformRepository> gamePlatforms)
+            Lazy<IGamePlatformRepository> gamePlatforms,
+            Lazy<IOrderGameRepository> orderGame)
         {
             Games = games;
             Genres = genres;
             Platforms = platforms;
-            Publishers = publishers;
             Orders = orders;
             GameGenres = gameGenres;
             GamePlatforms = gamePlatforms;
+            OrderGame = orderGame;
         }
     }
 }

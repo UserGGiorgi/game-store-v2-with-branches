@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
+using GameStore.Api.Controllers.Games;
+using GameStore.Application.Dtos.Games.CreateGame;
 using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
-using GameStore.Application.Interfaces;
-using GameStore.Web.Controller;
+using GameStore.Application.Interfaces.Games;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -26,7 +27,7 @@ namespace Gamestore.Test.Api.Controller
 
         public static CreateGameRequestDto ValidCreateRequest => new()
         {
-            Game = new GameDto
+            Game = new CreateGameDto
             {
                 Name = "Valid Game",
                 Key = "valid-game-key",

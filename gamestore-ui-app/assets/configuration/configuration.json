@@ -1,6 +1,7 @@
 {
-  "baseApiUrl": "https://localhost:5001/",
+  "baseApiUrl": "https://localhost:5002/",
 
+  "gamesAllApiUrl": "games/all",
   "getGameFileApiUrl": "games/{key}/file",
   "getPublishedDateOptionsApiUrl": "games/publish-date-options",
   "getSortingOptionsApiUrl": "games/sorting-options",
@@ -30,6 +31,28 @@
   "addPlatformApiUrl": "platforms",
   "deletePlatformApiUrl": "platforms/{id}",
 
+  "updateOrderDetailCountApiUrl": "orders/details/{id}/quantity",
+  "deleteOrderDetailApiUrl": "orders/details/{id}",
+  "addOrderDetailApiUrl": "orders/{id}/details/{key}",
+  "shipOrderApiUrl": "orders/{id}/ship",
+
+  "userApiUrl": "users/{id}",
+  "usersApiUrl": "users",
+  "addUserApiUrl": "users",
+  "updateUserApiUrl": "users",
+  "deleteUserApiUrl": "users/{id}",
+  "loginApiUrl": "users/login",
+  "checkAccessApiUrl": "users/access",
+
+  "roleApiUrl": "roles/{id}",
+  "rolesApiUrl": "roles",
+  "addRoleApiUrl": "roles",
+  "updateRoleApiUrl": "roles",
+  "deleteRoleApiUrl": "roles/{id}",
+  "userRolesApiUrl": "users/{id}/roles",
+  "rolePermissionsApiUrl": "roles/{id}/permissions",
+  "permissionsApiUrl": "roles/permissions",
+
   "publisherApiUrl": "publishers/{companyname}",
   "publishersApiUrl": "publishers",
   "publisherByGameApiUrl": "games/{key}/publisher",
@@ -37,6 +60,7 @@
   "deletePublisherApiUrl": "publishers/{id}",
   "updatePublisherApiUrl": "publishers",
 
+  "historyApiUrl": "orders/history",
   "orderApiUrl": "orders/{id}",
   "ordersApiUrl": "orders",
   "orderDetailsApiUrl": "orders/{id}/details",

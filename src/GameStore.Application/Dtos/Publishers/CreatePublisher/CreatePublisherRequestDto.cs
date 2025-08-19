@@ -1,11 +1,4 @@
-﻿using GameStore.Application.Dtos.Platforms.GetPlatform;
-using GameStore.Application.Dtos.Publishers.GetPublisher;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameStore.Application.Dtos.Publishers.GetPublisher;
 
 namespace GameStore.Application.Dtos.Publishers.CreatePublisher
 {

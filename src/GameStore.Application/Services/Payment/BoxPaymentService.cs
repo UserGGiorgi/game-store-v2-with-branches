@@ -1,20 +1,11 @@
 ﻿using FluentValidation;
-using GameStore.Application.Dtos.Order;
 using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
-using GameStore.Application.Interfaces;
-using GameStore.Domain.Entities;
+using GameStore.Application.Interfaces.Payment;
+using GameStore.Domain.Entities.Orders;
 using GameStore.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
-using Polly;
-using Polly.Retry;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Payment
 {
@@ -40,7 +31,23 @@ namespace GameStore.Application.Services.Payment
 
             var response = await _httpClient.PostAsJsonAsync("api/payments/ibox", request);
 
-            return await ValidResponse(response);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                _logger.LogError("IBox payment failed: {StatusCode}, {Error}", response.StatusCode, errorContent);
+                response.EnsureSuccessStatusCode();
+            }
+
+            var result = await response.Content.ReadFromJsonAsync<BoxApiResponse>();
+            return result == null
+                ? throw new InvalidOperationException("Failed to deserialize IBox payment result")
+                : (PaymentResult)new BoxPaymentResult
+                {
+                    UserId = Guid.Parse(result.AccountId),
+                    OrderId = order.Id,
+                    PaymentDate = DateTime.UtcNow,
+                    Sum = result.Amount
+                };
         }
         private async Task<BoxPaymentRequest> ValidateOrder(Order order, Guid userId)
         {
@@ -59,21 +66,5 @@ namespace GameStore.Application.Services.Payment
             }
             return request;
         }
-        private static async Task<PaymentResult> ValidResponse(HttpResponseMessage response)
-        {
-            response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadFromJsonAsync<BoxApiResponse>();
-            return result == null
-                ? throw new InvalidOperationException("Failed to deserialize IBox payment result")
-                : (PaymentResult)new BoxPaymentResult
-                {
-                    UserId = Guid.Parse(result.AccountId),
-                    OrderId = Guid.Parse(result.AccountId),
-                    PaymentDate = DateTime.UtcNow,
-                    Sum = result.Amount
-                };
-
-        }
-
     }
 }

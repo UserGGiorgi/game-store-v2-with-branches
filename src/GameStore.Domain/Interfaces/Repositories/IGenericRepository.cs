@@ -16,5 +16,7 @@ namespace GameStore.Domain.Interfaces.Repositories
         void Delete(TEntity entity);
         Task<bool> ExistsAsync(Guid id);
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<List<TEntity>> GetByConditionAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

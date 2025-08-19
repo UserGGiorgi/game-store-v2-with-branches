@@ -1,9 +1,5 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameStore.Domain.Constraints.Payment;
 
 namespace GameStore.Application.Dtos.Order.PaymentRequest
 {
@@ -13,19 +9,19 @@ namespace GameStore.Application.Dtos.Order.PaymentRequest
         {
             RuleFor(x => x.transactionAmount)
                 .GreaterThanOrEqualTo(0)
-                .WithMessage("Transaction amount must be 0 or positive");
+                .WithMessage(BoxPaymentConstraints.Messages.TransactionAmountPositive);
 
             RuleFor(x => x.accountNumber)
                 .NotEmpty()
-                .WithMessage("Account number is required")
+                .WithMessage(BoxPaymentConstraints.Messages.AccountNumberRequired)
                 .NotEqual(Guid.Empty)
-                .WithMessage("Account number cannot be empty");
+                .WithMessage(BoxPaymentConstraints.Messages.AccountNumberNotEmpty);
 
             RuleFor(x => x.invoiceNumber)
                 .NotEmpty()
-                .WithMessage("Invoice number is required")
+                .WithMessage(BoxPaymentConstraints.Messages.InvoiceNumberRequired)
                 .NotEqual(Guid.Empty)
-                .WithMessage("Invoice number cannot be empty");
+                .WithMessage(BoxPaymentConstraints.Messages.InvoiceNumberNotEmpty);
         }
     }
 }

@@ -22,10 +22,13 @@ namespace GameStore.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Comment", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Comments.Comment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Body")
@@ -53,6 +56,8 @@ namespace GameStore.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("GameId");
 
                     b.HasIndex("ParentCommentId");
@@ -60,7 +65,7 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.CommentBan", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Comments.CommentBan", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +94,7 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("CommentBans");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Game", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Game", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +140,7 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("Games");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.GameGenre", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.GameGenre", b =>
                 {
                     b.Property<Guid>("GameId")
                         .HasColumnType("uniqueidentifier");
@@ -150,7 +155,7 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("GameGenres");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.GamePlatform", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.GamePlatform", b =>
                 {
                     b.Property<Guid>("GameId")
                         .HasColumnType("uniqueidentifier");
@@ -165,7 +170,7 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("GamePlatforms");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Genre", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Genre", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -189,51 +194,7 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("GameStore.Domain.Entities.OrderGame", b =>
-                {
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Discount")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderGames");
-                });
-
-            modelBuilder.Entity("GameStore.Domain.Entities.Platform", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Platform", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -252,7 +213,7 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("Platforms");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Publisher", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Publisher", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -276,15 +237,522 @@ namespace GameStore.Infrastructure.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Comment", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Orders.Order", b =>
                 {
-                    b.HasOne("GameStore.Domain.Entities.Game", "Game")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ShipDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.Orders.OrderGame", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Discount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderGames");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.User.ApplicationUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("ApplicationUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-111111111111"),
+                            DisplayName = "Administrator Administrator",
+                            Email = "admin@game-store.com"
+                        });
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.User.Permission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000101"),
+                            Description = "Auto-generated description for ManageUsers",
+                            Name = "ManageUsers"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000102"),
+                            Description = "Auto-generated description for ViewUsers",
+                            Name = "ViewUsers"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000103"),
+                            Description = "Auto-generated description for ManageRoles",
+                            Name = "ManageRoles"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000104"),
+                            Description = "Auto-generated description for AssignRoles",
+                            Name = "AssignRoles"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000105"),
+                            Description = "Auto-generated description for ManageGames",
+                            Name = "ManageGames"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000106"),
+                            Description = "Auto-generated description for ViewDeletedGames",
+                            Name = "ViewDeletedGames"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000107"),
+                            Description = "Auto-generated description for EditDeletedGames",
+                            Name = "EditDeletedGames"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000108"),
+                            Description = "Auto-generated description for ViewGames",
+                            Name = "ViewGames"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000109"),
+                            Description = "Auto-generated description for BuyGames",
+                            Name = "BuyGames"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000110"),
+                            Description = "Auto-generated description for ManageGenres",
+                            Name = "ManageGenres"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000111"),
+                            Description = "Auto-generated description for ManagePlatforms",
+                            Name = "ManagePlatforms"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000112"),
+                            Description = "Auto-generated description for ManagePublishers",
+                            Name = "ManagePublishers"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000113"),
+                            Description = "Auto-generated description for ManageOrders",
+                            Name = "ManageOrders"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000114"),
+                            Description = "Auto-generated description for ViewOrderHistory",
+                            Name = "ViewOrderHistory"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000115"),
+                            Description = "Auto-generated description for UpdateOrderStatus",
+                            Name = "UpdateOrderStatus"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000116"),
+                            Description = "Auto-generated description for EditOrderDetails",
+                            Name = "EditOrderDetails"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000117"),
+                            Description = "Auto-generated description for ManageComments",
+                            Name = "ManageComments"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000118"),
+                            Description = "Auto-generated description for PostComments",
+                            Name = "PostComments"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000119"),
+                            Description = "Auto-generated description for BanCommenters",
+                            Name = "BanCommenters"
+                        });
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.User.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                            IsDefault = true,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000002"),
+                            IsDefault = true,
+                            Name = "Manager"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000003"),
+                            IsDefault = true,
+                            Name = "Moderator"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000004"),
+                            IsDefault = true,
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000005"),
+                            IsDefault = true,
+                            Name = "Guest"
+                        });
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.User.RolePermission", b =>
+                {
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PermissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("RolePermissions");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000101")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000102")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000103")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000104")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000105")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000106")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000107")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000108")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000109")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000110")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000111")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000112")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000113")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000114")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000115")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000116")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000117")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000118")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000119")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000105")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000106")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000110")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000111")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000112")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000113")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000114")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000115")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000116")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000102")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000003"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000117")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000003"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000119")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000003"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000118")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000003"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000108")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000003"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000109")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000004"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000108")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000004"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000109")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000004"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000118")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000005"),
+                            PermissionId = new Guid("00000000-0000-0000-0000-000000000108")
+                        });
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.User.UserRole", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("00000000-0000-0000-0000-111111111111"),
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001")
+                        });
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.Comments.Comment", b =>
+                {
+                    b.HasOne("GameStore.Domain.Entities.User.ApplicationUser", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("GameStore.Domain.Entities.Games.Game", "Game")
                         .WithMany("Comments")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameStore.Domain.Entities.Comment", "ParentComment")
+                    b.HasOne("GameStore.Domain.Entities.Comments.Comment", "ParentComment")
                         .WithMany("Replies")
                         .HasForeignKey("ParentCommentId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -294,9 +762,9 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("ParentComment");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.CommentBan", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Comments.CommentBan", b =>
                 {
-                    b.HasOne("GameStore.Domain.Entities.Game", "Game")
+                    b.HasOne("GameStore.Domain.Entities.Games.Game", "Game")
                         .WithMany("CommentBans")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -304,9 +772,9 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Game", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Game", b =>
                 {
-                    b.HasOne("GameStore.Domain.Entities.Publisher", "Publisher")
+                    b.HasOne("GameStore.Domain.Entities.Games.Publisher", "Publisher")
                         .WithMany("Games")
                         .HasForeignKey("PublisherId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -315,15 +783,15 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.GameGenre", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.GameGenre", b =>
                 {
-                    b.HasOne("GameStore.Domain.Entities.Game", "Game")
+                    b.HasOne("GameStore.Domain.Entities.Games.Game", "Game")
                         .WithMany("Genres")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameStore.Domain.Entities.Genre", "Genre")
+                    b.HasOne("GameStore.Domain.Entities.Games.Genre", "Genre")
                         .WithMany("Games")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -334,15 +802,15 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.GamePlatform", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.GamePlatform", b =>
                 {
-                    b.HasOne("GameStore.Domain.Entities.Game", "Game")
+                    b.HasOne("GameStore.Domain.Entities.Games.Game", "Game")
                         .WithMany("Platforms")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameStore.Domain.Entities.Platform", "Platform")
+                    b.HasOne("GameStore.Domain.Entities.Games.Platform", "Platform")
                         .WithMany("Games")
                         .HasForeignKey("PlatformId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -353,9 +821,9 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("Platform");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Genre", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Genre", b =>
                 {
-                    b.HasOne("GameStore.Domain.Entities.Genre", "ParentGenre")
+                    b.HasOne("GameStore.Domain.Entities.Games.Genre", "ParentGenre")
                         .WithMany("SubGenres")
                         .HasForeignKey("ParentGenreId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -363,15 +831,22 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("ParentGenre");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.OrderGame", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Orders.Order", b =>
                 {
-                    b.HasOne("GameStore.Domain.Entities.Order", "Order")
+                    b.HasOne("GameStore.Domain.Entities.User.ApplicationUser", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.Orders.OrderGame", b =>
+                {
+                    b.HasOne("GameStore.Domain.Entities.Orders.Order", "Order")
                         .WithMany("OrderGames")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameStore.Domain.Entities.Game", "Game")
+                    b.HasOne("GameStore.Domain.Entities.Games.Game", "Game")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -382,12 +857,50 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Comment", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.User.RolePermission", b =>
+                {
+                    b.HasOne("GameStore.Domain.Entities.User.Permission", "Permission")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GameStore.Domain.Entities.User.Role", "Role")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.User.UserRole", b =>
+                {
+                    b.HasOne("GameStore.Domain.Entities.User.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GameStore.Domain.Entities.User.ApplicationUser", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.Comments.Comment", b =>
                 {
                     b.Navigation("Replies");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Game", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Game", b =>
                 {
                     b.Navigation("CommentBans");
 
@@ -398,26 +911,47 @@ namespace GameStore.Infrastructure.Migrations
                     b.Navigation("Platforms");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Genre", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Genre", b =>
                 {
                     b.Navigation("Games");
 
                     b.Navigation("SubGenres");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Order", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Platform", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.Games.Publisher", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.Orders.Order", b =>
                 {
                     b.Navigation("OrderGames");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Platform", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.User.ApplicationUser", b =>
                 {
-                    b.Navigation("Games");
+                    b.Navigation("Comments");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("GameStore.Domain.Entities.Publisher", b =>
+            modelBuilder.Entity("GameStore.Domain.Entities.User.Permission", b =>
                 {
-                    b.Navigation("Games");
+                    b.Navigation("RolePermissions");
+                });
+
+            modelBuilder.Entity("GameStore.Domain.Entities.User.Role", b =>
+                {
+                    b.Navigation("RolePermissions");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

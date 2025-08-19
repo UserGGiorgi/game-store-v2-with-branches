@@ -1,12 +1,13 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using GameStore.Api.Controllers.Games;
+using GameStore.Application.Dtos.Games.CreateGame;
 using GameStore.Application.Dtos.Games.CreateGames;
 using GameStore.Application.Dtos.Games.GetGame;
 using GameStore.Application.Dtos.Games.GetGames;
 using GameStore.Application.Dtos.Games.UpdateGames;
-using GameStore.Application.Interfaces;
+using GameStore.Application.Interfaces.Games;
 using GameStore.Domain.Exceptions;
-using GameStore.Web.Controller;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -37,7 +38,7 @@ namespace Gamestore.Test.Api.Controller
         {
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto(),
+                Game = new CreateGameDto(),
                 Genres = new List<Guid>(),
                 Platforms = new List<Guid>()
             };
@@ -108,14 +109,14 @@ namespace Gamestore.Test.Api.Controller
             };
 
             var expectedGames = new List<SimpleGameResponseDto>
-    {
-        new SimpleGameResponseDto
-        {
-            Key = "test-key",
-            Name = "Test Game",
-            Description = "Test description"
-        }
-    };
+            {
+            new SimpleGameResponseDto
+                {
+                Key = "test-key",
+                Name = "Test Game",
+                Description = "Test description"
+                }
+            };
 
             _fixture.MockCreateValidator
                 .Setup(v => v.ValidateAsync(request, It.IsAny<CancellationToken>()))
@@ -130,9 +131,9 @@ namespace Gamestore.Test.Api.Controller
 
             // Assert
             var createdAt = Assert.IsType<CreatedAtActionResult>(result);
-            Assert.Equal(nameof(GamesController.GetAll), createdAt.ActionName);
-            Assert.Equal(expectedGames, createdAt.Value);
-            Assert.Null(createdAt.RouteValues);
+            Assert.Equal(nameof(GamesController.GetByKey), createdAt.ActionName);
+            Assert.Equal(expectedCreatedGame, createdAt.Value);
+            Assert.NotNull(createdAt.RouteValues);
         }
 
         [Fact]
@@ -170,7 +171,7 @@ namespace Gamestore.Test.Api.Controller
             // Arrange
             var request = new CreateGameRequestDto
             {
-                Game = new GameDto { Name = "Test", Key = "valid-key" },
+                Game = new CreateGameDto { Name = "Test", Key = "valid-key" },
                 Genres = new List<Guid> { Guid.Empty },
                 Platforms = new List<Guid>()
             };

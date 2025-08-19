@@ -3,19 +3,15 @@ using GameStore.Application.Dtos.Order.PaymentModels;
 using GameStore.Application.Dtos.Order.PaymentRequest;
 using GameStore.Application.Dtos.Order.PaymentResults;
 using GameStore.Application.Facade;
-using GameStore.Application.Interfaces;
-using GameStore.Domain.Constraints;
-using GameStore.Domain.Entities;
+using GameStore.Application.Interfaces.Orders;
+using GameStore.Application.Interfaces.Payment;
+using GameStore.Domain.Constraints.Payment;
+using GameStore.Domain.Entities.Orders;
 using GameStore.Domain.Enums;
 using GameStore.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Payment
 {
@@ -63,7 +59,6 @@ namespace GameStore.Application.Services.Payment
                 var result = await paymentService.PayAsync(order, userId, model);
 
                 await _orderFacade.CompleteOrderAsync(order.Id);
-                _cartService.ClearCartCache(userId);
                 _logger.LogInformation("Payment successful for order {OrderId}", order.Id);
 
                 return HandlePaymentResult(result);

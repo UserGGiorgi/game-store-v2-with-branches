@@ -1,25 +1,15 @@
-using FluentValidation;
 using GameStore.Api;
-using GameStore.Api.Configuration;
 using GameStore.Application.Mapping;
-using GameStore.Domain.Entities;
-using GameStore.Domain.Interfaces;
-using GameStore.Domain.Interfaces.Repositories;
-using GameStore.Infrastructure.Data;
-using GameStore.Infrastructure.Data.Repositories;
-using GameStore.Infrastructure.Data.Repository;
 using GameStore.Shared.Configuration;
 using GameStore.Shared.Middleware;
 using GameStore.Web.Middleware;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-SerilogConfig.ConfigureSerilog(builder);
+builder.SerilogConfiguration();
 builder.Services.Configure<FormOptions>(options =>
 {
     options.MemoryBufferThreshold = int.MaxValue;
@@ -34,12 +24,11 @@ builder.Services.AddControllers()
     });
 builder.Services.AddMemoryCache();
 builder.Services.AddValidators();
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGenExtension();
 
-
-builder.Services.AddHttpClients(builder.Configuration);
+builder.Services.AddAllHttpClients(builder.Configuration);
 
 builder.Services.Configure<TotalGamesCacheOptions>(
     builder.Configuration.GetSection(TotalGamesCacheOptions.SectionName));
@@ -49,18 +38,9 @@ builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 builder.Services.AddServices();
 builder.Services.AddRepositories(builder.Configuration);
-
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend",
-        builder => builder
-            .WithOrigins("http://localhost:8080") //http-server port
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .WithExposedHeaders("x-total-numbers-of-games")
-    );
-});
+builder.Services.AddJwtConfiguration(builder.Configuration);
+builder.Services.AddAuthorizationExtension();
+builder.Services.AddFrontEnd();
 
 var app = builder.Build();
 app.UseHttpsRedirection(); 
@@ -76,7 +56,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,19 +1,10 @@
-﻿using Azure.Core;
-using FluentValidation;
+﻿using FluentValidation;
 using GameStore.Application.Dtos.Order.PaymentModels;
 using GameStore.Application.Dtos.Order.PaymentResults;
-using GameStore.Application.Interfaces;
-using GameStore.Domain.Constraints;
-using GameStore.Domain.Entities;
+using GameStore.Application.Interfaces.Payment;
+using GameStore.Application.Interfaces.Pdf;
+using GameStore.Domain.Entities.Orders;
 using GameStore.Domain.Exceptions;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameStore.Application.Services.Payment
 {

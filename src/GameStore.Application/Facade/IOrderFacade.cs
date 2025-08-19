@@ -1,10 +1,5 @@
 ﻿using GameStore.Application.Dtos.Order;
-using GameStore.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameStore.Domain.Entities.Orders;
 
 namespace GameStore.Application.Facade
 {
@@ -21,5 +16,10 @@ namespace GameStore.Application.Facade
         Task CloseOrderAsync(Guid orderId);
         Task CompleteOrderAsync(Guid orderId);
         Task CancelOrderAsync(Guid orderId);
+        Task UpdateOrderDetailQuantityAsync(Guid id, int quantity);
+        Task DeleteOrderDetailAsync(Guid id);
+        Task ShipOrderAsync(Guid orderId);
+        Task AddGameToOrderAsync(Guid orderId, string gameKey);
+        Task<IEnumerable<OrderResponseDto>> GetOrderHistory();
     }
 }
