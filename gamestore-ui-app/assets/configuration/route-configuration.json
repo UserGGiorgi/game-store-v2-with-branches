@@ -24,7 +24,22 @@
   "AddPublisher": "/add-publisher",
 
   "Order": "/order",
+  "UpdateOrder": "/update-order",
+  "History": "/history",
   "Orders": "/orders",
   "Basket": "/basket",
-  "MakeOrder": "/order"
+  "MakeOrder": "/order",
+
+  "Users": "/users",
+  "User": "/user",
+  "UpdateUser": "/update-user",
+  "DeleteUser": "/delete-user",
+  "AddUser": "/add-user",
+  "Login": "/login",
+
+  "Roles": "/roles",
+  "Role": "/role",
+  "UpdateRole": "/update-role",
+  "DeleteRole": "/delete-role",
+  "AddRole": "/add-role"
 }

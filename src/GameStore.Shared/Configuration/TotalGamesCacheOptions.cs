@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameStore.Shared.Configuration
+﻿namespace GameStore.Shared.Configuration
 {
     public class TotalGamesCacheOptions
     {

@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
-using GameStore.Domain.Constraints;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameStore.Domain.Constraints.Games;
 
 namespace GameStore.Application.Dtos.Publishers.UpdatePublisher
 {

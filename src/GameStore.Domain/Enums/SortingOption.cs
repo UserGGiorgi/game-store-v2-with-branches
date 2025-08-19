@@ -9,19 +9,10 @@ namespace GameStore.Domain.Enums
 {
     public enum SortOption
     {
-        [Description("Most popular")]
-        MostPopular,
-
-        [Description("Most commented")]
-        MostCommented,
-
-        [Description("Price ASC")]
         PriceAsc,
-
-        [Description("Price DESC")]
         PriceDesc,
-
-        [Description("New")]
+        MostCommented,
+        MostPopular,
         New
     }
 }

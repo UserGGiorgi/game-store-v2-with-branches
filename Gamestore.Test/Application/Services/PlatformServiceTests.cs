@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using GameStore.Application.Dtos.Platforms.CreatePlatform;
 using GameStore.Application.Dtos.Platforms.GetPlatform;
-using GameStore.Domain.Entities;
+using GameStore.Application.Services.Games;
+using GameStore.Domain.Entities.Games;
 using GameStore.Domain.Exceptions;
 using GameStore.Domain.Interfaces;
-using GameStore.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 using Moq;
 
@@ -36,7 +36,7 @@ namespace Gamestore.Test.Application.Services
                 Platform = new PlatformDto { Type = "ExistingType" }
             };
 
-            var existingPlatform = new GameStore.Domain.Entities.Platform { Id = Guid.NewGuid(), Type = "ExistingType" };
+            var existingPlatform = new GameStore.Domain.Entities.Games.Platform { Id = Guid.NewGuid(), Type = "ExistingType" };
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetByNameAsync(request.Platform.Type))
                 .ReturnsAsync(existingPlatform);
@@ -57,7 +57,7 @@ namespace Gamestore.Test.Application.Services
                 Platform = new PlatformDto { Type = "NewType" }
             };
 
-            var newPlatform = new GameStore.Domain.Entities.Platform
+            var newPlatform = new GameStore.Domain.Entities.Games.Platform
             {
                 Id = Guid.NewGuid(),
                 Type = request.Platform.Type
@@ -70,15 +70,15 @@ namespace Gamestore.Test.Application.Services
             };
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetByNameAsync(request.Platform.Type))
-                .ReturnsAsync((GameStore.Domain.Entities.Platform?)null!);
+                .ReturnsAsync((GameStore.Domain.Entities.Games.Platform?)null!);
 
-            _mockUnitOfWork.Setup(u => u.PlatformRepository.AddAsync(It.IsAny<GameStore.Domain.Entities.Platform>()))
-                .Callback<GameStore.Domain.Entities.Platform>(p => p.Id = newPlatform.Id);
+            _mockUnitOfWork.Setup(u => u.PlatformRepository.AddAsync(It.IsAny<GameStore.Domain.Entities.Games.Platform>()))
+                .Callback<GameStore.Domain.Entities.Games.Platform>(p => p.Id = newPlatform.Id);
 
             _mockUnitOfWork.Setup(u => u.SaveChangesAsync())
                 .ReturnsAsync(1);
 
-            _mockMapper.Setup(m => m.Map<PlatformResponseDto>(It.Is<GameStore.Domain.Entities.Platform>(p =>
+            _mockMapper.Setup(m => m.Map<PlatformResponseDto>(It.Is<GameStore.Domain.Entities.Games.Platform>(p =>
                 p.Type == request.Platform.Type)))
                 .Returns(expectedDto);
 
@@ -92,7 +92,7 @@ namespace Gamestore.Test.Application.Services
 
             // Verify repository interactions
             _mockUnitOfWork.Verify(u =>
-                u.PlatformRepository.AddAsync(It.Is<GameStore.Domain.Entities.Platform>(p =>
+                u.PlatformRepository.AddAsync(It.Is<GameStore.Domain.Entities.Games.Platform>(p =>
                     p.Type == request.Platform.Type)),
                 Times.Once);
 
@@ -103,7 +103,7 @@ namespace Gamestore.Test.Application.Services
         {
             // Arrange
             var platformId = Guid.NewGuid();
-            var platform = new GameStore.Domain.Entities.Platform
+            var platform = new GameStore.Domain.Entities.Games.Platform
             {
                 Id = platformId,
                 Type = "PC"
@@ -137,7 +137,7 @@ namespace Gamestore.Test.Application.Services
             var platformId = Guid.NewGuid();
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetByIdAsync(platformId))
-                .ReturnsAsync((GameStore.Domain.Entities.Platform?)null!);
+                .ReturnsAsync((GameStore.Domain.Entities.Games.Platform?)null!);
 
             // Act & Assert
             var exception = await Assert.ThrowsAsync<NotFoundException>(() =>
@@ -149,11 +149,11 @@ namespace Gamestore.Test.Application.Services
         public async Task GetAllPlatformsAsync_ReturnsOrderedPlatforms_WhenPlatformsExist()
         {
             // Arrange
-            var platforms = new List<GameStore.Domain.Entities.Platform>
+            var platforms = new List<GameStore.Domain.Entities.Games.Platform>
     {
-        new GameStore.Domain.Entities.Platform { Id = Guid.NewGuid(), Type = "PlayStation" },
-        new GameStore.Domain.Entities.Platform { Id = Guid.NewGuid(), Type = "Xbox" },
-        new GameStore.Domain.Entities.Platform { Id = Guid.NewGuid(), Type = "PC" }
+        new GameStore.Domain.Entities.Games.Platform { Id = Guid.NewGuid(), Type = "PlayStation" },
+        new GameStore.Domain.Entities.Games.Platform { Id = Guid.NewGuid(), Type = "Xbox" },
+        new GameStore.Domain.Entities.Games.Platform { Id = Guid.NewGuid(), Type = "PC" }
     };
 
             var expectedDtos = new List<PlatformResponseDto>
@@ -166,7 +166,7 @@ namespace Gamestore.Test.Application.Services
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
                 .ReturnsAsync(platforms);
 
-            _mockMapper.Setup(m => m.Map<IEnumerable<PlatformResponseDto>>(It.IsAny<IEnumerable<GameStore.Domain.Entities.Platform>>()))
+            _mockMapper.Setup(m => m.Map<IEnumerable<PlatformResponseDto>>(It.IsAny<IEnumerable<GameStore.Domain.Entities.Games.Platform>>()))
         .Returns(expectedDtos);
 
             // Act
@@ -184,7 +184,7 @@ namespace Gamestore.Test.Application.Services
         public async Task GetAllPlatformsAsync_ReturnsEmptyList_WhenNoPlatformsExist()
         {
             // Arrange
-            var emptyPlatforms = new List<GameStore.Domain.Entities.Platform>();
+            var emptyPlatforms = new List<GameStore.Domain.Entities.Games.Platform>();
             var emptyDtos = new List<PlatformResponseDto>();
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetAllAsync())
@@ -207,7 +207,7 @@ namespace Gamestore.Test.Application.Services
             const string gameKey = "invalid-key";
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetPlatformsByGameKeyAsync(gameKey))
-                .ReturnsAsync((IEnumerable<GameStore.Domain.Entities.Platform>?)null!);
+                .ReturnsAsync((IEnumerable<GameStore.Domain.Entities.Games.Platform>?)null!);
 
             // Act & Assert
             var exception = await Assert.ThrowsAsync<NotFoundException>(() =>
@@ -221,10 +221,10 @@ namespace Gamestore.Test.Application.Services
         {
             // Arrange
             const string gameKey = "valid-game";
-            var platforms = new List<GameStore.Domain.Entities.Platform>
+            var platforms = new List<GameStore.Domain.Entities.Games.Platform>
     {
-        new GameStore.Domain.Entities.Platform { Id = Guid.NewGuid(), Type = "PC" },
-        new GameStore.Domain.Entities.Platform { Id = Guid.NewGuid(), Type = "Xbox" }
+        new GameStore.Domain.Entities.Games.Platform { Id = Guid.NewGuid(), Type = "PC" },
+        new GameStore.Domain.Entities.Games.Platform { Id = Guid.NewGuid(), Type = "Xbox" }
     };
 
             var expectedDtos = new List<PlatformResponseDto>
@@ -255,7 +255,7 @@ namespace Gamestore.Test.Application.Services
         {
             // Arrange
             const string gameKey = "game-without-platforms";
-            var emptyPlatforms = new List<GameStore.Domain.Entities.Platform>();
+            var emptyPlatforms = new List<GameStore.Domain.Entities.Games.Platform>();
             var emptyDtos = new List<PlatformResponseDto>();
 
             _mockUnitOfWork.SetupSequence(u => u.PlatformRepository.GetPlatformsByGameKeyAsync(gameKey))
@@ -279,7 +279,7 @@ namespace Gamestore.Test.Application.Services
             var platformId = Guid.NewGuid();
 
             _mockUnitOfWork.Setup(u => u.PlatformRepository.GetByIdAsync(platformId))
-                .ReturnsAsync((GameStore.Domain.Entities.Platform?)null!);
+                .ReturnsAsync((GameStore.Domain.Entities.Games.Platform?)null!);
 
             // Act & Assert
             var exception = await Assert.ThrowsAsync<NotFoundException>(() =>
@@ -301,7 +301,7 @@ namespace Gamestore.Test.Application.Services
                 Key = "test-game",
             };
 
-            var platform = new GameStore.Domain.Entities.Platform
+            var platform = new GameStore.Domain.Entities.Games.Platform
             {
                 Id = platformId,
                 Type = platformType,
@@ -327,7 +327,7 @@ namespace Gamestore.Test.Application.Services
             // Arrange
             var platformId = Guid.NewGuid();
             var platformType = "PC";
-            var platform = new GameStore.Domain.Entities.Platform
+            var platform = new GameStore.Domain.Entities.Games.Platform
             {
                 Id = platformId,
                 Type = platformType,

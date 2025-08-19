@@ -1,11 +1,6 @@
 ﻿using GameStore.Application.Dtos.Order;
-using GameStore.Application.Interfaces;
-using GameStore.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameStore.Application.Interfaces.Orders;
+using GameStore.Domain.Entities.Orders;
 
 namespace GameStore.Application.Facade
 {
@@ -32,5 +27,16 @@ namespace GameStore.Application.Facade
         public Task CompleteOrderAsync(Guid orderId) =>_orderService.CompleteOrderAsync(orderId);
 
         public Task CancelOrderAsync(Guid orderId) =>_orderService.CancelOrderAsync(orderId);
+        public Task UpdateOrderDetailQuantityAsync(Guid id, int quantity)
+        => _orderService.UpdateOrderDetailQuantityAsync(id, quantity);
+        public Task DeleteOrderDetailAsync(Guid id)
+        => _orderService.DeleteOrderDetailAsync(id);
+        public Task ShipOrderAsync(Guid orderId)
+        => _orderService.ShipOrderAsync(orderId);
+        public Task AddGameToOrderAsync(Guid orderId, string gameKey)
+        => _orderService.AddGameToOrderAsync(orderId, gameKey);
+        public Task<IEnumerable<OrderResponseDto>> GetOrderHistory() 
+        => _orderService.GetOrderHistory();
+
     }
 }

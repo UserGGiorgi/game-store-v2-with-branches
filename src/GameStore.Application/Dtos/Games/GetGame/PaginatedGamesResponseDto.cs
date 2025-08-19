@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameStore.Application.Dtos.Games.GetGame
+﻿namespace GameStore.Application.Dtos.Games.GetGame
 {
     public class PaginatedGamesResponseDto
     {

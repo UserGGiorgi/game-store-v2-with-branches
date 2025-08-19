@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GameStore.Application.Dtos.Games.GetGames;
+﻿namespace GameStore.Application.Dtos.Games.GetGames;
 
 public class GameDto
 {
+    public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Key { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;

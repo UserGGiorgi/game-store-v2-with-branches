@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
-using GameStore.Application.Dtos.Platforms.UpdatePlatform;
-using GameStore.Domain.Constraints;
+using GameStore.Domain.Constraints.Games;
 
 namespace GameStore.Application.Dtos.Platforms.UpdatePlatform
 {

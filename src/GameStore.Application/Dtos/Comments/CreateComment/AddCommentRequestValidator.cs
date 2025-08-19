@@ -1,9 +1,5 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameStore.Domain.Constraints.Comments;
 
 namespace GameStore.Application.Dtos.Comments.CreateComment
 {
@@ -12,12 +8,12 @@ namespace GameStore.Application.Dtos.Comments.CreateComment
         public AddCommentRequestValidator()
         {
             RuleFor(x => x.Comment)
-                .NotNull().WithMessage("Comment is required.")
+                .NotNull().WithMessage(CommentValidationConstraints.Messages.CommentRequired)
                 .SetValidator(new CommentDtoValidator());
 
             RuleFor(x => x.ParentId)
                 .Must(BeValidGuidOrNullOrEmpty)
-                .WithMessage("ParentId must be a valid GUID if provided.");
+                .WithMessage(CommentValidationConstraints.Messages.ParentIdFormat);
         }
 
         private bool BeValidGuidOrNullOrEmpty(Guid? parentId)
@@ -30,20 +26,13 @@ namespace GameStore.Application.Dtos.Comments.CreateComment
 
     public class CommentDtoValidator : AbstractValidator<CommentDto>
     {
-        private const int MaxNameLength = 50;
-        private const int MaxBodyLength = 500;
-        private const string NamePattern = @"^[a-zA-Z0-9\s\-_]+$";
 
         public CommentDtoValidator()
         {
-            RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Name is required.")
-                .MaximumLength(MaxNameLength).WithMessage($"Name must not exceed {MaxNameLength} characters.")
-                .Matches(NamePattern).WithMessage("Name can only contain letters, numbers, spaces, hyphens, or underscores.");
-
             RuleFor(x => x.Body)
-                .NotEmpty().WithMessage("Body is required.")
-                .MaximumLength(MaxBodyLength).WithMessage($"Body must not exceed {MaxBodyLength} characters.");
+                .NotEmpty().WithMessage(CommentValidationConstraints.Messages.BodyRequired)
+                .MaximumLength(CommentValidationConstraints.Limits.Body)
+                .WithMessage(CommentValidationConstraints.Messages.BodyLength);
         }
     }
 }
